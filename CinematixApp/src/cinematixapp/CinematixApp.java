@@ -1,5 +1,7 @@
 package cinematixapp;
-import Datos.Conexion;
+
+import JFrames.Inicio;
+
 /**
  *
  * @author Victor Reyes
@@ -7,10 +9,6 @@ import Datos.Conexion;
 public class CinematixApp {
 
     public static void main(String[] args) {
-        Conexion cn = new Conexion();
-        if (cn.GetConexion()!=null)
-            System.out.println("Conexion Correcta");
-        else
-            System.out.println("Conexion incorrecta");
+        new Inicio().setVisible(true);
     } 
 }

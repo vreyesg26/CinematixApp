@@ -5,6 +5,8 @@
  */
 package JFrames;
 
+import java.awt.Color;
+
 /**
  *
  * @author TALLER VARELA
@@ -16,6 +18,7 @@ public class LoginAdmin extends javax.swing.JFrame {
      */
     public LoginAdmin() {
         initComponents();
+        setBackground( new Color (0,0,0,0));
     }
 
     /**
@@ -27,10 +30,13 @@ public class LoginAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
+        btnCerrar = new javax.swing.JLabel();
+        labelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
         setUndecorated(true);
+        setOpacity(0.0F);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -38,16 +44,40 @@ public class LoginAdmin extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LoginAdmin.png"))); // NOI18N
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, -10, 490, 550));
+        btnCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCerrarMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(311, 80, 20, 20));
+
+        labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LoginAdmin.png"))); // NOI18N
+        getContentPane().add(labelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 360, 480));
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
+                for (double i=0.0; i<=1.0; i=i+0.1){
+            String val = i+"";
+            float f=Float.valueOf(val);
+            this.setOpacity(f);
+            try {
+                Thread.sleep(50);
+            }
+            catch(Exception e){
+                
+            }
+        }
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
+        Inicio regresoMenu = new Inicio();
+        regresoMenu.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnCerrarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -85,6 +115,7 @@ public class LoginAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel btnCerrar;
+    private javax.swing.JLabel labelFondo;
     // End of variables declaration//GEN-END:variables
 }
