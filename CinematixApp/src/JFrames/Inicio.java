@@ -32,7 +32,7 @@ public class Inicio extends javax.swing.JFrame {
 
         btnvendedor = new javax.swing.JLabel();
         btnadmi = new javax.swing.JLabel();
-        Fondo = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -44,13 +44,14 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(btnvendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 190, 210, 190));
+        getContentPane().add(btnvendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 210, 190));
         getContentPane().add(btnadmi, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 200, 190));
 
-        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Primera Pantalla.png"))); // NOI18N
-        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, -20, 940, 570));
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Primera Pantalla (1).png"))); // NOI18N
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 800, 470));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -101,8 +102,8 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Fondo;
     private javax.swing.JLabel btnadmi;
     private javax.swing.JLabel btnvendedor;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
