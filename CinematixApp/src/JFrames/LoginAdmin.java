@@ -4,21 +4,18 @@
  * and open the template in the editor.
  */
 package JFrames;
-import java.awt.Color;
-import javax.swing.JOptionPane;
 
 /**
  *
- * @author Los Pibes
+ * @author TALLER VARELA
  */
-public class Inicio extends javax.swing.JFrame {
+public class LoginAdmin extends javax.swing.JFrame {
 
     /**
-     * Creates new form Inicio
+     * Creates new form LoginAdmin
      */
-    public Inicio() {
+    public LoginAdmin() {
         initComponents();
-        setBackground( new Color (0,0,0,0));
     }
 
     /**
@@ -30,39 +27,25 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnvendedor = new javax.swing.JLabel();
-        btnadmi = new javax.swing.JLabel();
-        Fondo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setBackground(new java.awt.Color(0, 0, 0));
         setUndecorated(true);
-        setOpacity(0.0F);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(btnvendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 190, 210, 190));
-        getContentPane().add(btnadmi, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 200, 190));
 
-        Fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Primera Pantalla.png"))); // NOI18N
-        getContentPane().add(Fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, -20, 940, 570));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LoginAdmin.png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 6, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        for (double i=0.0; i<=1.0; i=i+0.1){
-            String val = i+"";
-            float f=Float.valueOf(val);
-            this.setOpacity(f);
-            try {
-                Thread.sleep(50);
-            }
-            catch(Exception e){}
-        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_formWindowOpened
 
     /**
@@ -82,27 +65,25 @@ public class Inicio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LoginAdmin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Inicio().setVisible(true);
+                new LoginAdmin().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Fondo;
-    private javax.swing.JLabel btnadmi;
-    private javax.swing.JLabel btnvendedor;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
