@@ -44,8 +44,8 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(btnvendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 210, 190));
-        getContentPane().add(btnadmi, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 200, 190));
+        getContentPane().add(btnvendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 160, 210, 190));
+        getContentPane().add(btnadmi, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 200, 190));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Primera Pantalla (1).png"))); // NOI18N
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 800, 470));
