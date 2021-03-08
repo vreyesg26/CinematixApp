@@ -45,12 +45,17 @@ public class LoginVendedor extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCerrar.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                btnCerrarFocusGained(evt);
+            }
+        });
         btnCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnCerrarMouseClicked(evt);
             }
         });
-        getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 20, 30));
+        getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 30, 30));
 
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LoginVendedor.png"))); // NOI18N
         getContentPane().add(labelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 360, 508));
@@ -78,6 +83,10 @@ public class LoginVendedor extends javax.swing.JFrame {
         regresoMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnCerrarMouseClicked
+
+    private void btnCerrarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnCerrarFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCerrarFocusGained
 
     /**
      * @param args the command line arguments

@@ -31,6 +31,7 @@ public class LoginAdmin extends javax.swing.JFrame {
     private void initComponents() {
 
         btnCerrar = new javax.swing.JLabel();
+        btnIniciarSesion = new javax.swing.JLabel();
         labelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -51,6 +52,18 @@ public class LoginAdmin extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(311, 80, 20, 20));
+
+        btnIniciarSesion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                btnIniciarSesionFocusGained(evt);
+            }
+        });
+        btnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnIniciarSesionMouseEntered(evt);
+            }
+        });
+        getContentPane().add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 390, 150, 40));
 
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LoginAdmin.png"))); // NOI18N
         getContentPane().add(labelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 360, 480));
@@ -78,6 +91,14 @@ public class LoginAdmin extends javax.swing.JFrame {
         regresoMenu.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnCerrarMouseClicked
+
+    private void btnIniciarSesionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnIniciarSesionFocusGained
+        
+    }//GEN-LAST:event_btnIniciarSesionFocusGained
+
+    private void btnIniciarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseEntered
+
+    }//GEN-LAST:event_btnIniciarSesionMouseEntered
 
     /**
      * @param args the command line arguments
@@ -116,6 +137,7 @@ public class LoginAdmin extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnCerrar;
+    private javax.swing.JLabel btnIniciarSesion;
     private javax.swing.JLabel labelFondo;
     // End of variables declaration//GEN-END:variables
 }
