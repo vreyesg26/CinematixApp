@@ -32,6 +32,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -52,6 +53,9 @@ public class AdminDashboard extends javax.swing.JFrame {
         back.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/AdminDashboard1.png"))); // NOI18N
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 0, -1, -1));
+
+        jLabel2.setText("jLabel2");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, 170, 50));
 
         pack();
         setLocationRelativeTo(null);
@@ -116,5 +120,6 @@ public class AdminDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
 }
