@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Paneles;
+
+import Tipografia.Fuente;
 
 /**
  *
@@ -14,8 +11,19 @@ public class panelPeliculas extends javax.swing.JPanel {
     /**
      * Creates new form panelPeliculas
      */
+    Fuente tipoFuente;
     public panelPeliculas() {
         initComponents();
+        tipoFuente = new Fuente();
+        
+        lbDuracion.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        lbTitulo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        txtDuracion.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        txtTitulo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        txtReparto.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        cbDirector.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        cbIdiomas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        tablePeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
     }
 
     /**
@@ -28,16 +36,25 @@ public class panelPeliculas extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        txtTitulo = new javax.swing.JLabel();
+        tablePeliculas = new javax.swing.JTable();
+        txtLetras = new javax.swing.JLabel();
         labelFoto = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        cbIdiomas = new javax.swing.JComboBox<>();
+        cbDirector = new javax.swing.JComboBox<>();
+        txtTitulo = new javax.swing.JTextField();
+        txtReparto = new javax.swing.JTextField();
+        txtDuracion = new javax.swing.JTextField();
+        btnFoto = new rojerusan.RSButtonMetro();
+        lbDuracion = new javax.swing.JLabel();
+        lbTitulo = new javax.swing.JLabel();
+        rSButtonMetro1 = new rojerusan.RSButtonMetro();
 
         setOpaque(false);
+        setPreferredSize(new java.awt.Dimension(800, 690));
 
-        jTable1.setBackground(new java.awt.Color(135, 135, 135));
-        jTable1.setForeground(new java.awt.Color(135, 135, 135));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablePeliculas.setBackground(new java.awt.Color(61, 61, 61));
+        tablePeliculas.setForeground(new java.awt.Color(255, 255, 255));
+        tablePeliculas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -48,58 +65,136 @@ public class panelPeliculas extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setSelectionBackground(new java.awt.Color(0, 0, 0));
-        jScrollPane1.setViewportView(jTable1);
+        tablePeliculas.setSelectionBackground(new java.awt.Color(29, 29, 29));
+        jScrollPane1.setViewportView(tablePeliculas);
 
-        txtTitulo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PeliculasLT.png"))); // NOI18N
+        txtLetras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PeliculasLT.png"))); // NOI18N
 
         labelFoto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jTextField1.setText("jTextField1");
+        cbIdiomas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Idioma...", "Español", "Inglés" }));
+        cbIdiomas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
+        cbIdiomas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cbIdiomas.setOpaque(false);
+
+        cbDirector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Director..." }));
+        cbDirector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        cbDirector.setOpaque(false);
+
+        txtTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        txtTitulo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTitulo.setOpaque(false);
+
+        txtReparto.setForeground(new java.awt.Color(255, 255, 255));
+        txtReparto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtReparto.setOpaque(false);
+
+        txtDuracion.setForeground(new java.awt.Color(255, 255, 255));
+        txtDuracion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDuracion.setOpaque(false);
+
+        btnFoto.setBackground(new java.awt.Color(61, 61, 61));
+        btnFoto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoFoto.png"))); // NOI18N
+
+        lbDuracion.setForeground(new java.awt.Color(255, 255, 255));
+        lbDuracion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbDuracion.setText("DURACIÓN");
+
+        lbTitulo.setForeground(new java.awt.Color(255, 255, 255));
+        lbTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbTitulo.setText("TITULO");
+
+        rSButtonMetro1.setBackground(new java.awt.Color(61, 61, 61));
+        rSButtonMetro1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        rSButtonMetro1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoNuevo.png"))); // NOI18N
+        rSButtonMetro1.setText("NUEVO");
+        rSButtonMetro1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(51, 51, 51)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtLetras, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtReparto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txtTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                    .addComponent(lbTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(26, 26, 26)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(rSButtonMetro1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbDirector, 0, 165, Short.MAX_VALUE)
+                            .addComponent(cbIdiomas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(51, 51, 51))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(266, 266, 266)
-                .addComponent(txtTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(284, 284, 284))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(txtTitulo)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtLetras)
+                        .addGap(29, 29, 29))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(btnFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(11, 11, 11)
-                        .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbDirector, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(16, 16, 16)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(cbIdiomas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtReparto, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addComponent(rSButtonMetro1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(216, 216, 216))
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rojerusan.RSButtonMetro btnFoto;
+    private javax.swing.JComboBox<String> cbDirector;
+    private javax.swing.JComboBox<String> cbIdiomas;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel labelFoto;
-    private javax.swing.JLabel txtTitulo;
+    private javax.swing.JLabel lbDuracion;
+    private javax.swing.JLabel lbTitulo;
+    private rojerusan.RSButtonMetro rSButtonMetro1;
+    private javax.swing.JTable tablePeliculas;
+    private javax.swing.JTextField txtDuracion;
+    private javax.swing.JLabel txtLetras;
+    private javax.swing.JTextField txtReparto;
+    private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

@@ -46,7 +46,7 @@ public class Inicio extends javax.swing.JFrame {
                 btnvendedorMouseClicked(evt);
             }
         });
-        getContentPane().add(btnvendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 160, 190, 190));
+        getContentPane().add(btnvendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(475, 155, 190, 190));
 
         btnadmi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnadmi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -54,7 +54,7 @@ public class Inicio extends javax.swing.JFrame {
                 btnadmiMouseClicked(evt);
             }
         });
-        getContentPane().add(btnadmi, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 190, 190));
+        getContentPane().add(btnadmi, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 155, 190, 190));
 
         btnCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCerrar.setName("btnCerrar"); // NOI18N
@@ -63,7 +63,7 @@ public class Inicio extends javax.swing.JFrame {
                 btnCerrarMouseClicked(evt);
             }
         });
-        getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 30, 30));
+        getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(523, 103, 26, 25));
         btnCerrar.getAccessibleContext().setAccessibleName("btnCerrar");
 
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Primera Pantalla.png"))); // NOI18N

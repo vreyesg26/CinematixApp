@@ -189,7 +189,7 @@ public class panelVendedores extends javax.swing.JPanel {
                                 .addComponent(jLabel11)
                                 .addGap(35, 35, 35)
                                 .addComponent(jLabel12)
-                                .addGap(41, 41, 41)
+                                .addGap(35, 35, 35)
                                 .addComponent(jLabel13)
                                 .addGap(88, 88, 88))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()

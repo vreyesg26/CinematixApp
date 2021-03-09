@@ -8,6 +8,7 @@ package JFrames;
 import Paneles.panelAcercaDe;
 import Paneles.panelPeliculas;
 import Paneles.panelVendedores;
+import Tipografia.Fuente;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 import paneles.CambiaPanel;
@@ -21,10 +22,17 @@ public class AdminDashboard extends javax.swing.JFrame {
     /**
      * Creates new form AdminDashboard
      */
+    Fuente tipoFuente;
     public AdminDashboard() {
         initComponents();
         setBackground( new Color (0,0,0,0));
         new CambiaPanel(panelContenedor, new panelPeliculas());
+        tipoFuente = new Fuente();
+        
+        btnAcerca.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnSalir.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnVendedores.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
     }
 
     /**
@@ -109,9 +117,11 @@ public class AdminDashboard extends javax.swing.JFrame {
         });
         getContentPane().add(btnAcerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 190, 50));
 
+        panelContenedor.setBackground(new java.awt.Color(61, 61, 61));
+        panelContenedor.setForeground(new java.awt.Color(61, 61, 61));
         panelContenedor.setOpaque(false);
         panelContenedor.setLayout(new javax.swing.BoxLayout(panelContenedor, javax.swing.BoxLayout.LINE_AXIS));
-        getContentPane().add(panelContenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 800, 690));
+        getContentPane().add(panelContenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 10, 805, 690));
 
         back.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/AdminDashboard1.png"))); // NOI18N
@@ -140,9 +150,9 @@ public class AdminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-         Inicio ini = new Inicio();
+        Inicio ini = new Inicio();
         ini.setVisible(true);
-         this.dispose();
+        this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void btnVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendedoresActionPerformed
@@ -154,14 +164,12 @@ public class AdminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPeliculas1ActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        int ventanaYesNotCancel = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas salir?", "JMessage", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-       
-        if(ventanaYesNotCancel == 0) {			   
+        int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if(ventanaConfirmacion == 0) {			   
         Inicio ini = new Inicio();
         ini.setVisible(true); 
         this.dispose();   
-        
-        }else{			 
+        } else{			 
           
     }
            

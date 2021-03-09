@@ -5,11 +5,9 @@
  */
 package JFrames;
 
+import Tipografia.Fuente;
 import java.awt.Color;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import static javax.swing.UIManager.get;
 /**
  *
  * @author TALLER VARELA
@@ -21,16 +19,20 @@ public class LoginAdmin extends javax.swing.JFrame {
     /**
      * Creates new form LoginAdmin
      */
+    Fuente tipoFuente;
     public LoginAdmin() {
         initComponents();
-        
        
         transparenciaButton();
         TextPrompt prueba = new TextPrompt("INGRESAR USUARIO", txtusuario);
-         TextPrompt pru = new TextPrompt("INGRESAR CLAVE", pass);
-        setBackground( new Color (0,0,0,0));
+        TextPrompt pru = new TextPrompt("INGRESAR CLAVE", pass);
+        setBackground( new Color (0,0,0,0));  
         
-        
+        tipoFuente = new Fuente();
+        txtusuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
+        pass.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
+        prueba.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
+        pru.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
     }
 
     /**
@@ -76,12 +78,13 @@ public class LoginAdmin extends javax.swing.JFrame {
         getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 70, 40, 40));
 
         txtusuario.setBackground(new java.awt.Color(0, 0, 0));
-        txtusuario.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        txtusuario.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         txtusuario.setForeground(new java.awt.Color(255, 255, 255));
         txtusuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtusuario.setAutoscrolls(false);
         txtusuario.setBorder(null);
         txtusuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtusuario.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtusuario.setOpaque(false);
         txtusuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -91,10 +94,11 @@ public class LoginAdmin extends javax.swing.JFrame {
         getContentPane().add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 210, 240, 45));
         txtusuario.getAccessibleContext().setAccessibleName("");
 
-        pass.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        pass.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         pass.setForeground(new java.awt.Color(255, 255, 255));
         pass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         pass.setBorder(null);
+        pass.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         pass.setOpaque(false);
         getContentPane().add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 300, 240, 45));
         pass.getAccessibleContext().setAccessibleName("");
@@ -111,10 +115,6 @@ public class LoginAdmin extends javax.swing.JFrame {
        btninicioa.setContentAreaFilled(false);
        btninicioa.setBorderPainted(false);
    }
-        
-        
-    
-        
     
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
                 for (double i=0.0; i<=1.0; i=i+0.1){
@@ -143,19 +143,19 @@ public class LoginAdmin extends javax.swing.JFrame {
     private void btninicioaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninicioaActionPerformed
       
         String usuario = "admin";
-          String password = "12345";
-          if(txtusuario.getText().equals(usuario)&&pass.getText().equals(password)){
+        String password = "12345";
+        if(txtusuario.getText().equals(usuario)&&pass.getText().equals(password)){
         AdminDashboard ini = new AdminDashboard();
         ini.setVisible(true);
-    
-         this.dispose();
-          }else{
+        this.dispose();
+        
+        } else{
                          
-             JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, intente de nuevo","Message", JOptionPane.WARNING_MESSAGE);
-              txtusuario.setText("");
-              pass.setText("");
+            JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, intente de nuevo","Message", JOptionPane.WARNING_MESSAGE);
+            txtusuario.setText("");
+            pass.setText("");
                 
-                }
+            }
     }//GEN-LAST:event_btninicioaActionPerformed
 
     /**
