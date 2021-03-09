@@ -160,9 +160,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         }else{			 
           
     }
-        
-       
-         
+           
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAcercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcercaActionPerformed
