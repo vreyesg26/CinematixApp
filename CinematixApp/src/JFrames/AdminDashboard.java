@@ -57,55 +57,59 @@ public class AdminDashboard extends javax.swing.JFrame {
         btnVendedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoVendedores.png"))); // NOI18N
         btnVendedores.setText("   VENDEDORES");
         btnVendedores.setBorderPainted(false);
-        btnVendedores.setContentAreaFilled(true);
+        btnVendedores.setFocusPainted(false);
         btnVendedores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnVendedores.setSelected(true);
         btnVendedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVendedoresActionPerformed(evt);
             }
         });
-        getContentPane().add(btnVendedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 320, 225, 50));
+        getContentPane().add(btnVendedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 190, 50));
 
         btnPeliculas.setBackground(new java.awt.Color(61, 61, 61));
         btnPeliculas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoPelicula.png"))); // NOI18N
         btnPeliculas.setText("   PELICULAS");
         btnPeliculas.setBorderPainted(false);
-        btnPeliculas.setContentAreaFilled(true);
+        btnPeliculas.setFocusPainted(false);
         btnPeliculas.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnPeliculas.setSelected(true);
         btnPeliculas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPeliculasActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPeliculas, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 260, 225, 50));
+        getContentPane().add(btnPeliculas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 190, 50));
 
         btnSalir.setBackground(new java.awt.Color(61, 61, 61));
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoSalir.png"))); // NOI18N
         btnSalir.setText("   SALIR");
         btnSalir.setBorderPainted(false);
-        btnSalir.setContentAreaFilled(true);
+        btnSalir.setFocusPainted(false);
         btnSalir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnSalir.setSelected(true);
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 440, 225, 50));
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 190, 50));
 
         btnAcerca.setBackground(new java.awt.Color(61, 61, 61));
         btnAcerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoAcerca.png"))); // NOI18N
         btnAcerca.setText("   ACERCA DE");
         btnAcerca.setBorderPainted(false);
-        btnAcerca.setContentAreaFilled(true);
+        btnAcerca.setFocusPainted(false);
         btnAcerca.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnAcerca.setSelected(true);
         btnAcerca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAcercaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAcerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 380, 225, 50));
+        getContentPane().add(btnAcerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 190, 50));
 
-        panelContenedor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        panelContenedor.setOpaque(false);
         panelContenedor.setLayout(new javax.swing.BoxLayout(panelContenedor, javax.swing.BoxLayout.LINE_AXIS));
         getContentPane().add(panelContenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 10, 800, 690));
 

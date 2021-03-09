@@ -39,15 +39,16 @@
         </Property>
         <Property name="text" type="java.lang.String" value="   VENDEDORES"/>
         <Property name="borderPainted" type="boolean" value="false"/>
-        <Property name="contentAreaFilled" type="boolean" value="true"/>
+        <Property name="focusPainted" type="boolean" value="false"/>
         <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="selected" type="boolean" value="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVendedoresActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="11" y="320" width="225" height="50"/>
+          <AbsoluteConstraints x="30" y="320" width="190" height="50"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -61,15 +62,16 @@
         </Property>
         <Property name="text" type="java.lang.String" value="   PELICULAS"/>
         <Property name="borderPainted" type="boolean" value="false"/>
-        <Property name="contentAreaFilled" type="boolean" value="true"/>
+        <Property name="focusPainted" type="boolean" value="false"/>
         <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="selected" type="boolean" value="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPeliculasActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="11" y="260" width="225" height="50"/>
+          <AbsoluteConstraints x="30" y="260" width="190" height="50"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -83,15 +85,16 @@
         </Property>
         <Property name="text" type="java.lang.String" value="   SALIR"/>
         <Property name="borderPainted" type="boolean" value="false"/>
-        <Property name="contentAreaFilled" type="boolean" value="true"/>
+        <Property name="focusPainted" type="boolean" value="false"/>
         <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="selected" type="boolean" value="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalirActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="11" y="440" width="225" height="50"/>
+          <AbsoluteConstraints x="30" y="440" width="190" height="50"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -105,25 +108,22 @@
         </Property>
         <Property name="text" type="java.lang.String" value="   ACERCA DE"/>
         <Property name="borderPainted" type="boolean" value="false"/>
-        <Property name="contentAreaFilled" type="boolean" value="true"/>
+        <Property name="focusPainted" type="boolean" value="false"/>
         <Property name="horizontalAlignment" type="int" value="2"/>
+        <Property name="selected" type="boolean" value="true"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAcercaActionPerformed"/>
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="11" y="380" width="225" height="50"/>
+          <AbsoluteConstraints x="30" y="380" width="190" height="50"/>
         </Constraint>
       </Constraints>
     </Component>
     <Container class="javax.swing.JPanel" name="panelContenedor">
       <Properties>
-        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-          <Border info="org.netbeans.modules.form.compat2.border.SoftBevelBorderInfo">
-            <BevelBorder/>
-          </Border>
-        </Property>
+        <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
