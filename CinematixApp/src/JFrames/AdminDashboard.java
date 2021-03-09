@@ -53,7 +53,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         back.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/AdminDashboard1.png"))); // NOI18N
-        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(102, 0, -1, -1));
+        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 710));
 
         jLabel2.setText("jLabel2");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, 170, 50));
