@@ -6,6 +6,7 @@
 package JFrames;
 
 import java.awt.Color;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -140,9 +141,20 @@ public class AdminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPeliculas1ActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-         Inicio ini = new Inicio();
-        ini.setVisible(true);
-         this.dispose();
+        int ventanaYesNotCancel = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas salir?", "JMessage", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+       
+        if(ventanaYesNotCancel == 0) {			   
+        Inicio ini = new Inicio();
+        ini.setVisible(true); 
+        this.dispose();   
+        
+        }else if(ventanaYesNotCancel == 1){			 
+         AdminDashboard ini = new AdminDashboard();
+        ini.setVisible(true);   
+}
+        
+       
+         
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAcercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcercaActionPerformed
