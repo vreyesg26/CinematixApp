@@ -31,6 +31,10 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        btnVendedores = new rojerusan.RSButtonMetro();
+        btnPeliculas1 = new rojerusan.RSButtonMetro();
+        btnSalir = new rojerusan.RSButtonMetro();
+        btnAcerca = new rojerusan.RSButtonMetro();
         back = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -50,6 +54,50 @@ public class AdminDashboard extends javax.swing.JFrame {
             }
         });
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 470, 110, 50));
+
+        btnVendedores.setBackground(new java.awt.Color(61, 61, 61));
+        btnVendedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoVendedores.png"))); // NOI18N
+        btnVendedores.setText("   VENDEDORES");
+        btnVendedores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnVendedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVendedoresActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnVendedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 320, 225, 50));
+
+        btnPeliculas1.setBackground(new java.awt.Color(61, 61, 61));
+        btnPeliculas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoPelicula.png"))); // NOI18N
+        btnPeliculas1.setText("   PELICULAS");
+        btnPeliculas1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnPeliculas1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPeliculas1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnPeliculas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 260, 225, 50));
+
+        btnSalir.setBackground(new java.awt.Color(61, 61, 61));
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoSalir.png"))); // NOI18N
+        btnSalir.setText("   SALIR");
+        btnSalir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 440, 225, 50));
+
+        btnAcerca.setBackground(new java.awt.Color(61, 61, 61));
+        btnAcerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoAcerca.png"))); // NOI18N
+        btnAcerca.setText("   ACERCA DE");
+        btnAcerca.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnAcerca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAcercaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnAcerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 380, 225, 50));
 
         back.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/AdminDashboard1.png"))); // NOI18N
@@ -82,6 +130,22 @@ public class AdminDashboard extends javax.swing.JFrame {
         ini.setVisible(true);
          this.dispose();
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void btnVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendedoresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnVendedoresActionPerformed
+
+    private void btnPeliculas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliculas1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnPeliculas1ActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnAcercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcercaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAcercaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -120,6 +184,10 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back;
+    private rojerusan.RSButtonMetro btnAcerca;
+    private rojerusan.RSButtonMetro btnPeliculas1;
+    private rojerusan.RSButtonMetro btnSalir;
+    private rojerusan.RSButtonMetro btnVendedores;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
