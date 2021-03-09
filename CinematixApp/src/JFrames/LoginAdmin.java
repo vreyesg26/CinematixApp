@@ -126,7 +126,7 @@ public class LoginAdmin extends javax.swing.JFrame {
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
         Inicio regresoMenu = new Inicio();
         regresoMenu.setVisible(true);
-       
+        this.dispose();
     }//GEN-LAST:event_btnCerrarMouseClicked
 
     private void btnIniciarSesionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnIniciarSesionFocusGained
@@ -150,6 +150,7 @@ public class LoginAdmin extends javax.swing.JFrame {
         ini.setVisible(true);
          this.dispose();
           }else{
+              JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, intente de nuevo");
               txtusuario.setText("");
               pass.setText("");
                 
