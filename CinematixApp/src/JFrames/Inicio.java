@@ -67,7 +67,7 @@ public class Inicio extends javax.swing.JFrame {
         btnCerrar.getAccessibleContext().setAccessibleName("btnCerrar");
 
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Primera Pantalla.png"))); // NOI18N
-        getContentPane().add(labelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, -1, 470));
+        getContentPane().add(labelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 470));
 
         pack();
         setLocationRelativeTo(null);

@@ -6,19 +6,25 @@
 package JFrames;
 
 import java.awt.Color;
-
+import javax.swing.JOptionPane;
 /**
  *
  * @author TALLER VARELA
  */
 public class LoginAdmin extends javax.swing.JFrame {
+    private Object JOPtionPane;
+    
 
     /**
      * Creates new form LoginAdmin
      */
     public LoginAdmin() {
         initComponents();
+        TextPrompt prueba = new TextPrompt("INGRESAR USUARIO", txtusuario);
+         TextPrompt pru = new TextPrompt("INGRESAR CLAVE", pass);
         setBackground( new Color (0,0,0,0));
+        
+        
     }
 
     /**
@@ -31,8 +37,11 @@ public class LoginAdmin extends javax.swing.JFrame {
     private void initComponents() {
 
         btnCerrar = new javax.swing.JLabel();
+        txtusuario = new javax.swing.JTextField();
+        pass = new javax.swing.JPasswordField();
         btnIniciarSesion = new javax.swing.JLabel();
         labelFondo = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -51,7 +60,29 @@ public class LoginAdmin extends javax.swing.JFrame {
                 btnCerrarMouseClicked(evt);
             }
         });
-        getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(311, 80, 20, 20));
+        getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 70, 40, 40));
+
+        txtusuario.setBackground(new java.awt.Color(0, 0, 0));
+        txtusuario.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        txtusuario.setForeground(new java.awt.Color(255, 255, 255));
+        txtusuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtusuario.setAutoscrolls(false);
+        txtusuario.setBorder(null);
+        txtusuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtusuario.setOpaque(false);
+        txtusuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtusuarioActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 210, 220, 40));
+
+        pass.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        pass.setForeground(new java.awt.Color(255, 255, 255));
+        pass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        pass.setBorder(null);
+        pass.setOpaque(false);
+        getContentPane().add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 220, 40));
 
         btnIniciarSesion.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -59,6 +90,9 @@ public class LoginAdmin extends javax.swing.JFrame {
             }
         });
         btnIniciarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnIniciarSesionMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnIniciarSesionMouseEntered(evt);
             }
@@ -67,6 +101,9 @@ public class LoginAdmin extends javax.swing.JFrame {
 
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LoginAdmin.png"))); // NOI18N
         getContentPane().add(labelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 360, 480));
+
+        jLabel1.setText("jLabel1");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 390, 150, 40));
 
         pack();
         setLocationRelativeTo(null);
@@ -99,6 +136,25 @@ public class LoginAdmin extends javax.swing.JFrame {
     private void btnIniciarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseEntered
 
     }//GEN-LAST:event_btnIniciarSesionMouseEntered
+
+    private void txtusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtusuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtusuarioActionPerformed
+
+    private void btnIniciarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIniciarSesionMouseClicked
+         
+          String usuario = "admin";
+          String password = "12345";
+          if(txtusuario.getText().equals(usuario)&&pass.getText().equals(password)){
+        AdminDashboard ini = new AdminDashboard();
+        ini.setVisible(true);
+          }else{
+              txtusuario.setText("");
+              pass.setText("");
+                
+                }
+         
+    }//GEN-LAST:event_btnIniciarSesionMouseClicked
 
     /**
      * @param args the command line arguments
@@ -138,6 +194,11 @@ public class LoginAdmin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnCerrar;
     private javax.swing.JLabel btnIniciarSesion;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelFondo;
+    private javax.swing.JPasswordField pass;
+    private javax.swing.JTextField txtusuario;
     // End of variables declaration//GEN-END:variables
+
+    
 }
