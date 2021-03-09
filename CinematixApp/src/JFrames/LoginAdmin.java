@@ -59,6 +59,7 @@ public class LoginAdmin extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btninicioa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btninicioa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btninicioaActionPerformed(evt);
