@@ -126,7 +126,7 @@ public class LoginAdmin extends javax.swing.JFrame {
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
         Inicio regresoMenu = new Inicio();
         regresoMenu.setVisible(true);
-        dispose();
+       
     }//GEN-LAST:event_btnCerrarMouseClicked
 
     private void btnIniciarSesionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnIniciarSesionFocusGained
@@ -148,6 +148,7 @@ public class LoginAdmin extends javax.swing.JFrame {
           if(txtusuario.getText().equals(usuario)&&pass.getText().equals(password)){
         AdminDashboard ini = new AdminDashboard();
         ini.setVisible(true);
+         this.dispose();
           }else{
               txtusuario.setText("");
               pass.setText("");
