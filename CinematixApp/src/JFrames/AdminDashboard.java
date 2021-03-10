@@ -10,6 +10,8 @@ import Paneles.panelPeliculas;
 import Paneles.panelVendedores;
 import Tipografia.Fuente;
 import java.awt.Color;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import paneles.CambiaPanel;
 
@@ -162,7 +164,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void btnPeliculas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliculas1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPeliculas1ActionPerformed
-
+    
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
         if(ventanaConfirmacion == 0) {			   

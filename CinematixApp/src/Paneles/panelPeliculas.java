@@ -1,6 +1,15 @@
 package Paneles;
 
+import Logica.datosPeliculas;
+import Tipografia.DecoracionTablas;
 import Tipografia.Fuente;
+import java.awt.Color;
+import java.awt.Image;
+import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -26,18 +35,22 @@ public class panelPeliculas extends javax.swing.JPanel {
         txtSinopsis.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         txtReparto.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         txtUrl.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        cbDirector.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        cbIdiomas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        cbHorarios.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        tablePeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        cbDirector.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        cbIdiomas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        cbHorarios.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        tablaPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         
         btnImagen.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         btnGuardar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         btnEditar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         btnEliminar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        tablaPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        
+        tablaPeliculas.getColumnModel().getColumn(0).setHeaderRenderer(new DecoracionTablas(Color.GRAY,Color.WHITE));
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,7 +61,7 @@ public class panelPeliculas extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablePeliculas = new javax.swing.JTable();
+        tablaPeliculas = new javax.swing.JTable();
         txtLetras = new javax.swing.JLabel();
         labelFoto = new javax.swing.JLabel();
         cbIdiomas = new javax.swing.JComboBox<>();
@@ -73,21 +86,22 @@ public class panelPeliculas extends javax.swing.JPanel {
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(800, 690));
 
-        tablePeliculas.setBackground(new java.awt.Color(61, 61, 61));
-        tablePeliculas.setForeground(new java.awt.Color(255, 255, 255));
-        tablePeliculas.setModel(new javax.swing.table.DefaultTableModel(
+        tablaPeliculas.setBackground(new java.awt.Color(61, 61, 61));
+        tablaPeliculas.setForeground(new java.awt.Color(255, 255, 255));
+        tablaPeliculas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "IDPelicula", "Titulo", "Duracion", "IDDirector", "Reparto", "IDIdioma", "Sinopsis", "IDHorario", "UrlFoto", "Foto"
             }
         ));
-        tablePeliculas.setSelectionBackground(new java.awt.Color(29, 29, 29));
-        jScrollPane1.setViewportView(tablePeliculas);
+        tablaPeliculas.setOpaque(false);
+        tablaPeliculas.setSelectionBackground(new java.awt.Color(29, 29, 29));
+        jScrollPane1.setViewportView(tablaPeliculas);
 
         txtLetras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PeliculasLT.png"))); // NOI18N
 
@@ -98,7 +112,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         cbIdiomas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbIdiomas.setOpaque(false);
 
-        cbDirector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Director..." }));
+        cbDirector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Director...", "Mel Gibson", "Martin Scorsese", "David Lynch", "Federico Fellini", "Stanley Kubrick", "Steven Spielberg", "Quentin Tarantino", "Ingmar Bergman", "Francis Ford Coppola", "Alfred Hitchcock" }));
         cbDirector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbDirector.setOpaque(false);
 
@@ -107,7 +121,6 @@ public class panelPeliculas extends javax.swing.JPanel {
         txtTitulo.setOpaque(false);
 
         txtSinopsis.setForeground(new java.awt.Color(255, 255, 255));
-        txtSinopsis.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSinopsis.setOpaque(false);
         txtSinopsis.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -134,13 +147,20 @@ public class panelPeliculas extends javax.swing.JPanel {
         btnImagen.setText("INSERTAR IMAGEN");
         btnImagen.setBorderPainted(false);
         btnImagen.setColorHover(new java.awt.Color(61, 61, 61));
+        btnImagen.setFocusable(false);
         btnImagen.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnImagen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnImagenActionPerformed(evt);
+            }
+        });
 
         btnGuardar.setBackground(new java.awt.Color(81, 81, 81));
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoGuardar.png"))); // NOI18N
         btnGuardar.setText("GUARDAR");
         btnGuardar.setBorderPainted(false);
         btnGuardar.setColorHover(new java.awt.Color(61, 61, 61));
+        btnGuardar.setFocusable(false);
         btnGuardar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,6 +173,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         btnEditar.setText("EDITAR");
         btnEditar.setBorderPainted(false);
         btnEditar.setColorHover(new java.awt.Color(61, 61, 61));
+        btnEditar.setFocusable(false);
         btnEditar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -165,6 +186,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         btnEliminar.setText("ELIMINAR");
         btnEliminar.setBorderPainted(false);
         btnEliminar.setColorHover(new java.awt.Color(61, 61, 61));
+        btnEliminar.setFocusable(false);
         btnEliminar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -177,6 +199,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         btnNuevo.setText("NUEVO");
         btnNuevo.setBorderPainted(false);
         btnNuevo.setColorHover(new java.awt.Color(61, 61, 61));
+        btnNuevo.setFocusable(false);
         btnNuevo.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
 
         lbReparto.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
@@ -188,7 +211,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         txtReparto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtReparto.setOpaque(false);
 
-        cbHorarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Horario...", "Español", "Inglés" }));
+        cbHorarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Horario...", "9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm", "2:00pm", "3:00pm", "4:00pm", "5:00pm", "6:00pm", "7:00pm", "8:00pm", "9:00pm", "10:00pm" }));
         cbHorarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
         cbHorarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbHorarios.setOpaque(false);
@@ -213,14 +236,11 @@ public class panelPeliculas extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addGap(16, 16, 16)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(labelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE))
+                            .addComponent(btnImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -233,20 +253,20 @@ public class panelPeliculas extends javax.swing.JPanel {
                                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtSinopsis)
+                                    .addComponent(txtSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                                            .addComponent(lbTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(lbTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(26, 26, 26)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(lbDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(txtReparto)
+                                    .addComponent(txtReparto, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(lbReparto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(lbURL, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtUrl)
-                                    .addComponent(lbSinopsis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(lbSinopsis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(12, 12, 12)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -255,8 +275,12 @@ public class panelPeliculas extends javax.swing.JPanel {
                                     .addComponent(cbIdiomas, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 28, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtLetras, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(txtLetras, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -265,7 +289,7 @@ public class panelPeliculas extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(txtLetras)
                 .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbDirector, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -285,29 +309,55 @@ public class panelPeliculas extends javax.swing.JPanel {
                             .addComponent(txtSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbIdiomas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(labelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(lbSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cbHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbURL, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(btnImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbURL, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(158, Short.MAX_VALUE))
+                .addContainerGap(159, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+        boolean guardo = true;
+        dataPeli.setTitulo(txtTitulo.getText());
+        dataPeli.setDuracion(Integer.getInteger(txtDuracion.toString()));
+        if(cbDirector.getSelectedIndex()==0){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un director");
+        } else{
+            dataPeli.setDirector(cbDirector.getSelectedIndex());
+        }
+            dataPeli.setReparto(txtReparto.getText());
+            dataPeli.setSinopsis(txtSinopsis.getText());
+        if(cbIdiomas.getSelectedIndex()==0){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un idioma");
+        }else{
+            dataPeli.setIdioma(cbIdiomas.getSelectedIndex());
+        }
+            dataPeli.setUrl(txtUrl.getText());
+        if(cbHorarios.getSelectedIndex()==0){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un director");
+        }else{
+            dataPeli.setHorarios(cbHorarios.getSelectedIndex());
+        }
+            guardo = dataPeli.guardar();
+        if(guardo == true){
+            JOptionPane.showMessageDialog(null, "El producto ha sido agregado");
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -322,6 +372,24 @@ public class panelPeliculas extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtSinopsisActionPerformed
 
+    private void btnImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenActionPerformed
+        FileNameExtensionFilter filtro = new FileNameExtensionFilter("Formatos de Archivos JEPG(*.JPG; *.JPEG)", "jpg", "jpeg");
+        JFileChooser archivo = new JFileChooser();
+        archivo.addChoosableFileFilter(filtro);
+        archivo.setDialogTitle("Abrir Archivo");
+        File ruta = new File("C:\\Users\\Victor Reyes\\Documents\\Tareas a entregar\\Ingeniería de Software I\\Cinematix\\img\\portadas peliculas");
+        archivo.setCurrentDirectory(ruta);
+        int ventana = archivo.showOpenDialog(null);
+        if(ventana == JFileChooser.APPROVE_OPTION){
+            File file = archivo.getSelectedFile();
+            txtUrl.setText(String.valueOf(file));
+            Image portada = getToolkit().getImage(txtUrl.getText());
+            portada.getScaledInstance(178, 233, Image.SCALE_DEFAULT);
+            labelFoto.setIcon(new ImageIcon(portada));
+        }
+    }//GEN-LAST:event_btnImagenActionPerformed
+
+    datosPeliculas  dataPeli = new datosPeliculas();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojerusan.RSButtonHover btnEditar;
@@ -339,7 +407,7 @@ public class panelPeliculas extends javax.swing.JPanel {
     private javax.swing.JLabel lbSinopsis;
     private javax.swing.JLabel lbTitulo;
     private javax.swing.JLabel lbURL;
-    private javax.swing.JTable tablePeliculas;
+    private javax.swing.JTable tablaPeliculas;
     private javax.swing.JTextField txtDuracion;
     private javax.swing.JLabel txtLetras;
     private javax.swing.JTextField txtReparto;
