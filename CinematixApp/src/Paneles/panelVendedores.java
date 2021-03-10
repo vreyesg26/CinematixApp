@@ -46,6 +46,17 @@ public class panelVendedores extends javax.swing.JPanel {
         cbodocu.setEnabled(false);
     }
     
+    void limpiarCajas(){
+        txtidvendedor1.setEnabled(false);
+        cbojornada.setEnabled(false);
+        txtcelular.setEnabled(false);
+        txtcorreo.setEnabled(false);  
+        txtnombre.setEnabled(false);  
+        txtsueldo.setEnabled(false);  
+        txtcorreo.setEnabled(false); 
+        cbodocu.setEnabled(false);
+    }
+    
     Fuente tipoFuente;
     public panelVendedores() {
         initComponents();
@@ -520,6 +531,7 @@ public class panelVendedores extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Datos Guardados Correctamente");
         }
         cargarData("");
+        limpiarCajas();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -542,6 +554,7 @@ public class panelVendedores extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Datos Guardados Correctamente");
         }
         cargarData("");
+        limpiarCajas();
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -560,6 +573,7 @@ public class panelVendedores extends javax.swing.JPanel {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+        limpiarCajas();
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
