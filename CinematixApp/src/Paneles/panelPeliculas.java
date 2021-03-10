@@ -6,6 +6,10 @@ import Tipografia.Fuente;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -13,7 +17,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
- * @author Victor Reyes
+ * @author Los Pibes
  */
 public class panelPeliculas extends javax.swing.JPanel {
 
@@ -90,15 +94,27 @@ public class panelPeliculas extends javax.swing.JPanel {
         tablaPeliculas.setForeground(new java.awt.Color(255, 255, 255));
         tablaPeliculas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "IDPelicula", "Titulo", "Duracion", "IDDirector", "Reparto", "IDIdioma", "Sinopsis", "IDHorario", "UrlFoto", "Foto"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tablaPeliculas.setAlignmentY(4.0F);
         tablaPeliculas.setOpaque(false);
         tablaPeliculas.setSelectionBackground(new java.awt.Color(29, 29, 29));
         jScrollPane1.setViewportView(tablaPeliculas);
@@ -275,13 +291,10 @@ public class panelPeliculas extends javax.swing.JPanel {
                                     .addComponent(cbIdiomas, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 28, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(txtLetras, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                        .addContainerGap(279, Short.MAX_VALUE)
+                        .addComponent(txtLetras, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -318,6 +331,9 @@ public class panelPeliculas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(290, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(lbURL, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -326,9 +342,7 @@ public class panelPeliculas extends javax.swing.JPanel {
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(159, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -354,7 +368,12 @@ public class panelPeliculas extends javax.swing.JPanel {
         }else{
             dataPeli.setHorarios(cbHorarios.getSelectedIndex());
         }
+        
+        try {
             guardo = dataPeli.guardar();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(panelPeliculas.class.getName()).log(Level.SEVERE, null, ex);
+        }
         if(guardo == true){
             JOptionPane.showMessageDialog(null, "El producto ha sido agregado");
         }
@@ -377,7 +396,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         JFileChooser archivo = new JFileChooser();
         archivo.addChoosableFileFilter(filtro);
         archivo.setDialogTitle("Abrir Archivo");
-        File ruta = new File("C:\\Users\\Victor Reyes\\Documents\\Tareas a entregar\\Ingeniería de Software I\\Cinematix\\img\\portadas peliculas");
+        File ruta = new File("C:\\Users\\Victor Reyes\\Documents\\Tareas a entregar\\Ingeniería de Software I\\Cinematix\\img\\portadas peliculas\\imagenes pequeñas");
         archivo.setCurrentDirectory(ruta);
         int ventana = archivo.showOpenDialog(null);
         if(ventana == JFileChooser.APPROVE_OPTION){

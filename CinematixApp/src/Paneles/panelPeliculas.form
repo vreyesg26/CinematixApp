@@ -74,18 +74,13 @@
                       <EmptySpace min="0" pref="28" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Component id="txtLetras" min="-2" pref="515" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
+                      <EmptySpace pref="279" max="32767" attributes="0"/>
+                      <Component id="txtLetras" min="-2" pref="515" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
+          <Component id="jScrollPane1" alignment="1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -130,6 +125,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
+                      <Component id="btnImagen" min="-2" pref="35" max="-2" attributes="0"/>
+                      <EmptySpace pref="290" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" attributes="0">
                       <Component id="lbURL" min="-2" pref="16" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -139,11 +138,9 @@
                           <Component id="btnNuevo" alignment="3" min="-2" pref="35" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="jScrollPane1" min="-2" pref="85" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
                   </Group>
-                  <Component id="btnImagen" min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="159" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -165,19 +162,14 @@
               <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="10" rowCount="4">
-                <Column editable="true" title="IDPelicula" type="java.lang.Object"/>
-                <Column editable="true" title="Titulo" type="java.lang.Object"/>
-                <Column editable="true" title="Duracion" type="java.lang.Object"/>
-                <Column editable="true" title="IDDirector" type="java.lang.Object"/>
-                <Column editable="true" title="Reparto" type="java.lang.Object"/>
-                <Column editable="true" title="IDIdioma" type="java.lang.Object"/>
-                <Column editable="true" title="Sinopsis" type="java.lang.Object"/>
-                <Column editable="true" title="IDHorario" type="java.lang.Object"/>
-                <Column editable="true" title="UrlFoto" type="java.lang.Object"/>
-                <Column editable="true" title="Foto" type="java.lang.Object"/>
+              <Table columnCount="4" rowCount="15">
+                <Column editable="true" title="Title 1" type="java.lang.Object"/>
+                <Column editable="true" title="Title 2" type="java.lang.Object"/>
+                <Column editable="true" title="Title 3" type="java.lang.Object"/>
+                <Column editable="true" title="Title 4" type="java.lang.Object"/>
               </Table>
             </Property>
+            <Property name="alignmentY" type="float" value="4.0"/>
             <Property name="opaque" type="boolean" value="false"/>
             <Property name="selectionBackground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="1d" green="1d" red="1d" type="rgb"/>

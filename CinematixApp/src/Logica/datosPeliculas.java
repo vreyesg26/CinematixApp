@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Victor Reyes
+ * @author Los Pibes
  */
 public class datosPeliculas extends Conexion{
     private String titulo;
@@ -111,10 +111,10 @@ public class datosPeliculas extends Conexion{
     }
     
     
-    public boolean guardar(){
+    public boolean guardar() throws FileNotFoundException{
         PreparedStatement pst = null;
         Connection cc = GetConexion();
-        String sql = "INSERT INTO peliculas (Titulo, Duracion, IDDirector, Reparto, IDIdioma, Sinopsis, IDHorario, Foto, URL)" + "Values(?,?,?,?,?,?)";
+        String sql = "INSERT INTO peliculas (Titulo, Duracion, IDDirector, Reparto, IDIdioma, Sinopsis, IDHorario, urlFoto, Foto)" + "Values(?,?,?,?,?,?,?,?,?)";
         
         try {
             FileInputStream archivoImagen = null;
@@ -127,11 +127,7 @@ public class datosPeliculas extends Conexion{
             pst.setString(6, this.getSinopsis());
             pst.setInt(7, this.getHorarios());
             pst.setString(8, this.getUrl());
-            try {
-                archivoImagen = new FileInputStream(this.getUrl());
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(datosPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            archivoImagen = new FileInputStream(this.getUrl());
             pst.setBinaryStream(9, archivoImagen);
             pst.execute();
             return true;

@@ -2,7 +2,7 @@ package Datos;
 
 /**
  *
- * @author LosPibes
+ * @author Los Pibes
  */
 
 import java.sql.Connection;
