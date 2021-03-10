@@ -9,14 +9,13 @@ import Datos.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author TALLER VARELA
  */
-public class datos extends Conexion{
-     private int IDVendedor;
+public class datos extends Conexion {
+    private int IDVendedor;
     private String Nombre;
     private String Direccion;
     private float Sueldo;
@@ -115,21 +114,30 @@ public class datos extends Conexion{
   public boolean editar(){
         PreparedStatement Pst = null;
         Connection cc = GetConexion();
-        String vSql = "update productos set Nombre = ? , Direccion = ?, Sueldo = ?, IDJornada = ?, NumeroCelular = ?, IDTipoDocumento = ?, Correo = ? where ProCodigo= ? ";
-          
+        //String vSql = "UPDATE vendedor SET Nombre = ? , Direccion = ?, Sueldo = ?, IDJornada = ?, NumeroCelular = ?, IDTipoDocumento = ?, Correo = ? where IDVendedor= ? ";
+        
+        /**String vSql="UPDATE vendedor SET Nombre = ?, "
+                 + "Direccion = ?,"
+                 + "Sueldo = ?,"
+                 + "IDJornada = ?,"
+                 + "NumeroCelular = ?,"
+                 + "IDTipoDocumento=?"
+                 + "Correo=?"
+                 + "WHERE IDVendedor = ?";**/ 
+        
+ 
+        String vSql = "update vendedor set  Nombre= ? , Direccion = ? , Sueldo = ? , IDJornada = ? , NumeroCelular = ? ,IDTipoDocumento = ? ,Correo = ? where IDVendedor= ? ";                
         try {
             Pst = cc.prepareStatement(vSql);
-        
-           
-            Pst.setString(1, this.Nombre);
-            Pst.setString(2,this.Direccion);
-            Pst.setFloat(3,this.Sueldo);   
-            Pst.setInt(4,this.IDJornada);
-            Pst.setInt(5,this.NumeroCelular);
-            Pst.setInt(6,this.IDTipoDocumento);
-            Pst.setString(7,this.Corrreo);
+            Pst.setString(1, this.getNombre());
+            Pst.setString(2,this.getDireccion());
+            Pst.setFloat(3,this.getSueldo());   
+            Pst.setInt(4,this.getIDJornada());
+            Pst.setInt(5,this.getNumeroCelular());
+            Pst.setInt(6,this.getIDTipoDocumento());
+            Pst.setString(7,this.getCorrreo());
+            Pst.setInt(8, this.getIDVendedor());
             Pst.execute();
-            
             return true;
 
         } catch (SQLException e) {
@@ -137,25 +145,5 @@ public class datos extends Conexion{
         }
         
     }
-   public boolean eliminar(){
-        PreparedStatement Pst = null;
-        Connection cc = GetConexion();
-        String vSql = "delete from productos where IDVendedor= ? ";
-          
-        try {
-            Pst.setString(1, this.Nombre);
-            Pst.setString(2,this.Direccion);
-            Pst.setFloat(3,this.Sueldo);   
-            Pst.setInt(4,this.IDJornada);
-            Pst.setInt(5,this.NumeroCelular);
-            Pst.setInt(6,this.IDTipoDocumento);
-            Pst.setString(7,this.Corrreo);
-            Pst.execute();
-            return true;
-
-        } catch (SQLException e) {
-            JOptionPane.showConfirmDialog(null, e);
-            return false;
-        }
-    }
+   
 }

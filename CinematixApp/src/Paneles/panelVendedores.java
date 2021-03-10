@@ -5,11 +5,20 @@
  */
 package Paneles;
 
+import Datos.Conexion;
 import JFrames.TextPrompt;
 import Logica.datos;
 import Tipografia.Fuente;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,9 +29,27 @@ public class panelVendedores extends javax.swing.JPanel {
     /**
      * Creates new form panelVendedores
      */
+    
+    void bloquear(){
+        txtidvendedor1.setEnabled(false);
+        cbojornada.setEnabled(false);
+        txtcelular.setEnabled(false);
+        txtcorreo.setEnabled(false);  
+        txtnombre.setEnabled(false);  
+        txtsueldo.setEnabled(false);  
+        txtcorreo.setEnabled(false);  
+        btneditar.setEnabled(false);
+        btneliminar.setEnabled(false);
+        btnguardar.setEnabled(false);
+        btnnuevo.setEnabled(true);
+        cbodocu.setEnabled(false);
+    }
+    
     Fuente tipoFuente;
     public panelVendedores() {
         initComponents();
+        bloquear();
+        cargarData("");
         
         tipoFuente = new Fuente();
         txtnombre.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
@@ -41,6 +68,41 @@ public class panelVendedores extends javax.swing.JPanel {
         L6.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         
     }
+    
+    ResultSet rs;
+    PreparedStatement Pst;
+    DefaultTableModel model;
+    Conexion cc = new Conexion();
+    Connection cn = cc.GetConexion();
+    
+    void cargarData(String valor){
+        String[] titulos = {"IDVendedor", "Nombre", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "Correo"};
+        String[] registros = new String[8];
+        String sql = "SELECT * FROM vendedor";
+        
+        model = new DefaultTableModel(null, titulos);
+        
+        try{
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            
+            while(rs.next()){
+                registros[0] = rs.getString("IDVendedor");
+                registros[1] = rs.getString("Nombre");
+                registros[2] = rs.getString("Direccion");
+                registros[3] = rs.getString("Sueldo");
+                registros[4] = rs.getString("IDJornada");
+                registros[5] = rs.getString("NumeroCelular");
+                registros[6] = rs.getString("IDTipoDocumento");
+                registros[7] = rs.getString("Correo");
+                model.addRow(registros);
+            }
+            
+            tablaVendedores.setModel(model);
+        } catch (SQLException ex){
+            Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,6 +114,9 @@ public class panelVendedores extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollBar1 = new javax.swing.JScrollBar();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        menuModificar = new javax.swing.JMenuItem();
+        MenuEliminar = new javax.swing.JMenuItem();
         L1 = new javax.swing.JLabel();
         L2 = new javax.swing.JLabel();
         L3 = new javax.swing.JLabel();
@@ -64,7 +129,7 @@ public class panelVendedores extends javax.swing.JPanel {
         cbodocu = new javax.swing.JComboBox();
         txtdireccion = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaVendedores = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
         btnnuevo = new javax.swing.JLabel();
         btnguardar = new javax.swing.JLabel();
@@ -75,6 +140,22 @@ public class panelVendedores extends javax.swing.JPanel {
         txtnombre = new javax.swing.JTextField();
         txtsueldo = new javax.swing.JTextField();
         txtcorreo = new javax.swing.JTextField();
+
+        menuModificar.setText("Modificar");
+        menuModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuModificarActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(menuModificar);
+
+        MenuEliminar.setText("Eliminar");
+        MenuEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                MenuEliminarActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(MenuEliminar);
 
         setBackground(new java.awt.Color(61, 61, 61));
         setOpaque(false);
@@ -110,7 +191,7 @@ public class panelVendedores extends javax.swing.JPanel {
         L5.setText("CORREO");
 
         cbojornada.setForeground(new java.awt.Color(0, 0, 0));
-        cbojornada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR", "MATUTINA\t", "DIIURNA", "NOCTURNA" }));
+        cbojornada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR", "MATUTINA", "DIURNA", "NOCTURNA" }));
         cbojornada.setPreferredSize(new java.awt.Dimension(166, 26));
         cbojornada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -119,15 +200,15 @@ public class panelVendedores extends javax.swing.JPanel {
         });
 
         cbodocu.setForeground(new java.awt.Color(0, 0, 0));
-        cbodocu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCONAR", "TARJETA DE IDENTIDAD ", "PASAPORTE ", "RTN" }));
+        cbodocu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR", "TARJETA DE IDENTIDAD ", "PASAPORTE ", "RTN" }));
 
         txtdireccion.setForeground(new java.awt.Color(255, 255, 255));
         txtdireccion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtdireccion.setOpaque(false);
 
-        jTable1.setBackground(new java.awt.Color(61, 61, 61));
-        jTable1.setForeground(new java.awt.Color(255, 255, 255));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaVendedores.setBackground(new java.awt.Color(61, 61, 61));
+        tablaVendedores.setForeground(new java.awt.Color(255, 255, 255));
+        tablaVendedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -138,8 +219,9 @@ public class panelVendedores extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jTable1.setOpaque(false);
-        jScrollPane1.setViewportView(jTable1);
+        tablaVendedores.setComponentPopupMenu(jPopupMenu1);
+        tablaVendedores.setOpaque(false);
+        jScrollPane1.setViewportView(tablaVendedores);
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VendedoresLT 1.png"))); // NOI18N
 
@@ -212,9 +294,9 @@ public class panelVendedores extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addComponent(L1)
-                .addGap(212, 212, 212)
+                .addGap(207, 207, 207)
                 .addComponent(L2)
-                .addGap(223, 223, 223)
+                .addGap(228, 228, 228)
                 .addComponent(L3))
             .addGroup(layout.createSequentialGroup()
                 .addGap(30, 30, 30)
@@ -263,15 +345,16 @@ public class panelVendedores extends javax.swing.JPanel {
                     .addComponent(txtidvendedor1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(L2)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
+                        .addGap(11, 11, 11)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(L1)
-                            .addComponent(L3))))
-                .addGap(47, 47, 47)
+                            .addComponent(L3)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(L2)))
+                .addGap(46, 46, 46)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtsueldo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtcorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -307,59 +390,193 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_cbojornadaActionPerformed
 
     private void btnguardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnguardarMouseClicked
-       boolean guardo = true;
+        btneditar.setEnabled(true);
+        btneliminar.setEnabled(true);
+        btnnuevo.setEnabled(true);
+        
+        boolean guardo = true;
         datos data = new datos();
-        data.setIDVendedor(Integer.parseInt(txtdireccion.getText()));
+        if(cbojornada.getSelectedIndex() == 0){
+            JOptionPane.showConfirmDialog(null, "Debe seleccionar una opción");
+        }
+        if(cbodocu.getSelectedIndex() == 0){
+            JOptionPane.showConfirmDialog(null, "Debe seleccionar una opción");
+        }
+       
         data.setNombre(txtnombre.getText());
         data.setDireccion(txtdireccion.getText());
+        data.setCorrreo(txtcorreo.getText());
         data.setSueldo(Float.parseFloat(txtsueldo.getText()));
-        data.setIDJornada(Integer.parseInt(cbojornada.getActionCommand()));
+        data.setIDJornada(cbojornada.getSelectedIndex());
         data.setNumeroCelular(Integer.parseInt(txtcelular.getText()));
-        data.setIDTipoDocumento(Integer.parseInt(cbodocu.getActionCommand()));
+        data.setIDTipoDocumento(cbodocu.getSelectedIndex());
           
         guardo = data.guardar();
         if (guardo==true){
             JOptionPane.showMessageDialog(null, "Datos Guardados Correctamente");
         }
+        cargarData("");
     }//GEN-LAST:event_btnguardarMouseClicked
 
     private void btneditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneditarMouseClicked
-        boolean edito = true;
-        datos data = new datos();
-        data.setIDVendedor(Integer.parseInt(txtdireccion.getText()));
-        data.setNombre(txtnombre.getText());
-        data.setDireccion(txtdireccion.getText());
-        data.setSueldo(Float.parseFloat(txtsueldo.getText()));
-        data.setIDJornada(Integer.parseInt(cbojornada.getActionCommand()));
-        data.setNumeroCelular(Integer.parseInt(txtcelular.getText()));
-        data.setIDTipoDocumento(Integer.parseInt(cbodocu.getActionCommand()));
-        data.editar();
+        btnnuevo.setEnabled(true);
+        boolean edito = true; 
+        datos pro = new datos();
+        pro.setIDVendedor(Integer.parseInt(txtidvendedor1.getText()));
+        pro.setNombre(txtnombre.getText());
+        pro.setDireccion(txtdireccion.getText());
+        pro.setSueldo(Float.parseFloat(txtsueldo.getText()));
+        pro.setIDJornada(Integer.valueOf(cbojornada.getSelectedIndex()));
+        pro.setNumeroCelular(Integer.parseInt(txtcelular.getText()));
+        pro.setIDTipoDocumento(Integer.valueOf(cbodocu.getSelectedIndex()));
+         pro.setCorrreo(txtcorreo.getText());
+        
+        pro.editar();
+        
+        
+         datos data = new datos();
         if (edito==true){
-            JOptionPane.showMessageDialog(null, "Datos Editados Correctamente");
+            JOptionPane.showMessageDialog(null, "Datos Guardados Correctamente");
         }
+        cargarData("");
+        /**String sql="UPDATE vendedor SET  Nombre= '"+ txtnombre.getText() +"' "
+                +"AND Direccion = '"+ txtdireccion.getText() +"' "
+                +"AND Sueldo = '"+ txtsueldo.getText()
+                + "' " +"AND IDJornada = '"+ cbojornada.getSelectedIndex()
+                + "' " +"AND NumeroCelular = '"+ txtcelular.getText()
+                + "' " +"AND IDTipoDocumento = '"+ cbodocu.getSelectedIndex()
+                + "' " +"AND Correo = '"+ txtcorreo.getText()
+                +"' where IDVendedor = '"+ txtidvendedor1.getText() +"'";**/
+        
+       /** try {
+            PreparedStatement Pst = cn.prepareStatement(
+                    "UPDATE vendedor SET  Nombre ='"+txtnombre.getText()+"', Direccion='"+txtdireccion.getText()+
+                            "Sueldo ='"+txtsueldo.getText()+
+                            "IDJornada ='"+cbojornada.getSelectedIndex()+
+                            "NumeroCelular ='"+txtcelular.getText()+
+                            "IDTipoDocumento ='"+cbodocu.getSelectedIndex()+
+                            "Correo ='"+txtcorreo.getText()+"', "
+                            + "WHERE IDVendedor='"+txtidvendedor1.getText()+"'");
+            Pst.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }**/
+        
+        cargarData("");
     }//GEN-LAST:event_btneditarMouseClicked
 
     private void btneliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btneliminarMouseClicked
-        boolean elimino = true;       
-        datos data = new datos();
-        data.setIDVendedor(Integer.parseInt(txtdireccion.getText()));
-        data.eliminar();
-        if (elimino==true){
-            JOptionPane.showMessageDialog(null, "Datos Eliminados Correctamente");
-        }
+   
+            String sqlElim="DELETE FROM vendedor WHERE IDVendedor='"+txtidvendedor1.getText()+"'";
+                try {
+                    PreparedStatement pst = cn.prepareStatement(sqlElim);
+                    int n=pst.executeUpdate();
+                    if(n>0)
+                    {
+                         JOptionPane.showMessageDialog(null, "Los datos fueron eliminados con exito");
+                         cargarData("");
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Hubo Problemas al querer eliminar datos");
+                    }
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+
     }//GEN-LAST:event_btneliminarMouseClicked
 
     private void btnnuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnnuevoMouseClicked
-       txtdireccion.setText("");
+        txtidvendedor1.setEnabled(true);
+        cbojornada.setEnabled(true);
+        txtcelular.setEnabled(true);
+        txtcorreo.setEnabled(true);  
+        txtnombre.setEnabled(true);  
+        txtsueldo.setEnabled(true);  
+        txtcorreo.setEnabled(true); 
+        cbodocu.setEnabled(true);
+        txtdireccion.setText("");
         txtnombre.setText("");
         txtidvendedor1.setText("");
         txtdireccion.setText("");
         txtsueldo.setText("");
         txtcelular.setText("");
         txtcorreo.setText("");
+        
         btnguardar.setEnabled(true);
         
     }//GEN-LAST:event_btnnuevoMouseClicked
+
+    private void menuModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarActionPerformed
+       btneditar.setEnabled(true);
+        btneliminar.setEnabled(true);
+        btnnuevo.setEnabled(false);
+        btnguardar.setEnabled(false);
+        txtidvendedor1.setEnabled(true);
+        cbojornada.setEnabled(true);
+        txtcelular.setEnabled(true);
+        txtcorreo.setEnabled(true);  
+        txtnombre.setEnabled(true);  
+        txtsueldo.setEnabled(true);  
+        txtcorreo.setEnabled(true);  
+        cbodocu.setEnabled(true);
+        int fila = tablaVendedores.getSelectedRow();
+  
+        if(fila>=0)
+        {
+
+            
+            btnguardar.setEnabled(false);
+            String id=tablaVendedores.getValueAt(fila, 0).toString();
+            String nom=tablaVendedores.getValueAt(fila, 1).toString();
+            String dir=tablaVendedores.getValueAt(fila, 2).toString();
+            String sue=tablaVendedores.getValueAt(fila, 3).toString();
+            String idj=tablaVendedores.getValueAt(fila, 4).toString();
+            String num=tablaVendedores.getValueAt(fila, 5).toString();
+            String idt=tablaVendedores.getValueAt(fila, 6).toString();
+            String cor=tablaVendedores.getValueAt(fila, 7).toString();
+            
+            
+            txtidvendedor1.setText(id);
+            txtnombre.setText(nom);
+            txtdireccion.setText(dir);      
+            txtsueldo.setText(sue);
+            cbojornada.setSelectedIndex(Integer.valueOf(idj));
+            txtcelular.setText(num);
+            cbodocu.setSelectedIndex(Integer.valueOf(idt));
+            txtcorreo.setText(cor);
+        }
+        else
+        {
+           JOptionPane.showMessageDialog(null, "Elija una fila...llene la Tabla");
+        }
+    }//GEN-LAST:event_menuModificarActionPerformed
+
+    private void MenuEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuEliminarActionPerformed
+        int fila=tablaVendedores.getSelectedRow();
+        if(fila>-1)
+        {
+            String cod=tablaVendedores.getValueAt(fila, 0).toString();
+            String sqlElim="DELETE FROM vendedor WHERE IDVendedor='"+txtidvendedor1.getText()+"'";
+                try {
+                    PreparedStatement pst = cn.prepareStatement(sqlElim);
+                    int n=pst.executeUpdate();
+                    if(n>0)
+                    {
+                         JOptionPane.showMessageDialog(null, "Los datos fueron eliminados con exito");
+                         cargarData("");
+                    }
+                    else{
+                        JOptionPane.showMessageDialog(null, "Hubo Problemas al querer eliminar datos");
+                    }
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+
+        }
+        else{
+
+        }
+    }//GEN-LAST:event_MenuEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -369,6 +586,7 @@ public class panelVendedores extends javax.swing.JPanel {
     private javax.swing.JLabel L4;
     private javax.swing.JLabel L5;
     private javax.swing.JLabel L6;
+    private javax.swing.JMenuItem MenuEliminar;
     private javax.swing.JLabel btneditar;
     private javax.swing.JLabel btneliminar;
     private javax.swing.JLabel btnguardar;
@@ -378,9 +596,11 @@ public class panelVendedores extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JMenuItem menuModificar;
+    private javax.swing.JTable tablaVendedores;
     private javax.swing.JTextField txtcelular;
     private javax.swing.JTextField txtcorreo;
     private javax.swing.JTextField txtdireccion;

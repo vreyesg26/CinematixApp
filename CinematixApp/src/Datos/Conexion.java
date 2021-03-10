@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class Conexion {
-     public  String db = "cinematixdb";
+     public  String db = "cinematix";
     public  String driver = "com.mysql.jdbc.Driver";
     public  String usuario = "root";
     public  String clave = "";
