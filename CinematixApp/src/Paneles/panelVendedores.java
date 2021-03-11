@@ -163,37 +163,44 @@ public class panelVendedores extends javax.swing.JPanel {
         jPopupMenu1.add(menuModificar);
 
         setBackground(new java.awt.Color(61, 61, 61));
-        setOpaque(false);
         setPreferredSize(new java.awt.Dimension(800, 690));
 
         L1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         L1.setForeground(new java.awt.Color(255, 255, 255));
+        L1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L1.setText("ID VENDEDOR");
 
         L2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         L2.setForeground(new java.awt.Color(255, 255, 255));
+        L2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L2.setText("NOMBRE");
 
         L3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         L3.setForeground(new java.awt.Color(255, 255, 255));
+        L3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L3.setText("DIRECCION");
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("ID JORNADA");
 
         L4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         L4.setForeground(new java.awt.Color(255, 255, 255));
+        L4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L4.setText("SUELDO");
 
         L6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         L6.setForeground(new java.awt.Color(255, 255, 255));
+        L6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L6.setText("NUMERO CELULAR");
 
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("ID TIPO DOCUMENTO");
 
         L5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         L5.setForeground(new java.awt.Color(255, 255, 255));
+        L5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L5.setText("CORREO");
 
         cbojornada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR", "MATUTINA", "DIURNA", "NOCTURNA" }));
@@ -331,16 +338,6 @@ public class panelVendedores extends javax.swing.JPanel {
                                 .addGap(209, 209, 209)
                                 .addComponent(jLabel10))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(174, 174, 174)
-                                .addComponent(cbodocu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(122, 122, 122)
-                                .addComponent(cbojornada, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(192, 192, 192)
-                                .addComponent(jLabel8)
-                                .addGap(187, 187, 187)
-                                .addComponent(jLabel5))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGap(127, 127, 127)
                                 .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -374,7 +371,16 @@ public class panelVendedores extends javax.swing.JPanel {
                                 .addGap(130, 130, 130)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txtcelular, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-                                    .addComponent(L6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                    .addComponent(L6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(174, 174, 174)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbodocu, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(122, 122, 122)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(cbojornada, 0, 156, Short.MAX_VALUE))))
                         .addGap(0, 14, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -392,12 +398,12 @@ public class panelVendedores extends javax.swing.JPanel {
                             .addComponent(txtdireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(11, 11, 11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(L1)
                                     .addComponent(L3)))
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(L2)))
                         .addGap(46, 46, 46)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
