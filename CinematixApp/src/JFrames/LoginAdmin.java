@@ -7,6 +7,13 @@ package JFrames;
 
 import Tipografia.Fuente;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 /**
  *
@@ -14,7 +21,12 @@ import javax.swing.JOptionPane;
  */
 public class LoginAdmin extends javax.swing.JFrame {
     private Object JOPtionPane;
-    
+    String url = "jdbc:mysql://localhost:3306/cinematix";
+    String user = "root";
+    String Contrasena = "";
+    Connection cn;
+    Statement stmt;
+    ResultSet rs;
 
     /**
      * Creates new form LoginAdmin
@@ -25,12 +37,12 @@ public class LoginAdmin extends javax.swing.JFrame {
        
         transparenciaButton();
         TextPrompt prueba = new TextPrompt("INGRESAR USUARIO", txtusuario);
-        TextPrompt pru = new TextPrompt("INGRESAR CLAVE", pass);
+        TextPrompt pru = new TextPrompt("INGRESAR CLAVE", txtpassword);
         setBackground( new Color (0,0,0,0));  
         
         tipoFuente = new Fuente();
         txtusuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
-        pass.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
+        txtpassword.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
         prueba.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
         pru.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
     }
@@ -47,7 +59,7 @@ public class LoginAdmin extends javax.swing.JFrame {
         btninicioa = new javax.swing.JButton();
         btnCerrar = new javax.swing.JLabel();
         txtusuario = new javax.swing.JTextField();
-        pass = new javax.swing.JPasswordField();
+        txtpassword = new javax.swing.JPasswordField();
         btninicio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -91,17 +103,22 @@ public class LoginAdmin extends javax.swing.JFrame {
                 txtusuarioActionPerformed(evt);
             }
         });
+        txtusuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtusuarioKeyTyped(evt);
+            }
+        });
         getContentPane().add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 210, 240, 45));
         txtusuario.getAccessibleContext().setAccessibleName("");
 
-        pass.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        pass.setForeground(new java.awt.Color(255, 255, 255));
-        pass.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        pass.setBorder(null);
-        pass.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        pass.setOpaque(false);
-        getContentPane().add(pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 300, 240, 45));
-        pass.getAccessibleContext().setAccessibleName("");
+        txtpassword.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        txtpassword.setForeground(new java.awt.Color(255, 255, 255));
+        txtpassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtpassword.setBorder(null);
+        txtpassword.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtpassword.setOpaque(false);
+        getContentPane().add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 300, 240, 45));
+        txtpassword.getAccessibleContext().setAccessibleName("");
 
         btninicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LoginAdmin.png"))); // NOI18N
         getContentPane().add(btninicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 360, 480));
@@ -140,23 +157,32 @@ public class LoginAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtusuarioActionPerformed
 
+   
     private void btninicioaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninicioaActionPerformed
-      
-        String usuario = "admin";
-        String password = "12345";
-        if(txtusuario.getText().equals(usuario)&&pass.getText().equals(password)){
+        try {
+            cn = DriverManager.getConnection(url,user,Contrasena);
+            stmt = cn.createStatement();
+            rs = stmt.executeQuery("SELECT * FROM usuarios WHERE Correo = '"+txtusuario.getText()+"'");
+            rs.next();
+            if(rs.getString("Contrasena").equals(txtpassword.getText())){
+                JOptionPane.showMessageDialog(null, "Bienvenido a CineMatix");
+            }else{
+                JOptionPane.showMessageDialog(null, "Datos incorrectos, verifique su");
+            }
+             } catch (SQLException ex) {
+            Logger.getLogger(LoginVendedor.class.getName()).log(Level.SEVERE, null, ex);
+        }
         AdminDashboard ini = new AdminDashboard();
         ini.setVisible(true);
         this.dispose();
         
-        } else{
-                         
-            JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, intente de nuevo","Message", JOptionPane.WARNING_MESSAGE);
-            txtusuario.setText("");
-            pass.setText("");
-                
-            }
+        
     }//GEN-LAST:event_btninicioaActionPerformed
+
+    private void txtusuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtusuarioKeyTyped
+      
+      
+    }//GEN-LAST:event_txtusuarioKeyTyped
 
     /**
      * @param args the command line arguments
@@ -197,7 +223,7 @@ public class LoginAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel btnCerrar;
     private javax.swing.JLabel btninicio;
     private javax.swing.JButton btninicioa;
-    private javax.swing.JPasswordField pass;
+    private javax.swing.JPasswordField txtpassword;
     private javax.swing.JTextField txtusuario;
     // End of variables declaration//GEN-END:variables
 
