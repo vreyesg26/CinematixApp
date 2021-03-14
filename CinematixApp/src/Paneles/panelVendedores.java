@@ -892,7 +892,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
     private void txtcelular1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtcelular1FocusLost
        
-        else if(txtcelular1.getText().length() < 8){
+        if(txtcelular1.getText().length() < 8){
           JOptionPane.showMessageDialog(null, "El celular debe contener 8 digitos");
           
            txtcelular1.setText("");

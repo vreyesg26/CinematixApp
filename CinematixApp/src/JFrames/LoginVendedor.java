@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package JFrames;
 
 import java.awt.Color;
@@ -18,6 +13,7 @@ public class LoginVendedor extends javax.swing.JFrame {
      */
     public LoginVendedor() {
         initComponents();
+        transparenciaButton();
         setBackground( new Color (0,0,0,0));
     }
 
@@ -30,6 +26,7 @@ public class LoginVendedor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btninicioa = new javax.swing.JButton();
         btnCerrar = new javax.swing.JLabel();
         labelFondo = new javax.swing.JLabel();
 
@@ -43,6 +40,20 @@ public class LoginVendedor extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btninicioa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BtnIniciarSesión.png"))); // NOI18N
+        btninicioa.setBorderPainted(false);
+        btninicioa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btninicioa.setOpaque(false);
+        btninicioa.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BtnIniciarSesión2.png"))); // NOI18N
+        btninicioa.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BtnIniciarSesión2.png"))); // NOI18N
+        btninicioa.setVerifyInputWhenFocusTarget(false);
+        btninicioa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btninicioaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btninicioa, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 404, 150, 40));
 
         btnCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCerrar.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -78,6 +89,12 @@ public class LoginVendedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    public void transparenciaButton(){
+       btninicioa.setOpaque(false);
+       btninicioa.setContentAreaFilled(false);
+       btninicioa.setBorderPainted(false);
+   }
+    
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
         Inicio regresoMenu = new Inicio();
         regresoMenu.setVisible(true);
@@ -87,6 +104,9 @@ public class LoginVendedor extends javax.swing.JFrame {
     private void btnCerrarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_btnCerrarFocusGained
         // TODO add your handling code here:
     }//GEN-LAST:event_btnCerrarFocusGained
+
+    private void btninicioaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninicioaActionPerformed
+    }//GEN-LAST:event_btninicioaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -125,6 +145,7 @@ public class LoginVendedor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnCerrar;
+    private javax.swing.JButton btninicioa;
     private javax.swing.JLabel labelFondo;
     // End of variables declaration//GEN-END:variables
 }

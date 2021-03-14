@@ -13,6 +13,7 @@ public class Inicio extends javax.swing.JFrame {
     public Inicio() {
         initComponents();
         setBackground( new Color (0,0,0,0));
+        transparenciaButton();
     }
 
     /**
@@ -24,8 +25,8 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnvendedor = new javax.swing.JLabel();
-        btnadmi = new javax.swing.JLabel();
+        btnAdmin = new javax.swing.JButton();
+        btnVendedor = new javax.swing.JButton();
         btnCerrar = new javax.swing.JLabel();
         labelFondo = new javax.swing.JLabel();
 
@@ -40,21 +41,31 @@ public class Inicio extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnvendedor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnvendedor.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnvendedorMouseClicked(evt);
+        btnAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BtnAdmin.png"))); // NOI18N
+        btnAdmin.setBorder(null);
+        btnAdmin.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAdmin.setOpaque(false);
+        btnAdmin.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BtnAdminPresionado.png"))); // NOI18N
+        btnAdmin.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BtnAdminPresionado.png"))); // NOI18N
+        btnAdmin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminActionPerformed(evt);
             }
         });
-        getContentPane().add(btnvendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(475, 155, 190, 190));
+        getContentPane().add(btnAdmin, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 156, 190, 190));
 
-        btnadmi.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnadmi.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnadmiMouseClicked(evt);
+        btnVendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BtnVendedor.png"))); // NOI18N
+        btnVendedor.setBorder(null);
+        btnVendedor.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVendedor.setOpaque(false);
+        btnVendedor.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BtnVendedorPresionado.png"))); // NOI18N
+        btnVendedor.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BtnVendedorPresionado.png"))); // NOI18N
+        btnVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVendedorActionPerformed(evt);
             }
         });
-        getContentPane().add(btnadmi, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 155, 190, 190));
+        getContentPane().add(btnVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(477, 156, 190, 190));
 
         btnCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCerrar.setName("btnCerrar"); // NOI18N
@@ -63,7 +74,7 @@ public class Inicio extends javax.swing.JFrame {
                 btnCerrarMouseClicked(evt);
             }
         });
-        getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(523, 103, 26, 25));
+        getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(519, 98, 35, 35));
         btnCerrar.getAccessibleContext().setAccessibleName("btnCerrar");
 
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Primera Pantalla.png"))); // NOI18N
@@ -91,17 +102,27 @@ public class Inicio extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_btnCerrarMouseClicked
 
-    private void btnvendedorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnvendedorMouseClicked
-        LoginVendedor logV = new LoginVendedor();
-        logV.setVisible(true);
-        dispose();
-    }//GEN-LAST:event_btnvendedorMouseClicked
-
-    private void btnadmiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnadmiMouseClicked
+    public void transparenciaButton(){
+       btnAdmin.setOpaque(false);
+       btnAdmin.setContentAreaFilled(false);
+       btnAdmin.setBorderPainted(false);
+       
+       btnVendedor.setOpaque(false);
+       btnVendedor.setContentAreaFilled(false);
+       btnVendedor.setBorderPainted(false);
+   }
+    
+    private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
         LoginAdmin logA = new LoginAdmin();
         logA.setVisible(true);
         dispose();
-    }//GEN-LAST:event_btnadmiMouseClicked
+    }//GEN-LAST:event_btnAdminActionPerformed
+
+    private void btnVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendedorActionPerformed
+        LoginVendedor logV = new LoginVendedor();
+        logV.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnVendedorActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,9 +160,9 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdmin;
     private javax.swing.JLabel btnCerrar;
-    private javax.swing.JLabel btnadmi;
-    private javax.swing.JLabel btnvendedor;
+    private javax.swing.JButton btnVendedor;
     private javax.swing.JLabel labelFondo;
     // End of variables declaration//GEN-END:variables
 }

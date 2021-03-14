@@ -1,5 +1,6 @@
 package Paneles;
 
+import Datos.Conexion;
 import Logica.datosPeliculas;
 import Tipografia.DecoracionTablas;
 import Tipografia.Fuente;
@@ -7,9 +8,8 @@ import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -25,10 +25,12 @@ public class panelPeliculas extends javax.swing.JPanel {
      * Creates new form panelPeliculas
      */
     Fuente tipoFuente;
+
     public panelPeliculas() {
         initComponents();
+        txtUrl.setEnabled(false);
         tipoFuente = new Fuente();
-        
+
         lbDuracion.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         lbTitulo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         lbReparto.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
@@ -43,18 +45,71 @@ public class panelPeliculas extends javax.swing.JPanel {
         cbIdiomas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         cbHorarios.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         tablaPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        
+
         btnImagen.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         btnGuardar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         btnEditar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         btnEliminar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         tablaPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        
-        tablaPeliculas.getColumnModel().getColumn(0).setHeaderRenderer(new DecoracionTablas(Color.GRAY,Color.WHITE));
+
+        tablaPeliculas.getColumnModel().getColumn(0).setHeaderRenderer(new DecoracionTablas(Color.GRAY, Color.WHITE));
+    }
+    
+    boolean guardar = false;
+
+    void validarCamposVacios() {
+        if (txtDuracion.getText().isEmpty() && txtLetras.getText().isEmpty() && txtReparto.getText().isEmpty()
+                && txtSinopsis.getText().isEmpty() && txtTitulo.getText().isEmpty()
+                && txtUrl.getText().isEmpty() && cbDirector.getSelectedIndex() == 0
+                && cbHorarios.getSelectedIndex() == 0 && cbIdiomas.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+        } else if (txtTitulo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor rellene el campo título");
+        } else if (txtDuracion.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor rellene el campo duración");
+        } else if (txtReparto.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor rellene el campo reparto");
+        } else if (txtSinopsis.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor rellene el campo sinopsis");
+        } else if (txtUrl.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor seleccione una imagen para la pelicula");
+        } else if (cbDirector.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un director");
+        } else if (cbIdiomas.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un idioma");
+        } else if (cbHorarios.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un horario");
+        }else{
+            guardar = true;
+        }
     }
 
-    
+    void limpiarCajas() {
+        txtTitulo.setText("");
+        txtDuracion.setText("");
+        txtReparto.setText("");
+        txtSinopsis.setText("");
+        txtUrl.setText("");
+        cbDirector.setSelectedIndex(0);
+        cbHorarios.setSelectedIndex(0);
+        cbIdiomas.setSelectedIndex(0);
+        labelFoto.setIcon(null);
+    }
+
+    public void validarCaracteres(java.awt.event.KeyEvent e) {
+        if (e.getKeyChar() >= 33 && e.getKeyChar() <= 47
+                || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+                || e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+                || e.getKeyChar() >= 123 && e.getKeyChar() <= 208
+                || e.getKeyChar() >= 210 && e.getKeyChar() <= 240
+                || e.getKeyChar() >= 242 && e.getKeyChar() <= 255) {
+            
+            e.consume();
+            JOptionPane.showMessageDialog(null, "Este campo no acepta caracteres especiales");
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -147,6 +202,14 @@ public class panelPeliculas extends javax.swing.JPanel {
         txtDuracion.setForeground(new java.awt.Color(255, 255, 255));
         txtDuracion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtDuracion.setOpaque(false);
+        txtDuracion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDuracionKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtDuracionKeyTyped(evt);
+            }
+        });
 
         lbDuracion.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         lbDuracion.setForeground(new java.awt.Color(255, 255, 255));
@@ -240,6 +303,11 @@ public class panelPeliculas extends javax.swing.JPanel {
         txtUrl.setForeground(new java.awt.Color(255, 255, 255));
         txtUrl.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtUrl.setOpaque(false);
+        txtUrl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtUrlActionPerformed(evt);
+            }
+        });
 
         lbSinopsis.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         lbSinopsis.setForeground(new java.awt.Color(255, 255, 255));
@@ -347,36 +415,62 @@ public class panelPeliculas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        boolean guardo = true;
-        dataPeli.setTitulo(txtTitulo.getText());
-        dataPeli.setDuracion(Integer.getInteger(txtDuracion.toString()));
-        if(cbDirector.getSelectedIndex()==0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un director");
-        } else{
-            dataPeli.setDirector(cbDirector.getSelectedIndex());
+        Conexion cn = new Conexion();
+        Connection cc = cn.GetConexion();
+        validarCamposVacios();
+        if(guardar == false){
+            
+        } else {
+            String sql = "INSERT INTO peliculas "
+                    + "(Titulo, Duracion, IDDirector, Reparto, IDIdioma, Sinopsis, IDHorario, urlFoto, Foto)"
+                    + "VALUES (?,?,?,?,?,?,?,?,?)";
+
+            try {
+                FileInputStream archivoImagen;
+                PreparedStatement pst = cc.prepareStatement(sql);
+                pst.setString(1, txtTitulo.getText());
+                pst.setInt(2, Integer.parseInt(txtDuracion.getText()));
+                pst.setInt(3, cbDirector.getSelectedIndex());
+                pst.setString(4, txtReparto.getText());
+                pst.setInt(5, cbIdiomas.getSelectedIndex());
+                pst.setString(6, txtSinopsis.getText());
+                pst.setInt(7, cbHorarios.getSelectedIndex());
+                pst.setString(8, txtUrl.getText());
+                archivoImagen = new FileInputStream(txtUrl.getText());
+                pst.setBinaryStream(9, archivoImagen);
+
+                int i = pst.executeUpdate();
+                if(i>0){
+                JOptionPane.showMessageDialog(null, "Se guardo correctamente");
+               }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar");
+            }
         }
-            dataPeli.setReparto(txtReparto.getText());
-            dataPeli.setSinopsis(txtSinopsis.getText());
-        if(cbIdiomas.getSelectedIndex()==0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un idioma");
-        }else{
-            dataPeli.setIdioma(cbIdiomas.getSelectedIndex());
-        }
-            dataPeli.setUrl(txtUrl.getText());
-        if(cbHorarios.getSelectedIndex()==0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un director");
-        }else{
-            dataPeli.setHorarios(cbHorarios.getSelectedIndex());
-        }
+        /**
+         * boolean guardo = true; dataPeli.setTitulo(txtTitulo.getText());
+         * dataPeli.setDuracion(Integer.getInteger(txtDuracion.toString()));
+         * if(cbDirector.getSelectedIndex()==0){
+         * JOptionPane.showMessageDialog(null, "Debe seleccionar un director");
+         * } else{ dataPeli.setDirector(cbDirector.getSelectedIndex()); }
+         * dataPeli.setReparto(txtReparto.getText());
+         * dataPeli.setSinopsis(txtSinopsis.getText());
+         * if(cbIdiomas.getSelectedIndex()==0){
+         * JOptionPane.showMessageDialog(null, "Debe seleccionar un idioma");
+         * }else{ dataPeli.setIdioma(cbIdiomas.getSelectedIndex()); }
+         * dataPeli.setUrl(txtUrl.getText());
+         * if(cbHorarios.getSelectedIndex()==0){
+         * JOptionPane.showMessageDialog(null, "Debe seleccionar un director");
+         * }else{ dataPeli.setHorarios(cbHorarios.getSelectedIndex()); }
+         *
+         * try { guardo = dataPeli.guardar(); } catch (FileNotFoundException ex)
+         * { Logger.getLogger(panelPeliculas.class.getName()).log(Level.SEVERE,
+         * null, ex); } if(guardo == true){ JOptionPane.showMessageDialog(null,
+         * "El producto ha sido agregado");
+        }*
+         */
         
-        try {
-            guardo = dataPeli.guardar();
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(panelPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        if(guardo == true){
-            JOptionPane.showMessageDialog(null, "El producto ha sido agregado");
-        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -387,10 +481,6 @@ public class panelPeliculas extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void txtSinopsisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSinopsisActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtSinopsisActionPerformed
-
     private void btnImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenActionPerformed
         FileNameExtensionFilter filtro = new FileNameExtensionFilter("Formatos de Archivos JEPG(*.JPG; *.JPEG)", "jpg", "jpeg");
         JFileChooser archivo = new JFileChooser();
@@ -399,7 +489,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         File ruta = new File("C:\\Users\\Victor Reyes\\Documents\\Tareas a entregar\\Ingeniería de Software I\\Cinematix\\img\\portadas peliculas\\imagenes pequeñas");
         archivo.setCurrentDirectory(ruta);
         int ventana = archivo.showOpenDialog(null);
-        if(ventana == JFileChooser.APPROVE_OPTION){
+        if (ventana == JFileChooser.APPROVE_OPTION) {
             File file = archivo.getSelectedFile();
             txtUrl.setText(String.valueOf(file));
             Image portada = getToolkit().getImage(txtUrl.getText());
@@ -408,7 +498,36 @@ public class panelPeliculas extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnImagenActionPerformed
 
-    datosPeliculas  dataPeli = new datosPeliculas();
+    private void txtDuracionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDuracionKeyTyped
+        if (txtDuracion.getText().length() > 2) {
+            evt.consume();
+        }
+        validarCaracteres(evt);
+    }//GEN-LAST:event_txtDuracionKeyTyped
+
+    private void txtUrlActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUrlActionPerformed
+        txtUrl.setEditable(false);
+    }//GEN-LAST:event_txtUrlActionPerformed
+
+    private void txtSinopsisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSinopsisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSinopsisActionPerformed
+
+    private void txtDuracionKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDuracionKeyReleased
+        try {
+            Integer.parseInt(txtDuracion.getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Este campo es numérico");
+            txtDuracion.setText("");
+        }
+        
+        if (txtDuracion.getText().charAt(0) == ' ') {
+            JOptionPane.showMessageDialog(null, "Omita poner espacios al principio");
+            //txtDuracion.setText("");
+        }
+    }//GEN-LAST:event_txtDuracionKeyReleased
+
+    datosPeliculas dataPeli = new datosPeliculas();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojerusan.RSButtonHover btnEditar;
