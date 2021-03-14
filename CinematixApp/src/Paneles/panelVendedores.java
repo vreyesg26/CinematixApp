@@ -46,9 +46,10 @@ public class panelVendedores extends javax.swing.JPanel {
         }else{
             return false;
         }
-        
-        
     }
+    
+    
+     
     void bloquear(){
         txtidvendedor1.setEnabled(false);
         cbojornada.setEnabled(false);
@@ -77,6 +78,23 @@ public class panelVendedores extends javax.swing.JPanel {
         txtcelular2.setText("");
         cbodocu.setSelectedIndex(0);
         cbojornada.setSelectedIndex(0);
+    }
+    
+    public void numeroshol(){
+          
+    }
+    
+    public void validarCaracteres(java.awt.event.KeyEvent e) {
+        if (e.getKeyChar() >= 33 && e.getKeyChar() <= 47
+                || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
+                || e.getKeyChar() >= 91 && e.getKeyChar() <= 96
+                || e.getKeyChar() >= 123 && e.getKeyChar() <= 208
+                || e.getKeyChar() >= 210 && e.getKeyChar() <= 240
+                || e.getKeyChar() >= 242 && e.getKeyChar() <= 255) {
+            
+            e.consume();
+            JOptionPane.showMessageDialog(null, "Este campo no acepta caracteres especiales");
+        }
     }
     
     public static boolean validarNumeros(String datos){
@@ -352,12 +370,12 @@ public class panelVendedores extends javax.swing.JPanel {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VendedoresLT 1.png"))); // NOI18N
         add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 24, -1, 40));
 
-        txtidvendedor1.setForeground(new java.awt.Color(255, 255, 255));
+        txtidvendedor1.setForeground(new java.awt.Color(0, 0, 0));
         txtidvendedor1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtidvendedor1.setOpaque(false);
         add(txtidvendedor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 170, 35));
 
-        txtcelular2.setForeground(new java.awt.Color(255, 255, 255));
+        txtcelular2.setForeground(new java.awt.Color(0, 0, 0));
         txtcelular2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtcelular2.setOpaque(false);
         txtcelular2.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -367,7 +385,7 @@ public class panelVendedores extends javax.swing.JPanel {
         });
         add(txtcelular2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 190, 130, 35));
 
-        txtnombre.setForeground(new java.awt.Color(255, 255, 255));
+        txtnombre.setForeground(new java.awt.Color(0, 0, 0));
         txtnombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtnombre.setOpaque(false);
         txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -377,7 +395,7 @@ public class panelVendedores extends javax.swing.JPanel {
         });
         add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 240, 35));
 
-        txtcorreo.setForeground(new java.awt.Color(255, 255, 255));
+        txtcorreo.setForeground(new java.awt.Color(0, 0, 0));
         txtcorreo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtcorreo.setOpaque(false);
         txtcorreo.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -448,7 +466,7 @@ public class panelVendedores extends javax.swing.JPanel {
         });
         add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 132, 35));
 
-        txtdireccion1.setForeground(new java.awt.Color(255, 255, 255));
+        txtdireccion1.setForeground(new java.awt.Color(0, 0, 0));
         txtdireccion1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtdireccion1.setOpaque(false);
         txtdireccion1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -464,7 +482,7 @@ public class panelVendedores extends javax.swing.JPanel {
         L7.setText("BUSCAR");
         add(L7, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 460, 122, -1));
 
-        txtsueldo.setForeground(new java.awt.Color(255, 255, 255));
+        txtsueldo.setForeground(new java.awt.Color(0, 0, 0));
         txtsueldo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtsueldo.setOpaque(false);
         txtsueldo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -477,9 +495,14 @@ public class panelVendedores extends javax.swing.JPanel {
         });
         add(txtsueldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 170, 35));
 
-        txtdocumento.setForeground(new java.awt.Color(255, 255, 255));
+        txtdocumento.setForeground(new java.awt.Color(0, 0, 0));
         txtdocumento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtdocumento.setOpaque(false);
+        txtdocumento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtdocumentoFocusLost(evt);
+            }
+        });
         txtdocumento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtdocumentoActionPerformed(evt);
@@ -492,9 +515,14 @@ public class panelVendedores extends javax.swing.JPanel {
         });
         add(txtdocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 170, 35));
 
-        txtcelular1.setForeground(new java.awt.Color(255, 255, 255));
+        txtcelular1.setForeground(new java.awt.Color(0, 0, 0));
         txtcelular1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtcelular1.setOpaque(false);
+        txtcelular1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtcelular1FocusLost(evt);
+            }
+        });
         txtcelular1.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtcelular1KeyTyped(evt);
@@ -536,6 +564,9 @@ public class panelVendedores extends javax.swing.JPanel {
             txtcorreo.setEnabled(true);  
             cbodocu.setEnabled(true);
             btnGuardar.setEnabled(false);
+            txtcelular1.setEnabled(true);
+            txtdireccion1.setEnabled(true);
+            
             String id=tablaVendedores.getValueAt(fila, 0).toString();
             String nom=tablaVendedores.getValueAt(fila, 1).toString();
             String dir=tablaVendedores.getValueAt(fila, 2).toString();
@@ -589,6 +620,12 @@ public class panelVendedores extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada");
         }
         
+        else if(txtcelular1.getText().isEmpty() || cbodocu.getSelectedIndex() == 0 || cbojornada.getSelectedIndex() == 0 || txtcorreo.getText().isEmpty() || txtdireccion1.getText().isEmpty() || txtdocumento.getText().isEmpty() || txtnombre.getText().isEmpty() || txtsueldo.getText().isEmpty() || txtcelular2.getText().isEmpty()) {
+     
+            JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos");
+        }
+                
+        
         else if(Integer.parseInt(txtsueldo.getText()) < 8000){
             JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor");
              txtsueldo.setText("");
@@ -623,13 +660,18 @@ public class panelVendedores extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada");
         }
         
+        else if(txtcelular1.getText().isEmpty() || txtcorreo.getText().isEmpty() || txtdireccion1.getText().isEmpty() || txtdocumento.getText().isEmpty() || txtnombre.getText().isEmpty() || txtsueldo.getText().isEmpty() || txtcelular2.getText().isEmpty()) {
+     
+            JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos");
+        }
+        
         else if(Integer.parseInt(txtsueldo.getText()) < 8000){
             JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor");
              txtsueldo.setText("");
         }else 
             
         if(txtcorreo.getText().contains("@") && txtcorreo.getText().contains(".com") || txtcorreo.getText().contains(".hn")){
-            email(null);
+            
             datos pro = new datos();
             pro.setIDVendedor(Integer.parseInt(txtidvendedor1.getText()));
             pro.setNombre(txtnombre.getText());
@@ -672,7 +714,7 @@ public class panelVendedores extends javax.swing.JPanel {
         limpiarCajas();
     }//GEN-LAST:event_btnEliminarActionPerformed
     
-        public void limite(TextField txt_nombre,TextField txtdireccion){
+        public void limite(TextField txtnombre,TextField txtdireccion1){
         if(txtnombre.getText().length() > 35){
 
             Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -681,11 +723,13 @@ public class panelVendedores extends javax.swing.JPanel {
             alert.setContentText("Supero el Limite de caracteres.+" +
                     " \n El limite de caracteres es de 35");
             alert.showAndWait();
-            txt_nombre.deleteText(35,txt_nombre.getText().length());
-        }
-       
-
+            txtnombre.deleteText(35,txtnombre.getText().length());
+        }           
     }
+        
+         public void limite2(TextField txtcelular1){
+      }
+        
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         txtidvendedor1.setEnabled(false);
         cbojornada.setEnabled(true);
@@ -726,7 +770,12 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_txtbuscarKeyTyped
 
     private void txtcelular1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcelular1KeyTyped
-            char validar=evt.getKeyChar();
+        
+        
+        validarCaracteres(evt);
+        char validar=evt.getKeyChar();
+        
+      
         
         if(Character.isLetter(validar)){
             getToolkit().beep();
@@ -753,6 +802,12 @@ public class panelVendedores extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Ingresar solo letras");
                     
         }
+        
+         if(txtcelular1.getText().charAt(0) == 1 || txtcelular1.getText().charAt(0) == 4 || txtcelular1.getText().charAt(0) == 5
+                || txtcelular1.getText().charAt(0) == 6 || txtcelular1.getText().charAt(0) == 7 || txtcelular1.getText().charAt(0) == 0){
+            JOptionPane.showMessageDialog(null, "Ingrese un número de celular válido");
+            txtcelular1.setText("");
+        }  
     }//GEN-LAST:event_txtcorreoKeyTyped
 
     private void txtdireccion1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdireccion1KeyTyped
@@ -762,7 +817,8 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_txtdireccion1KeyTyped
 
     private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
-          char validar=evt.getKeyChar();
+        validarCaracteres(evt);
+        char validar=evt.getKeyChar();
         
         if(Character.isDigit(validar)){
             getToolkit().beep();
@@ -777,7 +833,8 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_txtnombreKeyTyped
 
     private void txtsueldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsueldoKeyTyped
-            char validar=evt.getKeyChar();
+            validarCaracteres(evt);
+        char validar=evt.getKeyChar();
         
         if(Character.isLetter(validar)){
             getToolkit().beep();
@@ -797,7 +854,8 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_txtsueldoKeyReleased
 
     private void txtdocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdocumentoKeyTyped
-            char validar=evt.getKeyChar();
+         validarCaracteres(evt);  
+        char validar=evt.getKeyChar();
         
         if(Character.isLetter(validar)){
             getToolkit().beep();
@@ -817,7 +875,8 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_txtcorreoFocusLost
 
     private void txtcelular2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcelular2KeyTyped
-             char validar=evt.getKeyChar();
+         validarCaracteres(evt); 
+        char validar=evt.getKeyChar();
         
         if(Character.isLetter(validar)){
             getToolkit().beep();
@@ -830,6 +889,21 @@ public class panelVendedores extends javax.swing.JPanel {
             evt.consume();
         }
     }//GEN-LAST:event_txtcelular2KeyTyped
+
+    private void txtcelular1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtcelular1FocusLost
+       
+        else if(txtcelular1.getText().length() < 8){
+          JOptionPane.showMessageDialog(null, "El celular debe contener 8 digitos");
+          
+           txtcelular1.setText("");
+        }
+    }//GEN-LAST:event_txtcelular1FocusLost
+
+    private void txtdocumentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtdocumentoFocusLost
+      if (cbodocu.getSelectedIndex() == 3){
+          
+      }
+    }//GEN-LAST:event_txtdocumentoFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

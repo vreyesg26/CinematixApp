@@ -5,6 +5,7 @@
  */
 package JFrames;
 
+import Datos.Conexion;
 import Tipografia.Fuente;
 import java.awt.Color;
 import java.sql.Connection;
@@ -159,26 +160,47 @@ public class LoginAdmin extends javax.swing.JFrame {
 
    
     private void btninicioaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninicioaActionPerformed
-        try {
-            cn = DriverManager.getConnection(url,user,Contrasena);
-            stmt = cn.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM usuarios WHERE Correo = '"+txtusuario.getText()+"'");
-            rs.next();
-            if(rs.getString("Contrasena").equals(txtpassword.getText())){
-                JOptionPane.showMessageDialog(null, "Bienvenido a CineMatix");
-            }else{
-                JOptionPane.showMessageDialog(null, "Datos incorrectos, verifique su");
-            }
-             } catch (SQLException ex) {
-            Logger.getLogger(LoginVendedor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        AdminDashboard ini = new AdminDashboard();
-        ini.setVisible(true);
-        this.dispose();
+        validarAdministradores();
+       
         
         
     }//GEN-LAST:event_btninicioaActionPerformed
 
+    public void validarAdministradores(){
+        Conexion cc = new Conexion();
+        Connection cn = cc.GetConexion();
+        int resultado = 0;
+        
+        try {
+            String user = txtusuario.getText();
+            String pass = String.valueOf(txtpassword.getPassword());
+            
+            String sql = "SELECT * FROM usuarios WHERE Correo = '"+ user +"' and Contrasena'"+pass+"'";
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            
+            System.out.println(sql);
+            
+            if(rs.next()){
+                resultado = 1;
+                if(resultado == 1){
+                    AdminDashboard ini = new AdminDashboard();
+                    ini.setVisible(true);
+                    this.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, intente de nuevo", "Aviso", JOptionPane.WARNING_MESSAGE);
+                    txtusuario.setText("");
+                    txtpassword.setText("");
+                }
+            }
+            
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error de conexión", "Aviso", JOptionPane.WARNING_MESSAGE);
+             txtusuario.setText("");
+             txtpassword.setText("");
+        }
+    }
+    
     private void txtusuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtusuarioKeyTyped
       
       
