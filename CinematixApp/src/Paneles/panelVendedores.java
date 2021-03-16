@@ -196,9 +196,6 @@ public class panelVendedores extends javax.swing.JPanel {
         } catch (SQLException ex){
             Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
         }
-     
-     
-     
     }
 
     /**
@@ -303,7 +300,7 @@ public class panelVendedores extends javax.swing.JPanel {
         L5.setText("CORREO");
         add(L5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 170, -1));
 
-        cbojornada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR", "MATUTINA", "DIURNA", "NOCTURNA" }));
+        cbojornada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR", "MATUTINA", "VESPERTINA", "NOCTURNA" }));
         cbojornada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
         cbojornada.setPreferredSize(new java.awt.Dimension(166, 26));
         cbojornada.addActionListener(new java.awt.event.ActionListener() {
@@ -315,7 +312,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
         cbodocu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR", "TARJETA DE IDENTIDAD ", "PASAPORTE ", "RTN" }));
         cbodocu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
-        add(cbodocu, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 300, 230, 35));
+        add(cbodocu, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 240, 35));
 
         txtbuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtbuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -333,7 +330,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 txtbuscarKeyTyped(evt);
             }
         });
-        add(txtbuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 450, 150, 30));
+        add(txtbuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 435, 232, 29));
 
         tablaVendedores.setBackground(new java.awt.Color(61, 61, 61));
         tablaVendedores.setForeground(new java.awt.Color(255, 255, 255));
@@ -365,7 +362,7 @@ public class panelVendedores extends javax.swing.JPanel {
         tablaVendedores.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tablaVendedores);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 494, 788, 196));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 470, 788, 220));
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VendedoresLT 1.png"))); // NOI18N
         add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 24, -1, 40));
@@ -422,7 +419,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 btnGuardarActionPerformed(evt);
             }
         });
-        add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 390, 132, 35));
+        add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, 132, 35));
 
         btnEditar.setBackground(new java.awt.Color(81, 81, 81));
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoEditar.png"))); // NOI18N
@@ -436,7 +433,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 btnEditarActionPerformed(evt);
             }
         });
-        add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, 132, 35));
+        add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, 132, 35));
 
         btnEliminar.setBackground(new java.awt.Color(81, 81, 81));
         btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoEliminar.png"))); // NOI18N
@@ -450,7 +447,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 btnEliminarActionPerformed(evt);
             }
         });
-        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 390, 132, 35));
+        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 380, 132, 35));
 
         btnNuevo.setBackground(new java.awt.Color(81, 81, 81));
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoNuevo.png"))); // NOI18N
@@ -464,7 +461,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 btnNuevoActionPerformed(evt);
             }
         });
-        add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 132, 35));
+        add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 132, 35));
 
         txtdireccion1.setForeground(new java.awt.Color(0, 0, 0));
         txtdireccion1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -479,8 +476,8 @@ public class panelVendedores extends javax.swing.JPanel {
         L7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         L7.setForeground(new java.awt.Color(255, 255, 255));
         L7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        L7.setText("BUSCAR");
-        add(L7, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 460, 122, -1));
+        L7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoBuscar.png"))); // NOI18N
+        add(L7, new org.netbeans.lib.awtextra.AbsoluteConstraints(525, 435, 29, 29));
 
         txtsueldo.setForeground(new java.awt.Color(0, 0, 0));
         txtsueldo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -598,9 +595,8 @@ public class panelVendedores extends javax.swing.JPanel {
             }
             txtcorreo.setText(cor);
         }
-        else
-        {
-           JOptionPane.showMessageDialog(null, "Elija una fila...llene la Tabla");
+        else {
+           JOptionPane.showMessageDialog(null, "Debe seleccionar una fila");
         }
     }//GEN-LAST:event_menuModificarActionPerformed
 

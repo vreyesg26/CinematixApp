@@ -57,8 +57,8 @@ public class LoginAdmin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btninicioa = new javax.swing.JButton();
         btnCerrar = new javax.swing.JLabel();
+        btninicioa = new javax.swing.JButton();
         txtusuario = new javax.swing.JTextField();
         txtpassword = new javax.swing.JPasswordField();
         btninicio = new javax.swing.JLabel();
@@ -74,14 +74,6 @@ public class LoginAdmin extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btninicioa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btninicioa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btninicioaActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btninicioa, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 160, 40));
-
         btnCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -89,6 +81,18 @@ public class LoginAdmin extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(301, 70, 40, 40));
+
+        btninicioa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BtnIniciarSesión.png"))); // NOI18N
+        btninicioa.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btninicioa.setOpaque(false);
+        btninicioa.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BtnIniciarSesión2.png"))); // NOI18N
+        btninicioa.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BtnIniciarSesión2.png"))); // NOI18N
+        btninicioa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btninicioaActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btninicioa, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 390, 150, 40));
 
         txtusuario.setBackground(new java.awt.Color(0, 0, 0));
         txtusuario.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
@@ -133,7 +137,34 @@ public class LoginAdmin extends javax.swing.JFrame {
        btninicioa.setContentAreaFilled(false);
        btninicioa.setBorderPainted(false);
    }
-    
+  
+   public void validarAdministradores(){
+        Conexion cc = new Conexion();
+        Connection cn = cc.GetConexion();
+        String user = txtusuario.getText();
+        String pass = String.valueOf(txtpassword.getPassword());
+        String sql = "SELECT * FROM usuarios WHERE Usuario = '"+ user +"' and Contrasena = '"+ pass +"'";
+        
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);     
+            if(rs.next()){
+                AdminDashboard ini = new AdminDashboard();
+                ini.setVisible(true);
+                this.dispose();
+            } else{
+                JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, intente de nuevo", "Aviso", JOptionPane.WARNING_MESSAGE);
+                txtusuario.setText("");
+                txtpassword.setText("");
+            }
+            
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error de conexión " + e.getMessage(), "Aviso", JOptionPane.WARNING_MESSAGE);
+             txtusuario.setText("");
+             txtpassword.setText("");
+        }
+    }
+   
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
                 for (double i=0.0; i<=1.0; i=i+0.1){
             String val = i+"";
@@ -160,46 +191,9 @@ public class LoginAdmin extends javax.swing.JFrame {
 
    
     private void btninicioaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninicioaActionPerformed
-        validarAdministradores();
-       
-        
-        
+        validarAdministradores();    
     }//GEN-LAST:event_btninicioaActionPerformed
 
-    public void validarAdministradores(){
-        Conexion cc = new Conexion();
-        Connection cn = cc.GetConexion();
-        int resultado = 0;
-        
-        try {
-            String user = txtusuario.getText();
-            String pass = String.valueOf(txtpassword.getPassword());
-            
-            String sql = "SELECT * FROM usuarios WHERE Correo = '"+ user +"' and Contrasena'"+pass+"'";
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            
-            System.out.println(sql);
-            
-            if(rs.next()){
-                resultado = 1;
-                if(resultado == 1){
-                    AdminDashboard ini = new AdminDashboard();
-                    ini.setVisible(true);
-                    this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, intente de nuevo", "Aviso", JOptionPane.WARNING_MESSAGE);
-                    txtusuario.setText("");
-                    txtpassword.setText("");
-                }
-            }
-            
-        } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error de conexión", "Aviso", JOptionPane.WARNING_MESSAGE);
-             txtusuario.setText("");
-             txtpassword.setText("");
-        }
-    }
     
     private void txtusuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtusuarioKeyTyped
       

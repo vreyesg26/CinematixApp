@@ -10,8 +10,6 @@ import Paneles.panelPeliculas;
 import Paneles.panelVendedores;
 import Tipografia.Fuente;
 import java.awt.Color;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import paneles.CambiaPanel;
 
