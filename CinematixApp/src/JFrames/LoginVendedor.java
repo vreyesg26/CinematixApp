@@ -111,6 +111,7 @@ public class LoginVendedor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    int intentos = 3;
     public void validarVendedores(){
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
@@ -118,21 +119,34 @@ public class LoginVendedor extends javax.swing.JFrame {
         String pass = String.valueOf(txtClave.getPassword());
         String sql = "SELECT * FROM vendedor WHERE Correo = '"+ user +"' and Clave = '"+ pass +"'";
         
-        try {
+        if(txtCorreo.getText().isEmpty() && txtClave.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtClave.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Debes llenar los campos");
+            
+        } else {
+            try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);     
             if(rs.next()){
-                JOptionPane.showMessageDialog(null, "Simon compa");
+                MenuVendedor mv = new MenuVendedor();
+                mv.setVisible(true);
+                this.dispose();
+                
             } else{
-                JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, intente de nuevo", "Aviso", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + --intentos + " intentos", "Aviso", JOptionPane.WARNING_MESSAGE);
                 txtCorreo.setText("");
                 txtClave.setText("");
+                
+                if(intentos == 0){
+                    JOptionPane.showMessageDialog(null, "Ha excedido el numero de intentos para ingresar \n" + "Verifique sus datos de acceso e intente mas tarde", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                    System.exit(0);
+                }
             }
             
         } catch (Exception e) {
              JOptionPane.showMessageDialog(null, "Error de conexión " + e.getMessage(), "Aviso", JOptionPane.WARNING_MESSAGE);
              txtCorreo.setText("");
              txtClave.setText("");
+        }
         }
     }
     
