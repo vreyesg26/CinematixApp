@@ -21,13 +21,7 @@ import javax.swing.JOptionPane;
  * @author TALLER VARELA
  */
 public class LoginAdmin extends javax.swing.JFrame {
-    private Object JOPtionPane;
-    String url = "jdbc:mysql://localhost:3306/cinematix";
-    String user = "root";
-    String Contrasena = "";
-    Connection cn;
-    Statement stmt;
-    ResultSet rs;
+    
 
     /**
      * Creates new form LoginAdmin

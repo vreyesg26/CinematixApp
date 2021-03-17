@@ -1,6 +1,12 @@
 package JFrames;
 
+import Datos.Conexion;
+import Tipografia.Fuente;
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -11,10 +17,20 @@ public class LoginVendedor extends javax.swing.JFrame {
     /**
      * Creates new form LoginVendedor
      */
+    Fuente tipoFuente;
     public LoginVendedor() {
         initComponents();
         transparenciaButton();
         setBackground( new Color (0,0,0,0));
+        TextPrompt prueba = new TextPrompt("INGRESAR CORREO", txtCorreo);
+        TextPrompt pru = new TextPrompt("INGRESAR CLAVE", txtClave);
+        setBackground( new Color (0,0,0,0));  
+        
+        tipoFuente = new Fuente();
+        txtClave.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
+        txtCorreo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
+        prueba.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
+        pru.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
     }
 
     /**
@@ -27,7 +43,9 @@ public class LoginVendedor extends javax.swing.JFrame {
     private void initComponents() {
 
         btninicioa = new javax.swing.JButton();
+        txtCorreo = new javax.swing.JTextField();
         btnCerrar = new javax.swing.JLabel();
+        txtClave = new javax.swing.JPasswordField();
         labelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -55,6 +73,13 @@ public class LoginVendedor extends javax.swing.JFrame {
         });
         getContentPane().add(btninicioa, new org.netbeans.lib.awtextra.AbsoluteConstraints(118, 404, 150, 40));
 
+        txtCorreo.setBackground(new java.awt.Color(0, 0, 0));
+        txtCorreo.setForeground(new java.awt.Color(255, 255, 255));
+        txtCorreo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCorreo.setBorder(null);
+        txtCorreo.setOpaque(false);
+        getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 224, 240, 45));
+
         btnCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCerrar.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -68,6 +93,17 @@ public class LoginVendedor extends javax.swing.JFrame {
         });
         getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 30, 30));
 
+        txtClave.setForeground(new java.awt.Color(255, 255, 255));
+        txtClave.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtClave.setBorder(null);
+        txtClave.setOpaque(false);
+        txtClave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClaveActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 314, 240, 45));
+
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LoginVendedor.png"))); // NOI18N
         getContentPane().add(labelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 360, 508));
 
@@ -75,6 +111,31 @@ public class LoginVendedor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public void validarVendedores(){
+        Conexion cc = new Conexion();
+        Connection cn = cc.GetConexion();
+        String user = txtCorreo.getText();
+        String pass = String.valueOf(txtClave.getPassword());
+        String sql = "SELECT * FROM vendedor WHERE Correo = '"+ user +"' and Clave = '"+ pass +"'";
+        
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);     
+            if(rs.next()){
+                JOptionPane.showMessageDialog(null, "Simon compa");
+            } else{
+                JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, intente de nuevo", "Aviso", JOptionPane.WARNING_MESSAGE);
+                txtCorreo.setText("");
+                txtClave.setText("");
+            }
+            
+        } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error de conexión " + e.getMessage(), "Aviso", JOptionPane.WARNING_MESSAGE);
+             txtCorreo.setText("");
+             txtClave.setText("");
+        }
+    }
+    
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
             for (double i=0.0; i<=1.0; i=i+0.1){
             String val = i+"";
@@ -106,7 +167,12 @@ public class LoginVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarFocusGained
 
     private void btninicioaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninicioaActionPerformed
+        validarVendedores();
     }//GEN-LAST:event_btninicioaActionPerformed
+
+    private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -147,5 +213,7 @@ public class LoginVendedor extends javax.swing.JFrame {
     private javax.swing.JLabel btnCerrar;
     private javax.swing.JButton btninicioa;
     private javax.swing.JLabel labelFondo;
+    private javax.swing.JPasswordField txtClave;
+    private javax.swing.JTextField txtCorreo;
     // End of variables declaration//GEN-END:variables
 }

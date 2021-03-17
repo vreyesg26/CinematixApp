@@ -137,9 +137,9 @@ public class panelVendedores extends javax.swing.JPanel {
     Connection cn = cc.GetConexion();
     
     void cargarData(String valor){
-        String[] titulos = {"IDVendedor", "Nombre", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "Correo"};
-        String[] registros = new String[8];
-        String sql = "SELECT IDVendedor, Nombre, Direccion, Sueldo, TipoJornada, NumeroCelular, NombreDocumento, Correo\n"
+        String[] titulos = {"ID", "Nombre", "Usuario", "Clave", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo"};
+        String[] registros = new String[11];
+        String sql = "SELECT IDVendedor, Nombre, Usuario, Clave , Direccion, Sueldo, TipoJornada, NumeroCelular, NombreDocumento,NumeroDocumento, Correo\n"
                 + "                FROM vendedor INNER JOIN jornadas USING (IDJornada)\n"
                 + "                INNER JOIN tipodocumento USING (IDTipoDocumento)\n"
                 + "                WHERE IDVendedor != 0 ORDER BY IDVendedor";
@@ -154,12 +154,15 @@ public class panelVendedores extends javax.swing.JPanel {
             while(rs.next()){
                 registros[0] = rs.getString("IDVendedor");
                 registros[1] = rs.getString("Nombre");
-                registros[2] = rs.getString("Direccion");
-                registros[3] = rs.getString("Sueldo");
-                registros[4] = rs.getString("TipoJornada");
-                registros[5] = rs.getString("NumeroCelular");
-                registros[6] = rs.getString("NombreDocumento");
-                registros[7] = rs.getString("Correo");
+                registros[2] = rs.getString("Usuario");
+                registros[3] = rs.getString("Clave");
+                registros[4] = rs.getString("Direccion");
+                registros[5] = rs.getString("Sueldo");
+                registros[6] = rs.getString("TipoJornada");
+                registros[7] = rs.getString("NumeroCelular");
+                registros[8] = rs.getString("NombreDocumento");
+                registros[9] = rs.getString("NumeroDocumento");
+                registros[10] = rs.getString("Correo");
                 model.addRow(registros);
             }
             
@@ -170,8 +173,8 @@ public class panelVendedores extends javax.swing.JPanel {
     }
     
    void buscarData(String valor){
-         String[] titulos = {"IDVendedor", "Nombre", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "Correo"};
-        String[] registros = new String[8];
+        String[] titulos = {"ID", "Nombre", "Usuario", "Clave", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo"};
+        String[] registros = new String[11];
         String sql = "SELECT * FROM vendedor WHERE CONCAT (IDVendedor, ' ', Nombre) LIKE '%"+ valor +"%'";
         
         model = new DefaultTableModel(null, titulos);
@@ -183,12 +186,15 @@ public class panelVendedores extends javax.swing.JPanel {
             while(rs.next()){
                 registros[0] = rs.getString("IDVendedor");
                 registros[1] = rs.getString("Nombre");
-                registros[2] = rs.getString("Direccion");
-                registros[3] = rs.getString("Sueldo");
-                registros[4] = rs.getString("IDJornada");
-                registros[5] = rs.getString("NumeroCelular");
-                registros[6] = rs.getString("IDTipoDocumento");
-                registros[7] = rs.getString("Correo");
+                registros[2] = rs.getString("Usuario");
+                registros[3] = rs.getString("Clave");
+                registros[4] = rs.getString("Direccion");
+                registros[5] = rs.getString("Sueldo");
+                registros[6] = rs.getString("IDJornada");
+                registros[7] = rs.getString("NumeroCelular");
+                registros[8] = rs.getString("IDTipoDocumento");
+                registros[9] = rs.getString("NumeroDocumento");
+                registros[10] = rs.getString("Correo");
                 model.addRow(registros);
             }
             
@@ -275,7 +281,7 @@ public class panelVendedores extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setText("ID JORNADA");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 340, 156, -1));
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 340, 290, -1));
 
         L4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         L4.setForeground(new java.awt.Color(255, 255, 255));
@@ -292,7 +298,7 @@ public class panelVendedores extends javax.swing.JPanel {
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("TIPO DOCUMENTO");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 340, 166, -1));
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 340, 230, -1));
 
         L5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         L5.setForeground(new java.awt.Color(255, 255, 255));
