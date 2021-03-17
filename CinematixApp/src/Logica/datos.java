@@ -21,6 +21,7 @@ public class datos extends Conexion {
     private float Sueldo;
     private int IDJornada;
     private int NumeroCelular;
+    private int NumeroDocumento;
     private int IDTipoDocumento;
     private String Corrreo;
 
@@ -29,7 +30,15 @@ public class datos extends Conexion {
         return IDVendedor;
     }
 
-    public void setIDVendedor(int IDVendedor) {
+    public void setIDVendedor(int NumeroDocumento) {
+        this.IDVendedor = IDVendedor;
+    }
+    
+     public int getNumeroDocumento() {
+        return IDVendedor;
+    }
+
+    public void setNumeroDocumento(int NumeroDocumento) {
         this.IDVendedor = IDVendedor;
     }
 

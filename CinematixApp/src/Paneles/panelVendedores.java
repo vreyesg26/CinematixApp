@@ -636,6 +636,7 @@ public class panelVendedores extends javax.swing.JPanel {
             data.setDireccion(txtdireccion1.getText());
             data.setCorrreo(txtcorreo.getText());
             data.setSueldo(Float.parseFloat(txtsueldo.getText()));
+            data.setSueldo(Integer.parseInt(txtdocumento.getText()));
             data.setIDJornada(cbojornada.getSelectedIndex());
             data.setNumeroCelular(Integer.parseInt(txtcelular1.getText()));
             data.setIDTipoDocumento(cbodocu.getSelectedIndex());
@@ -679,6 +680,7 @@ public class panelVendedores extends javax.swing.JPanel {
             pro.setNombre(txtnombre.getText());
             pro.setDireccion(txtdireccion1.getText());
             pro.setSueldo(Integer.parseInt(txtsueldo.getText()));
+            pro.setNumeroDocumento(Integer.parseInt(txtdocumento.getText()));
             pro.setIDJornada(cbojornada.getSelectedIndex());
             pro.setNumeroCelular(Integer.parseInt(txtcelular1.getText()));
             pro.setIDTipoDocumento(cbodocu.getSelectedIndex());
