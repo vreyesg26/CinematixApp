@@ -174,8 +174,8 @@ public class MenuVendedor extends javax.swing.JFrame {
         jComboBoxHora.removeAllItems();
     }
 
-    void calculo() {
-        
+    void calculo()  {
+
         double cantidadAdultos = 0.0, cantidadNiños = 0.0;
         double precioAdultos = 0.0, precioNiños = 0.0;
         double TotalN = 0, TotalA = 0, Total;
@@ -255,6 +255,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         btnCerrar = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
@@ -848,7 +849,7 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnCerrar;
-    public final javax.swing.ButtonGroup buttonGroup1 = new javax.swing.ButtonGroup();
+    public static javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel fondo;
     private javax.swing.JButton jButtonContinuar;
     public static javax.swing.JComboBox<String> jComboBoxHora;
