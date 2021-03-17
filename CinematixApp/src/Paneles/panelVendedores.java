@@ -119,12 +119,16 @@ public class panelVendedores extends javax.swing.JPanel {
         txtcorreo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         cbojornada.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         cbodocu.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        txtdocumento.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         L1.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         L2.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         L3.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         L4.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         L5.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         L6.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        lbDocumento.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        lbJornada.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        lbNumDocumento.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         
         tablaVendedores.getColumnModel().getColumn(0).setHeaderRenderer(new DecoracionTablas(Color.GRAY,Color.GRAY));
         
@@ -219,10 +223,10 @@ public class panelVendedores extends javax.swing.JPanel {
         L1 = new javax.swing.JLabel();
         L2 = new javax.swing.JLabel();
         L3 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lbJornada = new javax.swing.JLabel();
         L4 = new javax.swing.JLabel();
         L6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        lbDocumento = new javax.swing.JLabel();
         L5 = new javax.swing.JLabel();
         cbojornada = new javax.swing.JComboBox();
         cbodocu = new javax.swing.JComboBox();
@@ -244,7 +248,7 @@ public class panelVendedores extends javax.swing.JPanel {
         txtdocumento = new javax.swing.JTextField();
         txtcelular1 = new javax.swing.JTextField();
         L8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lbNumDocumento = new javax.swing.JLabel();
 
         menuModificar.setText("Modificar");
         menuModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -264,47 +268,47 @@ public class panelVendedores extends javax.swing.JPanel {
         L1.setForeground(new java.awt.Color(255, 255, 255));
         L1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L1.setText("ID VENDEDOR");
-        add(L1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 170, -1));
+        add(L1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 170, -1));
 
         L2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         L2.setForeground(new java.awt.Color(255, 255, 255));
         L2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L2.setText("NOMBRE");
-        add(L2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 170, -1));
+        add(L2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 240, -1));
 
         L3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         L3.setForeground(new java.awt.Color(255, 255, 255));
         L3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L3.setText("DIRECCION");
-        add(L3, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 130, 170, -1));
+        add(L3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 290, -1));
 
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("ID JORNADA");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 340, 290, -1));
+        lbJornada.setForeground(new java.awt.Color(255, 255, 255));
+        lbJornada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbJornada.setText("ID JORNADA");
+        add(lbJornada, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, 290, -1));
 
         L4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         L4.setForeground(new java.awt.Color(255, 255, 255));
         L4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L4.setText("SUELDO");
-        add(L4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 170, -1));
+        add(L4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 170, -1));
 
         L6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         L6.setForeground(new java.awt.Color(255, 255, 255));
         L6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L6.setText("CELULAR 2");
-        add(L6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 230, 170, -1));
+        add(L6, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 230, 130, -1));
 
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setText("TIPO DOCUMENTO");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 340, 230, -1));
+        lbDocumento.setForeground(new java.awt.Color(255, 255, 255));
+        lbDocumento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbDocumento.setText("TIPO DOCUMENTO");
+        add(lbDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 240, -1));
 
         L5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         L5.setForeground(new java.awt.Color(255, 255, 255));
         L5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L5.setText("CORREO");
-        add(L5, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 230, 170, -1));
+        add(L5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 240, -1));
 
         cbojornada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR", "MATUTINA", "VESPERTINA", "NOCTURNA" }));
         cbojornada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
@@ -314,11 +318,11 @@ public class panelVendedores extends javax.swing.JPanel {
                 cbojornadaActionPerformed(evt);
             }
         });
-        add(cbojornada, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 290, 35));
+        add(cbojornada, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 290, 290, 35));
 
         cbodocu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR", "TARJETA DE IDENTIDAD ", "PASAPORTE ", "RTN" }));
         cbodocu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
-        add(cbodocu, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 240, 35));
+        add(cbodocu, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 240, 35));
 
         txtbuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtbuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -373,12 +377,12 @@ public class panelVendedores extends javax.swing.JPanel {
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VendedoresLT 1.png"))); // NOI18N
         add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 24, -1, 40));
 
-        txtidvendedor1.setForeground(new java.awt.Color(0, 0, 0));
+        txtidvendedor1.setForeground(new java.awt.Color(255, 255, 255));
         txtidvendedor1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtidvendedor1.setOpaque(false);
         add(txtidvendedor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 170, 35));
 
-        txtcelular2.setForeground(new java.awt.Color(0, 0, 0));
+        txtcelular2.setForeground(new java.awt.Color(255, 255, 255));
         txtcelular2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtcelular2.setOpaque(false);
         txtcelular2.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -388,7 +392,7 @@ public class panelVendedores extends javax.swing.JPanel {
         });
         add(txtcelular2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 190, 130, 35));
 
-        txtnombre.setForeground(new java.awt.Color(0, 0, 0));
+        txtnombre.setForeground(new java.awt.Color(255, 255, 255));
         txtnombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtnombre.setOpaque(false);
         txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -398,7 +402,7 @@ public class panelVendedores extends javax.swing.JPanel {
         });
         add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 240, 35));
 
-        txtcorreo.setForeground(new java.awt.Color(0, 0, 0));
+        txtcorreo.setForeground(new java.awt.Color(255, 255, 255));
         txtcorreo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtcorreo.setOpaque(false);
         txtcorreo.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -469,7 +473,7 @@ public class panelVendedores extends javax.swing.JPanel {
         });
         add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 132, 35));
 
-        txtdireccion1.setForeground(new java.awt.Color(0, 0, 0));
+        txtdireccion1.setForeground(new java.awt.Color(255, 255, 255));
         txtdireccion1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtdireccion1.setOpaque(false);
         txtdireccion1.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -485,7 +489,7 @@ public class panelVendedores extends javax.swing.JPanel {
         L7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoBuscar.png"))); // NOI18N
         add(L7, new org.netbeans.lib.awtextra.AbsoluteConstraints(525, 435, 29, 29));
 
-        txtsueldo.setForeground(new java.awt.Color(0, 0, 0));
+        txtsueldo.setForeground(new java.awt.Color(255, 255, 255));
         txtsueldo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtsueldo.setOpaque(false);
         txtsueldo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -498,7 +502,7 @@ public class panelVendedores extends javax.swing.JPanel {
         });
         add(txtsueldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 170, 35));
 
-        txtdocumento.setForeground(new java.awt.Color(0, 0, 0));
+        txtdocumento.setForeground(new java.awt.Color(255, 255, 255));
         txtdocumento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtdocumento.setOpaque(false);
         txtdocumento.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -516,9 +520,9 @@ public class panelVendedores extends javax.swing.JPanel {
                 txtdocumentoKeyTyped(evt);
             }
         });
-        add(txtdocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 170, 35));
+        add(txtdocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 170, 35));
 
-        txtcelular1.setForeground(new java.awt.Color(0, 0, 0));
+        txtcelular1.setForeground(new java.awt.Color(255, 255, 255));
         txtcelular1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtcelular1.setOpaque(false);
         txtcelular1.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -537,12 +541,12 @@ public class panelVendedores extends javax.swing.JPanel {
         L8.setForeground(new java.awt.Color(255, 255, 255));
         L8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         L8.setText("CELULAR");
-        add(L8, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 230, 170, -1));
+        add(L8, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 130, -1));
 
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel9.setText("DATOS DOCUMENTO");
-        add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 166, -1));
+        lbNumDocumento.setForeground(new java.awt.Color(255, 255, 255));
+        lbNumDocumento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbNumDocumento.setText("DATOS DOCUMENTO");
+        add(lbNumDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 170, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void cbojornadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbojornadaActionPerformed
@@ -926,12 +930,12 @@ public class panelVendedores extends javax.swing.JPanel {
     private javax.swing.JComboBox cbodocu;
     private javax.swing.JComboBox cbojornada;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lbDocumento;
+    private javax.swing.JLabel lbJornada;
+    private javax.swing.JLabel lbNumDocumento;
     private javax.swing.JMenuItem menuModificar;
     private javax.swing.JTable tablaVendedores;
     private javax.swing.JTextField txtbuscar;
