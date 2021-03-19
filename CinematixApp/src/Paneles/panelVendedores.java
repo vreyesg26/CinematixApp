@@ -811,11 +811,7 @@ public class panelVendedores extends javax.swing.JPanel {
                     
         }
         
-         if(txtcelular1.getText().charAt(0) == 1 || txtcelular1.getText().charAt(0) == 4 || txtcelular1.getText().charAt(0) == 5
-                || txtcelular1.getText().charAt(0) == 6 || txtcelular1.getText().charAt(0) == 7 || txtcelular1.getText().charAt(0) == 0){
-            JOptionPane.showMessageDialog(null, "Ingrese un número de celular válido");
-            txtcelular1.setText("");
-        }  
+         
     }//GEN-LAST:event_txtcorreoKeyTyped
 
     private void txtdireccion1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdireccion1KeyTyped
@@ -896,6 +892,11 @@ public class panelVendedores extends javax.swing.JPanel {
           if(txtcelular2.getText().length() >= 8){
             evt.consume();
         }
+          if(txtcelular1.getText().charAt(0) == 1 || txtcelular1.getText().charAt(0) == 4 || txtcelular1.getText().charAt(0) == 5
+                || txtcelular1.getText().charAt(0) == 6 || txtcelular1.getText().charAt(0) == 7 || txtcelular1.getText().charAt(0) == 0){
+            JOptionPane.showMessageDialog(null, "Ingrese un número de celular válido");
+            txtcelular1.setText("");
+        }  
     }//GEN-LAST:event_txtcelular2KeyTyped
 
     private void txtcelular1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtcelular1FocusLost
