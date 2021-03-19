@@ -6,6 +6,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -120,34 +121,59 @@ public class LoginVendedor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    int intentos = 3;
+    
     public void validarVendedores(){
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
         String user = txtCorreo.getText();
         String pass = String.valueOf(txtClave.getPassword());
-        String sql = "SELECT * FROM vendedor WHERE Correo = '"+ user +"' and Clave = '"+ pass +"'";
+        String sql = "SELECT * FROM vendedor WHERE Correo = '"+ user +"'";
         
-        if(txtCorreo.getText().isEmpty() || txtClave.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Debe llenar ambos campos");
+        if(txtCorreo.getText().isEmpty() && txtClave.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtClave.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Debes llenar los campos");
+            
         } else {
             try {
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);     
+            ResultSet rs = st.executeQuery(sql); 
+           
+            
             if(rs.next()){
-                JOptionPane.showMessageDialog(null, "Bievenido");
-            } else{
-                --intentos;
-                if(intentos == 0){
-                    JOptionPane.showMessageDialog(null, "Ha llegado al máximo de intentos, intente más tarde");
-                    Inicio in = new Inicio();
-                    in.setVisible(true);
+                int intentos = Integer.parseInt(rs.getString("Intentos_restantes"));
+               //JOptionPane.showMessageDialog(null,"db pass:"+rs.getString("Clave")+" otra pass:" +pass);
+                if(rs.getString("Clave").equals(pass)){
+                    MenuVendedor mv = new MenuVendedor();
+                    mv.setVisible(true);
                     this.dispose();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, le quedan " + intentos + " intentos", "Aviso", JOptionPane.WARNING_MESSAGE);
+                } else{
+                if(intentos <= 0){
+                    JOptionPane.showMessageDialog(null, "Ha excedido el numero de intentos para ingresar \n" + "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                    System.exit(0);
+                }else{
                     txtCorreo.setText("");
                     txtClave.setText("");
+                   try{
+                    String sqlRestar = "UPDATE `vendedor` SET `Intentos_restantes` = ? WHERE `vendedor`.`Correo` = ? ";
+                     PreparedStatement pst=(PreparedStatement) cn.prepareStatement(sqlRestar);
+                     pst.setString(1, String.valueOf(intentos-1));
+                     pst.setString(2, user);
+                     pst.execute();
+                    JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + (intentos - 1) + " intentos", "Aviso", JOptionPane.WARNING_MESSAGE);
+                
+                   }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e);
                 }
+                   
+                }
+                }
+                
+               
+                
+            } else{
+                
+               JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
+                
+               
             }
             
         } catch (Exception e) {
