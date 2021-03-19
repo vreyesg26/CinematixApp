@@ -4,6 +4,7 @@ import Datos.Conexion;
 import Tipografia.Fuente;
 import java.awt.Color;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
@@ -78,6 +79,12 @@ public class LoginVendedor extends javax.swing.JFrame {
         txtCorreo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCorreo.setBorder(null);
         txtCorreo.setOpaque(false);
+        txtCorreo.setSelectedTextColor(new java.awt.Color(255, 255, 255));
+        txtCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCorreoActionPerformed(evt);
+            }
+        });
         getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 224, 240, 45));
 
         btnCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -111,13 +118,13 @@ public class LoginVendedor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    int intentos = 3;
+    
     public void validarVendedores(){
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
         String user = txtCorreo.getText();
         String pass = String.valueOf(txtClave.getPassword());
-        String sql = "SELECT * FROM vendedor WHERE Correo = '"+ user +"' and Clave = '"+ pass +"'";
+        String sql = "SELECT * FROM vendedor WHERE Correo = '"+ user +"'";
         
         if(txtCorreo.getText().isEmpty() && txtClave.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtClave.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Debes llenar los campos");
@@ -125,21 +132,45 @@ public class LoginVendedor extends javax.swing.JFrame {
         } else {
             try {
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);     
+            ResultSet rs = st.executeQuery(sql); 
+           
+            
             if(rs.next()){
-                MenuVendedor mv = new MenuVendedor();
-                mv.setVisible(true);
-                this.dispose();
+                int intentos = Integer.parseInt(rs.getString("Intentos_restantes"));
+               //JOptionPane.showMessageDialog(null,"db pass:"+rs.getString("Clave")+" otra pass:" +pass);
+                if(rs.getString("Clave").equals(pass)){
+                    MenuVendedor mv = new MenuVendedor();
+                    mv.setVisible(true);
+                    this.dispose();
+                } else{
+                if(intentos <= 0){
+                    JOptionPane.showMessageDialog(null, "Ha excedido el numero de intentos para ingresar \n" + "Usuario inactivo, comuniquese con el administrador del sistema", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                    System.exit(0);
+                }else{
+                    txtCorreo.setText("");
+                    txtClave.setText("");
+                   try{
+                    String sqlRestar = "UPDATE `vendedor` SET `Intentos_restantes` = ? WHERE `vendedor`.`Correo` = ? ";
+                     PreparedStatement pst=(PreparedStatement) cn.prepareStatement(sqlRestar);
+                     pst.setString(1, String.valueOf(intentos-1));
+                     pst.setString(2, user);
+                     pst.execute();
+                    JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + (intentos - 1) + " intentos", "Aviso", JOptionPane.WARNING_MESSAGE);
+                
+                   }catch(Exception e){
+                    JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e);
+                }
+                   
+                }
+                }
+                
+               
                 
             } else{
-                JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + --intentos + " intentos", "Aviso", JOptionPane.WARNING_MESSAGE);
-                txtCorreo.setText("");
-                txtClave.setText("");
                 
-                if(intentos == 0){
-                    JOptionPane.showMessageDialog(null, "Ha excedido el numero de intentos para ingresar \n" + "Verifique sus datos de acceso e intente mas tarde", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
-                    System.exit(0);
-                }
+               JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
+                
+               
             }
             
         } catch (Exception e) {
@@ -187,6 +218,10 @@ public class LoginVendedor extends javax.swing.JFrame {
     private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtClaveActionPerformed
+
+    private void txtCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCorreoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCorreoActionPerformed
 
     /**
      * @param args the command line arguments
