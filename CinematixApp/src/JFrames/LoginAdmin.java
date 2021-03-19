@@ -8,6 +8,8 @@ package JFrames;
 import Datos.Conexion;
 import Tipografia.Fuente;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -42,6 +44,12 @@ public class LoginAdmin extends javax.swing.JFrame {
         pru.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
     }
 
+    
+    @Override
+    public Image getIconImage(){
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
+        return retValue;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -59,6 +67,7 @@ public class LoginAdmin extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
+        setIconImage(getIconImage());
         setUndecorated(true);
         setOpacity(0.0F);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -137,7 +146,7 @@ public class LoginAdmin extends javax.swing.JFrame {
         Connection cn = cc.GetConexion();
         String user = txtusuario.getText();
         String pass = String.valueOf(txtpassword.getPassword());
-        String sql = "SELECT * FROM usuarios WHERE Usuario = '"+ user +"' and Contrasena = '"+ pass +"'";
+        String sql = "SELECT * FROM usuarios WHERE Usuario = '" + user + "' and Contrasena = '" + pass + "'";
         
         try {
             Statement st = cn.createStatement();
@@ -160,7 +169,7 @@ public class LoginAdmin extends javax.swing.JFrame {
     }
    
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-                for (double i=0.0; i<=1.0; i=i+0.1){
+            for (double i=0.0; i<=1.0; i=i+0.1){
             String val = i+"";
             float f=Float.valueOf(val);
             this.setOpacity(f);
@@ -185,7 +194,7 @@ public class LoginAdmin extends javax.swing.JFrame {
 
    
     private void btninicioaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninicioaActionPerformed
-        validarAdministradores();    
+        validarAdministradores();
     }//GEN-LAST:event_btninicioaActionPerformed
 
     
@@ -237,5 +246,4 @@ public class LoginAdmin extends javax.swing.JFrame {
     private javax.swing.JTextField txtusuario;
     // End of variables declaration//GEN-END:variables
 
-    
 }

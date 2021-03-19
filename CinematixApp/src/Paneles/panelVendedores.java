@@ -24,6 +24,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -51,33 +52,35 @@ public class panelVendedores extends javax.swing.JPanel {
     
      
     void bloquear(){
-        txtidvendedor1.setEnabled(false);
-        cbojornada.setEnabled(false);
-        txtcelular1.setEnabled(false);
-        txtcelular2.setEnabled(false);
-        txtcorreo.setEnabled(false);  
-        txtdocumento.setEnabled(false); 
-        txtnombre.setEnabled(false);  
-        txtsueldo.setEnabled(false);  
-        txtdireccion1.setEnabled(false);  
+        txtIDVendedor.setEnabled(false);
+        cbJornada.setEnabled(false);
+        txtCelular.setEnabled(false);
+        txtClave.setEnabled(false);
+        txtCorreo.setEnabled(false); 
+        txtUsuario.setEnabled(false);
+        txtNumDocu.setEnabled(false); 
+        txtNombre.setEnabled(false);  
+        txtSueldo.setEnabled(false);  
+        txtDireccion.setEnabled(false);  
         btnEditar.setEnabled(false);
         btnEliminar.setEnabled(false);
         btnGuardar.setEnabled(false);
         btnNuevo.setEnabled(true);
-        cbodocu.setEnabled(false);
+        cbTipoDocu.setEnabled(false);
     }
     
     void limpiarCajas(){
-        txtidvendedor1.setText("");
-        txtcelular1.setText("");
-        txtcorreo.setText("");
-        txtdireccion1.setText("");
-        txtnombre.setText("");
-        txtsueldo.setText("");
-        txtdocumento.setText("");
-        txtcelular2.setText("");
-        cbodocu.setSelectedIndex(0);
-        cbojornada.setSelectedIndex(0);
+        txtIDVendedor.setText("");
+        txtCelular.setText("");
+        txtCorreo.setText("");
+        txtDireccion.setText("");
+        txtNombre.setText("");
+        txtSueldo.setText("");
+        txtUsuario.setText("");
+        txtNumDocu.setText("");
+        txtClave.setText("");
+        cbTipoDocu.setSelectedIndex(0);
+        cbJornada.setSelectedIndex(0);
     }
     
     public void numeroshol(){
@@ -111,27 +114,42 @@ public class panelVendedores extends javax.swing.JPanel {
         cargarData("");
         
         tipoFuente = new Fuente();
-        txtnombre.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        txtcelular2.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        txtsueldo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        txtbuscar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        txtidvendedor1.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        txtcorreo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        cbojornada.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        cbodocu.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        txtdocumento.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        L1.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        L2.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        L3.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        L4.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        L5.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        L6.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        lbDocumento.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        lbJornada.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        lbNumDocumento.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        txtIDVendedor.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        txtNombre.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        txtUsuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        txtClave.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        txtDireccion.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        txtSueldo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        cbJornada.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        txtCelular.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        cbTipoDocu.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        txtCorreo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        txtNumDocu.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        txtBuscar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        tablaVendedores.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        lb1.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lb2.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lb3.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lb4.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lb5.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lb6.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lb7.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lb8.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lb9.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lb10.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lb11.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         
-        tablaVendedores.getColumnModel().getColumn(0).setHeaderRenderer(new DecoracionTablas(Color.GRAY,Color.GRAY));
+        btnGuardar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        btnEditar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        btnEliminar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         
+        TableColumnModel anchoColumnas = tablaVendedores.getColumnModel();
+        anchoColumnas.getColumn(0).setPreferredWidth(40);
+        anchoColumnas.getColumn(1).setPreferredWidth(110);
+        anchoColumnas.getColumn(3).setPreferredWidth(110);
+        anchoColumnas.getColumn(4).setPreferredWidth(160);
+        anchoColumnas.getColumn(6).setPreferredWidth(120);
     }
     
     ResultSet rs;
@@ -139,11 +157,10 @@ public class panelVendedores extends javax.swing.JPanel {
     DefaultTableModel model;
     Conexion cc = new Conexion();
     Connection cn = cc.GetConexion();
-    
     void cargarData(String valor){
         String[] titulos = {"ID", "Nombre", "Usuario", "Clave", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo"};
         String[] registros = new String[11];
-        String sql = "SELECT IDVendedor, Nombre, Usuario, Clave , Direccion, Sueldo, TipoJornada, NumeroCelular, NombreDocumento,NumeroDocumento, Correo\n"
+        String sql = "SELECT IDVendedor, Nombre, Usuario, Clave , Direccion, Sueldo, TipoJornada, NumeroCelular, NombreDocumento, NumeroDocumento, Correo\n"
                 + "                FROM vendedor INNER JOIN jornadas USING (IDJornada)\n"
                 + "                INNER JOIN tipodocumento USING (IDTipoDocumento)\n"
                 + "                WHERE IDVendedor != 0 ORDER BY IDVendedor";
@@ -179,7 +196,11 @@ public class panelVendedores extends javax.swing.JPanel {
    void buscarData(String valor){
         String[] titulos = {"ID", "Nombre", "Usuario", "Clave", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo"};
         String[] registros = new String[11];
-        String sql = "SELECT * FROM vendedor WHERE CONCAT (IDVendedor, ' ', Nombre) LIKE '%"+ valor +"%'";
+        //String sql = "SELECT * FROM vendedor WHERE CONCAT (IDVendedor, ' ', Nombre) LIKE '%"+ valor +"%'";
+        String sql = "SELECT IDVendedor, Nombre, Usuario, Clave , Direccion, Sueldo, TipoJornada, NumeroCelular, NombreDocumento, NumeroDocumento, Correo\n"
+                + "                FROM vendedor INNER JOIN jornadas USING (IDJornada)\n"
+                + "                INNER JOIN tipodocumento USING (IDTipoDocumento)\n"
+                + "                WHERE CONCAT (IDVendedor, ' ', Nombre) LIKE '%"+ valor +"%'";
         
         model = new DefaultTableModel(null, titulos);
         
@@ -194,15 +215,22 @@ public class panelVendedores extends javax.swing.JPanel {
                 registros[3] = rs.getString("Clave");
                 registros[4] = rs.getString("Direccion");
                 registros[5] = rs.getString("Sueldo");
-                registros[6] = rs.getString("IDJornada");
+                registros[6] = rs.getString("TipoJornada");
                 registros[7] = rs.getString("NumeroCelular");
-                registros[8] = rs.getString("IDTipoDocumento");
+                registros[8] = rs.getString("NombreDocumento");
                 registros[9] = rs.getString("NumeroDocumento");
                 registros[10] = rs.getString("Correo");
                 model.addRow(registros);
             }
             
             tablaVendedores.setModel(model);
+            
+            TableColumnModel anchoColumnas = tablaVendedores.getColumnModel();
+            anchoColumnas.getColumn(0).setPreferredWidth(40);
+            anchoColumnas.getColumn(1).setPreferredWidth(110);
+            anchoColumnas.getColumn(3).setPreferredWidth(110);
+            anchoColumnas.getColumn(4).setPreferredWidth(160);
+            anchoColumnas.getColumn(6).setPreferredWidth(120);
         } catch (SQLException ex){
             Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -220,35 +248,37 @@ public class panelVendedores extends javax.swing.JPanel {
         jScrollBar1 = new javax.swing.JScrollBar();
         jPopupMenu1 = new javax.swing.JPopupMenu();
         menuModificar = new javax.swing.JMenuItem();
-        L1 = new javax.swing.JLabel();
-        L2 = new javax.swing.JLabel();
-        L3 = new javax.swing.JLabel();
-        lbJornada = new javax.swing.JLabel();
-        L4 = new javax.swing.JLabel();
-        L6 = new javax.swing.JLabel();
-        lbDocumento = new javax.swing.JLabel();
-        L5 = new javax.swing.JLabel();
-        cbojornada = new javax.swing.JComboBox();
-        cbodocu = new javax.swing.JComboBox();
-        txtbuscar = new javax.swing.JTextField();
+        lb1 = new javax.swing.JLabel();
+        lb2 = new javax.swing.JLabel();
+        lb3 = new javax.swing.JLabel();
+        lb4 = new javax.swing.JLabel();
+        lb5 = new javax.swing.JLabel();
+        lb6 = new javax.swing.JLabel();
+        lb7 = new javax.swing.JLabel();
+        lb8 = new javax.swing.JLabel();
+        lb9 = new javax.swing.JLabel();
+        lb10 = new javax.swing.JLabel();
+        lb11 = new javax.swing.JLabel();
+        cbJornada = new javax.swing.JComboBox();
+        cbTipoDocu = new javax.swing.JComboBox();
+        txtBuscar = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaVendedores = new javax.swing.JTable();
         jLabel10 = new javax.swing.JLabel();
-        txtidvendedor1 = new javax.swing.JTextField();
-        txtcelular2 = new javax.swing.JTextField();
-        txtnombre = new javax.swing.JTextField();
-        txtcorreo = new javax.swing.JTextField();
+        txtIDVendedor = new javax.swing.JTextField();
+        txtClave = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
         btnGuardar = new rojerusan.RSButtonHover();
         btnEditar = new rojerusan.RSButtonHover();
         btnEliminar = new rojerusan.RSButtonHover();
         btnNuevo = new rojerusan.RSButtonHover();
-        txtdireccion1 = new javax.swing.JTextField();
-        L7 = new javax.swing.JLabel();
-        txtsueldo = new javax.swing.JTextField();
-        txtdocumento = new javax.swing.JTextField();
-        txtcelular1 = new javax.swing.JTextField();
-        L8 = new javax.swing.JLabel();
-        lbNumDocumento = new javax.swing.JLabel();
+        txtDireccion = new javax.swing.JTextField();
+        lbLupa = new javax.swing.JLabel();
+        txtSueldo = new javax.swing.JTextField();
+        txtNumDocu = new javax.swing.JTextField();
+        txtCelular = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
 
         menuModificar.setText("Modificar");
         menuModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -259,88 +289,94 @@ public class panelVendedores extends javax.swing.JPanel {
         jPopupMenu1.add(menuModificar);
 
         setBackground(new java.awt.Color(61, 61, 61));
+        setForeground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(700, 690));
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(800, 690));
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        L1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        L1.setForeground(new java.awt.Color(255, 255, 255));
-        L1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        L1.setText("ID VENDEDOR");
-        add(L1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 170, -1));
+        lb1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb1.setForeground(new java.awt.Color(255, 255, 255));
+        lb1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb1.setText("ID");
 
-        L2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        L2.setForeground(new java.awt.Color(255, 255, 255));
-        L2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        L2.setText("NOMBRE");
-        add(L2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 240, -1));
+        lb2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb2.setForeground(new java.awt.Color(255, 255, 255));
+        lb2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb2.setText("NOMBRE");
 
-        L3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        L3.setForeground(new java.awt.Color(255, 255, 255));
-        L3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        L3.setText("DIRECCION");
-        add(L3, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 130, 290, -1));
+        lb3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb3.setForeground(new java.awt.Color(255, 255, 255));
+        lb3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb3.setText("DIRECCION");
 
-        lbJornada.setForeground(new java.awt.Color(255, 255, 255));
-        lbJornada.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbJornada.setText("ID JORNADA");
-        add(lbJornada, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, 290, -1));
+        lb4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb4.setForeground(new java.awt.Color(255, 255, 255));
+        lb4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb4.setText("CELULAR");
 
-        L4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        L4.setForeground(new java.awt.Color(255, 255, 255));
-        L4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        L4.setText("SUELDO");
-        add(L4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 170, -1));
+        lb5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb5.setForeground(new java.awt.Color(255, 255, 255));
+        lb5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb5.setText("SUELDO");
 
-        L6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        L6.setForeground(new java.awt.Color(255, 255, 255));
-        L6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        L6.setText("CELULAR 2");
-        add(L6, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 230, 130, -1));
+        lb6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb6.setForeground(new java.awt.Color(255, 255, 255));
+        lb6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb6.setText("CORREO");
 
-        lbDocumento.setForeground(new java.awt.Color(255, 255, 255));
-        lbDocumento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbDocumento.setText("TIPO DOCUMENTO");
-        add(lbDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 330, 240, -1));
+        lb7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb7.setForeground(new java.awt.Color(255, 255, 255));
+        lb7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb7.setText("USUARIO");
 
-        L5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        L5.setForeground(new java.awt.Color(255, 255, 255));
-        L5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        L5.setText("CORREO");
-        add(L5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 240, -1));
+        lb8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb8.setForeground(new java.awt.Color(255, 255, 255));
+        lb8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb8.setText("CLAVE");
 
-        cbojornada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR", "MATUTINA", "VESPERTINA", "NOCTURNA" }));
-        cbojornada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
-        cbojornada.setPreferredSize(new java.awt.Dimension(166, 26));
-        cbojornada.addActionListener(new java.awt.event.ActionListener() {
+        lb9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb9.setForeground(new java.awt.Color(255, 255, 255));
+        lb9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb9.setText("TIPO DOCUMENTO");
+
+        lb10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb10.setForeground(new java.awt.Color(255, 255, 255));
+        lb10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb10.setText("DATOS DOCUMENTO");
+
+        lb11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lb11.setForeground(new java.awt.Color(255, 255, 255));
+        lb11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb11.setText("JORNADA");
+
+        cbJornada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR", "MATUTINA", "VESPERTINA", "NOCTURNA" }));
+        cbJornada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
+        cbJornada.setPreferredSize(new java.awt.Dimension(166, 26));
+        cbJornada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbojornadaActionPerformed(evt);
+                cbJornadaActionPerformed(evt);
             }
         });
-        add(cbojornada, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 290, 290, 35));
 
-        cbodocu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR", "TARJETA DE IDENTIDAD ", "PASAPORTE ", "RTN" }));
-        cbodocu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
-        add(cbodocu, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 240, 35));
+        cbTipoDocu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR", "TARJETA DE IDENTIDAD ", "PASAPORTE ", "RTN" }));
+        cbTipoDocu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
 
-        txtbuscar.setForeground(new java.awt.Color(255, 255, 255));
-        txtbuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtbuscar.setOpaque(false);
-        txtbuscar.addActionListener(new java.awt.event.ActionListener() {
+        txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        txtBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBuscar.setOpaque(false);
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtbuscarActionPerformed(evt);
+                txtBuscarActionPerformed(evt);
             }
         });
-        txtbuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtbuscarKeyReleased(evt);
+                txtBuscarKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtbuscarKeyTyped(evt);
+                txtBuscarKeyTyped(evt);
             }
         });
-        add(txtbuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 435, 232, 29));
 
         tablaVendedores.setBackground(new java.awt.Color(61, 61, 61));
         tablaVendedores.setForeground(new java.awt.Color(255, 255, 255));
@@ -366,56 +402,51 @@ public class panelVendedores extends javax.swing.JPanel {
                 "IDVendedor", "Nombre", "Direccion", "Sueldo", "IDJornada", "NumeroCelular", "IDTipoDocumento", "Correo"
             }
         ));
+        tablaVendedores.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tablaVendedores.setComponentPopupMenu(jPopupMenu1);
         tablaVendedores.setOpaque(false);
+        tablaVendedores.setRowHeight(30);
         tablaVendedores.setSelectionBackground(new java.awt.Color(29, 29, 29));
         tablaVendedores.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tablaVendedores);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 470, 788, 220));
-
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VendedoresLT 1.png"))); // NOI18N
-        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(209, 24, -1, 40));
 
-        txtidvendedor1.setForeground(new java.awt.Color(255, 255, 255));
-        txtidvendedor1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtidvendedor1.setOpaque(false);
-        add(txtidvendedor1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 170, 35));
+        txtIDVendedor.setForeground(new java.awt.Color(255, 255, 255));
+        txtIDVendedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIDVendedor.setOpaque(false);
 
-        txtcelular2.setForeground(new java.awt.Color(255, 255, 255));
-        txtcelular2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtcelular2.setOpaque(false);
-        txtcelular2.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtClave.setForeground(new java.awt.Color(255, 255, 255));
+        txtClave.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtClave.setOpaque(false);
+        txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtcelular2KeyTyped(evt);
+                txtClaveKeyTyped(evt);
             }
         });
-        add(txtcelular2, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 190, 130, 35));
 
-        txtnombre.setForeground(new java.awt.Color(255, 255, 255));
-        txtnombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtnombre.setOpaque(false);
-        txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNombre.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNombre.setOpaque(false);
+        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtnombreKeyTyped(evt);
+                txtNombreKeyTyped(evt);
             }
         });
-        add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 240, 35));
 
-        txtcorreo.setForeground(new java.awt.Color(255, 255, 255));
-        txtcorreo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtcorreo.setOpaque(false);
-        txtcorreo.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtCorreo.setForeground(new java.awt.Color(255, 255, 255));
+        txtCorreo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCorreo.setOpaque(false);
+        txtCorreo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtcorreoFocusLost(evt);
+                txtCorreoFocusLost(evt);
             }
         });
-        txtcorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtcorreoKeyTyped(evt);
+                txtCorreoKeyTyped(evt);
             }
         });
-        add(txtcorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 240, 35));
 
         btnGuardar.setBackground(new java.awt.Color(81, 81, 81));
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoGuardar.png"))); // NOI18N
@@ -429,11 +460,10 @@ public class panelVendedores extends javax.swing.JPanel {
                 btnGuardarActionPerformed(evt);
             }
         });
-        add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 380, 132, 35));
 
         btnEditar.setBackground(new java.awt.Color(81, 81, 81));
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoEditar.png"))); // NOI18N
-        btnEditar.setText("EDITAR");
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoActualizar.png"))); // NOI18N
+        btnEditar.setText("ACTUALIZAR");
         btnEditar.setBorderPainted(false);
         btnEditar.setColorHover(new java.awt.Color(61, 61, 61));
         btnEditar.setFocusable(false);
@@ -443,11 +473,10 @@ public class panelVendedores extends javax.swing.JPanel {
                 btnEditarActionPerformed(evt);
             }
         });
-        add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 380, 132, 35));
 
         btnEliminar.setBackground(new java.awt.Color(81, 81, 81));
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoEliminar.png"))); // NOI18N
-        btnEliminar.setText("ELIMINAR");
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoDeshabilitar.png"))); // NOI18N
+        btnEliminar.setText("DESHABILITAR");
         btnEliminar.setBorderPainted(false);
         btnEliminar.setColorHover(new java.awt.Color(61, 61, 61));
         btnEliminar.setFocusable(false);
@@ -457,7 +486,6 @@ public class panelVendedores extends javax.swing.JPanel {
                 btnEliminarActionPerformed(evt);
             }
         });
-        add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 380, 132, 35));
 
         btnNuevo.setBackground(new java.awt.Color(81, 81, 81));
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoNuevo.png"))); // NOI18N
@@ -471,139 +499,267 @@ public class panelVendedores extends javax.swing.JPanel {
                 btnNuevoActionPerformed(evt);
             }
         });
-        add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 132, 35));
 
-        txtdireccion1.setForeground(new java.awt.Color(255, 255, 255));
-        txtdireccion1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtdireccion1.setOpaque(false);
-        txtdireccion1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtDireccion.setForeground(new java.awt.Color(255, 255, 255));
+        txtDireccion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDireccion.setOpaque(false);
+        txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtdireccion1KeyTyped(evt);
+                txtDireccionKeyTyped(evt);
             }
         });
-        add(txtdireccion1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 90, 290, 35));
 
-        L7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        L7.setForeground(new java.awt.Color(255, 255, 255));
-        L7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        L7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoBuscar.png"))); // NOI18N
-        add(L7, new org.netbeans.lib.awtextra.AbsoluteConstraints(525, 435, 29, 29));
+        lbLupa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbLupa.setForeground(new java.awt.Color(255, 255, 255));
+        lbLupa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbLupa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoBuscar.png"))); // NOI18N
 
-        txtsueldo.setForeground(new java.awt.Color(255, 255, 255));
-        txtsueldo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtsueldo.setOpaque(false);
-        txtsueldo.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtSueldo.setForeground(new java.awt.Color(255, 255, 255));
+        txtSueldo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtSueldo.setOpaque(false);
+        txtSueldo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtsueldoKeyReleased(evt);
+                txtSueldoKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtsueldoKeyTyped(evt);
+                txtSueldoKeyTyped(evt);
             }
         });
-        add(txtsueldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 170, 35));
 
-        txtdocumento.setForeground(new java.awt.Color(255, 255, 255));
-        txtdocumento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtdocumento.setOpaque(false);
-        txtdocumento.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtNumDocu.setForeground(new java.awt.Color(255, 255, 255));
+        txtNumDocu.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNumDocu.setOpaque(false);
+        txtNumDocu.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtdocumentoFocusLost(evt);
+                txtNumDocuFocusLost(evt);
             }
         });
-        txtdocumento.addActionListener(new java.awt.event.ActionListener() {
+        txtNumDocu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtdocumentoActionPerformed(evt);
+                txtNumDocuActionPerformed(evt);
             }
         });
-        txtdocumento.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNumDocu.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtdocumentoKeyTyped(evt);
+                txtNumDocuKeyTyped(evt);
             }
         });
-        add(txtdocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 170, 35));
 
-        txtcelular1.setForeground(new java.awt.Color(255, 255, 255));
-        txtcelular1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtcelular1.setOpaque(false);
-        txtcelular1.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtCelular.setForeground(new java.awt.Color(255, 255, 255));
+        txtCelular.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCelular.setOpaque(false);
+        txtCelular.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtcelular1FocusLost(evt);
+                txtCelularFocusLost(evt);
             }
         });
-        txtcelular1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtCelular.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtcelular1KeyTyped(evt);
+                txtCelularKeyTyped(evt);
             }
         });
-        add(txtcelular1, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, 130, 35));
 
-        L8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        L8.setForeground(new java.awt.Color(255, 255, 255));
-        L8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        L8.setText("CELULAR");
-        add(L8, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 230, 130, -1));
+        txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        txtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtUsuario.setOpaque(false);
+        txtUsuario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUsuarioKeyTyped(evt);
+            }
+        });
 
-        lbNumDocumento.setForeground(new java.awt.Color(255, 255, 255));
-        lbNumDocumento.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbNumDocumento.setText("DATOS DOCUMENTO");
-        add(lbNumDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 170, -1));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(lb1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtIDVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(122, 122, 122)
+                        .addComponent(jLabel10))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(130, 130, 130)
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(8, 8, 8)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(525, 525, 525)
+                        .addComponent(lbLupa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(6, 6, 6)
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cbTipoDocu, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lb9, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(32, 32, 32)
+                                    .addComponent(lb10, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGap(34, 34, 34)
+                                    .addComponent(txtNumDocu, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGap(28, 28, 28)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(lb11, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(lb7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lb8, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(cbJornada, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(500, 500, 500)
+                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(0, 8, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(txtSueldo)
+                        .addComponent(txtNombre)
+                        .addComponent(lb2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                    .addComponent(lb5, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lb6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtDireccion)
+                    .addComponent(txtCorreo)
+                    .addComponent(lb3, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
+                .addGap(28, 28, 28)
+                .addComponent(lb4, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtIDVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lb1)))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb3)
+                    .addComponent(lb2)
+                    .addComponent(lb4))
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSueldo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb5)
+                    .addComponent(lb6)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lb8)
+                        .addComponent(lb7)))
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbTipoDocu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cbJornada, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtNumDocu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(5, 5, 5)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb9)
+                    .addComponent(lb10)
+                    .addComponent(lb11))
+                .addGap(24, 24, 24)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbLupa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(6, 6, 6)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbojornadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbojornadaActionPerformed
+    private void cbJornadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbJornadaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbojornadaActionPerformed
+    }//GEN-LAST:event_cbJornadaActionPerformed
 
     private void menuModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarActionPerformed
         int fila = tablaVendedores.getSelectedRow();
   
-        if(fila>=0)
-        {
-
+        if(fila>=0){
             btnEditar.setEnabled(true);
             btnEliminar.setEnabled(true);
             btnNuevo.setEnabled(true);
-            txtidvendedor1.setEnabled(false);
-            cbojornada.setEnabled(true);
-            txtcelular2.setEnabled(true);
-            txtcorreo.setEnabled(true);  
-            txtnombre.setEnabled(true);  
-            txtsueldo.setEnabled(true);  
-            txtcorreo.setEnabled(true);  
-            cbodocu.setEnabled(true);
+            txtIDVendedor.setEnabled(false);
+            cbJornada.setEnabled(true);
+            txtClave.setEnabled(true);
+            txtCorreo.setEnabled(true);  
+            txtNombre.setEnabled(true);  
+            txtSueldo.setEnabled(true);  
+            txtCorreo.setEnabled(true);  
+            cbTipoDocu.setEnabled(true);
             btnGuardar.setEnabled(false);
-            txtcelular1.setEnabled(true);
-            txtdireccion1.setEnabled(true);
+            txtCelular.setEnabled(true);
+            txtDireccion.setEnabled(true);
             
             String id=tablaVendedores.getValueAt(fila, 0).toString();
-            String nom=tablaVendedores.getValueAt(fila, 1).toString();
-            String dir=tablaVendedores.getValueAt(fila, 2).toString();
-            String sue=tablaVendedores.getValueAt(fila, 3).toString();
-            String idj=tablaVendedores.getValueAt(fila, 4).toString();
-            String num=tablaVendedores.getValueAt(fila, 5).toString();
-            String idt=tablaVendedores.getValueAt(fila, 6).toString();
-            String cor=tablaVendedores.getValueAt(fila, 7).toString();
+            String nombre=tablaVendedores.getValueAt(fila, 1).toString();
+            String usuario =tablaVendedores.getValueAt(fila, 2).toString();
+            String clave =tablaVendedores.getValueAt(fila, 3).toString();
+            String direccion =tablaVendedores.getValueAt(fila, 4).toString();
+            String sueldo =tablaVendedores.getValueAt(fila, 5).toString();
+            String idJornada = tablaVendedores.getValueAt(fila, 6).toString();
+            String numCelular =tablaVendedores.getValueAt(fila, 7).toString();
+            String idTipoDocumento =tablaVendedores.getValueAt(fila, 8).toString();
+            String numDocumento =tablaVendedores.getValueAt(fila, 9).toString();
+            String correo =tablaVendedores.getValueAt(fila, 10).toString();
             
-            
-            txtidvendedor1.setText(id);
-            txtnombre.setText(nom);
-            txtdireccion1.setText(dir);      
-            txtsueldo.setText(sue);
-            if(idj.contains("Matutina")){
-                cbojornada.setSelectedIndex(1);
-            } else if(idj.contains("Diurna")){
-                cbojornada.setSelectedIndex(2);
-            } else if(idj.contains("Nocturna")){
-                cbojornada.setSelectedIndex(3);
+            txtIDVendedor.setText(id);
+            txtNombre.setText(nombre);
+            txtUsuario.setText(usuario);
+            txtClave.setText(clave);
+            txtDireccion.setText(direccion);      
+            txtSueldo.setText(sueldo);
+            if(idJornada.contains("Matutina")){
+                cbJornada.setSelectedIndex(1);
+            } else if(idJornada.contains("Vespertina")){
+                cbJornada.setSelectedIndex(2);
+            } else if(idJornada.contains("Nocturna")){
+                cbJornada.setSelectedIndex(3);
             }
-            txtcelular1.setText(num);
-            if(idt.contains("Identidad")){
-                cbodocu.setSelectedIndex(1);
-            } else if(idt.contains("Pasaporte")){
-                cbodocu.setSelectedIndex(2);
-            } else if(idt.contains("RTN")){
-                cbodocu.setSelectedIndex(3);
+            txtCelular.setText(numCelular);
+            if(idTipoDocumento.contains("Identidad")){
+                cbTipoDocu.setSelectedIndex(1);
+            } else if(idTipoDocumento.contains("Pasaporte")){
+                cbTipoDocu.setSelectedIndex(2);
+            } else if(idTipoDocumento.contains("RTN")){
+                cbTipoDocu.setSelectedIndex(3);
             }
-            txtcorreo.setText(cor);
+            txtNumDocu.setText(numDocumento);
+            txtCorreo.setText(correo);
         }
         else {
            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila");
@@ -614,42 +770,44 @@ public class panelVendedores extends javax.swing.JPanel {
         btnEditar.setEnabled(true);
         btnEliminar.setEnabled(true);
         btnNuevo.setEnabled(true);
-        txtidvendedor1.setEnabled(false);
+        txtIDVendedor.setEnabled(false);
 
         boolean guardo = true;
         datos data = new datos();
-        if(cbojornada.getSelectedIndex() == 0){
+        if(cbJornada.getSelectedIndex() == 0){
             JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento");
         }
         
-        else if(cbodocu.getSelectedIndex() == 0){
+        else if(cbTipoDocu.getSelectedIndex() == 0){
             JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada");
         }
         
-        else if(txtcelular1.getText().isEmpty() || cbodocu.getSelectedIndex() == 0 || cbojornada.getSelectedIndex() == 0 || txtcorreo.getText().isEmpty() || txtdireccion1.getText().isEmpty() || txtdocumento.getText().isEmpty() || txtnombre.getText().isEmpty() || txtsueldo.getText().isEmpty() || txtcelular2.getText().isEmpty()) {
+        else if(txtCelular.getText().isEmpty() || cbTipoDocu.getSelectedIndex() == 0 || cbJornada.getSelectedIndex() == 0 || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtNumDocu.getText().isEmpty() || txtNombre.getText().isEmpty() || txtSueldo.getText().isEmpty() || txtClave.getText().isEmpty()) {
      
             JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos");
         }
                 
         
-        else if(Integer.parseInt(txtsueldo.getText()) < 8000){
+        else if(Integer.parseInt(txtSueldo.getText()) < 8000){
             JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor");
-             txtsueldo.setText("");
-        }else if(txtcorreo.getText().contains("@") && txtcorreo.getText().contains(".com") || txtcorreo.getText().contains(".hn")){
-            data.setNombre(txtnombre.getText());
-            data.setDireccion(txtdireccion1.getText());
-            data.setCorrreo(txtcorreo.getText());
-            data.setSueldo(Float.parseFloat(txtsueldo.getText()));
-            data.setSueldo(Integer.parseInt(txtdocumento.getText()));
-            data.setIDJornada(cbojornada.getSelectedIndex());
-            data.setNumeroCelular(Integer.parseInt(txtcelular1.getText()));
-            data.setIDTipoDocumento(cbodocu.getSelectedIndex());
-
+             txtSueldo.setText("");
+        }else if(txtCorreo.getText().contains("@") && txtCorreo.getText().contains(".com") || txtCorreo.getText().contains(".hn")){
+            data.setNombre(txtNombre.getText());
+            data.setUsuario(txtUsuario.getText());
+            data.setClave(txtClave.getText());
+            data.setDireccion(txtDireccion.getText());
+            data.setSueldo(Integer.parseInt(txtSueldo.getText()));
+            data.setIDJornada(cbJornada.getSelectedIndex());
+            data.setNumeroCelular(Integer.parseInt(txtCelular.getText()));
+            data.setIDTipoDocumento(cbTipoDocu.getSelectedIndex());
+            data.setNumeroDocumento(txtNumDocu.getText());
+            data.setCorrreo(txtCorreo.getText());
+            
             guardo = data.guardar();
             if (guardo == true) {
                 JOptionPane.showMessageDialog(null, "Datos Guardados Correctamente");
+                cargarData("");
             }
-            cargarData("");
             limpiarCajas();
         }else {
             JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com");
@@ -659,37 +817,38 @@ public class panelVendedores extends javax.swing.JPanel {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         btnNuevo.setEnabled(true);
         boolean edito = true;
-         if(cbojornada.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento");
-        }
-        
-        else if(cbodocu.getSelectedIndex() == 0){
+         if(cbJornada.getSelectedIndex() == 0){
             JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada");
         }
         
-        else if(txtcelular1.getText().isEmpty() || txtcorreo.getText().isEmpty() || txtdireccion1.getText().isEmpty() || txtdocumento.getText().isEmpty() || txtnombre.getText().isEmpty() || txtsueldo.getText().isEmpty() || txtcelular2.getText().isEmpty()) {
+        else if(cbTipoDocu.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento");
+        }
+        
+        else if(txtCelular.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtNumDocu.getText().isEmpty() || txtNombre.getText().isEmpty() || txtSueldo.getText().isEmpty() || txtClave.getText().isEmpty()) {
      
             JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos");
         }
         
-        else if(Integer.parseInt(txtsueldo.getText()) < 8000){
+        else if(Integer.parseInt(txtSueldo.getText()) < 8000){
             JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor");
-             txtsueldo.setText("");
+             txtSueldo.setText("");
         }else 
             
-        if(txtcorreo.getText().contains("@") && txtcorreo.getText().contains(".com") || txtcorreo.getText().contains(".hn")){
+        if(txtCorreo.getText().contains("@") && txtCorreo.getText().contains(".com") || txtCorreo.getText().contains(".hn")){
             
             datos pro = new datos();
-            pro.setIDVendedor(Integer.parseInt(txtidvendedor1.getText()));
-            pro.setNombre(txtnombre.getText());
-            pro.setDireccion(txtdireccion1.getText());
-            pro.setSueldo(Integer.parseInt(txtsueldo.getText()));
-            pro.setNumeroDocumento(Integer.parseInt(txtdocumento.getText()));
-            pro.setIDJornada(cbojornada.getSelectedIndex());
-            pro.setNumeroCelular(Integer.parseInt(txtcelular1.getText()));
-            pro.setIDTipoDocumento(cbodocu.getSelectedIndex());
-            pro.setCorrreo(txtcorreo.getText());
-
+            pro.setIDVendedor(Integer.parseInt(txtIDVendedor.getText()));
+            pro.setNombre(txtNombre.getText());
+            pro.setUsuario(txtUsuario.getText());
+            pro.setClave(txtClave.getText());
+            pro.setDireccion(txtDireccion.getText());
+            pro.setSueldo(Integer.parseInt(txtSueldo.getText()));
+            pro.setIDJornada(cbJornada.getSelectedIndex());
+            pro.setNumeroCelular(Integer.parseInt(txtCelular.getText()));
+            pro.setIDTipoDocumento(cbTipoDocu.getSelectedIndex());
+            pro.setNumeroDocumento(txtNumDocu.getText());
+            pro.setCorrreo(txtCorreo.getText());
             pro.editar();
 
             datos data = new datos();
@@ -704,7 +863,7 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        String sqlElim="DELETE FROM vendedor WHERE IDVendedor='"+txtidvendedor1.getText()+"'";
+        String sqlElim="DELETE FROM vendedor WHERE IDVendedor='"+txtIDVendedor.getText()+"'";
         try {
             PreparedStatement pst = cn.prepareStatement(sqlElim);
             int n=pst.executeUpdate();
@@ -739,45 +898,48 @@ public class panelVendedores extends javax.swing.JPanel {
       }
         
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        txtidvendedor1.setEnabled(false);
-        cbojornada.setEnabled(true);
-        txtcelular1.setEnabled(true);
-        txtcorreo.setEnabled(true);
-        txtnombre.setEnabled(true);
-        txtsueldo.setEnabled(true);
-        txtcorreo.setEnabled(true);
-        txtdireccion1.setEnabled(true);
-        txtdocumento.setEnabled(true);
-        txtcelular2.setEnabled(true);
-        cbodocu.setEnabled(true);
-        txtbuscar.setText("");
-        txtnombre.setText("");
-        txtidvendedor1.setText("");
-        txtbuscar.setText("");
-        txtsueldo.setText("");
-        txtcelular1.setText("");
-        txtcorreo.setText("");
+        txtIDVendedor.setEnabled(false);
+        cbJornada.setEnabled(true);
+        txtCelular.setEnabled(true);
+        txtCorreo.setEnabled(true);
+        txtNombre.setEnabled(true);
+        txtSueldo.setEnabled(true);
+        txtCorreo.setEnabled(true);
+        txtUsuario.setEnabled(true);
+        txtDireccion.setEnabled(true);
+        txtNumDocu.setEnabled(true);
+        txtClave.setEnabled(true);
+        cbTipoDocu.setEnabled(true);
+        txtDireccion.setText("");
+        txtNombre.setText("");
+        txtUsuario.setText("");
+        txtIDVendedor.setText("");
+        txtBuscar.setText("");
+        txtClave.setText("");
+        txtSueldo.setText("");
+        txtCelular.setText("");
+        txtCorreo.setText("");
 
         btnGuardar.setEnabled(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
-    private void txtbuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscarKeyReleased
-        buscarData(txtbuscar.getText());
-    }//GEN-LAST:event_txtbuscarKeyReleased
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        buscarData(txtBuscar.getText());
+    }//GEN-LAST:event_txtBuscarKeyReleased
 
-    private void txtbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtbuscarActionPerformed
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtbuscarActionPerformed
+    }//GEN-LAST:event_txtBuscarActionPerformed
 
-    private void txtdocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdocumentoActionPerformed
+    private void txtNumDocuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNumDocuActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtdocumentoActionPerformed
+    }//GEN-LAST:event_txtNumDocuActionPerformed
 
-    private void txtbuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtbuscarKeyTyped
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
         
-    }//GEN-LAST:event_txtbuscarKeyTyped
+    }//GEN-LAST:event_txtBuscarKeyTyped
 
-    private void txtcelular1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcelular1KeyTyped
+    private void txtCelularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelularKeyTyped
         
         
         validarCaracteres(evt);
@@ -792,35 +954,32 @@ public class panelVendedores extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Ingresar solo numeros");
                     
         }
-        if(txtcelular1.getText().length() >= 8){
+        if(txtCelular.getText().length() >= 8){
             evt.consume();
         }
         
        
                 
-    }//GEN-LAST:event_txtcelular1KeyTyped
+    }//GEN-LAST:event_txtCelularKeyTyped
 
-    private void txtcorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcorreoKeyTyped
-            char validar=evt.getKeyChar();
+    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
+        char validar=evt.getKeyChar();
         
         if(Character.isDigit(validar)){
             getToolkit().beep();
             evt.consume();
-            
             JOptionPane.showMessageDialog(null, "Ingresar solo letras");
                     
         }
-        
-         
-    }//GEN-LAST:event_txtcorreoKeyTyped
+    }//GEN-LAST:event_txtCorreoKeyTyped
 
-    private void txtdireccion1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdireccion1KeyTyped
-        if(txtdireccion1.getText().length() > 50){
+    private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
+        if(txtDireccion.getText().length() > 50){
             evt.consume();
         }
-    }//GEN-LAST:event_txtdireccion1KeyTyped
+    }//GEN-LAST:event_txtDireccionKeyTyped
 
-    private void txtnombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyTyped
+    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         validarCaracteres(evt);
         char validar=evt.getKeyChar();
         
@@ -831,13 +990,13 @@ public class panelVendedores extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Ingresar solo letras");
                     
         }
-        if(txtnombre.getText().length() > 50){
+        if(txtNombre.getText().length() > 50){
             evt.consume();
         }
-    }//GEN-LAST:event_txtnombreKeyTyped
+    }//GEN-LAST:event_txtNombreKeyTyped
 
-    private void txtsueldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsueldoKeyTyped
-            validarCaracteres(evt);
+    private void txtSueldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSueldoKeyTyped
+        validarCaracteres(evt);
         char validar=evt.getKeyChar();
         
         if(Character.isLetter(validar)){
@@ -847,17 +1006,17 @@ public class panelVendedores extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Ingresar solo numeros");
                     
         }
-        if(txtsueldo.getText().length() > 5){
+        if(txtSueldo.getText().length() > 5){
             evt.consume();
         }
         
-    }//GEN-LAST:event_txtsueldoKeyTyped
+    }//GEN-LAST:event_txtSueldoKeyTyped
 
-    private void txtsueldoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtsueldoKeyReleased
+    private void txtSueldoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSueldoKeyReleased
        
-    }//GEN-LAST:event_txtsueldoKeyReleased
+    }//GEN-LAST:event_txtSueldoKeyReleased
 
-    private void txtdocumentoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtdocumentoKeyTyped
+    private void txtNumDocuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumDocuKeyTyped
          validarCaracteres(evt);  
         char validar=evt.getKeyChar();
         
@@ -868,85 +1027,74 @@ public class panelVendedores extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Ingresar solo numeros");
                     
         }
-    }//GEN-LAST:event_txtdocumentoKeyTyped
+    }//GEN-LAST:event_txtNumDocuKeyTyped
 
-    private void txtcorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtcorreoFocusLost
-        if (email(txtcorreo.getText())) {
+    private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost
+        if (email(txtCorreo.getText())) {
             
         }else{
             JOptionPane.showMessageDialog(null, "Correo incorrecto,validar ejem: cinematix@gmail.com");
         }
-    }//GEN-LAST:event_txtcorreoFocusLost
+    }//GEN-LAST:event_txtCorreoFocusLost
 
-    private void txtcelular2KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtcelular2KeyTyped
-         validarCaracteres(evt); 
-        char validar=evt.getKeyChar();
-        
-        if(Character.isLetter(validar)){
-            getToolkit().beep();
-            evt.consume();
-            
-            JOptionPane.showMessageDialog(null, "Ingresar solo numeros");
-                    
-        }
-          if(txtcelular2.getText().length() >= 8){
-            evt.consume();
-        }
-          if(txtcelular1.getText().charAt(0) == 1 || txtcelular1.getText().charAt(0) == 4 || txtcelular1.getText().charAt(0) == 5
-                || txtcelular1.getText().charAt(0) == 6 || txtcelular1.getText().charAt(0) == 7 || txtcelular1.getText().charAt(0) == 0){
-            JOptionPane.showMessageDialog(null, "Ingrese un número de celular válido");
-            txtcelular1.setText("");
-        }  
-    }//GEN-LAST:event_txtcelular2KeyTyped
+    private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
+        validarCaracteres(evt);
+    }//GEN-LAST:event_txtClaveKeyTyped
 
-    private void txtcelular1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtcelular1FocusLost
+    private void txtCelularFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelularFocusLost
        
-        if(txtcelular1.getText().length() < 8){
+        if(txtCelular.getText().length() < 8){
           JOptionPane.showMessageDialog(null, "El celular debe contener 8 digitos");
           
-           txtcelular1.setText("");
+           txtCelular.setText("");
         }
-    }//GEN-LAST:event_txtcelular1FocusLost
+    }//GEN-LAST:event_txtCelularFocusLost
 
-    private void txtdocumentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtdocumentoFocusLost
-      if (cbodocu.getSelectedIndex() == 3){
+    private void txtNumDocuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumDocuFocusLost
+      if (cbTipoDocu.getSelectedIndex() == 3){
           
       }
-    }//GEN-LAST:event_txtdocumentoFocusLost
+    }//GEN-LAST:event_txtNumDocuFocusLost
+
+    private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUsuarioKeyTyped
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel L1;
-    private javax.swing.JLabel L2;
-    private javax.swing.JLabel L3;
-    private javax.swing.JLabel L4;
-    private javax.swing.JLabel L5;
-    private javax.swing.JLabel L6;
-    private javax.swing.JLabel L7;
-    private javax.swing.JLabel L8;
     private rojerusan.RSButtonHover btnEditar;
     private rojerusan.RSButtonHover btnEliminar;
     private rojerusan.RSButtonHover btnGuardar;
     private rojerusan.RSButtonHover btnNuevo;
-    private javax.swing.JComboBox cbodocu;
-    private javax.swing.JComboBox cbojornada;
+    private javax.swing.JComboBox cbJornada;
+    private javax.swing.JComboBox cbTipoDocu;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbDocumento;
-    private javax.swing.JLabel lbJornada;
-    private javax.swing.JLabel lbNumDocumento;
+    private javax.swing.JLabel lb1;
+    private javax.swing.JLabel lb10;
+    private javax.swing.JLabel lb11;
+    private javax.swing.JLabel lb2;
+    private javax.swing.JLabel lb3;
+    private javax.swing.JLabel lb4;
+    private javax.swing.JLabel lb5;
+    private javax.swing.JLabel lb6;
+    private javax.swing.JLabel lb7;
+    private javax.swing.JLabel lb8;
+    private javax.swing.JLabel lb9;
+    private javax.swing.JLabel lbLupa;
     private javax.swing.JMenuItem menuModificar;
     private javax.swing.JTable tablaVendedores;
-    private javax.swing.JTextField txtbuscar;
-    private javax.swing.JTextField txtcelular1;
-    private javax.swing.JTextField txtcelular2;
-    private javax.swing.JTextField txtcorreo;
-    private javax.swing.JTextField txtdireccion1;
-    private javax.swing.JTextField txtdocumento;
-    private javax.swing.JTextField txtidvendedor1;
-    private javax.swing.JTextField txtnombre;
-    private javax.swing.JTextField txtsueldo;
+    private javax.swing.JTextField txtBuscar;
+    private javax.swing.JTextField txtCelular;
+    private javax.swing.JTextField txtClave;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtDireccion;
+    private javax.swing.JTextField txtIDVendedor;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNumDocu;
+    private javax.swing.JTextField txtSueldo;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

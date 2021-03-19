@@ -2,9 +2,7 @@ package Paneles;
 
 import Datos.Conexion;
 import Logica.datosPeliculas;
-import Tipografia.DecoracionTablas;
 import Tipografia.Fuente;
-import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
@@ -20,6 +18,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -35,31 +34,58 @@ public class panelPeliculas extends javax.swing.JPanel {
     public panelPeliculas() {
         initComponents();
         cargarData("");
+        bloquearCampos();
+        txtUrl.setEnabled(false);
+        //txtIDPelicula.setVisible(false);
         tipoFuente = new Fuente();
 
         lbDuracion.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         lbTitulo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         lbReparto.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         lbSinopsis.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lbUrl.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         txtDuracion.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        txtIDPelicula.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         txtTitulo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         txtSinopsis.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         txtReparto.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         txtBuscar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        txtUrl.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         cbDirector.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         cbIdiomas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         cbHorarios.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         cbGeneros.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         tablaPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
 
-        btnImagen.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        btnGuardar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        btnEditar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        btnEliminar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        tablaPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-
-        tablaPeliculas.getColumnModel().getColumn(0).setHeaderRenderer(new DecoracionTablas(Color.GRAY, Color.WHITE));
+        btnImagen.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        btnGuardar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        btnEditar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        btnEliminar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        
+        TableColumnModel anchoColumnas = tablaPeliculas.getColumnModel();
+        anchoColumnas.getColumn(0).setPreferredWidth(40);
+        anchoColumnas.getColumn(1).setPreferredWidth(165);
+        anchoColumnas.getColumn(3).setPreferredWidth(120);
+        anchoColumnas.getColumn(4).setPreferredWidth(120);
+        anchoColumnas.getColumn(6).setPreferredWidth(120);
+    }
+    
+    void bloquearCampos() {
+        txtIDPelicula.setEnabled(false);
+        txtTitulo.setEnabled(false);
+        txtDuracion.setEnabled(false);
+        txtReparto.setEnabled(false);
+        txtSinopsis.setEnabled(false);
+        cbDirector.setEnabled(false);
+        cbHorarios.setEnabled(false);
+        cbIdiomas.setEnabled(false);
+        cbGeneros.setEnabled(false);
+        btnGuardar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnImagen.setEnabled(false);
+        tablaPeliculas.setEnabled(false);
     }
     
     boolean guardar = false;
@@ -70,34 +96,40 @@ public class panelPeliculas extends javax.swing.JPanel {
                 && labelFoto.getIcon() == null && cbDirector.getSelectedIndex() == 0
                 && cbHorarios.getSelectedIndex() == 0 && cbIdiomas.getSelectedIndex() == 0 
                 && cbGeneros.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos", "Error",JOptionPane.ERROR_MESSAGE);
         } else if (txtTitulo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor rellene el campo título");
+            JOptionPane.showMessageDialog(null, "Por favor rellene el campo título", "Error",JOptionPane.ERROR_MESSAGE);
         } else if (txtDuracion.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor rellene el campo duración");
+            JOptionPane.showMessageDialog(null, "Por favor rellene el campo duración", "Error",JOptionPane.ERROR_MESSAGE);
         } else if (txtReparto.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor rellene el campo reparto");
+            JOptionPane.showMessageDialog(null, "Por favor rellene el campo reparto", "Error",JOptionPane.ERROR_MESSAGE);
         } else if (txtSinopsis.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor rellene el campo sinopsis");
+            JOptionPane.showMessageDialog(null, "Por favor rellene el campo sinopsis", "Error",JOptionPane.ERROR_MESSAGE);
         } else if (labelFoto.getIcon() == null) {
-            JOptionPane.showMessageDialog(null, "Por favor seleccione una imagen para la pelicula");
+            JOptionPane.showMessageDialog(null, "Por favor seleccione una imagen para la pelicula", "Error",JOptionPane.ERROR_MESSAGE);
         } else if (cbDirector.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un director");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un director", "Error",JOptionPane.ERROR_MESSAGE);
         } else if (cbIdiomas.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un idioma");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un idioma", "Error",JOptionPane.ERROR_MESSAGE);
         } else if (cbGeneros.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un género");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un género", "Error",JOptionPane.ERROR_MESSAGE);
         } else if (cbHorarios.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un horario");
-        }else{
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un horario", "Error",JOptionPane.ERROR_MESSAGE);
+        }else {
             guardar = true;
         }
     }
     
     void buscarData(String valor){
-        String[] titulos = {"ID", "Titulo", "Duración", "Director", "Reparto", "Idioma", "Sinopsis", "Horario", "Género", "Foto"};
-        String[] registros = new String[10];
-        String sql = "SELECT * FROM peliculas WHERE CONCAT (IdPelicula, ' ', Titulo) LIKE '%" + valor + "%'";
+        String[] titulos = {"ID", "Titulo", "Duración", "Director", "Reparto", "Idioma", "Sinopsis", "Horario", "Género", "Foto", "URL"};
+        String[] registros = new String[11];
+        //String sql = "SELECT * FROM peliculas WHERE CONCAT (IdPelicula, ' ', Titulo) LIKE '%" + valor + "%'";
+        String sql = "SELECT IdPelicula, Titulo, Duracion, Nombre, Reparto, Tipo, Sinopsis, Hora, TipoGenero, Foto, urlFoto\n"
+                + "                FROM peliculas INNER JOIN director USING (IDDirector)\n"
+                + "                INNER JOIN idiomas USING (IDIdioma)\n"
+                + "                INNER JOIN horarios USING (IDHorario)\n"
+                + "                INNER JOIN generos USING (IDGenero)\n"
+                + "                WHERE CONCAT (IdPelicula, ' ', Titulo) LIKE '%" + valor + "%'";
         
         model = new DefaultTableModel(null, titulos);
         
@@ -109,17 +141,25 @@ public class panelPeliculas extends javax.swing.JPanel {
                 registros[0] = rs.getString("IdPelicula");
                 registros[1] = rs.getString("Titulo");
                 registros[2] = rs.getString("Duracion");
-                registros[3] = rs.getString("IDDirector");
+                registros[3] = rs.getString("Nombre");
                 registros[4] = rs.getString("Reparto");
-                registros[5] = rs.getString("IDIdioma");
+                registros[5] = rs.getString("Tipo");
                 registros[6] = rs.getString("Sinopsis");
-                registros[7] = rs.getString("IDHorario");
-                registros[8] = rs.getString("IDGenero");
+                registros[7] = rs.getString("Hora");
+                registros[8] = rs.getString("TipoGenero");
                 registros[9] = rs.getString("Foto");
+                registros[10] = rs.getString("urlFoto");
                 model.addRow(registros);
             }
             
             tablaPeliculas.setModel(model);
+            
+            TableColumnModel anchoColumnas = tablaPeliculas.getColumnModel();
+            anchoColumnas.getColumn(0).setPreferredWidth(40);
+            anchoColumnas.getColumn(1).setPreferredWidth(165);
+            anchoColumnas.getColumn(3).setPreferredWidth(120);
+            anchoColumnas.getColumn(4).setPreferredWidth(120);
+            anchoColumnas.getColumn(6).setPreferredWidth(120);
         } catch (SQLException ex){
             Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -132,9 +172,9 @@ public class panelPeliculas extends javax.swing.JPanel {
     Connection cn = cc.GetConexion();
     
     void cargarData(String valor){
-        String[] titulos = {"ID", "Titulo", "Duración", "Director", "Reparto", "Idioma", "Sinopsis", "Horario", "Género", "Foto"};
-        String[] registros = new String[10];
-        String sql = "SELECT IdPelicula, Titulo, Duracion, Nombre, Reparto, Tipo, Sinopsis, Hora, TipoGenero, Foto\n"
+        String[] titulos = {"ID", "Titulo", "Duración", "Director", "Reparto", "Idioma", "Sinopsis", "Horario", "Género", "Foto", "URL"};
+        String[] registros = new String[11];
+        String sql = "SELECT IdPelicula, Titulo, Duracion, Nombre, Reparto, Tipo, Sinopsis, Hora, TipoGenero, Foto, urlFoto\n"
                 + "                FROM peliculas INNER JOIN director USING (IDDirector)\n"
                 + "                INNER JOIN idiomas USING (IDIdioma)\n"
                 + "                INNER JOIN horarios USING (IDHorario)\n"
@@ -166,6 +206,7 @@ public class panelPeliculas extends javax.swing.JPanel {
                 registros[7] = rs.getString("Hora");
                 registros[8] = rs.getString("TipoGenero");
                 registros[9] = rs.getString("Foto");
+                registros[10] = rs.getString("urlFoto");
                 model.addRow(registros);
             }
             
@@ -177,11 +218,13 @@ public class panelPeliculas extends javax.swing.JPanel {
     }
 
     void limpiarCajas() {
+        txtIDPelicula.setText("");
         txtTitulo.setText("");
         txtDuracion.setText("");
         txtReparto.setText("");
         txtSinopsis.setText("");
         txtBuscar.setText("");
+        txtUrl.setText("");
         cbDirector.setSelectedIndex(0);
         cbHorarios.setSelectedIndex(0);
         cbIdiomas.setSelectedIndex(0);
@@ -243,6 +286,9 @@ public class panelPeliculas extends javax.swing.JPanel {
         lbSinopsis = new javax.swing.JLabel();
         labelLupa = new javax.swing.JLabel();
         cbGeneros = new javax.swing.JComboBox<>();
+        txtUrl = new javax.swing.JTextField();
+        lbUrl = new javax.swing.JLabel();
+        txtIDPelicula = new javax.swing.JTextField();
 
         menuModificar.setText("Modificar");
         menuModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -280,7 +326,10 @@ public class panelPeliculas extends javax.swing.JPanel {
             }
         ));
         tablaPeliculas.setAlignmentY(4.0F);
+        tablaPeliculas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        tablaPeliculas.setComponentPopupMenu(jPopupMenu1);
         tablaPeliculas.setOpaque(false);
+        tablaPeliculas.setRowHeight(30);
         tablaPeliculas.setSelectionBackground(new java.awt.Color(29, 29, 29));
         tablaPeliculas.setSelectionForeground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(tablaPeliculas);
@@ -306,6 +355,11 @@ public class panelPeliculas extends javax.swing.JPanel {
         txtTitulo.setForeground(new java.awt.Color(255, 255, 255));
         txtTitulo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtTitulo.setOpaque(false);
+        txtTitulo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtTituloFocusLost(evt);
+            }
+        });
         txtTitulo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtTituloKeyTyped(evt);
@@ -314,10 +368,25 @@ public class panelPeliculas extends javax.swing.JPanel {
 
         txtSinopsis.setForeground(new java.awt.Color(255, 255, 255));
         txtSinopsis.setOpaque(false);
+        txtSinopsis.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSinopsisFocusLost(evt);
+            }
+        });
+        txtSinopsis.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSinopsisKeyTyped(evt);
+            }
+        });
 
         txtDuracion.setForeground(new java.awt.Color(255, 255, 255));
         txtDuracion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtDuracion.setOpaque(false);
+        txtDuracion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDuracionFocusLost(evt);
+            }
+        });
         txtDuracion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDuracionKeyTyped(evt);
@@ -361,8 +430,8 @@ public class panelPeliculas extends javax.swing.JPanel {
         });
 
         btnEditar.setBackground(new java.awt.Color(81, 81, 81));
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoEditar.png"))); // NOI18N
-        btnEditar.setText("EDITAR");
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoActualizar.png"))); // NOI18N
+        btnEditar.setText("ACTUALIZAR");
         btnEditar.setBorderPainted(false);
         btnEditar.setColorHover(new java.awt.Color(61, 61, 61));
         btnEditar.setFocusable(false);
@@ -374,8 +443,8 @@ public class panelPeliculas extends javax.swing.JPanel {
         });
 
         btnEliminar.setBackground(new java.awt.Color(81, 81, 81));
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoEliminar.png"))); // NOI18N
-        btnEliminar.setText("ELIMINAR");
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoDeshabilitar.png"))); // NOI18N
+        btnEliminar.setText("DESHABILITAR");
         btnEliminar.setBorderPainted(false);
         btnEliminar.setColorHover(new java.awt.Color(61, 61, 61));
         btnEliminar.setFocusable(false);
@@ -393,6 +462,11 @@ public class panelPeliculas extends javax.swing.JPanel {
         btnNuevo.setColorHover(new java.awt.Color(61, 61, 61));
         btnNuevo.setFocusable(false);
         btnNuevo.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
 
         lbReparto.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         lbReparto.setForeground(new java.awt.Color(255, 255, 255));
@@ -402,6 +476,11 @@ public class panelPeliculas extends javax.swing.JPanel {
         txtReparto.setForeground(new java.awt.Color(255, 255, 255));
         txtReparto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtReparto.setOpaque(false);
+        txtReparto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtRepartoFocusLost(evt);
+            }
+        });
         txtReparto.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtRepartoKeyTyped(evt);
@@ -422,6 +501,9 @@ public class panelPeliculas extends javax.swing.JPanel {
         txtBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtBuscar.setOpaque(false);
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyTyped(evt);
             }
@@ -437,68 +519,93 @@ public class panelPeliculas extends javax.swing.JPanel {
         cbGeneros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Género...", "Acción ", "Aventura", "Comedia", "Drama", "Terror", "Ciencia Ficción", "Suspenso" }));
         cbGeneros.setOpaque(false);
 
+        txtUrl.setForeground(new java.awt.Color(255, 255, 255));
+        txtUrl.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtUrl.setOpaque(false);
+        txtUrl.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtUrlKeyTyped(evt);
+            }
+        });
+
+        lbUrl.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
+        lbUrl.setForeground(new java.awt.Color(255, 255, 255));
+        lbUrl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbUrl.setText("URL");
+
+        txtIDPelicula.setForeground(new java.awt.Color(255, 255, 255));
+        txtIDPelicula.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIDPelicula.setOpaque(false);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1)
             .addGroup(layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnImagen, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
-                    .addComponent(labelFoto, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(labelLupa)
-                            .addGap(2, 2, 2)
-                            .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(276, 276, 276)
-                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(txtReparto, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(cbIdiomas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(txtSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(cbHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(cbGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(txtIDPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtLetras, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
-                            .addComponent(lbTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                            .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cbDirector, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(lbSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbReparto, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(285, Short.MAX_VALUE)
-                .addComponent(txtLetras, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(labelLupa)
+                                    .addGap(2, 2, 2)
+                                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGap(276, 276, 276)
+                                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lbReparto, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addComponent(txtSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(12, 12, 12)
+                                    .addComponent(cbGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtReparto, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(txtTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 158, Short.MAX_VALUE)
+                                                .addComponent(lbTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(lbDuracion, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                                .addComponent(txtDuracion))))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cbDirector, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(cbIdiomas, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lbSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtUrl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGap(12, 12, 12)
+                                    .addComponent(cbHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(lbUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 28, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtLetras)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtLetras)
+                    .addComponent(txtIDPelicula, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -517,16 +624,20 @@ public class panelPeliculas extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbReparto, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(cbHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(txtSinopsis))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbGeneros, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(cbHorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lbSinopsis, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtUrl, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbUrl))
                     .addComponent(labelFoto, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -537,14 +648,13 @@ public class panelPeliculas extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelLupa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     //Variable que almacenará la URL de las fotos
-    String url;
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         Conexion cn = new Conexion();
@@ -554,8 +664,8 @@ public class panelPeliculas extends javax.swing.JPanel {
             
         } else {
             String sql = "INSERT INTO peliculas "
-                    + "(Titulo, Duracion, IDDirector, Reparto, IDIdioma, Sinopsis, IDHorario, IDGenero, Foto)"
-                    + "VALUES (?,?,?,?,?,?,?,?,?)";
+                    + "(Titulo, Duracion, IDDirector, Reparto, IDIdioma, Sinopsis, IDHorario, IDGenero, Foto, urlFoto)"
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?)";
 
             try {
                 FileInputStream archivoImagen;
@@ -568,9 +678,51 @@ public class panelPeliculas extends javax.swing.JPanel {
                 pst.setString(6, txtSinopsis.getText());
                 pst.setInt(7, cbHorarios.getSelectedIndex());
                 pst.setInt(8, cbGeneros.getSelectedIndex());
-                //pst.setString(9, txtUrl.getText());
-                archivoImagen = new FileInputStream(url);
+                archivoImagen = new FileInputStream(txtUrl.getText());
                 pst.setBinaryStream(9, archivoImagen);
+                pst.setString(10, txtUrl.getText());
+
+                int i = pst.executeUpdate();
+                if(i>0){
+                JOptionPane.showMessageDialog(null, "Se guardo correctamente");
+                limpiarCajas();
+                bloquearCampos();
+                cargarData("");
+               }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar");
+                System.out.println(e.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        Conexion cn = new Conexion();
+        Connection cc = cn.GetConexion();
+        validarCamposVacios();
+        if(guardar == false){
+            
+        } else {
+            String sql = "UPDATE peliculas SET Titulo = ?, Duracion = ?, IDDirector = ?, "
+                    + "Reparto = ?, IDIdioma = ?, Sinopsis = ?, IDHorario = ?, "
+                    + "IDGenero = ?, Foto = ?, urlFoto = ?"
+                    + "WHERE IdPelicula = '"+txtIDPelicula+"'";
+
+            try {
+                FileInputStream archivoImagen;
+                PreparedStatement pst = cc.prepareStatement(sql);
+                pst.setString(1, txtTitulo.getText());
+                pst.setInt(2, Integer.parseInt(txtDuracion.getText()));
+                pst.setInt(3, cbDirector.getSelectedIndex());
+                pst.setString(4, txtReparto.getText());
+                pst.setInt(5, cbIdiomas.getSelectedIndex());
+                pst.setString(6, txtSinopsis.getText());
+                pst.setInt(7, cbHorarios.getSelectedIndex());
+                pst.setInt(8, cbGeneros.getSelectedIndex());
+                archivoImagen = new FileInputStream(txtUrl.getText());
+                pst.setBinaryStream(9, archivoImagen);
+                pst.setString(10, txtUrl.getText());
 
                 int i = pst.executeUpdate();
                 if(i>0){
@@ -584,10 +736,6 @@ public class panelPeliculas extends javax.swing.JPanel {
                 System.out.println(e.getMessage());
             }
         }
-    }//GEN-LAST:event_btnGuardarActionPerformed
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
@@ -604,8 +752,8 @@ public class panelPeliculas extends javax.swing.JPanel {
         int ventana = archivo.showOpenDialog(null);
         if (ventana == JFileChooser.APPROVE_OPTION) {
             File file = archivo.getSelectedFile();
-            url = (String.valueOf(file));
-            Image portada = getToolkit().getImage(url);
+            txtUrl.setText(String.valueOf(file));
+            Image portada = getToolkit().getImage(txtUrl.getText());
             portada.getScaledInstance(178, 233, Image.SCALE_DEFAULT);
             labelFoto.setIcon(new ImageIcon(portada));
         }
@@ -617,11 +765,11 @@ public class panelPeliculas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarKeyTyped
 
     private void txtTituloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTituloKeyTyped
-        validarNumerosLetras(evt);
+           validarNumerosLetras(evt);
     }//GEN-LAST:event_txtTituloKeyTyped
 
     private void txtRepartoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRepartoKeyTyped
-
+        
     }//GEN-LAST:event_txtRepartoKeyTyped
 
     private void cbHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbHorariosActionPerformed
@@ -640,20 +788,28 @@ public class panelPeliculas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDuracionKeyTyped
 
     private void menuModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarActionPerformed
+        btnGuardar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(true);
+        
+        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
+        btnEliminar.setIcon(iconobtn);
+        btnEliminar.setText("CANCELAR");
         int fila = tablaPeliculas.getSelectedRow();
   
         if(fila>=0){   
-            String titulo = tablaPeliculas.getValueAt(fila, 0).toString();
-            String duracion = tablaPeliculas.getValueAt(fila, 1).toString();
-            String director = tablaPeliculas.getValueAt(fila, 2).toString();
-            String reparto = tablaPeliculas.getValueAt(fila, 3).toString();
-            String idioma = tablaPeliculas.getValueAt(fila, 4).toString();
-            String sinopsis = tablaPeliculas.getValueAt(fila, 5).toString();
-            String horario = tablaPeliculas.getValueAt(fila, 6).toString();
-            String genero = tablaPeliculas.getValueAt(fila, 7).toString();
-            String foto = tablaPeliculas.getValueAt(fila, 8).toString();
+            String id = tablaPeliculas.getValueAt(fila, 0).toString();
+            String titulo = tablaPeliculas.getValueAt(fila, 1).toString();
+            String duracion = tablaPeliculas.getValueAt(fila, 2).toString();
+            String director = tablaPeliculas.getValueAt(fila, 3).toString();
+            String reparto = tablaPeliculas.getValueAt(fila, 4).toString();
+            String idioma = tablaPeliculas.getValueAt(fila, 5).toString();
+            String sinopsis = tablaPeliculas.getValueAt(fila, 6).toString();
+            String horario = tablaPeliculas.getValueAt(fila, 7).toString();
+            String genero = tablaPeliculas.getValueAt(fila, 8).toString();
+            String url = tablaPeliculas.getValueAt(fila, 10).toString();
             
-            
+            txtIDPelicula.setText(id);
             txtTitulo.setText(titulo);
             txtDuracion.setText(duracion);
             if(director.contains("Mel Gibson")){
@@ -677,18 +833,133 @@ public class panelPeliculas extends javax.swing.JPanel {
             } else if(director.contains("Alfred Hitchcock")){
                 cbDirector.setSelectedIndex(10);
             }
+            
             txtReparto.setText(reparto);
+            
             if(idioma.contains("Español")){
                 cbIdiomas.setSelectedIndex(1);
             } else if(idioma.contains("Inglés")){
                 cbIdiomas.setSelectedIndex(2);
             }
             txtSinopsis.setText(sinopsis);
+            
+            if(horario.contains("09:00am")){
+                cbHorarios.setSelectedIndex(1);
+            } else if(horario.contains("10:00am")){
+                cbHorarios.setSelectedIndex(2);
+            } else if(horario.contains("11:00am")){
+                cbHorarios.setSelectedIndex(3);
+            } else if(horario.contains("12:00pm")){
+                cbHorarios.setSelectedIndex(4);
+            } else if(horario.contains("01:00pm")){
+                cbHorarios.setSelectedIndex(5);
+            } else if(horario.contains("02:00pm")){
+                cbHorarios.setSelectedIndex(6);
+            } else if(horario.contains("03:00pm")){
+                cbHorarios.setSelectedIndex(7);
+            } else if(horario.contains("04:00pm")){
+                cbHorarios.setSelectedIndex(8);
+            } else if(horario.contains("05:00pm")){
+                cbHorarios.setSelectedIndex(9);
+            } else if(horario.contains("06:00pm")){
+                cbHorarios.setSelectedIndex(10);
+            } else if(horario.contains("07:00pm")){
+                cbHorarios.setSelectedIndex(11);
+            } else if(horario.contains("08:00pm")){
+                cbHorarios.setSelectedIndex(12);
+            } else if(horario.contains("09:00pm")){
+                cbHorarios.setSelectedIndex(13);
+            } else if(horario.contains("10:00pm")){
+                cbHorarios.setSelectedIndex(14);
+            }
+            
+            if(genero.contains("Acción")){
+                cbGeneros.setSelectedIndex(1);
+            } else if(genero.contains("Aventura")){
+                cbGeneros.setSelectedIndex(2);
+            } else if(genero.contains("Comedia")){
+                cbGeneros.setSelectedIndex(3);
+            } else if(genero.contains("Drama")){
+                cbGeneros.setSelectedIndex(4);
+            } else if(genero.contains("Terror")){
+                cbGeneros.setSelectedIndex(5);
+            } else if(genero.contains("Ciencia Ficción")){
+                cbGeneros.setSelectedIndex(6);
+            } else if(genero.contains("Suspenso")){
+                cbGeneros.setSelectedIndex(7);
+            }
+            
+            txtUrl.setText(url);
+            Image foto = getToolkit().getImage(url);
+            foto = foto.getScaledInstance(192, 274, 1);
+            labelFoto.setIcon(new ImageIcon(foto));
         }
         else {
            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila");
         }
     }//GEN-LAST:event_menuModificarActionPerformed
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        buscarData(txtBuscar.getText());
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void txtUrlKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUrlKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtUrlKeyTyped
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        limpiarCajas();
+        txtIDPelicula.setEnabled(true);
+        txtTitulo.setEnabled(true);
+        txtDuracion.setEnabled(true);
+        txtReparto.setEnabled(true);
+        txtSinopsis.setEnabled(true);
+        cbDirector.setEnabled(true);
+        cbHorarios.setEnabled(true);
+        cbIdiomas.setEnabled(true);
+        cbGeneros.setEnabled(true);
+        btnGuardar.setEnabled(true);
+        btnEliminar.setEnabled(false);
+        btnEditar.setEnabled(false);
+        btnImagen.setEnabled(true);
+        tablaPeliculas.setEnabled(true);
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void txtSinopsisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSinopsisKeyTyped
+
+    }//GEN-LAST:event_txtSinopsisKeyTyped
+
+    private void txtTituloFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTituloFocusLost
+        if(!txtTitulo.getText().isEmpty()){
+            if(txtTitulo.getText().length() < 4){
+            JOptionPane.showMessageDialog(null,"Titulo debe contener al menos 4 caracteres","Error",JOptionPane.ERROR_MESSAGE);
+            } 
+        }
+    }//GEN-LAST:event_txtTituloFocusLost
+
+    private void txtDuracionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDuracionFocusLost
+        if(!txtDuracion.getText().isEmpty()){
+            if(txtDuracion.getText().length() < 3){
+            JOptionPane.showMessageDialog(null,"El campo duración debe contener 3 números","Error",JOptionPane.ERROR_MESSAGE);
+            } 
+        }
+    }//GEN-LAST:event_txtDuracionFocusLost
+
+    private void txtRepartoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRepartoFocusLost
+        if(!txtReparto.getText().isEmpty()){
+            if(txtReparto.getText().length() < 10){
+            JOptionPane.showMessageDialog(null,"El campo reparto debe contener 10 caracteres","Error",JOptionPane.ERROR_MESSAGE);
+            } 
+        }
+    }//GEN-LAST:event_txtRepartoFocusLost
+
+    private void txtSinopsisFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSinopsisFocusLost
+        if(!txtSinopsis.getText().isEmpty()){
+            if(txtSinopsis.getText().length() < 15){
+            JOptionPane.showMessageDialog(null,"El campo sinopsis debe contener 15 caracteres","Error",JOptionPane.ERROR_MESSAGE);
+            } 
+        }
+    }//GEN-LAST:event_txtSinopsisFocusLost
 
     datosPeliculas dataPeli = new datosPeliculas();
 
@@ -710,13 +981,16 @@ public class panelPeliculas extends javax.swing.JPanel {
     private javax.swing.JLabel lbReparto;
     private javax.swing.JLabel lbSinopsis;
     private javax.swing.JLabel lbTitulo;
+    private javax.swing.JLabel lbUrl;
     private javax.swing.JMenuItem menuModificar;
     private javax.swing.JTable tablaPeliculas;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtDuracion;
+    private javax.swing.JTextField txtIDPelicula;
     private javax.swing.JLabel txtLetras;
     private javax.swing.JTextField txtReparto;
     private javax.swing.JTextField txtSinopsis;
     private javax.swing.JTextField txtTitulo;
+    private javax.swing.JTextField txtUrl;
     // End of variables declaration//GEN-END:variables
 }

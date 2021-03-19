@@ -1,5 +1,7 @@
 package JFrames;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 
 /**
  *
@@ -14,6 +16,13 @@ public class Inicio extends javax.swing.JFrame {
         initComponents();
         setBackground( new Color (0,0,0,0));
         transparenciaButton();
+    }
+    
+    
+    @Override
+    public Image getIconImage(){
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
+        return retValue;
     }
 
     /**
@@ -32,6 +41,7 @@ public class Inicio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
+        setIconImage(getIconImage());
         setUndecorated(true);
         setOpacity(0.0F);
         addWindowListener(new java.awt.event.WindowAdapter() {

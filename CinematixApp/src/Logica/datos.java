@@ -17,12 +17,14 @@ import java.sql.SQLException;
 public class datos extends Conexion {
     private int IDVendedor;
     private String Nombre;
+    private String Usuario;
+    private String Clave;
     private String Direccion;
-    private float Sueldo;
+    private int Sueldo;
     private int IDJornada;
     private int NumeroCelular;
-    private int NumeroDocumento;
     private int IDTipoDocumento;
+    private String NumeroDocumento;
     private String Corrreo;
 
 
@@ -30,15 +32,7 @@ public class datos extends Conexion {
         return IDVendedor;
     }
 
-    public void setIDVendedor(int NumeroDocumento) {
-        this.IDVendedor = IDVendedor;
-    }
-    
-     public int getNumeroDocumento() {
-        return IDVendedor;
-    }
-
-    public void setNumeroDocumento(int NumeroDocumento) {
+    public void setIDVendedor(int IDVendedor) {
         this.IDVendedor = IDVendedor;
     }
 
@@ -50,6 +44,22 @@ public class datos extends Conexion {
         this.Nombre = Nombre;
     }
 
+    public String getUsuario() {
+        return Usuario;
+    }
+
+    public void setUsuario(String Usuario) {
+        this.Usuario = Usuario;
+    }
+
+    public String getClave() {
+        return Clave;
+    }
+
+    public void setClave(String Clave) {
+        this.Clave = Clave;
+    }
+    
     public String getDireccion() {
         return Direccion;
     }
@@ -58,11 +68,11 @@ public class datos extends Conexion {
         this.Direccion = Direccion;
     }
 
-    public float getSueldo() {
+    public int getSueldo() {
         return Sueldo;
     }
 
-    public void setSueldo(float Sueldo) {
+    public void setSueldo(int Sueldo) {
         this.Sueldo = Sueldo;
     }
 
@@ -90,6 +100,14 @@ public class datos extends Conexion {
         this.IDTipoDocumento = IDTipoDocumento;
     }
 
+    public String getNumeroDocumento() {
+        return NumeroDocumento;
+    }
+
+    public void setNumeroDocumento(String NumeroDocumento) {
+        this.NumeroDocumento = NumeroDocumento;
+    }
+
     public String getCorrreo() {
         return Corrreo;
     }
@@ -101,17 +119,20 @@ public class datos extends Conexion {
     public boolean guardar(){
         PreparedStatement pst = null;
         Connection cc = GetConexion();
-        String sql = "INSERT INTO vendedor (Nombre, Direccion, Sueldo, IDJornada, NumeroCelular, IDTipoDocumento, Correo)" + "Values(?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO vendedor (Nombre, Usuario, Clave, Direccion, Sueldo, IDJornada, NumeroCelular, IDTipoDocumento, NumeroDocumento, Correo)" + "Values(?,?,?,?,?,?,?,?,?,?)";
 
         try {
             pst = cc.prepareStatement(sql);
             pst.setString(1, this.getNombre());
-            pst.setString(2, this.getDireccion());
-            pst.setFloat(3, this.getSueldo());
-            pst.setInt(4, this.getIDJornada());
-            pst.setInt(5, this.getNumeroCelular());
-            pst.setInt(6, this.getIDTipoDocumento());
-            pst.setString(7, this.getCorrreo());
+            pst.setString(2,this.getUsuario());
+            pst.setString(3,this.getClave());   
+            pst.setString(4,this.getDireccion());
+            pst.setInt(5,this.getSueldo());
+            pst.setInt(6,this.getIDJornada());
+            pst.setInt(7,this.getNumeroCelular());
+            pst.setInt(8, this.getIDTipoDocumento());
+            pst.setString(9, this.getNumeroDocumento());
+            pst.setString(10, this.getCorrreo());
             pst.execute();
             return true;
             
@@ -135,17 +156,20 @@ public class datos extends Conexion {
                  + "WHERE IDVendedor = ?";**/ 
         
  
-        String vSql = "update vendedor set  Nombre= ? , Direccion = ? , Sueldo = ? , IDJornada = ? , NumeroCelular = ? ,IDTipoDocumento = ? ,Correo = ? where IDVendedor= ? ";                
+        String vSql = "UPDATE vendedor SET  Nombre= ? , Usuario = ?, Clave = ?, Direccion = ?, Sueldo = ?, IDJornada = ?, NumeroCelular = ?, IDTipoDocumento = ?, NumeroDocumento = ?, Correo = ? where IDVendedor = ?";                
         try {
             Pst = cc.prepareStatement(vSql);
             Pst.setString(1, this.getNombre());
-            Pst.setString(2,this.getDireccion());
-            Pst.setFloat(3,this.getSueldo());   
-            Pst.setInt(4,this.getIDJornada());
-            Pst.setInt(5,this.getNumeroCelular());
-            Pst.setInt(6,this.getIDTipoDocumento());
-            Pst.setString(7,this.getCorrreo());
-            Pst.setInt(8, this.getIDVendedor());
+            Pst.setString(2,this.getUsuario());
+            Pst.setString(3,this.getClave());   
+            Pst.setString(4,this.getDireccion());
+            Pst.setInt(5,this.getSueldo());
+            Pst.setInt(6,this.getIDJornada());
+            Pst.setInt(7,this.getNumeroCelular());
+            Pst.setInt(8, this.getIDTipoDocumento());
+            Pst.setString(9, this.getNumeroDocumento());
+            Pst.setString(10, this.getCorrreo());
+            Pst.setInt(11, this.getIDVendedor());
             Pst.execute();
             return true;
 

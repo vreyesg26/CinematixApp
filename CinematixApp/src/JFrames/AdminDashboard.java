@@ -10,6 +10,8 @@ import Paneles.panelPeliculas;
 import Paneles.panelVendedores;
 import Tipografia.Fuente;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import javax.swing.JOptionPane;
 import paneles.CambiaPanel;
 
@@ -26,7 +28,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     public AdminDashboard() {
         initComponents();
         setBackground( new Color (0,0,0,0));
-        new CambiaPanel(panelContenedor, new panelPeliculas());
+        new CambiaPanel(panelContenedor, new panelAcercaDe());
         tipoFuente = new Fuente();
         
         btnAcerca.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
@@ -35,6 +37,12 @@ public class AdminDashboard extends javax.swing.JFrame {
         btnVendedores.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
     }
 
+    @Override
+    public Image getIconImage(){
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
+        return retValue;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,6 +61,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
