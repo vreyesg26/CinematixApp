@@ -140,15 +140,24 @@ public class LoginVendedor extends javax.swing.JFrame {
             
             if(rs.next()){
                 int intentos = Integer.parseInt(rs.getString("Intentos_restantes"));
-               //JOptionPane.showMessageDialog(null,"db pass:"+rs.getString("Clave")+" otra pass:" +pass);
+                if(rs.getString("Intentos_restantes").equals("0")){
+                    JOptionPane.showMessageDialog(null, "Ha excedido el numero de intentos para ingresar \n" + "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                }else
+                
+               
                 if(rs.getString("Clave").equals(pass)){
                     MenuVendedor mv = new MenuVendedor();
                     mv.setVisible(true);
                     this.dispose();
                 } else{
-                if(intentos <= 0){
+                if(intentos == 0){
+                    
+             
                     JOptionPane.showMessageDialog(null, "Ha excedido el numero de intentos para ingresar \n" + "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
-                    System.exit(0);
+                    
+                    Inicio inicio = new Inicio();
+                    inicio.setVisible(true);
+                    this.dispose();
                 }else{
                     txtCorreo.setText("");
                     txtClave.setText("");
