@@ -25,6 +25,7 @@ import javafx.scene.control.TextField;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import rojerusan.RSDateChooser;
 
 /**
  *
@@ -83,10 +84,6 @@ public class panelVendedores extends javax.swing.JPanel {
         cbJornada.setSelectedIndex(0);
     }
     
-    public void numeroshol(){
-          
-    }
-    
     public void validarCaracteres(java.awt.event.KeyEvent e) {
         if (e.getKeyChar() >= 33 && e.getKeyChar() <= 47
                 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
@@ -96,7 +93,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 || e.getKeyChar() >= 242 && e.getKeyChar() <= 255) {
             
             e.consume();
-            JOptionPane.showMessageDialog(null, "Este campo no acepta caracteres especiales");
+            JOptionPane.showMessageDialog(null, "Este campo no acepta caracteres especiales", "" ,JOptionPane.ERROR_MESSAGE);
         }
     }
     
@@ -235,6 +232,7 @@ public class panelVendedores extends javax.swing.JPanel {
             Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -428,6 +426,11 @@ public class panelVendedores extends javax.swing.JPanel {
         txtNombre.setForeground(new java.awt.Color(255, 255, 255));
         txtNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNombre.setOpaque(false);
+        txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNombreFocusLost(evt);
+            }
+        });
         txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtNombreKeyTyped(evt);
@@ -608,20 +611,26 @@ public class panelVendedores extends javax.swing.JPanel {
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addGap(34, 34, 34)
                                     .addComponent(txtNumDocu, javax.swing.GroupLayout.PREFERRED_SIZE, 236, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGap(28, 28, 28)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lb11, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(lb7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                    .addGap(28, 28, 28)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lb8, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addComponent(cbJornada, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(lb11, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(lb7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(lb8, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGap(18, 18, 18)
+                                    .addComponent(cbJornada, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGroup(layout.createSequentialGroup()
-                            .addGap(500, 500, 500)
+                            .addContainerGap()
+                            .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 8, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -635,7 +644,6 @@ public class panelVendedores extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lb6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtDireccion)
                     .addComponent(txtCorreo)
                     .addComponent(lb3, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE))
                 .addGap(28, 28, 28)
@@ -762,7 +770,7 @@ public class panelVendedores extends javax.swing.JPanel {
             txtCorreo.setText(correo);
         }
         else {
-           JOptionPane.showMessageDialog(null, "Debe seleccionar una fila");
+           JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "" ,JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_menuModificarActionPerformed
 
@@ -770,26 +778,27 @@ public class panelVendedores extends javax.swing.JPanel {
         btnEditar.setEnabled(true);
         btnEliminar.setEnabled(true);
         btnNuevo.setEnabled(true);
+        btnGuardar.setEnabled(false);
         txtIDVendedor.setEnabled(false);
 
         boolean guardo = true;
         datos data = new datos();
         if(cbJornada.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "" ,JOptionPane.ERROR_MESSAGE);
         }
         
         else if(cbTipoDocu.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada", "" ,JOptionPane.ERROR_MESSAGE);
         }
         
         else if(txtCelular.getText().isEmpty() || cbTipoDocu.getSelectedIndex() == 0 || cbJornada.getSelectedIndex() == 0 || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtNumDocu.getText().isEmpty() || txtNombre.getText().isEmpty() || txtSueldo.getText().isEmpty() || txtClave.getText().isEmpty()) {
      
-            JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos");
+            JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos", "" ,JOptionPane.ERROR_MESSAGE);
         }
                 
         
         else if(Integer.parseInt(txtSueldo.getText()) < 8000){
-            JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor");
+            JOptionPane.showMessageDialog(null, "El sueldo debe de ser de 8000 en adelante", "" ,JOptionPane.ERROR_MESSAGE);
              txtSueldo.setText("");
         }else if(txtCorreo.getText().contains("@") && txtCorreo.getText().contains(".com") || txtCorreo.getText().contains(".hn")){
             data.setNombre(txtNombre.getText());
@@ -810,28 +819,32 @@ public class panelVendedores extends javax.swing.JPanel {
             }
             limpiarCajas();
         }else {
-            JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com");
+            JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com", "" ,JOptionPane.ERROR_MESSAGE);
         } 
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         btnNuevo.setEnabled(true);
+        btnEditar.setEnabled(false);
+        btnEliminar.setEnabled(false);
+        btnGuardar.setEnabled(false);
+        
         boolean edito = true;
          if(cbJornada.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada", "" ,JOptionPane.ERROR_MESSAGE);
         }
         
         else if(cbTipoDocu.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "" ,JOptionPane.ERROR_MESSAGE);
         }
         
         else if(txtCelular.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtNumDocu.getText().isEmpty() || txtNombre.getText().isEmpty() || txtSueldo.getText().isEmpty() || txtClave.getText().isEmpty()) {
      
-            JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos");
+            JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos", "" ,JOptionPane.ERROR_MESSAGE);
         }
         
         else if(Integer.parseInt(txtSueldo.getText()) < 8000){
-            JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor");
+            JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor", "" ,JOptionPane.ERROR_MESSAGE);
              txtSueldo.setText("");
         }else 
             
@@ -858,7 +871,7 @@ public class panelVendedores extends javax.swing.JPanel {
             cargarData("");
             limpiarCajas();
         }else {
-            JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com");
+            JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com", "" ,JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -896,6 +909,8 @@ public class panelVendedores extends javax.swing.JPanel {
         
          public void limite2(TextField txtcelular1){
       }
+         
+        
         
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         txtIDVendedor.setEnabled(false);
@@ -951,7 +966,7 @@ public class panelVendedores extends javax.swing.JPanel {
             getToolkit().beep();
             evt.consume();
             
-            JOptionPane.showMessageDialog(null, "Ingresar solo numeros");
+            JOptionPane.showMessageDialog(null, "Ingresar solo numeros", "" ,JOptionPane.ERROR_MESSAGE);
                     
         }
         if(txtCelular.getText().length() >= 8){
@@ -968,9 +983,11 @@ public class panelVendedores extends javax.swing.JPanel {
         if(Character.isDigit(validar)){
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Ingresar solo letras");
+            JOptionPane.showMessageDialog(null, "Ingresar solo letras", "" ,JOptionPane.ERROR_MESSAGE);
                     
         }
+        
+        
     }//GEN-LAST:event_txtCorreoKeyTyped
 
     private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
@@ -987,7 +1004,7 @@ public class panelVendedores extends javax.swing.JPanel {
             getToolkit().beep();
             evt.consume();
             
-            JOptionPane.showMessageDialog(null, "Ingresar solo letras");
+            JOptionPane.showMessageDialog(null, "Ingresar solo letras", "" ,JOptionPane.ERROR_MESSAGE);
                     
         }
         if(txtNombre.getText().length() > 50){
@@ -1003,7 +1020,7 @@ public class panelVendedores extends javax.swing.JPanel {
             getToolkit().beep();
             evt.consume();
             
-            JOptionPane.showMessageDialog(null, "Ingresar solo numeros");
+            JOptionPane.showMessageDialog(null, "Ingresar solo numeros", "" ,JOptionPane.ERROR_MESSAGE);
                     
         }
         if(txtSueldo.getText().length() > 5){
@@ -1024,17 +1041,19 @@ public class panelVendedores extends javax.swing.JPanel {
             getToolkit().beep();
             evt.consume();
             
-            JOptionPane.showMessageDialog(null, "Ingresar solo numeros");
+            JOptionPane.showMessageDialog(null, "Ingresar solo numeros", "" ,JOptionPane.ERROR_MESSAGE);
                     
         }
     }//GEN-LAST:event_txtNumDocuKeyTyped
 
     private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost
+     if(!txtCelular.getText().isEmpty()){
         if (email(txtCorreo.getText())) {
             
         }else{
-            JOptionPane.showMessageDialog(null, "Correo incorrecto,validar ejem: cinematix@gmail.com");
+            JOptionPane.showMessageDialog(null, "Correo incorrecto,validar ejem: cinematix@gmail.com", "" ,JOptionPane.ERROR_MESSAGE);
         }
+     }
     }//GEN-LAST:event_txtCorreoFocusLost
 
     private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
@@ -1042,12 +1061,13 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_txtClaveKeyTyped
 
     private void txtCelularFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelularFocusLost
-       
-        if(txtCelular.getText().length() < 8){
-          JOptionPane.showMessageDialog(null, "El celular debe contener 8 digitos");
+       if(!txtCelular.getText().isEmpty()){
+        if(txtCelular.getText().length() < 8 || txtCelular.getText().charAt(0) == '0' || txtCelular.getText().charAt(0) == '1' || txtCelular.getText().charAt(0) == '4' || txtCelular.getText().charAt(0) == '5' || txtCelular.getText().charAt(0) == '6' || txtCelular.getText().charAt(0) == '8'){
+          JOptionPane.showMessageDialog(null, "El celular debe contener 8 digitos y debe comenzar con (2,3,7,8,9)", "" ,JOptionPane.ERROR_MESSAGE);
           
            txtCelular.setText("");
         }
+       }
     }//GEN-LAST:event_txtCelularFocusLost
 
     private void txtNumDocuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumDocuFocusLost
@@ -1059,6 +1079,14 @@ public class panelVendedores extends javax.swing.JPanel {
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioKeyTyped
+
+    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
+        if(!txtCelular.getText().isEmpty()){
+        if (txtNombre.getText().length() < 3){
+            JOptionPane.showMessageDialog(null, "El nombre debe de tener mas de 3 caracteres", "" ,JOptionPane.ERROR_MESSAGE);
+        }
+        }
+    }//GEN-LAST:event_txtNombreFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
