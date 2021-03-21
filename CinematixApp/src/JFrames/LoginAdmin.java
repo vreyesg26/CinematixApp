@@ -11,12 +11,10 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 /**
  *
@@ -31,7 +29,6 @@ public class LoginAdmin extends javax.swing.JFrame {
     Fuente tipoFuente;
     public LoginAdmin() {
         initComponents();
-       
         transparenciaButton();
         TextPrompt prueba = new TextPrompt("INGRESAR USUARIO", txtusuario);
         TextPrompt pru = new TextPrompt("INGRESAR CLAVE", txtpassword);
@@ -63,6 +60,7 @@ public class LoginAdmin extends javax.swing.JFrame {
         btninicioa = new javax.swing.JButton();
         txtusuario = new javax.swing.JTextField();
         txtpassword = new javax.swing.JPasswordField();
+        animacionCarga = new javax.swing.JLabel();
         btninicio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -128,6 +126,8 @@ public class LoginAdmin extends javax.swing.JFrame {
         getContentPane().add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 300, 240, 45));
         txtpassword.getAccessibleContext().setAccessibleName("");
 
+        getContentPane().add(animacionCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 435, 25, 25));
+
         btninicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LoginAdmin.png"))); // NOI18N
         getContentPane().add(btninicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 360, 480));
 
@@ -141,30 +141,64 @@ public class LoginAdmin extends javax.swing.JFrame {
        btninicioa.setBorderPainted(false);
    }
   
+   int intentos = 3;
    public void validarAdministradores(){
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
+        String estado = "2";
         String user = txtusuario.getText();
         String pass = String.valueOf(txtpassword.getPassword());
-        String sql = "SELECT * FROM usuarios WHERE Usuario = '" + user + "' and Contrasena = '" + pass + "'";
+        String sql = "SELECT * FROM usuarios WHERE Usuario = '" + user + "'";
         
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);     
-            if(rs.next()){
-                AdminDashboard ini = new AdminDashboard();
-                ini.setVisible(true);
-                this.dispose();
-            } else{
-                JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, intente de nuevo", "Aviso", JOptionPane.WARNING_MESSAGE);
+        if(txtusuario.getText().isEmpty() && txtpassword.getText().isEmpty() || txtusuario.getText().isEmpty() || txtpassword.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Debes llenar los campos");
+            
+        } else {
+            try {
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+
+                if (rs.next()) {
+                    if (rs.getString("IDEstado").equals("2")) {
+                        JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                        txtusuario.setText("");
+                        txtpassword.setText("");
+                    } else if (rs.getString("Contrasena").equals(pass)) {
+                        AdminDashboard ad = new AdminDashboard();
+                        ad.setVisible(true);
+                        this.dispose();
+                    } else {
+                        --intentos;
+                        if (intentos == 0) {
+                            JOptionPane.showMessageDialog(null, "Ha excedido el número de intentos para ingresar \n" + "Su usuario ha sido deshabilitado", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                            txtusuario.setText("");
+                            txtpassword.setText("");
+                            try {
+                                String sqlEstado = "UPDATE `usuarios` SET `IDEstado` = ? WHERE `usuarios`.`Usuario` = ? ";
+                                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
+                                pst.setString(1, estado);
+                                pst.setString(2, user);
+                                pst.execute();
+
+                            } catch (Exception e) {
+                                
+                            }
+                            Inicio inicio = new Inicio();
+                            inicio.setVisible(true);
+                            this.dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Aviso", JOptionPane.WARNING_MESSAGE);
+                            txtusuario.setText("");
+                            txtpassword.setText("");
+                        }
+                    }
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error de conexión " + e.getMessage(), "Aviso", JOptionPane.WARNING_MESSAGE);
                 txtusuario.setText("");
                 txtpassword.setText("");
             }
-            
-        } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error de conexión " + e.getMessage(), "Aviso", JOptionPane.WARNING_MESSAGE);
-             txtusuario.setText("");
-             txtpassword.setText("");
         }
     }
    
@@ -194,6 +228,9 @@ public class LoginAdmin extends javax.swing.JFrame {
 
    
     private void btninicioaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninicioaActionPerformed
+        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoBuscar.png");
+        animacionCarga.setIcon(iconobtn);
+        animacionCarga.repaint();
         validarAdministradores();
     }//GEN-LAST:event_btninicioaActionPerformed
 
@@ -239,6 +276,7 @@ public class LoginAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel animacionCarga;
     private javax.swing.JLabel btnCerrar;
     private javax.swing.JLabel btninicio;
     private javax.swing.JButton btninicioa;

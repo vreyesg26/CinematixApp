@@ -121,13 +121,14 @@ public class LoginVendedor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    int intentos = 3;
     public void validarVendedores(){
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
+        String estado = "2";
         String user = txtCorreo.getText();
         String pass = String.valueOf(txtClave.getPassword());
-        String sql = "SELECT * FROM vendedor WHERE Correo = '"+ user +"'";
+        String sql = "SELECT * FROM vendedor WHERE Correo = '" + user + "'";
         
         if(txtCorreo.getText().isEmpty() && txtClave.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtClave.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Debes llenar los campos");
@@ -135,54 +136,44 @@ public class LoginVendedor extends javax.swing.JFrame {
         } else {
             try {
             Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql); 
-           
+            ResultSet rs = st.executeQuery(sql);
             
             if(rs.next()){
-                int intentos = Integer.parseInt(rs.getString("Intentos_restantes"));
-                if(rs.getString("Intentos_restantes").equals("0")){
-                    JOptionPane.showMessageDialog(null,"Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
-                }else
-                
-               
-                if(rs.getString("Clave").equals(pass)){
+                if(rs.getString("IDEstado").equals("2")){
+                    JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                    txtCorreo.setText("");
+                    txtClave.setText("");
+                } else if (rs.getString("Clave").equals(pass)) {
                     MenuVendedor mv = new MenuVendedor();
                     mv.setVisible(true);
                     this.dispose();
                 } else{
-                if(intentos == 0){
-                    
-             
-                    JOptionPane.showMessageDialog(null, "Ha excedido el numero de intentos para ingresar \n" + "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
-                    
-                    Inicio inicio = new Inicio();
-                    inicio.setVisible(true);
-                    this.dispose();
-                }else{
-                    txtCorreo.setText("");
-                    txtClave.setText("");
-                   try{
-                    String sqlRestar = "UPDATE `vendedor` SET `Intentos_restantes` = ? WHERE `vendedor`.`Correo` = ? ";
-                     PreparedStatement pst=(PreparedStatement) cn.prepareStatement(sqlRestar);
-                     pst.setString(1, String.valueOf(intentos-1));
-                     pst.setString(2, user);
-                     pst.execute();
-                    JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + (intentos - 1) + " intentos", "Aviso", JOptionPane.WARNING_MESSAGE);
-                
-                   }catch(Exception e){
-                    JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e);
+                    --intentos;
+                    if (intentos == 0) {
+                        JOptionPane.showMessageDialog(null, "Ha excedido el numero de intentos para ingresar \n" + "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                        txtCorreo.setText("");
+                        txtClave.setText("");
+                        try {
+                            String sqlRestar = "UPDATE `vendedor` SET `IDEstado` = ? WHERE `vendedor`.`Correo` = ? ";
+                            PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlRestar);
+                            pst.setString(1, estado);
+                            pst.setString(2, user);
+                            pst.execute();
+
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e);
+                        }
+                        Inicio inicio = new Inicio();
+                        inicio.setVisible(true);
+                        this.dispose();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Aviso", JOptionPane.WARNING_MESSAGE);
+                        txtCorreo.setText("");
+                        txtClave.setText("");
+                    }
                 }
-                   
-                }
-                }
-                
-               
-                
             } else{
-                
-               JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos.");
-                
-               
+               JOptionPane.showMessageDialog(null, "Usuario o correo incorrectos.");  
             }
             
         } catch (Exception e) {
@@ -224,6 +215,7 @@ public class LoginVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarFocusGained
 
     private void btninicioaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninicioaActionPerformed
+        
         validarVendedores();
     }//GEN-LAST:event_btninicioaActionPerformed
 

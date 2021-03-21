@@ -36,7 +36,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         cargarData("");
         bloquearCampos();
         txtUrl.setEnabled(false);
-        //txtIDPelicula.setVisible(false);
+        txtIDPelicula.setVisible(false);
         tipoFuente = new Fuente();
 
         lbDuracion.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
@@ -59,7 +59,7 @@ public class panelPeliculas extends javax.swing.JPanel {
 
         btnImagen.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnGuardar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
-        btnEditar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        btnActualizar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnEliminar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         
@@ -83,7 +83,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         cbGeneros.setEnabled(false);
         btnGuardar.setEnabled(false);
         btnEliminar.setEnabled(false);
-        btnEditar.setEnabled(false);
+        btnActualizar.setEnabled(false);
         btnImagen.setEnabled(false);
         tablaPeliculas.setEnabled(false);
     }
@@ -123,7 +123,6 @@ public class panelPeliculas extends javax.swing.JPanel {
     void buscarData(String valor){
         String[] titulos = {"ID", "Titulo", "Duración", "Director", "Reparto", "Idioma", "Sinopsis", "Horario", "Género", "Foto", "URL"};
         String[] registros = new String[11];
-        //String sql = "SELECT * FROM peliculas WHERE CONCAT (IdPelicula, ' ', Titulo) LIKE '%" + valor + "%'";
         String sql = "SELECT IdPelicula, Titulo, Duracion, Nombre, Reparto, Tipo, Sinopsis, Hora, TipoGenero, Foto, urlFoto\n"
                 + "                FROM peliculas INNER JOIN director USING (IDDirector)\n"
                 + "                INNER JOIN idiomas USING (IDIdioma)\n"
@@ -153,16 +152,19 @@ public class panelPeliculas extends javax.swing.JPanel {
             }
             
             tablaPeliculas.setModel(model);
-            
-            TableColumnModel anchoColumnas = tablaPeliculas.getColumnModel();
+            tamañoColumnas();
+        } catch (SQLException ex){
+            Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    void tamañoColumnas(){
+        TableColumnModel anchoColumnas = tablaPeliculas.getColumnModel();
             anchoColumnas.getColumn(0).setPreferredWidth(40);
             anchoColumnas.getColumn(1).setPreferredWidth(165);
             anchoColumnas.getColumn(3).setPreferredWidth(120);
             anchoColumnas.getColumn(4).setPreferredWidth(120);
             anchoColumnas.getColumn(6).setPreferredWidth(120);
-        } catch (SQLException ex){
-            Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     ResultSet rs;
@@ -170,7 +172,6 @@ public class panelPeliculas extends javax.swing.JPanel {
     DefaultTableModel model;
     Conexion cc = new Conexion();
     Connection cn = cc.GetConexion();
-    
     void cargarData(String valor){
         String[] titulos = {"ID", "Titulo", "Duración", "Director", "Reparto", "Idioma", "Sinopsis", "Horario", "Género", "Foto", "URL"};
         String[] registros = new String[11];
@@ -180,13 +181,6 @@ public class panelPeliculas extends javax.swing.JPanel {
                 + "                INNER JOIN horarios USING (IDHorario)\n"
                 + "                INNER JOIN generos USING (IDGenero)\n"
                 + "                WHERE IdPelicula != 0 ORDER BY IdPelicula";
-        
-        /**String sql = "SELECT P.IdPelicula, P.Titulo, P.Duracion, D.Nombre, P.Reparto, I.Tipo, P.Sinopsis, H.Hora, G.TipoGenero, P.Foto \n"
-                + "FROM peliculas AS P INNER JOIN director AS D ON P.IDDirector = D.IDDirector \n"
-                + "INNER JOIN idiomas AS I ON P.IDIdioma = I.IDIdioma \n"
-                + "INNER JOIN horarios AS H ON P.IDHorario = H.IDHorario \n"
-                + "INNER JOIN generos AS G ON P.IDGenero = G.IDGenero \n"
-                + "WHERE P.IdPelicula != 0 ORDER BY P.IdPelicula";**/
         
         
         model = new DefaultTableModel(null, titulos);
@@ -211,6 +205,7 @@ public class panelPeliculas extends javax.swing.JPanel {
             }
             
             tablaPeliculas.setModel(model);
+            tamañoColumnas();
         } catch (SQLException ex){
             Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex.getMessage());
@@ -236,9 +231,9 @@ public class panelPeliculas extends javax.swing.JPanel {
         if (e.getKeyChar() >= 33 && e.getKeyChar() <= 47
                 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
                 || e.getKeyChar() >= 91 && e.getKeyChar() <= 96
-                || e.getKeyChar() >= 123 && e.getKeyChar() <= 208
-                || e.getKeyChar() >= 210 && e.getKeyChar() <= 240
-                || e.getKeyChar() >= 242 && e.getKeyChar() <= 255) {
+                || e.getKeyChar() >= 123 && e.getKeyChar() <= 129
+                || e.getKeyChar() >= 145 && e.getKeyChar() <= 159
+                || e.getKeyChar() >= 164 && e.getKeyChar() <= 238) {
             
             e.consume();
             JOptionPane.showMessageDialog(null, "Este campo no acepta caracteres especiales");
@@ -276,7 +271,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         lbTitulo = new javax.swing.JLabel();
         btnImagen = new rojerusan.RSButtonHover();
         btnGuardar = new rojerusan.RSButtonHover();
-        btnEditar = new rojerusan.RSButtonHover();
+        btnActualizar = new rojerusan.RSButtonHover();
         btnEliminar = new rojerusan.RSButtonHover();
         btnNuevo = new rojerusan.RSButtonHover();
         lbReparto = new javax.swing.JLabel();
@@ -346,11 +341,6 @@ public class panelPeliculas extends javax.swing.JPanel {
         cbDirector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Director...", "Mel Gibson", "Martin Scorsese", "David Lynch", "Federico Fellini", "Stanley Kubrick", "Steven Spielberg", "Quentin Tarantino", "Ingmar Bergman", "Francis Ford Coppola", "Alfred Hitchcock" }));
         cbDirector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbDirector.setOpaque(false);
-        cbDirector.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbDirectorActionPerformed(evt);
-            }
-        });
 
         txtTitulo.setForeground(new java.awt.Color(255, 255, 255));
         txtTitulo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -429,16 +419,16 @@ public class panelPeliculas extends javax.swing.JPanel {
             }
         });
 
-        btnEditar.setBackground(new java.awt.Color(81, 81, 81));
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoActualizar.png"))); // NOI18N
-        btnEditar.setText("ACTUALIZAR");
-        btnEditar.setBorderPainted(false);
-        btnEditar.setColorHover(new java.awt.Color(61, 61, 61));
-        btnEditar.setFocusable(false);
-        btnEditar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setBackground(new java.awt.Color(81, 81, 81));
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoActualizar.png"))); // NOI18N
+        btnActualizar.setText("ACTUALIZAR");
+        btnActualizar.setBorderPainted(false);
+        btnActualizar.setColorHover(new java.awt.Color(61, 61, 61));
+        btnActualizar.setFocusable(false);
+        btnActualizar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
 
@@ -491,11 +481,6 @@ public class panelPeliculas extends javax.swing.JPanel {
         cbHorarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
         cbHorarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbHorarios.setOpaque(false);
-        cbHorarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbHorariosActionPerformed(evt);
-            }
-        });
 
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -522,11 +507,6 @@ public class panelPeliculas extends javax.swing.JPanel {
         txtUrl.setForeground(new java.awt.Color(255, 255, 255));
         txtUrl.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtUrl.setOpaque(false);
-        txtUrl.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtUrlKeyTyped(evt);
-            }
-        });
 
         lbUrl.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N
         lbUrl.setForeground(new java.awt.Color(255, 255, 255));
@@ -566,7 +546,7 @@ public class panelPeliculas extends javax.swing.JPanel {
                                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                     .addGap(276, 276, 276)
-                                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(lbReparto, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -642,7 +622,7 @@ public class panelPeliculas extends javax.swing.JPanel {
                     .addComponent(btnImagen, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -654,7 +634,6 @@ public class panelPeliculas extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    //Variable que almacenará la URL de las fotos
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         Conexion cn = new Conexion();
@@ -687,7 +666,12 @@ public class panelPeliculas extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Se guardo correctamente");
                 limpiarCajas();
                 bloquearCampos();
-                cargarData("");
+                btnGuardar.setEnabled(false);
+                btnNuevo.setEnabled(true);
+                btnImagen.setEnabled(false);
+                btnEliminar.setEnabled(false);
+                btnActualizar.setEnabled(false);
+                tablaPeliculas.setEnabled(false);
                }
 
             } catch (Exception e) {
@@ -695,9 +679,10 @@ public class panelPeliculas extends javax.swing.JPanel {
                 System.out.println(e.getMessage());
             }
         }
+        cargarData("");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         Conexion cn = new Conexion();
         Connection cc = cn.GetConexion();
         validarCamposVacios();
@@ -707,7 +692,7 @@ public class panelPeliculas extends javax.swing.JPanel {
             String sql = "UPDATE peliculas SET Titulo = ?, Duracion = ?, IDDirector = ?, "
                     + "Reparto = ?, IDIdioma = ?, Sinopsis = ?, IDHorario = ?, "
                     + "IDGenero = ?, Foto = ?, urlFoto = ?"
-                    + "WHERE IdPelicula = '"+txtIDPelicula+"'";
+                    + "WHERE IdPelicula = '"+ txtIDPelicula.getText() +"'";
 
             try {
                 FileInputStream archivoImagen;
@@ -728,7 +713,17 @@ public class panelPeliculas extends javax.swing.JPanel {
                 if(i>0){
                 JOptionPane.showMessageDialog(null, "Se guardo correctamente");
                 limpiarCajas();
-                cargarData("");
+                btnGuardar.setEnabled(false);
+                btnNuevo.setEnabled(true);
+                btnImagen.setEnabled(false);
+                btnEliminar.setEnabled(false);
+                btnActualizar.setEnabled(false);
+                tablaPeliculas.setEnabled(false);
+                bloquearCampos();
+                
+                    ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
+                    btnEliminar.setIcon(iconobtn);
+                    btnEliminar.setText("DESHABILITAR");
                }
 
             } catch (Exception e) {
@@ -736,10 +731,44 @@ public class panelPeliculas extends javax.swing.JPanel {
                 System.out.println(e.getMessage());
             }
         }
-    }//GEN-LAST:event_btnEditarActionPerformed
+        cargarData("");
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        if(btnEliminar.getText() == "CANCELAR"){
+            limpiarCajas();
+            btnActualizar.setEnabled(false);
+            btnGuardar.setEnabled(true);
+            btnEliminar.setEnabled(false);
+            
+            ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
+            btnEliminar.setIcon(iconobtn);
+            btnEliminar.setText("DESHABILITAR");
+        }
+        
+        if(btnEliminar.getText() == "DESHABILITAR"){
+            int fila = tablaPeliculas.getSelectedRow();
+            if(fila == 0){
+                JOptionPane.showMessageDialog(null,"Para borrar debe seleccionar una pelicula de la tabla", "Aviso", JOptionPane.WARNING_MESSAGE);
+            } else {
+                String elemento = tablaPeliculas.getValueAt(fila, 0).toString();
+                
+                String sqlElim = "DELETE FROM vendedor WHERE IDVendedor='" + elemento + "'";
+                try {
+                    PreparedStatement pst = cn.prepareStatement(sqlElim);
+                    int n = pst.executeUpdate();
+                    if (n > 0) {
+                        JOptionPane.showMessageDialog(null, "Los datos fueron eliminados con exito", "Confirmación", JOptionPane.OK_OPTION);
+                        cargarData("");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Hubo Problemas al querer eliminar esta pelicula");
+                    }
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+                limpiarCajas();
+            }
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenActionPerformed
@@ -772,14 +801,6 @@ public class panelPeliculas extends javax.swing.JPanel {
         
     }//GEN-LAST:event_txtRepartoKeyTyped
 
-    private void cbHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbHorariosActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbHorariosActionPerformed
-
-    private void cbDirectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbDirectorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbDirectorActionPerformed
-
     private void txtDuracionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDuracionKeyTyped
         if (txtDuracion.getText().length() > 2) {
             evt.consume();
@@ -789,7 +810,7 @@ public class panelPeliculas extends javax.swing.JPanel {
 
     private void menuModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarActionPerformed
         btnGuardar.setEnabled(false);
-        btnEditar.setEnabled(false);
+        btnActualizar.setEnabled(true);
         btnEliminar.setEnabled(true);
         
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
@@ -903,10 +924,6 @@ public class panelPeliculas extends javax.swing.JPanel {
         buscarData(txtBuscar.getText());
     }//GEN-LAST:event_txtBuscarKeyReleased
 
-    private void txtUrlKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUrlKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUrlKeyTyped
-
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         limpiarCajas();
         txtIDPelicula.setEnabled(true);
@@ -918,9 +935,10 @@ public class panelPeliculas extends javax.swing.JPanel {
         cbHorarios.setEnabled(true);
         cbIdiomas.setEnabled(true);
         cbGeneros.setEnabled(true);
+        btnNuevo.setEnabled(false);
         btnGuardar.setEnabled(true);
         btnEliminar.setEnabled(false);
-        btnEditar.setEnabled(false);
+        btnActualizar.setEnabled(false);
         btnImagen.setEnabled(true);
         tablaPeliculas.setEnabled(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
@@ -933,7 +951,26 @@ public class panelPeliculas extends javax.swing.JPanel {
         if(!txtTitulo.getText().isEmpty()){
             if(txtTitulo.getText().length() < 4){
             JOptionPane.showMessageDialog(null,"Titulo debe contener al menos 4 caracteres","Error",JOptionPane.ERROR_MESSAGE);
-            } 
+            }
+            
+            Conexion cc = new Conexion();
+            Connection cn = cc.GetConexion();
+            String titulo = txtTitulo.getText();
+            String sql = "SELECT Titulo FROM peliculas WHERE Titulo = '" + titulo + "'";
+
+            try {
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+
+                if (rs.next()) {
+                    if (rs.getString("Titulo").equals(titulo)) {
+                        JOptionPane.showMessageDialog(null, "Esta pelicula ya está almacenada", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                        txtTitulo.setText("");
+                    }
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_txtTituloFocusLost
 
@@ -964,7 +1001,7 @@ public class panelPeliculas extends javax.swing.JPanel {
     datosPeliculas dataPeli = new datosPeliculas();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private rojerusan.RSButtonHover btnEditar;
+    private rojerusan.RSButtonHover btnActualizar;
     private rojerusan.RSButtonHover btnEliminar;
     private rojerusan.RSButtonHover btnGuardar;
     private rojerusan.RSButtonHover btnImagen;

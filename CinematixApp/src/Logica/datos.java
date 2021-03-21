@@ -119,20 +119,20 @@ public class datos extends Conexion {
     public boolean guardar(){
         PreparedStatement pst = null;
         Connection cc = GetConexion();
-        String sql = "INSERT INTO vendedor (Nombre, Usuario, Clave, Direccion, Sueldo, IDJornada, NumeroCelular, IDTipoDocumento, NumeroDocumento, Correo)" + "Values(?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO vendedor (Nombre, Direccion, Sueldo, IDJornada, NumeroCelular, IDTipoDocumento, NumeroDocumento, Correo, Usuario, Clave)" + "Values(?,?,?,?,?,?,?,?,?,?)";
 
         try {
             pst = cc.prepareStatement(sql);
-            pst.setString(1, this.getNombre());
-            pst.setString(2,this.getUsuario());
-            pst.setString(3,this.getClave());   
-            pst.setString(4,this.getDireccion());
-            pst.setInt(5,this.getSueldo());
-            pst.setInt(6,this.getIDJornada());
-            pst.setInt(7,this.getNumeroCelular());
-            pst.setInt(8, this.getIDTipoDocumento());
-            pst.setString(9, this.getNumeroDocumento());
-            pst.setString(10, this.getCorrreo());
+            pst.setString(1, this.getNombre());  
+            pst.setString(2,this.getDireccion());
+            pst.setInt(3,this.getSueldo());
+            pst.setInt(4,this.getIDJornada());
+            pst.setInt(5,this.getNumeroCelular());
+            pst.setInt(6, this.getIDTipoDocumento());
+            pst.setString(7, this.getNumeroDocumento());
+            pst.setString(8, this.getCorrreo());
+            pst.setString(9,this.getUsuario());
+            pst.setString(10,this.getClave()); 
             pst.execute();
             return true;
             
@@ -156,27 +156,24 @@ public class datos extends Conexion {
                  + "WHERE IDVendedor = ?";**/ 
         
  
-        String vSql = "UPDATE vendedor SET  Nombre= ? , Usuario = ?, Clave = ?, Direccion = ?, Sueldo = ?, IDJornada = ?, NumeroCelular = ?, IDTipoDocumento = ?, NumeroDocumento = ?, Correo = ? where IDVendedor = ?";                
+        String vSql = "UPDATE vendedor SET  Nombre= ? , Direccion = ?, Sueldo = ?, IDJornada = ?, NumeroCelular = ?, IDTipoDocumento = ?, NumeroDocumento = ?, Correo = ?, Usuario = ?, Clave = ? where IDVendedor = ?";                
         try {
             Pst = cc.prepareStatement(vSql);
-            Pst.setString(1, this.getNombre());
-            Pst.setString(2,this.getUsuario());
-            Pst.setString(3,this.getClave());   
-            Pst.setString(4,this.getDireccion());
-            Pst.setInt(5,this.getSueldo());
-            Pst.setInt(6,this.getIDJornada());
-            Pst.setInt(7,this.getNumeroCelular());
-            Pst.setInt(8, this.getIDTipoDocumento());
-            Pst.setString(9, this.getNumeroDocumento());
-            Pst.setString(10, this.getCorrreo());
+            Pst.setString(1, this.getNombre());  
+            Pst.setString(2,this.getDireccion());
+            Pst.setInt(3,this.getSueldo());
+            Pst.setInt(4,this.getIDJornada());
+            Pst.setInt(5,this.getNumeroCelular());
+            Pst.setInt(6, this.getIDTipoDocumento());
+            Pst.setString(7, this.getNumeroDocumento());
+            Pst.setString(8, this.getCorrreo());
+            Pst.setString(9,this.getUsuario());
+            Pst.setString(10,this.getClave());
             Pst.setInt(11, this.getIDVendedor());
             Pst.execute();
             return true;
-
         } catch (SQLException e) {
             return false;
-        }
-        
+        }  
     }
-   
 }
