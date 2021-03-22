@@ -5,7 +5,6 @@
  */
 package JFrames;
 
-//import java.awt.Color;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.DefaultComboBoxModel;
@@ -17,7 +16,6 @@ import javax.swing.JOptionPane;
  * @author Jeymerd Canales
  */
 public class MenuVendedor extends javax.swing.JFrame {
-
     /**
      * Creates new form MenuVendedor
      */
@@ -64,7 +62,12 @@ public class MenuVendedor extends javax.swing.JFrame {
         jTextFieldCantidadDeBoletosNiños.setEnabled(true);
         jButtonContinuar.setEnabled(true);
     }
-
+    
+   /* ResultSet rs;
+    PreparedStatement Pst;
+    DefaultComboBoxModel model;
+    Conexion cc = new Conexion();
+    Connection cn = cc.GetConexion();*/
     void AgregarAComboboxPelicula() {
         DefaultComboBoxModel modelo = new DefaultComboBoxModel();
         modelo.addElement("Seleccione");
@@ -73,10 +76,25 @@ public class MenuVendedor extends javax.swing.JFrame {
         modelo.addElement("Cars 3");
         modelo.addElement("Spider-Man");
         modelo.addElement("Batman");
-
         jComboBoxPeliculas.setModel(modelo);
-
-    }
+            /*String[] titulos = {"Titulo"};
+            String sql = "SELECT Titulo FROM peliculas WHERE Titulo";
+             DefaultComboBoxModel ListaModelo = new DefaultComboBoxModel();
+             ListaModelo.addElement("Seleccione");
+             try{
+            Statement st = cn.createStatement();
+        try (ResultSet rs = st.executeQuery(sql)) {
+            while(rs.next()){
+                ListaModelo.addElement(rs.getString("Titulo"));
+            }
+        jComboBoxPeliculas.setModel(modelo);
+        }
+             }catch (SQLException ex){
+                  Logger.getLogger(panelPeliculas.class.getName()).log(Level.SEVERE,null,ex);
+                 System.out.println(ex.getMessage());
+             }*/
+             
+}
 
     void seleccionPelicula() {
         int combo;
@@ -174,7 +192,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         jComboBoxHora.removeAllItems();
     }
 
-    void calculo()  {
+    void calculo() {
 
         double cantidadAdultos = 0.0, cantidadNiños = 0.0;
         double precioAdultos = 0.0, precioNiños = 0.0;
@@ -245,7 +263,21 @@ public class MenuVendedor extends javax.swing.JFrame {
             jButtonContinuar.setEnabled(false);
         }
     }
-
+        
+    /*void buscarData(){
+            String sql = "SELECT Titulo FROM Peliculas";
+             DefaultComboBoxModel ListaModelo = new DefaultComboBoxModel();
+             ListaModelo.addElement("Seleccione");
+             try{
+            Statement st = cn.createStatement();
+        try (ResultSet rs = st.executeQuery(sql)) {
+            while(rs.next()){
+                ListaModelo.addElement(rs.getString("Titulo"));
+            }
+        }
+             }catch (SQLException ex){
+                 System.out.println(ex.getMessage());
+             }*/
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -275,6 +307,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jRadioButtonEfectivo = new javax.swing.JRadioButton();
         jRadioButtonTCredito = new javax.swing.JRadioButton();
+        jRadioButtonMixto = new javax.swing.JRadioButton();
         jButtonContinuar = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
@@ -380,7 +413,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         jPanel5.setOpaque(false);
 
         buttonGroup1.add(jRadioButtonEfectivo);
-        jRadioButtonEfectivo.setFont(new java.awt.Font("Ubuntu Condensed", 1, 16)); // NOI18N
+        jRadioButtonEfectivo.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         jRadioButtonEfectivo.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButtonEfectivo.setText("Efectivo");
         jRadioButtonEfectivo.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -390,9 +423,14 @@ public class MenuVendedor extends javax.swing.JFrame {
                 jRadioButtonEfectivoMouseClicked(evt);
             }
         });
+        jRadioButtonEfectivo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonEfectivoActionPerformed(evt);
+            }
+        });
 
         buttonGroup1.add(jRadioButtonTCredito);
-        jRadioButtonTCredito.setFont(new java.awt.Font("Ubuntu Condensed", 1, 16)); // NOI18N
+        jRadioButtonTCredito.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         jRadioButtonTCredito.setForeground(new java.awt.Color(255, 255, 255));
         jRadioButtonTCredito.setText("Tarjeta de crédito");
         jRadioButtonTCredito.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -403,15 +441,33 @@ public class MenuVendedor extends javax.swing.JFrame {
             }
         });
 
+        jRadioButtonMixto.setBackground(new java.awt.Color(51, 51, 51));
+        buttonGroup1.add(jRadioButtonMixto);
+        jRadioButtonMixto.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
+        jRadioButtonMixto.setForeground(new java.awt.Color(255, 255, 255));
+        jRadioButtonMixto.setText("Mixto");
+        jRadioButtonMixto.setOpaque(false);
+        jRadioButtonMixto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jRadioButtonMixtoMouseClicked(evt);
+            }
+        });
+        jRadioButtonMixto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonMixtoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jRadioButtonEfectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButtonTCredito))
+                    .addComponent(jRadioButtonTCredito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jRadioButtonMixto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -419,8 +475,11 @@ public class MenuVendedor extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jRadioButtonEfectivo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jRadioButtonTCredito))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButtonTCredito)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jRadioButtonMixto)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jButtonContinuar.setFont(new java.awt.Font("Ubuntu Condensed", 0, 14)); // NOI18N
@@ -587,16 +646,18 @@ public class MenuVendedor extends javax.swing.JFrame {
                     .addComponent(jLabel12)
                     .addComponent(jTextFieldCantidadDeBoletosNiños, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelMenores))
-                .addGap(49, 49, 49)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jButtonContinuar)
+                        .addGap(81, 81, 81))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jButtonContinuar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addComponent(jLabelResultado, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -680,7 +741,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jComboBoxPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPeliculasActionPerformed
-        seleccionPelicula();
+         seleccionPelicula();
         caratulas();
         jButtonContinuar.setEnabled(false);
     }//GEN-LAST:event_jComboBoxPeliculasActionPerformed
@@ -709,14 +770,14 @@ public class MenuVendedor extends javax.swing.JFrame {
             evt.consume();
 
             JOptionPane.showConfirmDialog(null, "Solo se admiten numeros", "Validar numeros",
-                    JOptionPane.CLOSED_OPTION);
+                    JOptionPane.INFORMATION_MESSAGE);
 
         } else if ((cant < '0' || cant > '9') && jTextFieldCantidadDeBoletosAdultos.getText().contains("")
                 && (cant != (char) KeyEvent.VK_BACK_SPACE)) {
             evt.consume();
 
             JOptionPane.showConfirmDialog(null, "Solo se admiten numeros", "Validar numeros",
-                    JOptionPane.CLOSED_OPTION);
+                    JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jTextFieldCantidadDeBoletosNiñosKeyTyped
 
@@ -736,13 +797,19 @@ public class MenuVendedor extends javax.swing.JFrame {
 
         if (jTextFieldCantidadDeBoletosAdultos.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Escriba la cantidad de boletos", "Complete datos", JOptionPane.WARNING_MESSAGE);
-            
-        }  if (jRadioButtonEfectivo.isSelected() == true) {
+
+        }
+        if (jRadioButtonEfectivo.isSelected() == true) {
             JOptionPane.showMessageDialog(null, "Pago en Efectivo");
-            
-        } if (jRadioButtonTCredito.isSelected() == true) {  
+        }
+
+        if (jRadioButtonMixto.isSelected() == true) {
+            JOptionPane.showMessageDialog(null, "Pago Mixto");
+        }
+
+        if (jRadioButtonTCredito.isSelected() == true) {
             JOptionPane.showMessageDialog(null, "Pago con Tarjeta de Credito");
-           Preview obj = new Preview();
+            Preview obj = new Preview();
             pasaDatos();
             Preview.jTextFieldPelicula.setText(jComboBoxPeliculas.getSelectedItem().toString());
             Preview.jTextFieldHora.setText(jComboBoxHora.getSelectedItem().toString());
@@ -751,9 +818,9 @@ public class MenuVendedor extends javax.swing.JFrame {
             calculo();
             obj.setVisible(true);
 
-        }else  if (jRadioButtonEfectivo.isSelected() == false && jRadioButtonTCredito.isSelected() == false) {
+        } else if (jRadioButtonEfectivo.isSelected() == false && jRadioButtonTCredito.isSelected() == false && jRadioButtonMixto.isSelected() == false) {
             JOptionPane.showMessageDialog(null, "DEBE SELECCIONAR UN METODO DE PAGO", "Complete datos", JOptionPane.WARNING_MESSAGE);
-            
+
         } else {
             Preview obj = new Preview();
             pasaDatos();
@@ -792,14 +859,14 @@ public class MenuVendedor extends javax.swing.JFrame {
             evt.consume();
 
             JOptionPane.showConfirmDialog(null, "Solo se admiten numeros", "Validar numeros",
-                    JOptionPane.CLOSED_OPTION);
+                    JOptionPane.WARNING_MESSAGE);
 
         } else if ((cant < '0' || cant > '9') && jTextFieldCantidadDeBoletosAdultos.getText().contains("")
                 && (cant != (char) KeyEvent.VK_BACK_SPACE)) {
             evt.consume();
 
             JOptionPane.showConfirmDialog(null, "Solo se admiten numeros", "Validar numeros",
-                    JOptionPane.CLOSED_OPTION);
+                    JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jTextFieldCantidadDeBoletosAdultosKeyTyped
 
@@ -810,6 +877,23 @@ public class MenuVendedor extends javax.swing.JFrame {
     private void jTextFieldCantidadDeBoletosAdultosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCantidadDeBoletosAdultosActionPerformed
         HabilitarBoton();
     }//GEN-LAST:event_jTextFieldCantidadDeBoletosAdultosActionPerformed
+
+    private void jRadioButtonMixtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonMixtoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonMixtoActionPerformed
+
+    private void jRadioButtonEfectivoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonEfectivoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonEfectivoActionPerformed
+
+    private void jRadioButtonMixtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jRadioButtonMixtoMouseClicked
+        String mensaje = "Su metodo de pago es: ";
+
+        if (jRadioButtonMixto.isSelected()) {
+            mensaje += "Mixto";
+        }
+        jLabelResultado.setText(mensaje);
+    }//GEN-LAST:event_jRadioButtonMixtoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -876,6 +960,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     public static javax.swing.JRadioButton jRadioButtonEfectivo;
+    public static javax.swing.JRadioButton jRadioButtonMixto;
     public static javax.swing.JRadioButton jRadioButtonTCredito;
     public static javax.swing.JTextField jTextFieldCantidadDeBoletosAdultos;
     public static javax.swing.JTextField jTextFieldCantidadDeBoletosNiños;

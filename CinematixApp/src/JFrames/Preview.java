@@ -98,7 +98,6 @@ public final class Preview extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
-        jTextFieldNombreVendedor = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -107,6 +106,7 @@ public final class Preview extends javax.swing.JFrame {
         jLabelCambio = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
+        jTextFieldNombreVendedor = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -174,6 +174,11 @@ public final class Preview extends javax.swing.JFrame {
         });
 
         jTextFieldCantidadDeBoletosNiños.setEditable(false);
+        jTextFieldCantidadDeBoletosNiños.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldCantidadDeBoletosNiñosActionPerformed(evt);
+            }
+        });
 
         jLabel6.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         jLabel6.setText("Cantidad de boletos (niños)");
@@ -187,6 +192,7 @@ public final class Preview extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         jLabel9.setText("Total a pagar");
 
+        jLabel15.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel15.setText("L.");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -294,9 +300,6 @@ public final class Preview extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         jLabel10.setText("Nombre vendedor: ");
 
-        jTextFieldNombreVendedor.setEditable(false);
-        jTextFieldNombreVendedor.setFont(new java.awt.Font("Ubuntu Condensed", 0, 14)); // NOI18N
-
         jLabel11.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         jLabel11.setText("Tegucigalpa");
 
@@ -306,6 +309,11 @@ public final class Preview extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         jLabel13.setText("Efectivo recibido:");
 
+        jTextFieldEfectivoRecibido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldEfectivoRecibidoActionPerformed(evt);
+            }
+        });
         jTextFieldEfectivoRecibido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldEfectivoRecibidoKeyTyped(evt);
@@ -325,6 +333,17 @@ public final class Preview extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         jLabel16.setText("CineMatix");
 
+        jTextFieldNombreVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldNombreVendedorActionPerformed(evt);
+            }
+        });
+        jTextFieldNombreVendedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldNombreVendedorKeyTyped(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
@@ -341,15 +360,19 @@ public final class Preview extends javax.swing.JFrame {
                         .addGap(59, 59, 59)
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel11)
-                            .addComponent(jTextFieldNombreVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabelCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(32, 32, 32)
-                        .addComponent(jTextFieldEfectivoRecibido, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(25, 25, 25))))
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jTextFieldNombreVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(jPanel7Layout.createSequentialGroup()
+                                .addComponent(jTextFieldEfectivoRecibido, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(25, 25, 25))))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel16)
@@ -417,16 +440,38 @@ public final class Preview extends javax.swing.JFrame {
                     evt.consume();
                     
                     JOptionPane.showConfirmDialog(null, "Solo se admiten numeros", "Validar numeros"
-                    , JOptionPane.CLOSED_OPTION);
+                    , JOptionPane.INFORMATION_MESSAGE);
                     
     }else if ((cant < '0' || cant > '9') && jTextFieldCantidadDeBoletosAdultos.getText().contains("")
                     && (cant != (char)KeyEvent.VK_BACK_SPACE )){
                     evt.consume();
                     
                     JOptionPane.showConfirmDialog(null, "Solo se admiten numeros", "Validar numeros"
-                    , JOptionPane.CLOSED_OPTION);
+                    , JOptionPane.INFORMATION_MESSAGE);
                     }
     }//GEN-LAST:event_jTextFieldEfectivoRecibidoKeyTyped
+
+    private void jTextFieldNombreVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreVendedorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldNombreVendedorActionPerformed
+
+    private void jTextFieldEfectivoRecibidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEfectivoRecibidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldEfectivoRecibidoActionPerformed
+
+    private void jTextFieldCantidadDeBoletosNiñosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCantidadDeBoletosNiñosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldCantidadDeBoletosNiñosActionPerformed
+
+    private void jTextFieldNombreVendedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreVendedorKeyTyped
+        char validar = evt.getKeyChar();
+        
+        if(Character.isDigit(validar)){
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showMessageDialog(this, "Solo se admiten letras");
+        }
+    }//GEN-LAST:event_jTextFieldNombreVendedorKeyTyped
 
     /**
      * @param args the command line arguments
