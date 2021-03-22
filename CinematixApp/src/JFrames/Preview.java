@@ -35,18 +35,16 @@ public final class Preview extends javax.swing.JFrame {
         double efectivoR;
         double totalPago;
         double cambio;
-
+       
         totalPago = Double.parseDouble(jLabelTotalPago.getText());
         efectivoR = Double.parseDouble(jTextFieldEfectivoRecibido.getText());
-
         if (efectivoR < totalPago) {
             JOptionPane.showMessageDialog(this, "No cuentas con suficiente dinero", "Cobro", JOptionPane.WARNING_MESSAGE);
         } else {
             cambio = efectivoR - totalPago;
-            jLabelCambio.setText("L." + cambio + " ");
+            jLabelCambio.setText("L." + cambio + "0");
             jButtonComprar.setEnabled(true);
         }
-
     }
 
     void pasaDatos() {
@@ -60,6 +58,7 @@ public final class Preview extends javax.swing.JFrame {
         Ticket.jLabeTotal.setText("L."+jLabelTotalPago.getText());
         Ticket.jLabeEfectivoRecibido.setText("L."+jTextFieldEfectivoRecibido.getText());
         Ticket.jLabeCambio.setText(jLabelCambio.getText());
+        Ticket.jLabelISV.setText(jLabelImpuesto.getText());
     }
 
     /**
@@ -107,6 +106,8 @@ public final class Preview extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
         jTextFieldNombreVendedor = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        jLabelImpuesto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -346,17 +347,29 @@ public final class Preview extends javax.swing.JFrame {
             }
         });
 
+        jLabel17.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel17.setText("ISV:");
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel16)
+                .addGap(135, 135, 135))
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel12)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14))
+                    .addComponent(jLabel14)
+                    .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel7Layout.createSequentialGroup()
+                            .addComponent(jLabel17)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabelImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel13)))
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
@@ -375,10 +388,6 @@ public final class Preview extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(25, 25, 25))))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel16)
-                .addGap(135, 135, 135))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -400,7 +409,11 @@ public final class Preview extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(jLabelCambio, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabelImpuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
                 .addComponent(jLabel16)
                 .addContainerGap(51, Short.MAX_VALUE))
         );
@@ -423,8 +436,12 @@ public final class Preview extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldCantidadDeBoletosAdultosActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+       double efectivoR;
+       double isv;
+        efectivoR = Double.parseDouble(jTextFieldEfectivoRecibido.getText());
+        isv = efectivoR *0.15;
+            jLabelImpuesto.setText("L." + isv + "0");
         calculo();
-        
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButtonComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComprarActionPerformed
@@ -441,15 +458,15 @@ public final class Preview extends javax.swing.JFrame {
                     && (cant != (char)KeyEvent.VK_BACK_SPACE )){
                     evt.consume();
                     
-                    JOptionPane.showConfirmDialog(null, "Solo se admiten numeros", "Validar numeros"
-                    , JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Solo se admiten numeros", "Validar numeros"
+                    , JOptionPane.WARNING_MESSAGE);
                     
     }else if ((cant < '0' || cant > '9') && jTextFieldCantidadDeBoletosAdultos.getText().contains("")
                     && (cant != (char)KeyEvent.VK_BACK_SPACE )){
                     evt.consume();
                     
-                    JOptionPane.showConfirmDialog(null, "Solo se admiten numeros", "Validar numeros"
-                    , JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Solo se admiten numeros", "Validar numeros"
+                    , JOptionPane.WARNING_MESSAGE);
                     }
     }//GEN-LAST:event_jTextFieldEfectivoRecibidoKeyTyped
 
@@ -522,6 +539,7 @@ public final class Preview extends javax.swing.JFrame {
     public static javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -531,6 +549,7 @@ public final class Preview extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelCambio;
+    private javax.swing.JLabel jLabelImpuesto;
     public static final javax.swing.JLabel jLabelSala = new javax.swing.JLabel();
     public static javax.swing.JLabel jLabelTotalAdultos;
     public static javax.swing.JLabel jLabelTotalNiños;

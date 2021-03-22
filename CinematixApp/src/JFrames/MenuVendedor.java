@@ -769,15 +769,15 @@ public class MenuVendedor extends javax.swing.JFrame {
                 && (cant != (char) KeyEvent.VK_BACK_SPACE)) {
             evt.consume();
 
-            JOptionPane.showConfirmDialog(null, "Solo se admiten numeros", "Validar numeros",
-                    JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Solo se admiten numeros", "Validar numeros",
+                    JOptionPane.WARNING_MESSAGE);
 
         } else if ((cant < '0' || cant > '9') && jTextFieldCantidadDeBoletosAdultos.getText().contains("")
                 && (cant != (char) KeyEvent.VK_BACK_SPACE)) {
             evt.consume();
 
-            JOptionPane.showConfirmDialog(null, "Solo se admiten numeros", "Validar numeros",
-                    JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Solo se admiten numeros", "Validar numeros",
+                    JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jTextFieldCantidadDeBoletosNiñosKeyTyped
 
@@ -858,14 +858,14 @@ public class MenuVendedor extends javax.swing.JFrame {
                 && (cant != (char) KeyEvent.VK_BACK_SPACE)) {
             evt.consume();
 
-            JOptionPane.showConfirmDialog(null, "Solo se admiten numeros", "Validar numeros",
+            JOptionPane.showMessageDialog(null, "Solo se admiten numeros", "Validar numeros",
                     JOptionPane.WARNING_MESSAGE);
 
         } else if ((cant < '0' || cant > '9') && jTextFieldCantidadDeBoletosAdultos.getText().contains("")
                 && (cant != (char) KeyEvent.VK_BACK_SPACE)) {
             evt.consume();
 
-            JOptionPane.showConfirmDialog(null, "Solo se admiten numeros", "Validar numeros",
+            JOptionPane.showMessageDialog(null, "Solo se admiten numeros", "Validar numeros",
                     JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jTextFieldCantidadDeBoletosAdultosKeyTyped

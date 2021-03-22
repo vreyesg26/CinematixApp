@@ -108,7 +108,7 @@ public final class Ticket extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jButton_Imprimir = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelISV = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
 
@@ -197,8 +197,8 @@ public final class Ticket extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel2.setText("15%");
+        jLabelISV.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabelISV.setText("...");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel3.setText("ISV / Impuestos............");
@@ -227,7 +227,7 @@ public final class Ticket extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel2))
+                                .addComponent(jLabelISV))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel14)
                                 .addGap(18, 18, 18)
@@ -315,7 +315,7 @@ public final class Ticket extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabelISV))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
@@ -432,7 +432,6 @@ public final class Ticket extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
@@ -441,6 +440,7 @@ public final class Ticket extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelFecha;
     private javax.swing.JLabel jLabelHora;
+    public static javax.swing.JLabel jLabelISV;
     public static javax.swing.JLabel jLabelNiños;
     public static javax.swing.JLabel jLabelPelicula;
     public static javax.swing.JLabel jLabelSala;
