@@ -132,13 +132,13 @@ public final class Ticket extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel9.setText("Tanda..................");
 
-        jLabelTanda.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
+        jLabelTanda.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelTanda.setText("...");
 
-        jLabelSala.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
+        jLabelSala.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelSala.setText("...");
 
-        jLabelPelicula.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
+        jLabelPelicula.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelPelicula.setText("...");
 
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
@@ -150,31 +150,31 @@ public final class Ticket extends javax.swing.JFrame {
         jLabelNiños.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
         jLabelNiños.setText("...");
 
-        jLabeNiñosTotal.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
+        jLabeNiñosTotal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabeNiñosTotal.setText("...");
 
         jLabeAdultos.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
         jLabeAdultos.setText("...");
 
-        jLabeAdultosTotal.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
+        jLabeAdultosTotal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabeAdultosTotal.setText("...");
 
         jLabel12.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
         jLabel12.setText("TOTAL.............................");
 
-        jLabeTotal.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
+        jLabeTotal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabeTotal.setText("...");
 
         jLabel13.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
         jLabel13.setText("Efectivo recibido.............");
 
-        jLabeEfectivoRecibido.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
+        jLabeEfectivoRecibido.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabeEfectivoRecibido.setText("...");
 
         jLabel14.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
         jLabel14.setText("Cambio...........................");
 
-        jLabeCambio.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
+        jLabeCambio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabeCambio.setText("...");
 
         jLabel15.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
@@ -197,7 +197,7 @@ public final class Ticket extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("15%");
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
