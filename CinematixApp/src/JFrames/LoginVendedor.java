@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author TALLER VARELA
+ * @author Los Pibes
  */
 public class LoginVendedor extends javax.swing.JFrame {
 

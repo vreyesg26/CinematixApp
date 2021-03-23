@@ -144,18 +144,16 @@ public class AdminDashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-           for (double i=0.0; i<=1.0; i=i+0.1){
-            String val = i+"";
-            float f=Float.valueOf(val);
+        for (double i = 0.0; i <= 1.0; i = i + 0.1) {
+            String val = i + "";
+            float f = Float.valueOf(val);
             this.setOpacity(f);
             try {
                 Thread.sleep(50);
+            } catch (Exception e) {
+
             }
-            catch(Exception e){
-                
-            }
-           }   
-            
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked

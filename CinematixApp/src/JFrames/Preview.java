@@ -5,9 +5,9 @@
  */
 package JFrames;
 
-import static JFrames.MenuVendedor.jTextFieldCantidadDeBoletosAdultos;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
+import static JFrames.MenuVendedor.txtBoletosAdultos;
 
 /**
  *
@@ -193,7 +193,6 @@ public final class Preview extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         jLabel9.setText("Total a pagar");
 
-        jLabel15.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel15.setText("L.");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -289,10 +288,10 @@ public final class Preview extends javax.swing.JFrame {
                     .addComponent(jLabelTotalNiños)
                     .addComponent(jLabelTotalAdultos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel15)
-                    .addComponent(jLabelTotalPago, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelTotalPago, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
                 .addGap(39, 39, 39))
         );
 

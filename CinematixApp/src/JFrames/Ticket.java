@@ -63,13 +63,13 @@ public final class Ticket extends javax.swing.JFrame {
     
     void limpiar() {
         ImageIcon i = new ImageIcon("");
-        MenuVendedor.jTextFieldCantidadDeBoletosAdultos.setText("");
+        MenuVendedor.txtBoletosAdultos.setText("");
         MenuVendedor.buttonGroup1.clearSelection();
         MenuVendedor.jComboBoxHora.setSelectedIndex(0);
         MenuVendedor.jComboBoxPeliculas.setSelectedIndex(0);
-        MenuVendedor.jLabelMenores.setText("");
-        MenuVendedor.jTextFieldCantidadDeBoletosNiños.setVisible(true);
-        MenuVendedor.jTextFieldCantidadDeBoletosNiños.setText("");
+        MenuVendedor.lbMenores.setText("");
+        MenuVendedor.txtBoletosNiños.setVisible(true);
+        MenuVendedor.txtBoletosNiños.setText("");
 
     }
 
