@@ -5,6 +5,7 @@
  */
 package JFrames;
 
+import static JFrames.Factura.jLabeEfectivoRecibido;
 import Tipografia.Fuente;
 import java.awt.Color;
 import java.awt.Image;
@@ -22,6 +23,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
      * Creates new form ConfirmarVenta
      */
     Fuente tipoFuente;
+
     public ConfirmarVenta() {
         //setBackground(new Color(0, 0, 0, 0));
         super.setUndecorated(true);
@@ -29,7 +31,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         noEditable();
         super.setLocationRelativeTo(this);
         btnComprar.setEnabled(false);
-        
+
         tipoFuente = new Fuente();
         lb1.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb2.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
@@ -48,7 +50,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         lb16.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 24));
         btnComprar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         btnRegresar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        
+
         jTextFieldPelicula.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
         jTextFieldCantidadDeBoletosAdultos.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
         jTextFieldCantidadDeBoletosNiños.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
@@ -84,20 +86,26 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         }
     }
 
-        void pasaDatos() {
+    void pasaDatos() {
+
         Factura.jLabelPelicula.setText(jTextFieldPelicula.getText());
         Factura.jLabelSala.setText(jLabelSala.getText());
         Factura.jLabelTanda.setText(jTextFieldHora.getText());
         Factura.jLabelNiños.setText(jTextFieldCantidadDeBoletosNiños.getText());
-        Factura.jLabeNiñosTotal.setText("L." +jLabelTotalNiños.getText());
+        Factura.jLabeNiñosTotal.setText("L." + jLabelTotalNiños.getText());
         Factura.jLabeAdultos.setText(jTextFieldCantidadDeBoletosAdultos.getText());
-        Factura.jLabeAdultosTotal.setText("L." +jLabelTotalAdultos.getText());
-        Factura.jLabeTotal.setText("L."+jLabelTotalPago.getText());
-        Factura.jLabeEfectivoRecibido.setText("L."+jTextFieldEfectivoRecibido.getText());
+        Factura.jLabeAdultosTotal.setText("L." + jLabelTotalAdultos.getText());
+        Factura.jLabeTotal.setText("L." + jLabelTotalPago.getText());
+
+        if (Factura.jLabeEfectivoRecibido.getText().equals("Paga con tarjeta")) {
+            Factura.jLabeEfectivoRecibido.setText(jTextFieldEfectivoRecibido.getText());
+        } else {
+            Factura.jLabeEfectivoRecibido.setText("L." + jTextFieldEfectivoRecibido.getText());
+        }
         Factura.jLabeCambio.setText(jLabelCambio.getText());
         Factura.jLabelISV.setText(jLabelImpuesto.getText());
     }
-        
+
     @Override
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
@@ -402,14 +410,14 @@ public class ConfirmarVenta extends javax.swing.JFrame {
             evt.consume();
 
             JOptionPane.showMessageDialog(null, "Solo se admiten numeros", "Validar numeros",
-                     JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.WARNING_MESSAGE);
 
         } else if ((cant < '0' || cant > '9') && jTextFieldCantidadDeBoletosAdultos.getText().contains("")
                 && (cant != (char) KeyEvent.VK_BACK_SPACE)) {
             evt.consume();
 
             JOptionPane.showMessageDialog(null, "Solo se admiten numeros", "Validar numeros",
-                     JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jTextFieldEfectivoRecibidoKeyTyped
 
@@ -487,8 +495,8 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     private rojerusan.RSButtonHover btnRegresar;
     public static javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabelCambio;
-    private javax.swing.JLabel jLabelImpuesto;
+    public static javax.swing.JLabel jLabelCambio;
+    public static javax.swing.JLabel jLabelImpuesto;
     public static final javax.swing.JLabel jLabelSala = new javax.swing.JLabel();
     public static javax.swing.JLabel jLabelTotalAdultos;
     public static javax.swing.JLabel jLabelTotalNiños;

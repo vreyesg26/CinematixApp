@@ -235,7 +235,7 @@ public class Factura extends javax.swing.JFrame {
         jLabeEfectivoRecibido.setForeground(new java.awt.Color(255, 255, 255));
         jLabeEfectivoRecibido.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabeEfectivoRecibido.setText("...");
-        jPanel1.add(jLabeEfectivoRecibido, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 360, 70, -1));
+        jPanel1.add(jLabeEfectivoRecibido, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 360, 130, -1));
 
         jLabel14.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
@@ -246,7 +246,7 @@ public class Factura extends javax.swing.JFrame {
         jLabeCambio.setForeground(new java.awt.Color(255, 255, 255));
         jLabeCambio.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabeCambio.setText("...");
-        jPanel1.add(jLabeCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, 80, -1));
+        jPanel1.add(jLabeCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 400, 130, -1));
 
         jButton_Imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnImprimir.png"))); // NOI18N
         jButton_Imprimir.setContentAreaFilled(false);

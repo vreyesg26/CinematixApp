@@ -48,7 +48,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         jComboBoxPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         jComboBoxHora.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnContinuar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        
+
         rbEfectivo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         rbMixto.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         rbTCredito.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
@@ -288,8 +288,10 @@ public class MenuVendedor extends javax.swing.JFrame {
         if (rbTCredito.isSelected()) {
             ConfirmarVenta.jTextFieldEfectivoRecibido.setText("Paga con tarjeta");
             ConfirmarVenta.jTextFieldEfectivoRecibido.setEditable(false);
-            ConfirmarVenta.lb14.setVisible(false);
+            ConfirmarVenta.lb14.setVisible(true);
+            ConfirmarVenta.jLabelCambio.setText("Paga con tarjeta");
             ConfirmarVenta.jButton3.setVisible(false);
+            ConfirmarVenta.jLabelImpuesto.setText("15%");
             ConfirmarVenta.btnComprar.setEnabled(true);
         }
     }
@@ -299,9 +301,16 @@ public class MenuVendedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
             btnContinuar.setEnabled(false);
             txtBoletosAdultos.setText("1");
+
+        } else if ("0".equals(txtBoletosAdultos.getText()) || "0".equals(txtBoletosNiños.getText())) {
+            JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            btnContinuar.setEnabled(false);
+            txtBoletosAdultos.setText("1");
+
         } else {
             btnContinuar.setEnabled(true);
         }
+
         if (!txtBoletosAdultos.getText().isEmpty()) {
             btnContinuar.setEnabled(true);
         }
@@ -385,7 +394,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                 btnCerrarMouseClicked(evt);
             }
         });
-        getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(999, 43, 35, 35));
+        getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 38, 24, 24));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jPanel2.setLayout(new java.awt.BorderLayout());
@@ -458,7 +467,6 @@ public class MenuVendedor extends javax.swing.JFrame {
         btnEncendido.setContentAreaFilled(false);
         btnEncendido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEncendido.setFocusPainted(false);
-        btnEncendido.setOpaque(false);
         btnEncendido.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnApagado2.png"))); // NOI18N
         btnEncendido.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnEncendido2.png"))); // NOI18N
         btnEncendido.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnEncendido.png"))); // NOI18N
@@ -733,7 +741,14 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxHoraActionPerformed
 
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
-        dispose();
+        int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        if (ventanaConfirmacion == 0) {
+            Inicio ini = new Inicio();
+            ini.setVisible(true);
+            this.dispose();
+        } else {
+
+        }
     }//GEN-LAST:event_btnCerrarMouseClicked
 
     private void lbMenoresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lbMenoresKeyReleased
