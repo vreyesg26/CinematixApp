@@ -83,17 +83,17 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     }
 
         void pasaDatos() {
-        Ticket.jLabelPelicula.setText(jTextFieldPelicula.getText());
-        Ticket.jLabelSala.setText(jLabelSala.getText());
-        Ticket.jLabelTanda.setText(jTextFieldHora.getText());
-        Ticket.jLabelNiños.setText(jTextFieldCantidadDeBoletosNiños.getText());
-        Ticket.jLabeNiñosTotal.setText(jLabelTotalNiños.getText());
-        Ticket.jLabeAdultos.setText(jTextFieldCantidadDeBoletosAdultos.getText());
-        Ticket.jLabeAdultosTotal.setText(jLabelTotalAdultos.getText());
-        Ticket.jLabeTotal.setText("L."+jLabelTotalPago.getText());
-        Ticket.jLabeEfectivoRecibido.setText("L."+jTextFieldEfectivoRecibido.getText());
-        Ticket.jLabeCambio.setText(jLabelCambio.getText());
-        Ticket.jLabelISV.setText(jLabelImpuesto.getText());
+        Factura.jLabelPelicula.setText(jTextFieldPelicula.getText());
+        Factura.jLabelSala.setText(jLabelSala.getText());
+        Factura.jLabelTanda.setText(jTextFieldHora.getText());
+        Factura.jLabelNiños.setText(jTextFieldCantidadDeBoletosNiños.getText());
+        Factura.jLabeNiñosTotal.setText("L." +jLabelTotalNiños.getText());
+        Factura.jLabeAdultos.setText(jTextFieldCantidadDeBoletosAdultos.getText());
+        Factura.jLabeAdultosTotal.setText("L." +jLabelTotalAdultos.getText());
+        Factura.jLabeTotal.setText("L."+jLabelTotalPago.getText());
+        Factura.jLabeEfectivoRecibido.setText("L."+jTextFieldEfectivoRecibido.getText());
+        Factura.jLabeCambio.setText(jLabelCambio.getText());
+        Factura.jLabelISV.setText(jLabelImpuesto.getText());
     }
         
     @Override
@@ -435,7 +435,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonRegresarActionPerformed
 
     private void jButtonComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComprarActionPerformed
-        Ticket obj = new Ticket();
+        Factura obj = new Factura();
         pasaDatos();
         dispose();
         obj.setVisible(true);

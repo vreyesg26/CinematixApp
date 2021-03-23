@@ -43,7 +43,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb11.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         lb12.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         lb13.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
-
+        lb_Encender.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
         rbEfectivo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         rbMixto.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         rbTCredito.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
@@ -65,11 +65,13 @@ public class MenuVendedor extends javax.swing.JFrame {
         if (btnEncendido.isSelected()) {
             jComboBoxPeliculas.setEnabled(true);
             jComboBoxHora.setEnabled(true);
+            lb_Encender.setText("APAGAR");
             AgregarAComboboxPelicula();
             //jToggleButtonEncender.setText("Apagar");
         } else {
             jComboBoxPeliculas.setEnabled(false);
             jComboBoxHora.setEnabled(false);
+            lb_Encender.setText("ENCENDER");
             limpiar();
             Desactivados();
             //jToggleButtonEncender.setText("Encender");
@@ -291,7 +293,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         if ("0".equals(txtBoletosAdultos.getText()) && "0".equals(txtBoletosNiños.getText())) {
             JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
             btnContinuar.setEnabled(false);
-            
+            txtBoletosAdultos.setText("1");
         } else {
             btnContinuar.setEnabled(true);
         }        
@@ -337,6 +339,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         jComboBoxHora = new javax.swing.JComboBox<>();
         lb2 = new javax.swing.JLabel();
         btnEncendido = new javax.swing.JToggleButton();
+        lb_Encender = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lb9 = new javax.swing.JLabel();
         lb6 = new javax.swing.JLabel();
@@ -447,18 +450,25 @@ public class MenuVendedor extends javax.swing.JFrame {
         btnEncendido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnApagado.png"))); // NOI18N
         btnEncendido.setBorder(null);
         btnEncendido.setBorderPainted(false);
+        btnEncendido.setContentAreaFilled(false);
         btnEncendido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEncendido.setFocusPainted(false);
         btnEncendido.setOpaque(false);
         btnEncendido.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnApagado2.png"))); // NOI18N
-        btnEncendido.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnEncendido.png"))); // NOI18N
+        btnEncendido.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnEncendido2.png"))); // NOI18N
         btnEncendido.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnEncendido.png"))); // NOI18N
         btnEncendido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEncendidoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnEncendido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 35, 60, -1));
+        getContentPane().add(btnEncendido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 38, 55, 55));
+
+        lb_Encender.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lb_Encender.setForeground(new java.awt.Color(255, 255, 255));
+        lb_Encender.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb_Encender.setText("ENCENDER");
+        getContentPane().add(lb_Encender, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 100, 108, 21));
 
         jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(586, 530));
@@ -828,6 +838,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
         if ("0".equals(txtBoletosAdultos.getText()) && "0".equals(txtBoletosNiños.getText())) {
             JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            txtBoletosAdultos.setText("1");
             btnContinuar.setEnabled(false);
             
         } else {
@@ -935,6 +946,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     private javax.swing.JLabel lb9;
     public static javax.swing.JLabel lbMenores;
     private javax.swing.JLabel lbResultado;
+    private javax.swing.JLabel lb_Encender;
     public static javax.swing.JRadioButton rbEfectivo;
     public static javax.swing.JRadioButton rbMixto;
     public static javax.swing.JRadioButton rbTCredito;
