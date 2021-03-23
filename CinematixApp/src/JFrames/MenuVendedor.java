@@ -47,6 +47,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb_Encender.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
         jComboBoxPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         jComboBoxHora.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnContinuar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         
         rbEfectivo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         rbMixto.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
@@ -289,7 +290,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             ConfirmarVenta.jTextFieldEfectivoRecibido.setEditable(false);
             ConfirmarVenta.lb14.setVisible(false);
             ConfirmarVenta.jButton3.setVisible(false);
-            ConfirmarVenta.jButtonComprar.setEnabled(true);
+            ConfirmarVenta.btnComprar.setEnabled(true);
         }
     }
 

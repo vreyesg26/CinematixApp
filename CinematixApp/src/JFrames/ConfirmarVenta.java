@@ -28,7 +28,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         initComponents();
         noEditable();
         super.setLocationRelativeTo(this);
-        jButtonComprar.setEnabled(false);
+        btnComprar.setEnabled(false);
         
         tipoFuente = new Fuente();
         lb1.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
@@ -46,6 +46,8 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         lb14.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb15.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb16.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 24));
+        btnComprar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        btnRegresar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         
         jTextFieldPelicula.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
         jTextFieldCantidadDeBoletosAdultos.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
@@ -78,7 +80,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         } else {
             cambio = efectivoR - totalPago;
             jLabelCambio.setText("L." + cambio + "0");
-            jButtonComprar.setEnabled(true);
+            btnComprar.setEnabled(true);
         }
     }
 
@@ -111,8 +113,8 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButtonRegresar = new rojerusan.RSButtonHover();
-        jButtonComprar = new rojerusan.RSButtonHover();
+        btnRegresar = new rojerusan.RSButtonHover();
+        btnComprar = new rojerusan.RSButtonHover();
         jPanel1 = new javax.swing.JPanel();
         lb7 = new javax.swing.JLabel();
         lb1 = new javax.swing.JLabel();
@@ -155,33 +157,33 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButtonRegresar.setBackground(new java.awt.Color(81, 81, 81));
-        jButtonRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoRegresar.png"))); // NOI18N
-        jButtonRegresar.setText("REGRESAR");
-        jButtonRegresar.setBorderPainted(false);
-        jButtonRegresar.setColorHover(new java.awt.Color(61, 61, 61));
-        jButtonRegresar.setFocusable(false);
-        jButtonRegresar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jButtonRegresar.addActionListener(new java.awt.event.ActionListener() {
+        btnRegresar.setBackground(new java.awt.Color(81, 81, 81));
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoRegresar.png"))); // NOI18N
+        btnRegresar.setText("REGRESAR");
+        btnRegresar.setBorderPainted(false);
+        btnRegresar.setColorHover(new java.awt.Color(61, 61, 61));
+        btnRegresar.setFocusable(false);
+        btnRegresar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonRegresarActionPerformed(evt);
+                btnRegresarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 475, 140, 45));
+        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 475, 140, 45));
 
-        jButtonComprar.setBackground(new java.awt.Color(81, 81, 81));
-        jButtonComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoComprar.png"))); // NOI18N
-        jButtonComprar.setText("COMPRAR");
-        jButtonComprar.setBorderPainted(false);
-        jButtonComprar.setColorHover(new java.awt.Color(61, 61, 61));
-        jButtonComprar.setFocusable(false);
-        jButtonComprar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        jButtonComprar.addActionListener(new java.awt.event.ActionListener() {
+        btnComprar.setBackground(new java.awt.Color(81, 81, 81));
+        btnComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoComprar.png"))); // NOI18N
+        btnComprar.setText("COMPRAR");
+        btnComprar.setBorderPainted(false);
+        btnComprar.setColorHover(new java.awt.Color(61, 61, 61));
+        btnComprar.setFocusable(false);
+        btnComprar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnComprar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonComprarActionPerformed(evt);
+                btnComprarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonComprar, new org.netbeans.lib.awtextra.AbsoluteConstraints(779, 475, 140, 45));
+        getContentPane().add(btnComprar, new org.netbeans.lib.awtextra.AbsoluteConstraints(779, 475, 140, 45));
 
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -434,16 +436,16 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldNombreVendedorKeyTyped
 
-    private void jButtonRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegresarActionPerformed
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.dispose();
-    }//GEN-LAST:event_jButtonRegresarActionPerformed
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void jButtonComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonComprarActionPerformed
+    private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
         Factura obj = new Factura();
         pasaDatos();
         dispose();
         obj.setVisible(true);
-    }//GEN-LAST:event_jButtonComprarActionPerformed
+    }//GEN-LAST:event_btnComprarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -481,9 +483,9 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static rojerusan.RSButtonHover btnComprar;
+    private rojerusan.RSButtonHover btnRegresar;
     public static javax.swing.JButton jButton3;
-    public static rojerusan.RSButtonHover jButtonComprar;
-    private rojerusan.RSButtonHover jButtonRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabelCambio;
     private javax.swing.JLabel jLabelImpuesto;
