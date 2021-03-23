@@ -38,6 +38,8 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnRegresar = new rojerusan.RSButtonHover();
+        btnComprar = new rojerusan.RSButtonHover();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -48,6 +50,24 @@ public class ConfirmarVenta extends javax.swing.JFrame {
             }
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnRegresar.setBackground(new java.awt.Color(81, 81, 81));
+        btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoRegresar.png"))); // NOI18N
+        btnRegresar.setText("REGRESAR");
+        btnRegresar.setBorderPainted(false);
+        btnRegresar.setColorHover(new java.awt.Color(61, 61, 61));
+        btnRegresar.setFocusable(false);
+        btnRegresar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 475, 140, 45));
+
+        btnComprar.setBackground(new java.awt.Color(81, 81, 81));
+        btnComprar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoComprar.png"))); // NOI18N
+        btnComprar.setText("COMPRAR");
+        btnComprar.setBorderPainted(false);
+        btnComprar.setColorHover(new java.awt.Color(61, 61, 61));
+        btnComprar.setFocusable(false);
+        btnComprar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        getContentPane().add(btnComprar, new org.netbeans.lib.awtextra.AbsoluteConstraints(779, 475, 140, 45));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ConfirmarPantalla.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 550));
@@ -105,6 +125,8 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rojerusan.RSButtonHover btnComprar;
+    private rojerusan.RSButtonHover btnRegresar;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
