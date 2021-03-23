@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
  * @author Los Pibes
  */
 public class MenuVendedor extends javax.swing.JFrame {
+
     /**
      * Creates new form MenuVendedor
      */
@@ -44,6 +45,9 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb12.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         lb13.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb_Encender.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        jComboBoxPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jComboBoxHora.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        
         rbEfectivo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         rbMixto.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         rbTCredito.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
@@ -296,7 +300,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             txtBoletosAdultos.setText("1");
         } else {
             btnContinuar.setEnabled(true);
-        }        
+        }
         if (!txtBoletosAdultos.getText().isEmpty()) {
             btnContinuar.setEnabled(true);
         }
@@ -840,17 +844,17 @@ public class MenuVendedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
             txtBoletosAdultos.setText("1");
             btnContinuar.setEnabled(false);
-            
+
         } else {
             btnContinuar.setEnabled(true);
         }
 
         if (rbEfectivo.isSelected() == true) {
         }
-        
+
         if (rbMixto.isSelected() == true) {
         }
-        
+
         if (rbTCredito.isSelected() == true) {
             ConfirmarVenta obj = new ConfirmarVenta();
             pasaDatos();

@@ -110,7 +110,7 @@ public class Factura extends javax.swing.JFrame {
         jLabeEfectivoRecibido = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jLabeCambio = new javax.swing.JLabel();
-        jLabel_Imprimir = new javax.swing.JLabel();
+        jButton_Imprimir = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -248,13 +248,16 @@ public class Factura extends javax.swing.JFrame {
         jLabeCambio.setText("...");
         jPanel1.add(jLabeCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, 80, -1));
 
-        jLabel_Imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnImprimir.png"))); // NOI18N
-        jLabel_Imprimir.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel_ImprimirMouseClicked(evt);
+        jButton_Imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnImprimir.png"))); // NOI18N
+        jButton_Imprimir.setContentAreaFilled(false);
+        jButton_Imprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton_Imprimir.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnImprimir2.png"))); // NOI18N
+        jButton_Imprimir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_ImprimirActionPerformed(evt);
             }
         });
-        jPanel1.add(jLabel_Imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 545, -1, -1));
+        jPanel1.add(jButton_Imprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 546, 35, 35));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Factura.png"))); // NOI18N
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 330, 600));
@@ -278,7 +281,7 @@ public class Factura extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
-    private void jLabel_ImprimirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel_ImprimirMouseClicked
+    private void jButton_ImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ImprimirActionPerformed
         PrinterJob job = PrinterJob.getPrinterJob();
         job.setJobName("Factura");
 
@@ -309,7 +312,7 @@ public class Factura extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Factura Generada");
         limpiar();
         this.dispose();
-    }//GEN-LAST:event_jLabel_ImprimirMouseClicked
+    }//GEN-LAST:event_jButton_ImprimirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -347,6 +350,7 @@ public class Factura extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton_Imprimir;
     public static javax.swing.JLabel jLabeAdultos;
     public static javax.swing.JLabel jLabeAdultosTotal;
     public static javax.swing.JLabel jLabeCambio;
@@ -370,7 +374,6 @@ public class Factura extends javax.swing.JFrame {
     public static javax.swing.JLabel jLabelPelicula;
     public static javax.swing.JLabel jLabelSala;
     public static javax.swing.JLabel jLabelTanda;
-    private javax.swing.JLabel jLabel_Imprimir;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
