@@ -281,7 +281,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         if (rbTCredito.isSelected()) {
             ConfirmarVenta.jTextFieldEfectivoRecibido.setText("Paga con tarjeta");
             ConfirmarVenta.jTextFieldEfectivoRecibido.setEditable(false);
-            ConfirmarVenta.jLabel14.setVisible(false);
+            ConfirmarVenta.lb14.setVisible(false);
             ConfirmarVenta.jButton3.setVisible(false);
             ConfirmarVenta.jButtonComprar.setEnabled(true);
         }

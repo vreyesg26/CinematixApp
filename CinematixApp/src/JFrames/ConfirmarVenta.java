@@ -5,29 +5,60 @@
  */
 package JFrames;
 
+import Tipografia.Fuente;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
- import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Victor Reyes
+ * @author Los Pibes
  */
 public class ConfirmarVenta extends javax.swing.JFrame {
 
     /**
      * Creates new form ConfirmarVenta
      */
+    Fuente tipoFuente;
     public ConfirmarVenta() {
-       // setBackground(new Color(0, 0, 0, 0));
+        //setBackground(new Color(0, 0, 0, 0));
         super.setUndecorated(true);
         initComponents();
         noEditable();
         super.setLocationRelativeTo(this);
         jButtonComprar.setEnabled(false);
+        
+        tipoFuente = new Fuente();
+        lb1.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lb2.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lb3.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lb4.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lb5.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lb6.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lb7.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lb8.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lb10.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lb11.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lb12.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lb13.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lb14.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lb15.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lb16.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 24));
+        
+        jTextFieldPelicula.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        jTextFieldCantidadDeBoletosAdultos.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        jTextFieldCantidadDeBoletosNiños.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        jTextFieldEfectivoRecibido.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        jTextFieldHora.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        jTextFieldNombreVendedor.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        jLabelSala.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        jLabelCambio.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        jLabelTotalAdultos.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        jLabelTotalNiños.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        jLabelTotalPago.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        jLabelImpuesto.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
     }
 
     void noEditable() {
@@ -83,38 +114,38 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         jButtonRegresar = new rojerusan.RSButtonHover();
         jButtonComprar = new rojerusan.RSButtonHover();
         jPanel1 = new javax.swing.JPanel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        lb7 = new javax.swing.JLabel();
+        lb1 = new javax.swing.JLabel();
+        lb5 = new javax.swing.JLabel();
         jTextFieldHora = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        lb6 = new javax.swing.JLabel();
         jTextFieldCantidadDeBoletosNiños = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lb4 = new javax.swing.JLabel();
+        lb2 = new javax.swing.JLabel();
         jLabelTotalPago = new javax.swing.JLabel();
         jTextFieldCantidadDeBoletosAdultos = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
+        lb3 = new javax.swing.JLabel();
         jLabelTotalNiños = new javax.swing.JLabel();
         jTextFieldPelicula = new javax.swing.JTextField();
         jLabelTotalAdultos = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        lb8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
+        lb10 = new javax.swing.JLabel();
+        lb12 = new javax.swing.JLabel();
+        lb11 = new javax.swing.JLabel();
+        lb13 = new javax.swing.JLabel();
         jTextFieldEfectivoRecibido = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
+        lb14 = new javax.swing.JLabel();
         jLabelCambio = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
+        lb16 = new javax.swing.JLabel();
         jTextFieldNombreVendedor = new javax.swing.JTextField();
-        jLabel17 = new javax.swing.JLabel();
+        lb15 = new javax.swing.JLabel();
         jLabelImpuesto = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(51, 51, 51));
         setIconImage(getIconImage());
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -155,31 +186,29 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         jPanel1.setOpaque(false);
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel8.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Total Niños");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, -1, -1));
+        lb7.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb7.setForeground(new java.awt.Color(255, 255, 255));
+        lb7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb7.setText("Total Niños");
+        jPanel1.add(lb7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, 120, 30));
 
-        jLabel2.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("Pelicula ");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+        lb1.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb1.setForeground(new java.awt.Color(255, 255, 255));
+        lb1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb1.setText("Pelicula ");
+        jPanel1.add(lb1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 200, 30));
 
-        jLabel6.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Cantidad de boletos (niños)");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
-        jPanel1.add(jTextFieldHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 60, 60, -1));
+        lb5.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb5.setForeground(new java.awt.Color(255, 255, 255));
+        lb5.setText("Cantidad de boletos (niños)");
+        jPanel1.add(lb5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, 30));
+        jPanel1.add(jTextFieldHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 55, 100, 30));
 
-        jLabel15.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel15.setText("L.");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, -1, -1));
-
-        jLabel7.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel7.setText("Total Adultos");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 220, -1, -1));
+        lb6.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb6.setForeground(new java.awt.Color(255, 255, 255));
+        lb6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb6.setText("Total Adultos");
+        jPanel1.add(lb6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 120, 30));
 
         jTextFieldCantidadDeBoletosNiños.setEditable(false);
         jTextFieldCantidadDeBoletosNiños.addActionListener(new java.awt.event.ActionListener() {
@@ -187,26 +216,28 @@ public class ConfirmarVenta extends javax.swing.JFrame {
                 jTextFieldCantidadDeBoletosNiñosActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldCantidadDeBoletosNiños, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 50, -1));
+        jPanel1.add(jTextFieldCantidadDeBoletosNiños, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 160, 80, 30));
 
-        jLabel5.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Cantidad de boletos (adultos)");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
+        lb4.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb4.setForeground(new java.awt.Color(255, 255, 255));
+        lb4.setText("Cantidad de boletos (adultos)");
+        jPanel1.add(lb4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 240, 30));
 
-        jLabel3.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Sala");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, -1, -1));
+        lb2.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb2.setForeground(new java.awt.Color(255, 255, 255));
+        lb2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb2.setText("Sala");
+        jPanel1.add(lb2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 100, 30));
 
         jLabelSala.setBackground(new java.awt.Color(0, 204, 51));
         jLabelSala.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelSala.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jLabelSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 60, 60, 20));
+        jLabelSala.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(jLabelSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 55, 100, 30));
 
         jLabelTotalPago.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelTotalPago.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jLabelTotalPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 300, 60, 20));
+        jPanel1.add(jLabelTotalPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 80, 30));
 
         jTextFieldCantidadDeBoletosAdultos.setEditable(false);
         jTextFieldCantidadDeBoletosAdultos.addActionListener(new java.awt.event.ActionListener() {
@@ -214,52 +245,58 @@ public class ConfirmarVenta extends javax.swing.JFrame {
                 jTextFieldCantidadDeBoletosAdultosActionPerformed(evt);
             }
         });
-        jPanel1.add(jTextFieldCantidadDeBoletosAdultos, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 140, 50, -1));
+        jPanel1.add(jTextFieldCantidadDeBoletosAdultos, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 80, 30));
 
-        jLabel4.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Hora");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, -1, -1));
+        lb3.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb3.setForeground(new java.awt.Color(255, 255, 255));
+        lb3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb3.setText("Hora");
+        jPanel1.add(lb3, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 20, 100, 30));
 
         jLabelTotalNiños.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelTotalNiños.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jLabelTotalNiños, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 250, 50, 20));
-        jPanel1.add(jTextFieldPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, 140, -1));
+        jLabelTotalNiños.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(jLabelTotalNiños, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 120, 30));
+        jPanel1.add(jTextFieldPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 55, 200, 30));
 
         jLabelTotalAdultos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelTotalAdultos.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jLabelTotalAdultos, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 50, 20));
+        jLabelTotalAdultos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jPanel1.add(jLabelTotalAdultos, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 120, 30));
 
-        jLabel9.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel9.setText("Total a pagar");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 300, -1, -1));
+        lb8.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb8.setForeground(new java.awt.Color(255, 255, 255));
+        lb8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb8.setText("Total a pagar: L. ");
+        jPanel1.add(lb8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 140, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 104, 476, 360));
 
         jPanel2.setOpaque(false);
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel10.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel10.setText("Nombre vendedor: ");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+        lb10.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb10.setForeground(new java.awt.Color(255, 255, 255));
+        lb10.setText("Nombre vendedor: ");
+        jPanel2.add(lb10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 155, 30));
 
-        jLabel11.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel11.setText("Tegucigalpa");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, -1, -1));
+        lb12.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb12.setForeground(new java.awt.Color(255, 255, 255));
+        lb12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb12.setText("Tegucigalpa");
+        jPanel2.add(lb12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 185, 30));
 
-        jLabel12.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Ubicacion:");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+        lb11.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb11.setForeground(new java.awt.Color(255, 255, 255));
+        lb11.setText("Ubicacion:");
+        jPanel2.add(lb11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 155, 30));
 
-        jLabel13.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel13.setText("Efectivo recibido:");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, -1, -1));
+        lb13.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb13.setForeground(new java.awt.Color(255, 255, 255));
+        lb13.setText("Efectivo recibido:");
+        jPanel2.add(lb13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 155, 30));
 
+        jTextFieldEfectivoRecibido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldEfectivoRecibido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldEfectivoRecibidoActionPerformed(evt);
@@ -270,16 +307,16 @@ public class ConfirmarVenta extends javax.swing.JFrame {
                 jTextFieldEfectivoRecibidoKeyTyped(evt);
             }
         });
-        jPanel2.add(jTextFieldEfectivoRecibido, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 110, 120, 30));
+        jPanel2.add(jTextFieldEfectivoRecibido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 140, 30));
 
-        jLabel14.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Cambio:");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, -1, -1));
+        lb14.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb14.setForeground(new java.awt.Color(255, 255, 255));
+        lb14.setText("Cambio:");
+        jPanel2.add(lb14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 155, 30));
 
         jLabelCambio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelCambio.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel2.add(jLabelCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 180, 60, 20));
+        jPanel2.add(jLabelCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 185, 30));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/click.png"))); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -287,13 +324,15 @@ public class ConfirmarVenta extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 110, -1, -1));
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 120, 40, 30));
 
-        jLabel16.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel16.setText("CineMatix");
-        jPanel2.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, -1, -1));
+        lb16.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb16.setForeground(new java.awt.Color(255, 255, 255));
+        lb16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb16.setText("CINEMATIX");
+        jPanel2.add(lb16, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 180, 30));
 
+        jTextFieldNombreVendedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldNombreVendedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreVendedorActionPerformed(evt);
@@ -304,16 +343,16 @@ public class ConfirmarVenta extends javax.swing.JFrame {
                 jTextFieldNombreVendedorKeyTyped(evt);
             }
         });
-        jPanel2.add(jTextFieldNombreVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 120, 20));
+        jPanel2.add(jTextFieldNombreVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 20, 185, 30));
 
-        jLabel17.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel17.setText("ISV:");
-        jPanel2.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, -1, -1));
+        lb15.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lb15.setForeground(new java.awt.Color(255, 255, 255));
+        lb15.setText("ISV:");
+        jPanel2.add(lb15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 155, 30));
 
         jLabelImpuesto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelImpuesto.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel2.add(jLabelImpuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 240, 60, 20));
+        jPanel2.add(jLabelImpuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 185, 30));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(532, 104, 387, 360));
 
@@ -442,22 +481,6 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     public static rojerusan.RSButtonHover jButtonComprar;
     private rojerusan.RSButtonHover jButtonRegresar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
-    public static javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
-    private javax.swing.JLabel jLabel16;
-    private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelCambio;
     private javax.swing.JLabel jLabelImpuesto;
     public static final javax.swing.JLabel jLabelSala = new javax.swing.JLabel();
@@ -472,5 +495,20 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     public static javax.swing.JTextField jTextFieldHora;
     private javax.swing.JTextField jTextFieldNombreVendedor;
     public static javax.swing.JTextField jTextFieldPelicula;
+    private javax.swing.JLabel lb1;
+    private javax.swing.JLabel lb10;
+    private javax.swing.JLabel lb11;
+    private javax.swing.JLabel lb12;
+    private javax.swing.JLabel lb13;
+    public static javax.swing.JLabel lb14;
+    private javax.swing.JLabel lb15;
+    private javax.swing.JLabel lb16;
+    private javax.swing.JLabel lb2;
+    private javax.swing.JLabel lb3;
+    private javax.swing.JLabel lb4;
+    private javax.swing.JLabel lb5;
+    private javax.swing.JLabel lb6;
+    private javax.swing.JLabel lb7;
+    private javax.swing.JLabel lb8;
     // End of variables declaration//GEN-END:variables
 }
