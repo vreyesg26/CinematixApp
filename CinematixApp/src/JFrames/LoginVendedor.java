@@ -21,14 +21,15 @@ public class LoginVendedor extends javax.swing.JFrame {
      * Creates new form LoginVendedor
      */
     Fuente tipoFuente;
+
     public LoginVendedor() {
         initComponents();
         transparenciaButton();
-        setBackground( new Color (0,0,0,0));
+        setBackground(new Color(0, 0, 0, 0));
         TextPrompt prueba = new TextPrompt("INGRESAR CORREO", txtCorreo);
         TextPrompt pru = new TextPrompt("INGRESAR CLAVE", txtClave);
-        setBackground( new Color (0,0,0,0));  
-        
+        setBackground(new Color(0, 0, 0, 0));
+
         tipoFuente = new Fuente();
         txtClave.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
         txtCorreo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
@@ -37,11 +38,11 @@ public class LoginVendedor extends javax.swing.JFrame {
     }
 
     @Override
-    public Image getIconImage(){
+    public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
         return retValue;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -122,88 +123,88 @@ public class LoginVendedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     int intentos = 3;
-    public void validarVendedores(){
+
+    public void validarVendedores() {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
         String estado = "2";
         String user = txtCorreo.getText();
         String pass = String.valueOf(txtClave.getPassword());
         String sql = "SELECT * FROM vendedor WHERE Correo = '" + user + "'";
-        
-        if(txtCorreo.getText().isEmpty() && txtClave.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtClave.getText().isEmpty()){
+
+        if (txtCorreo.getText().isEmpty() && txtClave.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtClave.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debes llenar los campos");
-            
+
         } else {
             try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
-            
-            if(rs.next()){
-                if(rs.getString("IDEstado").equals("2")){
-                    JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
-                    txtCorreo.setText("");
-                    txtClave.setText("");
-                } else if (rs.getString("Clave").equals(pass)) {
-                    MenuVendedor mv = new MenuVendedor();
-                    mv.setVisible(true);
-                    this.dispose();
-                } else{
-                    --intentos;
-                    if (intentos == 0) {
-                        JOptionPane.showMessageDialog(null, "Ha excedido el numero de intentos para ingresar \n" + "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+
+                if (rs.next()) {
+                    if (rs.getString("IDEstado").equals("2")) {
+                        JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
                         txtCorreo.setText("");
                         txtClave.setText("");
-                        try {
-                            String sqlRestar = "UPDATE `vendedor` SET `IDEstado` = ? WHERE `vendedor`.`Correo` = ? ";
-                            PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlRestar);
-                            pst.setString(1, estado);
-                            pst.setString(2, user);
-                            pst.execute();
-
-                        } catch (Exception e) {
-                            JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e);
-                        }
-                        Inicio inicio = new Inicio();
-                        inicio.setVisible(true);
+                    } else if (rs.getString("Clave").equals(pass)) {
+                        MenuVendedor mv = new MenuVendedor();
+                        mv.setVisible(true);
                         this.dispose();
                     } else {
-                        JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Aviso", JOptionPane.WARNING_MESSAGE);
-                        txtCorreo.setText("");
-                        txtClave.setText("");
+                        --intentos;
+                        if (intentos == 0) {
+                            JOptionPane.showMessageDialog(null, "Ha excedido el numero de intentos para ingresar \n" + "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                            txtCorreo.setText("");
+                            txtClave.setText("");
+                            try {
+                                String sqlRestar = "UPDATE `vendedor` SET `IDEstado` = ? WHERE `vendedor`.`Correo` = ? ";
+                                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlRestar);
+                                pst.setString(1, estado);
+                                pst.setString(2, user);
+                                pst.execute();
+
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e);
+                            }
+                            Inicio inicio = new Inicio();
+                            inicio.setVisible(true);
+                            this.dispose();
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Aviso", JOptionPane.WARNING_MESSAGE);
+                            txtCorreo.setText("");
+                            txtClave.setText("");
+                        }
                     }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Usuario o correo incorrectos.");
                 }
-            } else{
-               JOptionPane.showMessageDialog(null, "Usuario o correo incorrectos.");  
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Error de conexión " + e.getMessage(), "Aviso", JOptionPane.WARNING_MESSAGE);
+                txtCorreo.setText("");
+                txtClave.setText("");
             }
-            
-        } catch (Exception e) {
-             JOptionPane.showMessageDialog(null, "Error de conexión " + e.getMessage(), "Aviso", JOptionPane.WARNING_MESSAGE);
-             txtCorreo.setText("");
-             txtClave.setText("");
-        }
         }
     }
-    
+
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-            for (double i=0.0; i<=1.0; i=i+0.1){
-            String val = i+"";
-            float f=Float.valueOf(val);
+        for (double i = 0.0; i <= 1.0; i = i + 0.1) {
+            String val = i + "";
+            float f = Float.valueOf(val);
             this.setOpacity(f);
             try {
                 Thread.sleep(50);
-            }
-            catch(Exception e){
-                
+            } catch (Exception e) {
+
             }
         }
     }//GEN-LAST:event_formWindowOpened
 
-    public void transparenciaButton(){
-       btninicioa.setOpaque(false);
-       btninicioa.setContentAreaFilled(false);
-       btninicioa.setBorderPainted(false);
-   }
-    
+    public void transparenciaButton() {
+        btninicioa.setOpaque(false);
+        btninicioa.setContentAreaFilled(false);
+        btninicioa.setBorderPainted(false);
+    }
+
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
         Inicio regresoMenu = new Inicio();
         regresoMenu.setVisible(true);
@@ -215,8 +216,7 @@ public class LoginVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarFocusGained
 
     private void btninicioaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninicioaActionPerformed
-        
-        validarVendedores();
+       validarVendedores();
     }//GEN-LAST:event_btninicioaActionPerformed
 
     private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
