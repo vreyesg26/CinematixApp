@@ -23,17 +23,17 @@ public class MenuVendedor extends javax.swing.JFrame {
      * Creates new form MenuVendedor
      */
     Fuente tipoFuente;
-    
+
     public MenuVendedor() {
         initComponents();
-        setBackground( new Color (0,0,0,0));
+        setBackground(new Color(0, 0, 0, 0));
         super.setTitle("Menú CineMatix");
         super.setResizable(false);
         super.setLocationRelativeTo(null);
         lbMenores.setVisible(false);
         btnContinuar.setEnabled(false);
         Desactivados();
-        
+
         tipoFuente = new Fuente();
         lb6.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         lb7.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
@@ -43,25 +43,24 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb11.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         lb12.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         lb13.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
-        lb5.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
-        
+
         rbEfectivo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         rbMixto.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         rbTCredito.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
-        
+
         lbResultado.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lbMenores.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
-        
+
         txtBoletosAdultos.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         txtBoletosNiños.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
     }
 
     @Override
-    public Image getIconImage(){
+    public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
         return retValue;
     }
-    
+
     void Encender() {
         if (btnEncendido.isSelected()) {
             jComboBoxPeliculas.setEnabled(true);
@@ -91,12 +90,13 @@ public class MenuVendedor extends javax.swing.JFrame {
     void Activar() {
         rbEfectivo.setEnabled(true);
         rbTCredito.setEnabled(true);
+        rbMixto.setEnabled(true);
         txtBoletosAdultos.setEnabled(true);
         txtBoletosNiños.setEnabled(true);
         btnContinuar.setEnabled(true);
     }
-    
-   /* ResultSet rs;
+
+    /* ResultSet rs;
     PreparedStatement Pst;
     DefaultComboBoxModel model;
     Conexion cc = new Conexion();
@@ -110,7 +110,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         modelo.addElement("Spider-Man");
         modelo.addElement("Batman");
         jComboBoxPeliculas.setModel(modelo);
-            /*String[] titulos = {"Titulo"};
+        /*String[] titulos = {"Titulo"};
             String sql = "SELECT Titulo FROM peliculas WHERE Titulo";
              DefaultComboBoxModel ListaModelo = new DefaultComboBoxModel();
              ListaModelo.addElement("Seleccione");
@@ -126,8 +126,8 @@ public class MenuVendedor extends javax.swing.JFrame {
                   Logger.getLogger(panelPeliculas.class.getName()).log(Level.SEVERE,null,ex);
                  System.out.println(ex.getMessage());
              }*/
-             
-}
+
+    }
 
     void seleccionPelicula() {
         int combo;
@@ -154,7 +154,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             }
             case 1: {
                 LimCantidad();
-                Preview.jLabelSala.setText("4");
+                ConfirmarVenta.jLabelSala.setText("4");
                 DefaultComboBoxModel modelo = new DefaultComboBoxModel();
                 modelo.addElement("Seleccione");
                 modelo.addElement("4:00 pm");
@@ -165,7 +165,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             }
             case 2: {
                 LimCantidad();
-                Preview.jLabelSala.setText("2");
+                ConfirmarVenta.jLabelSala.setText("2");
                 DefaultComboBoxModel modelo = new DefaultComboBoxModel();
                 modelo.addElement("Seleccione");
                 modelo.addElement("5:00 pm");
@@ -176,7 +176,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             }
             case 3: {
                 LimCantidad();
-                Preview.jLabelSala.setText("3");
+                ConfirmarVenta.jLabelSala.setText("3");
                 DefaultComboBoxModel modelo = new DefaultComboBoxModel();
                 modelo.addElement("Seleccione");
                 modelo.addElement("12:00 pm");
@@ -187,7 +187,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             }
             case 4: {
                 LimCantidad();
-                Preview.jLabelSala.setText("5");
+                ConfirmarVenta.jLabelSala.setText("5");
                 DefaultComboBoxModel modelo = new DefaultComboBoxModel();
                 modelo.addElement("Seleccione");
                 modelo.addElement("1:00 pm");
@@ -198,7 +198,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             }
             case 5: {
                 LimCantidad();
-                Preview.jLabelSala.setText("1");
+                ConfirmarVenta.jLabelSala.setText("1");
                 DefaultComboBoxModel modelo = new DefaultComboBoxModel();
                 modelo.addElement("Seleccione");
                 modelo.addElement("2:00 pm");
@@ -227,19 +227,21 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     void calculo() {
 
+        double boletoAdulto = 90;
+        double boletoNiño = 40;
         double cantidadAdultos = 0.0, cantidadNiños = 0.0;
         double precioAdultos = 0.0, precioNiños = 0.0;
         double TotalN = 0, TotalA = 0, Total;
 
         if ("".equals(txtBoletosNiños.getText())) {
             String ninguno = "0.0";
-            Preview.jLabelTotalNiños.setText(ninguno);
-            Preview.jTextFieldCantidadDeBoletosNiños.setText("0");
+            ConfirmarVenta.jLabelTotalNiños.setText(ninguno);
+            ConfirmarVenta.jTextFieldCantidadDeBoletosNiños.setText("0");
         } else {
             cantidadNiños = Double.parseDouble(txtBoletosNiños.getText());
-            precioNiños = Double.parseDouble(lb10.getText());
+            precioNiños = boletoNiño;
             TotalN = (cantidadNiños * precioNiños);
-            Preview.jLabelTotalNiños.setText(TotalN + "");
+            ConfirmarVenta.jLabelTotalNiños.setText(TotalN + "");
         }
 
         if ("".equals(txtBoletosAdultos.getText())) {
@@ -247,18 +249,18 @@ public class MenuVendedor extends javax.swing.JFrame {
         } else {
 
             cantidadAdultos = Double.parseDouble(txtBoletosAdultos.getText());
-            precioAdultos = Double.parseDouble(lb9.getText());
+            precioAdultos = boletoAdulto;
             TotalA = (cantidadAdultos * precioAdultos);
-            Preview.jLabelTotalAdultos.setText(TotalA + "");
+            ConfirmarVenta.jLabelTotalAdultos.setText(TotalA + "");
         }
         Total = TotalA + TotalN;
-        Preview.jLabelTotalPago.setText(Total + "");
+        ConfirmarVenta.jLabelTotalPago.setText(Total + "");
 
     }
 
     void pasaDatos() {
-        Preview.jTextFieldCantidadDeBoletosAdultos.setText(txtBoletosAdultos.getText());
-        Preview.jTextFieldCantidadDeBoletosNiños.setText(txtBoletosNiños.getText());
+        ConfirmarVenta.jTextFieldCantidadDeBoletosAdultos.setText(txtBoletosAdultos.getText());
+        ConfirmarVenta.jTextFieldCantidadDeBoletosNiños.setText(txtBoletosNiños.getText());
     }
 
     void MenoresEdad() {
@@ -266,7 +268,6 @@ public class MenuVendedor extends javax.swing.JFrame {
         if (combo == 1 || combo == 2) {
             lbMenores.setVisible(true);
             txtBoletosNiños.setEnabled(false);
-            txtBoletosNiños.setVisible(false);
             lbMenores.setText("No apta para menores de edad");
         }
         if (combo == 3 || combo == 4 || combo == 5) {
@@ -278,15 +279,22 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     void tarjeta() {
         if (rbTCredito.isSelected()) {
-            Preview.jTextFieldEfectivoRecibido.setText("Paga con tarjeta");
-            Preview.jTextFieldEfectivoRecibido.setEditable(false);
-            Preview.jLabel14.setVisible(false);
-            Preview.jButton3.setVisible(false);
-            Preview.jButtonComprar.setEnabled(true);
+            ConfirmarVenta.jTextFieldEfectivoRecibido.setText("Paga con tarjeta");
+            ConfirmarVenta.jTextFieldEfectivoRecibido.setEditable(false);
+            ConfirmarVenta.jLabel14.setVisible(false);
+            ConfirmarVenta.jButton3.setVisible(false);
+            ConfirmarVenta.jButtonComprar.setEnabled(true);
         }
     }
 
     public void HabilitarBoton() {
+        if ("0".equals(txtBoletosAdultos.getText()) && "0".equals(txtBoletosNiños.getText())) {
+            JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            btnContinuar.setEnabled(false);
+            
+        } else {
+            btnContinuar.setEnabled(true);
+        }        
         if (!txtBoletosAdultos.getText().isEmpty()) {
             btnContinuar.setEnabled(true);
         }
@@ -296,7 +304,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             btnContinuar.setEnabled(false);
         }
     }
-        
+
     /*void buscarData(){
             String sql = "SELECT Titulo FROM Peliculas";
              DefaultComboBoxModel ListaModelo = new DefaultComboBoxModel();
@@ -490,6 +498,11 @@ public class MenuVendedor extends javax.swing.JFrame {
         jPanel1.add(lb13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
 
         txtBoletosAdultos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBoletosAdultos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtBoletosAdultosFocusLost(evt);
+            }
+        });
         txtBoletosAdultos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBoletosAdultosActionPerformed(evt);
@@ -625,7 +638,6 @@ public class MenuVendedor extends javax.swing.JFrame {
         lbMenores.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         lbMenores.setForeground(new java.awt.Color(255, 255, 255));
         lbMenores.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbMenores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.white));
         lbMenores.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 lbMenoresKeyReleased(evt);
@@ -675,8 +687,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         btnEncendido.setContentAreaFilled(false);
         btnEncendido.setBorderPainted(false);
     }
-    
-    
+
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         for (double i = 0.0; i <= 1.0; i = i + 0.1) {
@@ -686,12 +697,12 @@ public class MenuVendedor extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-                
+
             }
         }
     }//GEN-LAST:event_formWindowOpened
 
-    
+
     private void jComboBoxPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPeliculasActionPerformed
         seleccionPelicula();
         caratulas();
@@ -775,6 +786,11 @@ public class MenuVendedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Solo se admiten numeros", "Validar numeros",
                     JOptionPane.WARNING_MESSAGE);
         }
+        if (txtBoletosAdultos.getText() != "0") {
+            btnContinuar.setEnabled(false);
+        } else {
+            btnContinuar.setEnabled(true);
+        }
     }//GEN-LAST:event_txtBoletosAdultosKeyTyped
 
     private void txtBoletosAdultosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBoletosAdultosKeyReleased
@@ -804,28 +820,31 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
         if (jComboBoxPeliculas.getSelectedIndex() == 0 || jComboBoxHora.getSelectedIndex() == 0) {
-
             JOptionPane.showMessageDialog(this, "Todavía hacen falta datos por completar", "Complete datos", JOptionPane.WARNING_MESSAGE);
         }
 
         if (txtBoletosAdultos.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Escriba la cantidad de boletos", "Complete datos", JOptionPane.WARNING_MESSAGE);
-
         }
+        if ("0".equals(txtBoletosAdultos.getText()) && "0".equals(txtBoletosNiños.getText())) {
+            JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            btnContinuar.setEnabled(false);
+            
+        } else {
+            btnContinuar.setEnabled(true);
+        }
+
         if (rbEfectivo.isSelected() == true) {
-            JOptionPane.showMessageDialog(null, "Pago en Efectivo");
         }
-
+        
         if (rbMixto.isSelected() == true) {
-            JOptionPane.showMessageDialog(null, "Pago Mixto");
         }
-
+        
         if (rbTCredito.isSelected() == true) {
-            JOptionPane.showMessageDialog(null, "Pago con Tarjeta de Credito");
-            Preview obj = new Preview();
+            ConfirmarVenta obj = new ConfirmarVenta();
             pasaDatos();
-            Preview.jTextFieldPelicula.setText(jComboBoxPeliculas.getSelectedItem().toString());
-            Preview.jTextFieldHora.setText(jComboBoxHora.getSelectedItem().toString());
+            ConfirmarVenta.jTextFieldPelicula.setText(jComboBoxPeliculas.getSelectedItem().toString());
+            ConfirmarVenta.jTextFieldHora.setText(jComboBoxHora.getSelectedItem().toString());
 
             tarjeta();
             calculo();
@@ -833,12 +852,11 @@ public class MenuVendedor extends javax.swing.JFrame {
 
         } else if (rbEfectivo.isSelected() == false && rbTCredito.isSelected() == false && rbMixto.isSelected() == false) {
             JOptionPane.showMessageDialog(null, "DEBE SELECCIONAR UN METODO DE PAGO", "Complete datos", JOptionPane.WARNING_MESSAGE);
-
         } else {
-            Preview obj = new Preview();
+            ConfirmarVenta obj = new ConfirmarVenta();
             pasaDatos();
-            Preview.jTextFieldPelicula.setText(jComboBoxPeliculas.getSelectedItem().toString());
-            Preview.jTextFieldHora.setText(jComboBoxHora.getSelectedItem().toString());
+            ConfirmarVenta.jTextFieldPelicula.setText(jComboBoxPeliculas.getSelectedItem().toString());
+            ConfirmarVenta.jTextFieldHora.setText(jComboBoxHora.getSelectedItem().toString());
 
             tarjeta();
             calculo();
@@ -846,6 +864,13 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
         HabilitarBoton();
     }//GEN-LAST:event_btnContinuarActionPerformed
+
+    private void txtBoletosAdultosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBoletosAdultosFocusLost
+        if (txtBoletosAdultos.getText().equals("0") && txtBoletosNiños.getText().equals("0")) {
+            JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            btnContinuar.setEnabled(false);
+        }
+    }//GEN-LAST:event_txtBoletosAdultosFocusLost
 
     /**
      * @param args the command line arguments
