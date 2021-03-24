@@ -146,6 +146,8 @@ public class LoginAdmin extends javax.swing.JFrame {
    public void validarAdministradores(){
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
+        Encode encode = new Encode();
+        String secretKey = "lospibes";
         String estado = "2";
         String user = txtusuario.getText();
         String pass = String.valueOf(txtpassword.getPassword());
@@ -164,7 +166,7 @@ public class LoginAdmin extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
                         txtusuario.setText("");
                         txtpassword.setText("");
-                    } else if (rs.getString("Contrasena").equals(pass)) {
+                    } else if (encode.deecnode(secretKey, rs.getString("Contrasena")).equals(pass)) {
                         AdminDashboard ad = new AdminDashboard();
                         ad.setVisible(true);
                         this.dispose();
