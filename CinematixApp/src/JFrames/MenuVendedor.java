@@ -5,11 +5,17 @@
  */
 package JFrames;
 
+import Datos.Conexion;
 import Tipografia.Fuente;
+import com.mysql.cj.protocol.Resultset;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -109,39 +115,42 @@ public class MenuVendedor extends javax.swing.JFrame {
     Conexion cc = new Conexion();
     Connection cn = cc.GetConexion();*/
     void AgregarAComboboxPelicula() {
-        DefaultComboBoxModel modelo = new DefaultComboBoxModel();
-        modelo.addElement("Seleccione");
-        modelo.addElement("Viernes 13");
-        modelo.addElement("La masacre en texas 3");
-        modelo.addElement("Cars 3");
-        modelo.addElement("Spider-Man");
-        modelo.addElement("Batman");
-        jComboBoxPeliculas.setModel(modelo);
-        /*String[] titulos = {"Titulo"};
-            String sql = "SELECT Titulo FROM peliculas WHERE Titulo";
-             DefaultComboBoxModel ListaModelo = new DefaultComboBoxModel();
-             ListaModelo.addElement("Seleccione");
-             try{
-            Statement st = cn.createStatement();
-        try (ResultSet rs = st.executeQuery(sql)) {
-            while(rs.next()){
-                ListaModelo.addElement(rs.getString("Titulo"));
+        int Combo;
+        Conexion cc = new Conexion();
+        Connection cn = cc.GetConexion();
+        Combo = jComboBoxPeliculas.getSelectedIndex();
+        
+        String sql = "SELECT Titulo From peliculas";
+        
+        try{
+         Statement st = cn.createStatement();
+         ResultSet rs = st.executeQuery(sql);
+         
+         jComboBoxPeliculas.addItem("Seleccione una pelicula"); 
+         while(rs.next()){
+            
+            jComboBoxPeliculas.addItem(rs.getString("Titulo"));
+            
+         }
+        
+       }catch(Exception e){
+            
             }
-        jComboBoxPeliculas.setModel(modelo);
-        }
-             }catch (SQLException ex){
-                  Logger.getLogger(panelPeliculas.class.getName()).log(Level.SEVERE,null,ex);
-                 System.out.println(ex.getMessage());
-             }*/
-
+       
+        
+        
+ 
     }
 
     void seleccionPelicula() {
-        int combo;
-        combo = jComboBoxPeliculas.getSelectedIndex();
+        
+        
+       
+         int combo;
+         combo = jComboBoxPeliculas.getSelectedIndex();
         if (combo == 1 || combo == 2 || combo == 3 || combo == 4 || combo == 5) {
             Activar();
-            MenoresEdad();
+            //MenoresEdad();
         } else {
             rbEfectivo.setEnabled(false);
             rbTCredito.setEnabled(false);
@@ -151,72 +160,28 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
     }
 
-    void caratulas() {
-        int combo;
-        combo = jComboBoxPeliculas.getSelectedIndex();
-        switch (combo) {
-            case 0: {
-                ImageIcon i = new ImageIcon("");
-                break;
+    void Horarios() {
+        int Combo;
+        Conexion cc = new Conexion();
+        Connection cn = cc.GetConexion();
+        Combo = jComboBoxHora.getSelectedIndex();
+        
+        String sql = "SELECT Hora From horarios";
+        
+        try{
+         Statement st = cn.createStatement();
+         ResultSet rs = st.executeQuery(sql);
+         
+         jComboBoxHora.addItem("Seleccione un Horario");
+         while(rs.next()){
+             
+            jComboBoxHora.addItem(rs.getString("Hora"));
+            
+         }
+        
+       }catch(Exception e){
+            
             }
-            case 1: {
-                LimCantidad();
-                ConfirmarVenta.jLabelSala.setText("4");
-                DefaultComboBoxModel modelo = new DefaultComboBoxModel();
-                modelo.addElement("Seleccione");
-                modelo.addElement("4:00 pm");
-                modelo.addElement("6:00 pm");
-                modelo.addElement("8:00 pm");
-                jComboBoxHora.setModel(modelo);
-                break;
-            }
-            case 2: {
-                LimCantidad();
-                ConfirmarVenta.jLabelSala.setText("2");
-                DefaultComboBoxModel modelo = new DefaultComboBoxModel();
-                modelo.addElement("Seleccione");
-                modelo.addElement("5:00 pm");
-                modelo.addElement("7:00 pm");
-                modelo.addElement("9:00 pm");
-                jComboBoxHora.setModel(modelo);
-                break;
-            }
-            case 3: {
-                LimCantidad();
-                ConfirmarVenta.jLabelSala.setText("3");
-                DefaultComboBoxModel modelo = new DefaultComboBoxModel();
-                modelo.addElement("Seleccione");
-                modelo.addElement("12:00 pm");
-                modelo.addElement("2:00 pm");
-                modelo.addElement("4:00 pm");
-                jComboBoxHora.setModel(modelo);
-                break;
-            }
-            case 4: {
-                LimCantidad();
-                ConfirmarVenta.jLabelSala.setText("5");
-                DefaultComboBoxModel modelo = new DefaultComboBoxModel();
-                modelo.addElement("Seleccione");
-                modelo.addElement("1:00 pm");
-                modelo.addElement("3:00 pm");
-                modelo.addElement("6:30 pm");
-                jComboBoxHora.setModel(modelo);
-                break;
-            }
-            case 5: {
-                LimCantidad();
-                ConfirmarVenta.jLabelSala.setText("1");
-                DefaultComboBoxModel modelo = new DefaultComboBoxModel();
-                modelo.addElement("Seleccione");
-                modelo.addElement("2:00 pm");
-                modelo.addElement("5:00 pm");
-                modelo.addElement("8:00 pm");
-                jComboBoxHora.setModel(modelo);
-                break;
-            }
-            default:
-                break;
-        }
     }
 
     void LimCantidad() {
@@ -270,7 +235,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         ConfirmarVenta.jTextFieldCantidadDeBoletosNiños.setText(txtBoletosNiños.getText());
     }
 
-    void MenoresEdad() {
+    /*void MenoresEdad() {
         int combo = jComboBoxPeliculas.getSelectedIndex();
         if (combo == 1 || combo == 2) {
             lbMenores.setVisible(true);
@@ -282,7 +247,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             lbMenores.setVisible(false);
         }
 
-    }
+    }*/
 
     void tarjeta() {
         if (rbTCredito.isSelected()) {
@@ -728,7 +693,7 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     private void jComboBoxPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPeliculasActionPerformed
         seleccionPelicula();
-        caratulas();
+        Horarios();
         btnContinuar.setEnabled(false);
     }//GEN-LAST:event_jComboBoxPeliculasActionPerformed
 
