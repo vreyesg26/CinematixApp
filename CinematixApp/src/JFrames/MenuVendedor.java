@@ -213,7 +213,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             cantidadNiños = Double.parseDouble(txtBoletosNiños.getText());
             precioNiños = boletoNiño;
             TotalN = (cantidadNiños * precioNiños);
-            ConfirmarVenta.jLabelTotalNiños.setText(TotalN + "");
+            ConfirmarVenta.jLabelTotalNiños.setText(TotalN + "0");
         }
 
         if ("".equals(txtBoletosAdultos.getText())) {
@@ -223,10 +223,10 @@ public class MenuVendedor extends javax.swing.JFrame {
             cantidadAdultos = Double.parseDouble(txtBoletosAdultos.getText());
             precioAdultos = boletoAdulto;
             TotalA = (cantidadAdultos * precioAdultos);
-            ConfirmarVenta.jLabelTotalAdultos.setText(TotalA + "");
+            ConfirmarVenta.jLabelTotalAdultos.setText(TotalA + "0");
         }
         Total = TotalA + TotalN;
-        ConfirmarVenta.jLabelTotalPago.setText(Total + "");
+        ConfirmarVenta.jLabelTotalPago.setText(Total + "0");
 
     }
 
@@ -265,12 +265,12 @@ public class MenuVendedor extends javax.swing.JFrame {
         if ("0".equals(txtBoletosAdultos.getText()) && "0".equals(txtBoletosNiños.getText())) {
             JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
             btnContinuar.setEnabled(false);
-            txtBoletosAdultos.setText("1");
+            //txtBoletosAdultos.setText("1");
 
-        } else if ("0".equals(txtBoletosAdultos.getText()) || "0".equals(txtBoletosNiños.getText())) {
+        } else if ("0".equals(txtBoletosAdultos.getText())) {
             JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
             btnContinuar.setEnabled(false);
-            txtBoletosAdultos.setText("1");
+           // txtBoletosAdultos.setText("1");
 
         } else {
             btnContinuar.setEnabled(true);
@@ -421,7 +421,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBoxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(442, Short.MAX_VALUE))
+                .addContainerGap(449, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 145, 387, 530));
