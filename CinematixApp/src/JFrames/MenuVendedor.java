@@ -7,16 +7,13 @@ package JFrames;
 
 import Datos.Conexion;
 import Tipografia.Fuente;
-import com.mysql.cj.protocol.Resultset;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -33,6 +30,8 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     public MenuVendedor() {
         initComponents();
+        AgregarAComboboxPelicula();
+        Horarios();
         setBackground(new Color(0, 0, 0, 0));
         super.setTitle("Menú CineMatix");
         super.setResizable(false);
@@ -119,35 +118,27 @@ public class MenuVendedor extends javax.swing.JFrame {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
         Combo = jComboBoxPeliculas.getSelectedIndex();
-        
-        String sql = "SELECT Titulo From peliculas";
-        
-        try{
-         Statement st = cn.createStatement();
-         ResultSet rs = st.executeQuery(sql);
-         
-         jComboBoxPeliculas.addItem("Seleccione una pelicula"); 
-         while(rs.next()){
-            
-            jComboBoxPeliculas.addItem(rs.getString("Titulo"));
-            
-         }
-        
-       }catch(Exception e){
-            
+
+        String sql = "SELECT Titulo FROM peliculas";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            jComboBoxPeliculas.addItem("Seleccione una pelicula");
+            while (rs.next()) {
+
+                jComboBoxPeliculas.addItem(rs.getString("Titulo"));
             }
-       
-        
-        
- 
+
+        } catch (Exception e) {
+
+        }
     }
 
     void seleccionPelicula() {
-        
-        
-       
-         int combo;
-         combo = jComboBoxPeliculas.getSelectedIndex();
+        int combo;
+        combo = jComboBoxPeliculas.getSelectedIndex();
         if (combo == 1 || combo == 2 || combo == 3 || combo == 4 || combo == 5) {
             Activar();
             //MenoresEdad();
@@ -165,23 +156,20 @@ public class MenuVendedor extends javax.swing.JFrame {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
         Combo = jComboBoxHora.getSelectedIndex();
-        
-        String sql = "SELECT Hora From horarios";
-        
-        try{
-         Statement st = cn.createStatement();
-         ResultSet rs = st.executeQuery(sql);
-         
-         jComboBoxHora.addItem("Seleccione un Horario");
-         while(rs.next()){
-             
-            jComboBoxHora.addItem(rs.getString("Hora"));
-            
-         }
-        
-       }catch(Exception e){
-            
+
+        String sql = "SELECT Hora FROM horarios";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            jComboBoxHora.addItem("Seleccione un Horario");
+            while (rs.next()) {
+                jComboBoxHora.addItem(rs.getString("Hora"));
             }
+
+        } catch (Exception e) {
+
+        }
     }
 
     void LimCantidad() {
@@ -248,7 +236,6 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
 
     }*/
-
     void tarjeta() {
         if (rbTCredito.isSelected()) {
             ConfirmarVenta.jTextFieldEfectivoRecibido.setText("Paga con tarjeta");
@@ -270,7 +257,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         } else if ("0".equals(txtBoletosAdultos.getText())) {
             JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
             btnContinuar.setEnabled(false);
-           // txtBoletosAdultos.setText("1");
+            // txtBoletosAdultos.setText("1");
 
         } else {
             btnContinuar.setEnabled(true);
@@ -378,6 +365,7 @@ public class MenuVendedor extends javax.swing.JFrame {
 
         lb1.setFont(new java.awt.Font("Ubuntu Condensed", 1, 18)); // NOI18N
         lb1.setForeground(new java.awt.Color(255, 255, 255));
+        lb1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb1.setText("PELICULAS");
 
         jComboBoxHora.addActionListener(new java.awt.event.ActionListener() {
@@ -388,6 +376,7 @@ public class MenuVendedor extends javax.swing.JFrame {
 
         lb2.setFont(new java.awt.Font("Ubuntu Condensed", 1, 18)); // NOI18N
         lb2.setForeground(new java.awt.Color(255, 255, 255));
+        lb2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb2.setText("HORA");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -395,20 +384,15 @@ public class MenuVendedor extends javax.swing.JFrame {
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel7Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(lb1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addComponent(jComboBoxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(15, 15, 15))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                        .addComponent(lb2)
-                        .addGap(67, 67, 67))))
+                .addContainerGap()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jComboBoxPeliculas, 0, 180, Short.MAX_VALUE)
+                    .addComponent(lb1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jComboBoxHora, 0, 180, Short.MAX_VALUE)
+                    .addComponent(lb2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -421,7 +405,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBoxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(449, Short.MAX_VALUE))
+                .addContainerGap(442, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 145, 387, 530));

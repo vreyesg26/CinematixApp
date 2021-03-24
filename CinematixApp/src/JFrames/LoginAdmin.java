@@ -61,7 +61,6 @@ public class LoginAdmin extends javax.swing.JFrame {
         btninicioa = new javax.swing.JButton();
         txtusuario = new javax.swing.JTextField();
         txtpassword = new javax.swing.JPasswordField();
-        animacionCarga = new javax.swing.JLabel();
         btninicio = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -126,8 +125,6 @@ public class LoginAdmin extends javax.swing.JFrame {
         txtpassword.setOpaque(false);
         getContentPane().add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 300, 240, 45));
         txtpassword.getAccessibleContext().setAccessibleName("");
-
-        getContentPane().add(animacionCarga, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 435, 25, 25));
 
         btninicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LoginAdmin.png"))); // NOI18N
         getContentPane().add(btninicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 360, 480));
@@ -231,9 +228,6 @@ public class LoginAdmin extends javax.swing.JFrame {
 
    
     private void btninicioaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninicioaActionPerformed
-        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoBuscar.png");
-        animacionCarga.setIcon(iconobtn);
-        animacionCarga.repaint();
         validarAdministradores();
     }//GEN-LAST:event_btninicioaActionPerformed
 
@@ -279,7 +273,6 @@ public class LoginAdmin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel animacionCarga;
     private javax.swing.JLabel btnCerrar;
     private javax.swing.JLabel btninicio;
     private javax.swing.JButton btninicioa;

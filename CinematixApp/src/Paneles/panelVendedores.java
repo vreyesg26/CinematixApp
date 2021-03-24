@@ -599,14 +599,14 @@ public class panelVendedores extends javax.swing.JPanel {
                         .addGap(122, 122, 122)
                         .addComponent(jLabel10))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(130, 130, 130)
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(110, 110, 110)
+                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
-                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(525, 525, 525)
                         .addComponent(lbLupa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -814,7 +814,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
             guardo = data.guardar();
             if (guardo == true) {
-                JOptionPane.showMessageDialog(null, "Datos Guardados Correctamente");
+                JOptionPane.showMessageDialog(null, "Los datos fueron guardados correctamente");
                 cargarData("");
             }
             limpiarCajas();
@@ -864,7 +864,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
             datos data = new datos();
             if (edito == true) {
-                JOptionPane.showMessageDialog(null, "Datos Guardados Correctamente");
+                JOptionPane.showMessageDialog(null, "Datos actualizados de exitosamente");
             }
             cargarData("");
             limpiarCajas();
@@ -888,6 +888,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 btnEditar.setEnabled(false);
                 btnNuevo.setEnabled(false);
                 btnEliminar.setEnabled(false);
+                btnGuardar.setEnabled(true);
 
                 ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
                 btnEliminar.setIcon(iconobtn);

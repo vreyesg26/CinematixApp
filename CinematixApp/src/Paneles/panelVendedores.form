@@ -62,14 +62,14 @@
                       <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <EmptySpace min="130" pref="130" max="-2" attributes="0"/>
-                      <Component id="btnNuevo" min="-2" pref="132" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
+                      <Component id="btnNuevo" min="-2" pref="140" max="-2" attributes="0"/>
                       <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                      <Component id="btnGuardar" min="-2" pref="132" max="-2" attributes="0"/>
+                      <Component id="btnGuardar" min="-2" pref="140" max="-2" attributes="0"/>
                       <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                      <Component id="btnEditar" min="-2" pref="132" max="-2" attributes="0"/>
+                      <Component id="btnEditar" min="-2" pref="140" max="-2" attributes="0"/>
                       <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
-                      <Component id="btnEliminar" min="-2" pref="132" max="-2" attributes="0"/>
+                      <Component id="btnEliminar" min="-2" pref="140" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="525" pref="525" max="-2" attributes="0"/>

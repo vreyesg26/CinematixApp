@@ -35,6 +35,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         initComponents();
         cargarData("");
         bloquearCampos();
+        anchoColumnas();
         txtUrl.setEnabled(false);
         txtIDPelicula.setVisible(false);
         tipoFuente = new Fuente();
@@ -62,13 +63,21 @@ public class panelPeliculas extends javax.swing.JPanel {
         btnActualizar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnEliminar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
-        
+    }
+    
+    void anchoColumnas(){
         TableColumnModel anchoColumnas = tablaPeliculas.getColumnModel();
-        anchoColumnas.getColumn(0).setPreferredWidth(40);
-        anchoColumnas.getColumn(1).setPreferredWidth(165);
-        anchoColumnas.getColumn(3).setPreferredWidth(120);
-        anchoColumnas.getColumn(4).setPreferredWidth(120);
-        anchoColumnas.getColumn(6).setPreferredWidth(120);
+        anchoColumnas.getColumn(0).setPreferredWidth(30);
+        anchoColumnas.getColumn(1).setPreferredWidth(180);
+        anchoColumnas.getColumn(2).setPreferredWidth(70);
+        anchoColumnas.getColumn(3).setPreferredWidth(90);
+        anchoColumnas.getColumn(4).setPreferredWidth(170);
+        anchoColumnas.getColumn(5).setPreferredWidth(70);
+        anchoColumnas.getColumn(6).setPreferredWidth(220);
+        anchoColumnas.getColumn(7).setPreferredWidth(80);
+        anchoColumnas.getColumn(8).setPreferredWidth(100);
+        anchoColumnas.getColumn(9).setPreferredWidth(80);
+        anchoColumnas.getColumn(10).setPreferredWidth(220);
     }
     
     void bloquearCampos() {
@@ -152,19 +161,10 @@ public class panelPeliculas extends javax.swing.JPanel {
             }
             
             tablaPeliculas.setModel(model);
-            tamañoColumnas();
+            anchoColumnas();
         } catch (SQLException ex){
             Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    void tamañoColumnas(){
-        TableColumnModel anchoColumnas = tablaPeliculas.getColumnModel();
-            anchoColumnas.getColumn(0).setPreferredWidth(40);
-            anchoColumnas.getColumn(1).setPreferredWidth(165);
-            anchoColumnas.getColumn(3).setPreferredWidth(120);
-            anchoColumnas.getColumn(4).setPreferredWidth(120);
-            anchoColumnas.getColumn(6).setPreferredWidth(120);
     }
     
     ResultSet rs;
@@ -205,7 +205,7 @@ public class panelPeliculas extends javax.swing.JPanel {
             }
             
             tablaPeliculas.setModel(model);
-            tamañoColumnas();
+            anchoColumnas();
         } catch (SQLException ex){
             Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex.getMessage());
