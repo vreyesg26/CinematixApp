@@ -7,6 +7,7 @@ package JFrames;
 
 import Datos.Conexion;
 import Tipografia.Fuente;
+import encriptacion.Encode;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -151,7 +152,7 @@ public class LoginAdmin extends javax.swing.JFrame {
         String sql = "SELECT * FROM usuarios WHERE Usuario = '" + user + "'";
         
         if(txtusuario.getText().isEmpty() && txtpassword.getText().isEmpty() || txtusuario.getText().isEmpty() || txtpassword.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Debes llenar los campos");
+            JOptionPane.showMessageDialog(null, "Debes llenar los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
             
         } else {
             try {

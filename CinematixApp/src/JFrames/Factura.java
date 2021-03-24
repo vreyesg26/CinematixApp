@@ -249,6 +249,7 @@ public class Factura extends javax.swing.JFrame {
         jPanel1.add(jLabeCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 400, 130, -1));
 
         jButton_Imprimir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnImprimir.png"))); // NOI18N
+        jButton_Imprimir.setBorderPainted(false);
         jButton_Imprimir.setContentAreaFilled(false);
         jButton_Imprimir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton_Imprimir.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnImprimir2.png"))); // NOI18N

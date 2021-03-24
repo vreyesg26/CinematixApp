@@ -6,11 +6,8 @@
 package Paneles;
 
 import Datos.Conexion;
-import JFrames.TextPrompt;
 import Logica.datos;
-import Tipografia.DecoracionTablas;
 import Tipografia.Fuente;
-import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -22,15 +19,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
-import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-import rojerusan.RSDateChooser;
 
 /**
  *
- * @author Victor Reyes
+ * @author Los Pibes
  */
 public class panelVendedores extends javax.swing.JPanel {
 

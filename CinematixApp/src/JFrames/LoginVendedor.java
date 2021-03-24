@@ -2,6 +2,7 @@ package JFrames;
 
 import Datos.Conexion;
 import Tipografia.Fuente;
+import encriptacion.Encode;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -123,8 +124,11 @@ public class LoginVendedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     int intentos = 3;
-
+    
+    
     public void validarVendedores() {
+        String secretKey = "lospibes";
+        Encode encode = new Encode();
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
         String estado = "2";
@@ -145,7 +149,7 @@ public class LoginVendedor extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
                         txtCorreo.setText("");
                         txtClave.setText("");
-                    } else if (rs.getString("Clave").equals(pass)) {
+                    } else if (encode.deecnode(secretKey, rs.getString("Clave")).equals(pass)) {
                         MenuVendedor mv = new MenuVendedor();
                         mv.setVisible(true);
                         this.dispose();

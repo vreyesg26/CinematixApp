@@ -327,6 +327,11 @@ public class panelPeliculas extends javax.swing.JPanel {
         tablaPeliculas.setRowHeight(30);
         tablaPeliculas.setSelectionBackground(new java.awt.Color(29, 29, 29));
         tablaPeliculas.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tablaPeliculas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaPeliculasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaPeliculas);
 
         txtLetras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PeliculasLT.png"))); // NOI18N
@@ -433,8 +438,8 @@ public class panelPeliculas extends javax.swing.JPanel {
         });
 
         btnEliminar.setBackground(new java.awt.Color(81, 81, 81));
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoDeshabilitar.png"))); // NOI18N
-        btnEliminar.setText("DESHABILITAR");
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoEliminar.png"))); // NOI18N
+        btnEliminar.setText("ELIMINAR");
         btnEliminar.setBorderPainted(false);
         btnEliminar.setColorHover(new java.awt.Color(61, 61, 61));
         btnEliminar.setFocusable(false);
@@ -735,38 +740,44 @@ public class panelPeliculas extends javax.swing.JPanel {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        if(btnEliminar.getText() == "CANCELAR"){
+        if("CANCELAR".equals(btnEliminar.getText())){
             limpiarCajas();
             btnActualizar.setEnabled(false);
             btnGuardar.setEnabled(true);
             btnEliminar.setEnabled(false);
             
-            ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
+            ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoEliminar.png");
             btnEliminar.setIcon(iconobtn);
-            btnEliminar.setText("DESHABILITAR");
-        }
-        
-        if(btnEliminar.getText() == "DESHABILITAR"){
+            btnEliminar.setText("ELIMINAR");
+        } else if("ELIMINAR".equals(btnEliminar.getText())){
             int fila = tablaPeliculas.getSelectedRow();
-            if(fila == 0){
+            if(fila < 0){
                 JOptionPane.showMessageDialog(null,"Para borrar debe seleccionar una pelicula de la tabla", "Aviso", JOptionPane.WARNING_MESSAGE);
+                btnEliminar.setEnabled(false);
             } else {
+                btnEliminar.setEnabled(true);
                 String elemento = tablaPeliculas.getValueAt(fila, 0).toString();
-                
-                String sqlElim = "DELETE FROM vendedor WHERE IDVendedor='" + elemento + "'";
-                try {
-                    PreparedStatement pst = cn.prepareStatement(sqlElim);
-                    int n = pst.executeUpdate();
-                    if (n > 0) {
-                        JOptionPane.showMessageDialog(null, "Los datos fueron eliminados con exito", "Confirmación", JOptionPane.OK_OPTION);
-                        cargarData("");
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Hubo Problemas al querer eliminar esta pelicula");
+                String pelicula = tablaPeliculas.getValueAt(fila, 1).toString();
+                int confirmación = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas borrar " + pelicula + "?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (confirmación == 0) {
+                    String sqlElim = "DELETE FROM peliculas WHERE IdPelicula='" + elemento + "'";
+                    try {
+                        PreparedStatement pst = cn.prepareStatement(sqlElim);
+                        int n = pst.executeUpdate();
+                        if (n > 0) {
+                            JOptionPane.showMessageDialog(null, "Los datos fueron eliminados con exito", "Confirmación", JOptionPane.PLAIN_MESSAGE);
+                            cargarData("");
+                            btnEliminar.setEnabled(false);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Hubo problemas al querer eliminar esta pelicula");
+                        }
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
                     }
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
+                    limpiarCajas();
+                } else {
+                    
                 }
-                limpiarCajas();
             }
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
@@ -997,6 +1008,16 @@ public class panelPeliculas extends javax.swing.JPanel {
             } 
         }
     }//GEN-LAST:event_txtSinopsisFocusLost
+
+    private void tablaPeliculasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPeliculasMouseClicked
+        int fila = tablaPeliculas.getSelectedRow();
+        
+        if(fila >= 0){
+            btnEliminar.setEnabled(true);
+        } else {
+            btnEliminar.setEnabled(false);
+        }
+    }//GEN-LAST:event_tablaPeliculasMouseClicked
 
     datosPeliculas dataPeli = new datosPeliculas();
 
