@@ -25,12 +25,13 @@ public class AdminDashboard extends javax.swing.JFrame {
      * Creates new form AdminDashboard
      */
     Fuente tipoFuente;
+
     public AdminDashboard() {
         initComponents();
-        setBackground( new Color (0,0,0,0));
+        setBackground(new Color(0, 0, 0, 0));
         new CambiaPanel(panelContenedor, new panelAcercaDe());
         tipoFuente = new Fuente();
-        
+
         btnAcerca.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnSalir.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
@@ -38,11 +39,11 @@ public class AdminDashboard extends javax.swing.JFrame {
     }
 
     @Override
-    public Image getIconImage(){
+    public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
         return retValue;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -169,17 +170,17 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void btnPeliculas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliculas1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPeliculas1ActionPerformed
-    
+
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-        if(ventanaConfirmacion == 0) {			   
-        Inicio ini = new Inicio();
-        ini.setVisible(true); 
-        this.dispose();   
-        } else{			 
-          
-    }
-           
+        if (ventanaConfirmacion == 0) {
+            Inicio ini = new Inicio();
+            ini.setVisible(true);
+            this.dispose();
+        } else {
+
+        }
+
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAcercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcercaActionPerformed

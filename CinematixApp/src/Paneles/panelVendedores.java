@@ -19,6 +19,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -32,8 +33,7 @@ public class panelVendedores extends javax.swing.JPanel {
     /**
      * Creates new form panelVendedores
      */
-    
-    public boolean email(String correo){
+    public boolean email(String correo) {
         Pattern p = null;
         Matcher m = null;
         p = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
@@ -45,26 +45,27 @@ public class panelVendedores extends javax.swing.JPanel {
             return false;
         }
     }
-     
-    void bloquear(){
+
+    void bloquear() {
         txtIDVendedor.setEnabled(false);
         cbJornada.setEnabled(false);
         txtCelular.setEnabled(false);
         txtClave.setEnabled(false);
-        txtCorreo.setEnabled(false); 
+        txtCorreo.setEnabled(false);
         txtUsuario.setEnabled(false);
-        txtNumDocu.setEnabled(false); 
-        txtNombre.setEnabled(false);  
-        txtSueldo.setEnabled(false);  
-        txtDireccion.setEnabled(false);  
+        txtNumDocu.setEnabled(false);
+        txtNombre.setEnabled(false);
+        txtSueldo.setEnabled(false);
+        txtDireccion.setEnabled(false);
         btnEditar.setEnabled(false);
         btnEliminar.setEnabled(false);
         btnGuardar.setEnabled(false);
         btnNuevo.setEnabled(true);
         cbTipoDocu.setEnabled(false);
+        tablaVendedores.setEnabled(false);
     }
-    
-    void limpiarCajas(){
+
+    void limpiarCajas() {
         txtIDVendedor.setText("");
         txtCelular.setText("");
         txtCorreo.setText("");
@@ -77,7 +78,7 @@ public class panelVendedores extends javax.swing.JPanel {
         cbTipoDocu.setSelectedIndex(0);
         cbJornada.setSelectedIndex(0);
     }
-    
+
     public void validarCaracteres(java.awt.event.KeyEvent e) {
         if (e.getKeyChar() >= 33 && e.getKeyChar() <= 47
                 || e.getKeyChar() >= 58 && e.getKeyChar() <= 64
@@ -85,26 +86,28 @@ public class panelVendedores extends javax.swing.JPanel {
                 || e.getKeyChar() >= 123 && e.getKeyChar() <= 208
                 || e.getKeyChar() >= 210 && e.getKeyChar() <= 240
                 || e.getKeyChar() >= 242 && e.getKeyChar() <= 255) {
-            
+
             e.consume();
-            JOptionPane.showMessageDialog(null, "Este campo no acepta caracteres especiales", "" ,JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Este campo no acepta caracteres especiales", "", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
-    public static boolean validarNumeros(String datos){
+
+    public static boolean validarNumeros(String datos) {
         return datos.matches("[0-9]");
     }
-    
-    public static boolean validarStrings(String datos){
+
+    public static boolean validarStrings(String datos) {
         return datos.matches("[a-zA-Z]");
     }
-    
+
     Fuente tipoFuente;
+
     public panelVendedores() {
         initComponents();
         bloquear();
         cargarData("");
-        
+        anchoColumnas();
+
         tipoFuente = new Fuente();
         txtIDVendedor.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         txtNombre.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
@@ -130,41 +133,51 @@ public class panelVendedores extends javax.swing.JPanel {
         lb9.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         lb10.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         lb11.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        
+
         btnGuardar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnEditar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnEliminar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
-        
-        TableColumnModel anchoColumnas = tablaVendedores.getColumnModel();
-        anchoColumnas.getColumn(0).setPreferredWidth(40);
-        anchoColumnas.getColumn(1).setPreferredWidth(110);
-        anchoColumnas.getColumn(3).setPreferredWidth(110);
-        anchoColumnas.getColumn(4).setPreferredWidth(160);
-        anchoColumnas.getColumn(6).setPreferredWidth(120);
     }
-    
+
+    void anchoColumnas() {
+        TableColumnModel anchoColumnas = tablaVendedores.getColumnModel();
+        anchoColumnas.getColumn(0).setPreferredWidth(30);
+        anchoColumnas.getColumn(1).setPreferredWidth(120);
+        anchoColumnas.getColumn(2).setPreferredWidth(150);
+        anchoColumnas.getColumn(3).setPreferredWidth(70);
+        anchoColumnas.getColumn(4).setPreferredWidth(90);
+        anchoColumnas.getColumn(5).setPreferredWidth(80);
+        anchoColumnas.getColumn(6).setPreferredWidth(80);
+        anchoColumnas.getColumn(7).setPreferredWidth(110);
+        anchoColumnas.getColumn(8).setPreferredWidth(200);
+        anchoColumnas.getColumn(9).setPreferredWidth(80);
+        anchoColumnas.getColumn(10).setPreferredWidth(200);
+        anchoColumnas.getColumn(11).setPreferredWidth(100);
+    }
+
     ResultSet rs;
     PreparedStatement Pst;
     DefaultTableModel model;
     Conexion cc = new Conexion();
     Connection cn = cc.GetConexion();
-    void cargarData(String valor){
-        String[] titulos = {"ID", "Nombre", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo", "Usuario", "Clave"};
-        String[] registros = new String[11];
-        String sql = "SELECT IDVendedor, Nombre , Direccion, Sueldo, TipoJornada, NumeroCelular, NombreDocumento, NumeroDocumento, Correo, Usuario, Clave\n"
+
+    void cargarData(String valor) {
+        String[] titulos = {"ID", "Nombre", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo", "Usuario", "Clave", "Estado"};
+        String[] registros = new String[12];
+        String sql = "SELECT IDVendedor, Nombre , Direccion, Sueldo, TipoJornada, NumeroCelular, NombreDocumento, NumeroDocumento, Correo, Usuario, Clave, Estado\n"
                 + "                FROM vendedor INNER JOIN jornadas USING (IDJornada)\n"
                 + "                INNER JOIN tipodocumento USING (IDTipoDocumento)\n"
+                + "                INNER JOIN estados USING (IDEstado)\n"
                 + "                WHERE IDVendedor != 0 ORDER BY IDVendedor";
-        
-        
+
         model = new DefaultTableModel(null, titulos);
-        
-        try{
+
+        try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 registros[0] = rs.getString("IDVendedor");
                 registros[1] = rs.getString("Nombre");
                 registros[2] = rs.getString("Direccion");
@@ -176,31 +189,33 @@ public class panelVendedores extends javax.swing.JPanel {
                 registros[8] = rs.getString("Correo");
                 registros[9] = rs.getString("Usuario");
                 registros[10] = rs.getString("Clave");
+                registros[11] = rs.getString("Estado");
                 model.addRow(registros);
             }
-            
+
             tablaVendedores.setModel(model);
-        } catch (SQLException ex){
+            anchoColumnas();
+        } catch (SQLException ex) {
             Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-   void buscarData(String valor){
-        String[] titulos = {"ID", "Nombre", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo", "Usuario", "Clave"};
-        String[] registros = new String[11];
-        //String sql = "SELECT * FROM vendedor WHERE CONCAT (IDVendedor, ' ', Nombre) LIKE '%"+ valor +"%'";
-        String sql = "SELECT IDVendedor, Nombre, Direccion, Sueldo, TipoJornada, NumeroCelular, NombreDocumento, NumeroDocumento, Correo, Usuario, Clave\n"
+
+    void buscarData(String valor) {
+        String[] titulos = {"ID", "Nombre", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo", "Usuario", "Clave", "Estado"};
+        String[] registros = new String[12];
+        String sql = "SELECT IDVendedor, Nombre, Direccion, Sueldo, TipoJornada, NumeroCelular, NombreDocumento, NumeroDocumento, Correo, Usuario, Clave, Estado\n"
                 + "                FROM vendedor INNER JOIN jornadas USING (IDJornada)\n"
                 + "                INNER JOIN tipodocumento USING (IDTipoDocumento)\n"
-                + "                WHERE CONCAT (IDVendedor, ' ', Nombre) LIKE '%"+ valor +"%'";
-        
+                + "                INNER JOIN estados USING (IDEstado)\n"
+                + "                WHERE CONCAT (IDVendedor, ' ', Nombre) LIKE '%" + valor + "%'";
+
         model = new DefaultTableModel(null, titulos);
-        
-        try{
+
+        try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            
-            while(rs.next()){
+
+            while (rs.next()) {
                 registros[0] = rs.getString("IDVendedor");
                 registros[1] = rs.getString("Nombre");
                 registros[2] = rs.getString("Direccion");
@@ -212,22 +227,16 @@ public class panelVendedores extends javax.swing.JPanel {
                 registros[8] = rs.getString("Correo");
                 registros[9] = rs.getString("Usuario");
                 registros[10] = rs.getString("Clave");
+                registros[11] = rs.getString("Estado");
                 model.addRow(registros);
             }
-            
+
             tablaVendedores.setModel(model);
-            
-            TableColumnModel anchoColumnas = tablaVendedores.getColumnModel();
-            anchoColumnas.getColumn(0).setPreferredWidth(40);
-            anchoColumnas.getColumn(1).setPreferredWidth(110);
-            anchoColumnas.getColumn(3).setPreferredWidth(110);
-            anchoColumnas.getColumn(4).setPreferredWidth(160);
-            anchoColumnas.getColumn(6).setPreferredWidth(120);
-        } catch (SQLException ex){
+            anchoColumnas();
+        } catch (SQLException ex) {
             Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -401,6 +410,11 @@ public class panelVendedores extends javax.swing.JPanel {
         tablaVendedores.setRowHeight(30);
         tablaVendedores.setSelectionBackground(new java.awt.Color(29, 29, 29));
         tablaVendedores.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tablaVendedores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaVendedoresMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tablaVendedores);
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VendedoresLT 1.png"))); // NOI18N
@@ -710,91 +724,83 @@ public class panelVendedores extends javax.swing.JPanel {
 
     private void menuModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarActionPerformed
         int fila = tablaVendedores.getSelectedRow();
-  
-        if(fila>=0){
+
+        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
+        btnEliminar.setIcon(iconobtn);
+        btnEliminar.setText("CANCELAR");
+
+        if (fila >= 0) {
             btnEditar.setEnabled(true);
             btnEliminar.setEnabled(true);
-            btnNuevo.setEnabled(true);
+            btnNuevo.setEnabled(false);
             txtIDVendedor.setEnabled(false);
             cbJornada.setEnabled(true);
             txtClave.setEnabled(true);
-            txtCorreo.setEnabled(true);  
-            txtNombre.setEnabled(true);  
-            txtSueldo.setEnabled(true);  
-            txtCorreo.setEnabled(true);  
+            txtCorreo.setEnabled(true);
+            txtNombre.setEnabled(true);
+            txtSueldo.setEnabled(true);
+            txtCorreo.setEnabled(true);
+            txtUsuario.setEnabled(true);
+            txtNumDocu.setEnabled(true);
             cbTipoDocu.setEnabled(true);
             btnGuardar.setEnabled(false);
             txtCelular.setEnabled(true);
             txtDireccion.setEnabled(true);
-            
-            String id=tablaVendedores.getValueAt(fila, 0).toString();
-            String nombre=tablaVendedores.getValueAt(fila, 1).toString();
-            String direccion =tablaVendedores.getValueAt(fila, 2).toString();
-            String sueldo =tablaVendedores.getValueAt(fila, 3).toString();
+
+            String id = tablaVendedores.getValueAt(fila, 0).toString();
+            String nombre = tablaVendedores.getValueAt(fila, 1).toString();
+            String direccion = tablaVendedores.getValueAt(fila, 2).toString();
+            String sueldo = tablaVendedores.getValueAt(fila, 3).toString();
             String idJornada = tablaVendedores.getValueAt(fila, 4).toString();
-            String numCelular =tablaVendedores.getValueAt(fila, 5).toString();
-            String idTipoDocumento =tablaVendedores.getValueAt(fila, 6).toString();
-            String numDocumento =tablaVendedores.getValueAt(fila, 7).toString();
-            String correo =tablaVendedores.getValueAt(fila, 8).toString();
-            String usuario =tablaVendedores.getValueAt(fila, 9).toString();
-            String clave =tablaVendedores.getValueAt(fila, 10).toString();
-            
+            String numCelular = tablaVendedores.getValueAt(fila, 5).toString();
+            String idTipoDocumento = tablaVendedores.getValueAt(fila, 6).toString();
+            String numDocumento = tablaVendedores.getValueAt(fila, 7).toString();
+            String correo = tablaVendedores.getValueAt(fila, 8).toString();
+            String usuario = tablaVendedores.getValueAt(fila, 9).toString();
+            String clave = tablaVendedores.getValueAt(fila, 10).toString();
+
             txtIDVendedor.setText(id);
             txtNombre.setText(nombre);
-            txtDireccion.setText(direccion);      
+            txtDireccion.setText(direccion);
             txtSueldo.setText(sueldo);
-            if(idJornada.contains("Matutina")){
+            if (idJornada.contains("Matutina")) {
                 cbJornada.setSelectedIndex(1);
-            } else if(idJornada.contains("Vespertina")){
+            } else if (idJornada.contains("Vespertina")) {
                 cbJornada.setSelectedIndex(2);
-            } else if(idJornada.contains("Nocturna")){
+            } else if (idJornada.contains("Nocturna")) {
                 cbJornada.setSelectedIndex(3);
             }
             txtCelular.setText(numCelular);
-            if(idTipoDocumento.contains("Identidad")){
+            if (idTipoDocumento.contains("Identidad")) {
                 cbTipoDocu.setSelectedIndex(1);
-            } else if(idTipoDocumento.contains("Pasaporte")){
+            } else if (idTipoDocumento.contains("Pasaporte")) {
                 cbTipoDocu.setSelectedIndex(2);
-            } else if(idTipoDocumento.contains("RTN")){
+            } else if (idTipoDocumento.contains("RTN")) {
                 cbTipoDocu.setSelectedIndex(3);
             }
             txtNumDocu.setText(numDocumento);
             txtCorreo.setText(correo);
             txtUsuario.setText(usuario);
             txtClave.setText(clave);
-        }
-        else {
-           JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "" ,JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_menuModificarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        btnEditar.setEnabled(true);
-        btnEliminar.setEnabled(true);
-        btnNuevo.setEnabled(true);
-        btnGuardar.setEnabled(false);
-        txtIDVendedor.setEnabled(false);
-
         boolean guardo = true;
         datos data = new datos();
-        if(cbJornada.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "" ,JOptionPane.ERROR_MESSAGE);
-        }
-        
-        else if(cbTipoDocu.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada", "" ,JOptionPane.ERROR_MESSAGE);
-        }
-        
-        else if(txtCelular.getText().isEmpty() || cbTipoDocu.getSelectedIndex() == 0 || cbJornada.getSelectedIndex() == 0 || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtNumDocu.getText().isEmpty() || txtNombre.getText().isEmpty() || txtSueldo.getText().isEmpty() || txtClave.getText().isEmpty()) {
-     
-            JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos", "" ,JOptionPane.ERROR_MESSAGE);
-        }
-                
-        
-        else if(Integer.parseInt(txtSueldo.getText()) < 8000){
-            JOptionPane.showMessageDialog(null, "El sueldo debe de ser de 8000 en adelante", "" ,JOptionPane.ERROR_MESSAGE);
-             txtSueldo.setText("");
-        }else if(txtCorreo.getText().contains("@") && txtCorreo.getText().contains(".com") || txtCorreo.getText().contains(".hn")){
+        if (cbJornada.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "", JOptionPane.ERROR_MESSAGE);
+        } else if (cbTipoDocu.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada", "", JOptionPane.ERROR_MESSAGE);
+        } else if (txtCelular.getText().isEmpty() || cbTipoDocu.getSelectedIndex() == 0 || cbJornada.getSelectedIndex() == 0 || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtNumDocu.getText().isEmpty() || txtNombre.getText().isEmpty() || txtSueldo.getText().isEmpty() || txtClave.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos", "", JOptionPane.ERROR_MESSAGE);
+        } else if (Integer.parseInt(txtSueldo.getText()) < 8000) {
+            JOptionPane.showMessageDialog(null, "El sueldo debe de ser de 8000 en adelante", "", JOptionPane.ERROR_MESSAGE);
+            txtSueldo.setText("");
+        } else if (txtCorreo.getText().contains("@") && txtCorreo.getText().contains(".com") || txtCorreo.getText().contains(".hn")) {
             data.setNombre(txtNombre.getText());
             data.setUsuario(txtUsuario.getText());
             data.setClave(txtClave.getText());
@@ -805,16 +811,22 @@ public class panelVendedores extends javax.swing.JPanel {
             data.setIDTipoDocumento(cbTipoDocu.getSelectedIndex());
             data.setNumeroDocumento(txtNumDocu.getText());
             data.setCorrreo(txtCorreo.getText());
-            
+
             guardo = data.guardar();
             if (guardo == true) {
                 JOptionPane.showMessageDialog(null, "Datos Guardados Correctamente");
                 cargarData("");
             }
             limpiarCajas();
-        }else {
-            JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com", "" ,JOptionPane.ERROR_MESSAGE);
-        } 
+            btnEditar.setEnabled(true);
+            btnEliminar.setEnabled(true);
+            btnNuevo.setEnabled(true);
+            btnGuardar.setEnabled(false);
+            txtIDVendedor.setEnabled(false);
+            bloquear();
+        } else {
+            JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com", "", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -822,28 +834,20 @@ public class panelVendedores extends javax.swing.JPanel {
         btnEditar.setEnabled(false);
         btnEliminar.setEnabled(false);
         btnGuardar.setEnabled(false);
-        
+
         boolean edito = true;
-         if(cbJornada.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada", "" ,JOptionPane.ERROR_MESSAGE);
-        }
-        
-        else if(cbTipoDocu.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "" ,JOptionPane.ERROR_MESSAGE);
-        }
-        
-        else if(txtCelular.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtNumDocu.getText().isEmpty() || txtNombre.getText().isEmpty() || txtSueldo.getText().isEmpty() || txtClave.getText().isEmpty()) {
-     
-            JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos", "" ,JOptionPane.ERROR_MESSAGE);
-        }
-        
-        else if(Integer.parseInt(txtSueldo.getText()) < 8000){
-            JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor", "" ,JOptionPane.ERROR_MESSAGE);
-             txtSueldo.setText("");
-        }else 
-            
-        if(txtCorreo.getText().contains("@") && txtCorreo.getText().contains(".com") || txtCorreo.getText().contains(".hn")){
-            
+        if (cbJornada.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada", "", JOptionPane.ERROR_MESSAGE);
+        } else if (cbTipoDocu.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "", JOptionPane.ERROR_MESSAGE);
+        } else if (txtCelular.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtNumDocu.getText().isEmpty() || txtNombre.getText().isEmpty() || txtSueldo.getText().isEmpty() || txtClave.getText().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos", "", JOptionPane.ERROR_MESSAGE);
+        } else if (Integer.parseInt(txtSueldo.getText()) < 8000) {
+            JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor", "", JOptionPane.ERROR_MESSAGE);
+            txtSueldo.setText("");
+        } else if (txtCorreo.getText().contains("@") && txtCorreo.getText().contains(".com") || txtCorreo.getText().contains(".hn")) {
+
             datos pro = new datos();
             pro.setIDVendedor(Integer.parseInt(txtIDVendedor.getText()));
             pro.setNombre(txtNombre.getText());
@@ -864,28 +868,80 @@ public class panelVendedores extends javax.swing.JPanel {
             }
             cargarData("");
             limpiarCajas();
-        }else {
-            JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com", "" ,JOptionPane.ERROR_MESSAGE);
+            bloquear();
+        } else {
+            JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com", "", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        
+        int fila = tablaVendedores.getSelectedRow();
+        String habilitado = "1";
+        String deshabilitado = "2";
+
+        if (fila >= 0) {
+            String id = tablaVendedores.getValueAt(fila, 0).toString();
+            String nombre = tablaVendedores.getValueAt(fila, 1).toString();
+
+            if (btnEliminar.getText().equals("CANCELAR")) {
+                limpiarCajas();
+                btnEditar.setEnabled(false);
+                btnNuevo.setEnabled(false);
+                btnEliminar.setEnabled(false);
+
+                ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
+                btnEliminar.setIcon(iconobtn);
+                btnEliminar.setText("DESHABILITAR");
+
+            } else if (btnEliminar.getText().equals("DESHABILITAR")) {
+                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (ventanaConfirmacion == 0) {
+                    try {
+                        String sqlEstado = "UPDATE `vendedor` SET `IDEstado` = ? WHERE `vendedor`.`IDVendedor` = ? ";
+                        PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
+                        pst.setString(1, deshabilitado);
+                        pst.setString(2, id);
+                        pst.execute();
+
+                        JOptionPane.showMessageDialog(null, "El usuario de " + nombre + " ha sido deshabilitado", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                    } catch (Exception e) {
+
+                    }
+                }
+            } else if (btnEliminar.getText().equals("HABILITAR")) {
+                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (ventanaConfirmacion == 0) {
+                    try {
+                        String sqlEstado = "UPDATE `vendedor` SET `IDEstado` = ? WHERE `vendedor`.`IDVendedor` = ? ";
+                        PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
+                        pst.setString(1, habilitado);
+                        pst.setString(2, id);
+                        pst.execute();
+
+                        JOptionPane.showMessageDialog(null, "El usuario de " + nombre + " ahora está habilitado", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+        }
+        cargarData("");
+        btnEliminar.setEnabled(false);
     }//GEN-LAST:event_btnEliminarActionPerformed
-    
-        public void limite(TextField txtnombre,TextField txtdireccion1){
-        if(txtnombre.getText().length() > 35){
+
+    public void limite(TextField txtnombre, TextField txtdireccion1) {
+        if (txtnombre.getText().length() > 35) {
 
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Supera Limite Permitido");
             alert.setHeaderText("Error");
-            alert.setContentText("Supero el Limite de caracteres.+" +
-                    " \n El limite de caracteres es de 35");
+            alert.setContentText("Supero el Limite de caracteres.+"
+                    + " \n El limite de caracteres es de 35");
             alert.showAndWait();
-            txtnombre.deleteText(35,txtnombre.getText().length());
-        }           
-    }   
-        
+            txtnombre.deleteText(35, txtnombre.getText().length());
+        }
+    }
+
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         txtIDVendedor.setEnabled(false);
         cbJornada.setEnabled(true);
@@ -899,17 +955,10 @@ public class panelVendedores extends javax.swing.JPanel {
         txtNumDocu.setEnabled(true);
         txtClave.setEnabled(true);
         cbTipoDocu.setEnabled(true);
-        txtDireccion.setText("");
-        txtNombre.setText("");
-        txtUsuario.setText("");
-        txtIDVendedor.setText("");
-        txtBuscar.setText("");
-        txtClave.setText("");
-        txtSueldo.setText("");
-        txtCelular.setText("");
-        txtCorreo.setText("");
-
+        limpiarCajas();
+        tablaVendedores.setEnabled(true);
         btnGuardar.setEnabled(true);
+        btnNuevo.setEnabled(false);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
@@ -925,81 +974,81 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNumDocuActionPerformed
 
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
-        
+
     }//GEN-LAST:event_txtBuscarKeyTyped
 
     private void txtCelularKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCelularKeyTyped
         validarCaracteres(evt);
-        char validar=evt.getKeyChar();
-        if(Character.isLetter(validar)){
+        char validar = evt.getKeyChar();
+        if (Character.isLetter(validar)) {
             getToolkit().beep();
             evt.consume();
-            
-            JOptionPane.showMessageDialog(null, "Ingresar solo numeros", "" ,JOptionPane.ERROR_MESSAGE);
+
+            JOptionPane.showMessageDialog(null, "Ingresar solo numeros", "", JOptionPane.ERROR_MESSAGE);
         }
-        if(txtCelular.getText().length() >= 8){
+        if (txtCelular.getText().length() >= 8) {
             evt.consume();
-        }            
+        }
     }//GEN-LAST:event_txtCelularKeyTyped
 
     private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
-         
+
     }//GEN-LAST:event_txtCorreoKeyTyped
 
     private void txtDireccionKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDireccionKeyTyped
-        if(txtDireccion.getText().length() > 50){
+        if (txtDireccion.getText().length() > 50) {
             evt.consume();
         }
     }//GEN-LAST:event_txtDireccionKeyTyped
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         validarCaracteres(evt);
-        char validar=evt.getKeyChar();
-        if(Character.isDigit(validar)){
+        char validar = evt.getKeyChar();
+        if (Character.isDigit(validar)) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Ingresar solo letras", "" ,JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Ingresar solo letras", "", JOptionPane.ERROR_MESSAGE);
         }
-        if(txtNombre.getText().length() > 50){
+        if (txtNombre.getText().length() > 50) {
             evt.consume();
         }
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtSueldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSueldoKeyTyped
         validarCaracteres(evt);
-        char validar=evt.getKeyChar();
-        
-        if(Character.isLetter(validar)){
+        char validar = evt.getKeyChar();
+
+        if (Character.isLetter(validar)) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Ingresar solo numeros", "" ,JOptionPane.ERROR_MESSAGE);        
+            JOptionPane.showMessageDialog(null, "Ingresar solo numeros", "", JOptionPane.ERROR_MESSAGE);
         }
-        if(txtSueldo.getText().length() > 5){
+        if (txtSueldo.getText().length() > 5) {
             evt.consume();
         }
-        
+
     }//GEN-LAST:event_txtSueldoKeyTyped
 
     private void txtSueldoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSueldoKeyReleased
-       
+
     }//GEN-LAST:event_txtSueldoKeyReleased
 
     private void txtNumDocuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumDocuKeyTyped
-        if(cbTipoDocu.getSelectedIndex() == 1){
+        if (cbTipoDocu.getSelectedIndex() == 1) {
             char validar = evt.getKeyChar();
             if (Character.isLetter(validar)) {
                 getToolkit().beep();
                 evt.consume();
                 JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "", JOptionPane.ERROR_MESSAGE);
             }
-            
-            if(txtNumDocu.getText().length() > 12){
+
+            if (txtNumDocu.getText().length() > 12) {
                 evt.consume();
             }
         }
         if (cbTipoDocu.getSelectedIndex() == 2) {
             validarCaracteres(evt);
-            if(txtNumDocu.getText().length() > 6){
+            if (txtNumDocu.getText().length() > 6) {
                 evt.consume();
             }
         }
@@ -1010,8 +1059,8 @@ public class panelVendedores extends javax.swing.JPanel {
                 evt.consume();
                 JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "", JOptionPane.ERROR_MESSAGE);
             }
-            
-            if(txtNumDocu.getText().length() > 13){
+
+            if (txtNumDocu.getText().length() > 13) {
                 evt.consume();
             }
         }
@@ -1036,7 +1085,7 @@ public class panelVendedores extends javax.swing.JPanel {
                     }
                 } catch (Exception e) {
                     JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                } 
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Correo incorrecto,validar ejem: cinematix@gmail.com", "", JOptionPane.ERROR_MESSAGE);
             }
@@ -1048,12 +1097,12 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_txtClaveKeyTyped
 
     private void txtCelularFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelularFocusLost
-       if(!txtCelular.getText().isEmpty()){
-           if(txtCelular.getText().length() < 8 || txtCelular.getText().charAt(0) == '0' || txtCelular.getText().charAt(0) == '1' || txtCelular.getText().charAt(0) == '4' || txtCelular.getText().charAt(0) == '5' || txtCelular.getText().charAt(0) == '6' || txtCelular.getText().charAt(0) == '7' || txtCelular.getText().charAt(0) == '2'){
-             JOptionPane.showMessageDialog(null, "El celular debe contener 8 digitos y debe comenzar con 3, 8 o 9", "" , JOptionPane.ERROR_MESSAGE);
-             txtCelular.setText("");
-           }
-       }
+        if (!txtCelular.getText().isEmpty()) {
+            if (txtCelular.getText().length() < 8 || txtCelular.getText().charAt(0) == '0' || txtCelular.getText().charAt(0) == '1' || txtCelular.getText().charAt(0) == '4' || txtCelular.getText().charAt(0) == '5' || txtCelular.getText().charAt(0) == '6' || txtCelular.getText().charAt(0) == '7' || txtCelular.getText().charAt(0) == '2') {
+                JOptionPane.showMessageDialog(null, "El celular debe contener 8 digitos y debe comenzar con 3, 8 o 9", "", JOptionPane.ERROR_MESSAGE);
+                txtCelular.setText("");
+            }
+        }
     }//GEN-LAST:event_txtCelularFocusLost
 
     private void txtNumDocuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumDocuFocusLost
@@ -1062,16 +1111,16 @@ public class panelVendedores extends javax.swing.JPanel {
         String numDocu = txtNumDocu.getText();
         String tipoDocu = String.valueOf(cbTipoDocu.getSelectedIndex());
         String sql = "SELECT IDTipoDocumento, NumeroDocumento FROM vendedor WHERE IDTipoDocumento = '" + tipoDocu + "' and NumeroDocumento = '" + numDocu + "'";
-        
-        if (cbTipoDocu.getSelectedIndex() == 1 ) {
+
+        if (cbTipoDocu.getSelectedIndex() == 1) {
             if (txtNumDocu.getText().length() < 13) {
-                JOptionPane.showMessageDialog(null, "El documento de identidad debe contener 13 digitos", "" , JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El documento de identidad debe contener 13 digitos", "", JOptionPane.ERROR_MESSAGE);
             }
-            
+
             try {
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql);
-                
+
                 if (rs.next()) {
                     if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
                         JOptionPane.showMessageDialog(null, "Este número de identidad ya existe, intenta con otro", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1083,13 +1132,13 @@ public class panelVendedores extends javax.swing.JPanel {
         }
         if (cbTipoDocu.getSelectedIndex() == 2) {
             if (txtNumDocu.getText().length() < 7) {
-                JOptionPane.showMessageDialog(null, "El código del pasaporte debe contener 7 digitos", "" , JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El código del pasaporte debe contener 7 digitos", "", JOptionPane.ERROR_MESSAGE);
             }
-            
+
             try {
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql);
-                
+
                 if (rs.next()) {
                     if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
                         JOptionPane.showMessageDialog(null, "Este número de pasaporte ya existe, intenta con otro", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1101,13 +1150,13 @@ public class panelVendedores extends javax.swing.JPanel {
         }
         if (cbTipoDocu.getSelectedIndex() == 3) {
             if (txtNumDocu.getText().length() < 14) {
-                JOptionPane.showMessageDialog(null, "El número del RTN debe contener 14 digitos", "" , JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "El número del RTN debe contener 14 digitos", "", JOptionPane.ERROR_MESSAGE);
             }
-            
+
             try {
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql);
-                
+
                 if (rs.next()) {
                     if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
                         JOptionPane.showMessageDialog(null, "Este número de RTN ya existe, intenta con otro", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1120,19 +1169,19 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNumDocuFocusLost
 
     private void txtUsuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioKeyTyped
-        
+
     }//GEN-LAST:event_txtUsuarioKeyTyped
 
     private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
-        if(!txtCelular.getText().isEmpty()){
-            if (txtNombre.getText().length() < 3){
-                JOptionPane.showMessageDialog(null, "El nombre debe de tener mas de 3 caracteres", "" ,JOptionPane.ERROR_MESSAGE);
+        if (!txtNombre.getText().isEmpty()) {
+            if (txtNombre.getText().length() < 3) {
+                JOptionPane.showMessageDialog(null, "El nombre debe de tener mas de 3 caracteres", "Advertencia", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_txtNombreFocusLost
 
     private void txtUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusLost
-        if(!txtUsuario.getText().isEmpty()){
+        if (!txtUsuario.getText().isEmpty()) {
             Conexion cc = new Conexion();
             Connection cn = cc.GetConexion();
             String user = txtUsuario.getText();
@@ -1141,7 +1190,7 @@ public class panelVendedores extends javax.swing.JPanel {
             try {
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql);
-                
+
                 if (rs.next()) {
                     if (rs.getString("Usuario").equals(txtUsuario.getText())) {
                         JOptionPane.showMessageDialog(null, "Este usuario ya existe, intenta con otro", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1152,6 +1201,24 @@ public class panelVendedores extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_txtUsuarioFocusLost
+
+    private void tablaVendedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaVendedoresMouseClicked
+        int fila = tablaVendedores.getSelectedRow();
+        if (fila >= 0) {
+            btnEliminar.setEnabled(true);
+            String estado = tablaVendedores.getValueAt(fila, 11).toString();
+
+            if ("Habilitado".equals(estado)) {
+                ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
+                btnEliminar.setIcon(iconobtn);
+                btnEliminar.setText("DESHABILITAR");
+            } else if ("Deshabilitado".equals(estado)) {
+                ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoHabilitar.png");
+                btnEliminar.setIcon(iconobtn);
+                btnEliminar.setText("HABILITAR");
+            }
+        }
+    }//GEN-LAST:event_tablaVendedoresMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
