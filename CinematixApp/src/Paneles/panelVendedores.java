@@ -1037,7 +1037,7 @@ public class panelVendedores extends javax.swing.JPanel {
     private void txtNumDocuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumDocuKeyTyped
         if (cbTipoDocu.getSelectedIndex() == 1) {
             char validar = evt.getKeyChar();
-            if (Character.isLetter(validar)) {
+             if (Character.isLetter(validar)) {
                 getToolkit().beep();
                 evt.consume();
                 JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "", JOptionPane.ERROR_MESSAGE);
@@ -1049,6 +1049,12 @@ public class panelVendedores extends javax.swing.JPanel {
         }
         if (cbTipoDocu.getSelectedIndex() == 2) {
             validarCaracteres(evt);
+            char validar = evt.getKeyChar();
+             if (Character.isLetter(validar)) {
+                getToolkit().beep();
+                evt.consume();
+                JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "", JOptionPane.ERROR_MESSAGE);
+            }
             if (txtNumDocu.getText().length() > 6) {
                 evt.consume();
             }
