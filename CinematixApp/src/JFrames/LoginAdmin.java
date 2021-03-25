@@ -139,13 +139,11 @@ public class LoginAdmin extends javax.swing.JFrame {
        btninicioa.setBorderPainted(false);
    }
   
-   int intentos = 3;
    public void validarAdministradores(){
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
         Encode encode = new Encode();
         String secretKey = "lospibes";
-        String estado = "2";
         String user = txtusuario.getText();
         String pass = String.valueOf(txtpassword.getPassword());
         String sql = "SELECT * FROM usuarios WHERE Usuario = '" + user + "'";
@@ -159,7 +157,8 @@ public class LoginAdmin extends javax.swing.JFrame {
                 ResultSet rs = st.executeQuery(sql);
 
                 if (rs.next()) {
-                    if (rs.getString("IDEstado").equals("2")) {
+                    int intentos = Integer.parseInt(rs.getString("Intentos"));
+                    if (rs.getString("Intentos").equals("0")) {
                         JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
                         txtusuario.setText("");
                         txtpassword.setText("");
@@ -167,26 +166,46 @@ public class LoginAdmin extends javax.swing.JFrame {
                         AdminDashboard ad = new AdminDashboard();
                         ad.setVisible(true);
                         this.dispose();
+                        try {
+                            String sqlRestar = "UPDATE `usuarios` SET `Intentos` = ? WHERE `usuarios`.`Usuario` = ? ";
+                            PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlRestar);
+                            pst.setString(1, String.valueOf("3"));
+                            pst.setString(2, user);
+                            pst.execute();
+
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e);
+                        }
                     } else {
                         --intentos;
                         if (intentos == 0) {
                             JOptionPane.showMessageDialog(null, "Ha excedido el número de intentos para ingresar \n" + "Su usuario ha sido deshabilitado", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
                             txtusuario.setText("");
                             txtpassword.setText("");
+                            Inicio inicio = new Inicio();
+                            inicio.setVisible(true);
+                            this.dispose();
                             try {
-                                String sqlEstado = "UPDATE `usuarios` SET `IDEstado` = ? WHERE `usuarios`.`Usuario` = ? ";
+                                String sqlEstado = "UPDATE `usuarios` SET `Intentos` = ? WHERE `usuarios`.`Usuario` = ? ";
                                 PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
-                                pst.setString(1, estado);
+                                pst.setString(1, String.valueOf(intentos));
                                 pst.setString(2, user);
                                 pst.execute();
 
                             } catch (Exception e) {
                                 
                             }
-                            Inicio inicio = new Inicio();
-                            inicio.setVisible(true);
-                            this.dispose();
                         } else {
+                            try {
+                                String sqlEstado = "UPDATE `usuarios` SET `Intentos` = ? WHERE `usuarios`.`Usuario` = ? ";
+                                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
+                                pst.setString(1, String.valueOf(intentos));
+                                pst.setString(2, user);
+                                pst.execute();
+
+                            } catch (Exception e) {
+                                
+                            }
                             JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Aviso", JOptionPane.WARNING_MESSAGE);
                             txtusuario.setText("");
                             txtpassword.setText("");

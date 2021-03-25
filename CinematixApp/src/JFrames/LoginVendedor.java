@@ -123,9 +123,6 @@ public class LoginVendedor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    int intentos = 3;
-    
-    
     public void validarVendedores() {
         String secretKey = "lospibes";
         Encode encode = new Encode();
@@ -145,7 +142,8 @@ public class LoginVendedor extends javax.swing.JFrame {
                 ResultSet rs = st.executeQuery(sql);
 
                 if (rs.next()) {
-                    if (rs.getString("IDEstado").equals("2")) {
+                    int intentos = Integer.parseInt(rs.getString("Intentos"));
+                    if (rs.getString("Intentos").equals("0")) {
                         JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
                         txtCorreo.setText("");
                         txtClave.setText("");
@@ -153,6 +151,16 @@ public class LoginVendedor extends javax.swing.JFrame {
                         MenuVendedor mv = new MenuVendedor();
                         mv.setVisible(true);
                         this.dispose();
+                        try {
+                            String sqlRestar = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`Correo` = ? ";
+                            PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlRestar);
+                            pst.setString(1, String.valueOf("3"));
+                            pst.setString(2, user);
+                            pst.execute();
+
+                        } catch (Exception e) {
+                            JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e);
+                        }
                     } else {
                         --intentos;
                         if (intentos == 0) {
@@ -160,9 +168,9 @@ public class LoginVendedor extends javax.swing.JFrame {
                             txtCorreo.setText("");
                             txtClave.setText("");
                             try {
-                                String sqlRestar = "UPDATE `vendedor` SET `IDEstado` = ? WHERE `vendedor`.`Correo` = ? ";
+                                String sqlRestar = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`Correo` = ? ";
                                 PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlRestar);
-                                pst.setString(1, estado);
+                                pst.setString(1, String.valueOf(intentos));
                                 pst.setString(2, user);
                                 pst.execute();
 
@@ -173,6 +181,16 @@ public class LoginVendedor extends javax.swing.JFrame {
                             inicio.setVisible(true);
                             this.dispose();
                         } else {
+                            try {
+                                String sqlRestar = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`Correo` = ? ";
+                                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlRestar);
+                                pst.setString(1, String.valueOf(intentos));
+                                pst.setString(2, user);
+                                pst.execute();
+
+                            } catch (Exception e) {
+                                JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e);
+                            }
                             JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Aviso", JOptionPane.WARNING_MESSAGE);
                             txtCorreo.setText("");
                             txtClave.setText("");
@@ -220,7 +238,7 @@ public class LoginVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarFocusGained
 
     private void btninicioaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninicioaActionPerformed
-       validarVendedores();
+        validarVendedores();
     }//GEN-LAST:event_btninicioaActionPerformed
 
     private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed

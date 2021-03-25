@@ -153,7 +153,7 @@ public class panelVendedores extends javax.swing.JPanel {
         anchoColumnas.getColumn(8).setPreferredWidth(200);
         anchoColumnas.getColumn(9).setPreferredWidth(80);
         anchoColumnas.getColumn(10).setPreferredWidth(200);
-        anchoColumnas.getColumn(11).setPreferredWidth(100);
+        anchoColumnas.getColumn(11).setPreferredWidth(60);
     }
 
     ResultSet rs;
@@ -163,12 +163,11 @@ public class panelVendedores extends javax.swing.JPanel {
     Connection cn = cc.GetConexion();
 
     void cargarData(String valor) {
-        String[] titulos = {"ID", "Nombre", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo", "Usuario", "Clave", "Estado"};
+        String[] titulos = {"ID", "Nombre", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo", "Usuario", "Clave", "Intentos"};
         String[] registros = new String[12];
-        String sql = "SELECT IDVendedor, Nombre , Direccion, Sueldo, TipoJornada, NumeroCelular, NombreDocumento, NumeroDocumento, Correo, Usuario, Clave, Estado\n"
+        String sql = "SELECT IDVendedor, Nombre , Direccion, Sueldo, TipoJornada, NumeroCelular, NombreDocumento, NumeroDocumento, Correo, Usuario, Clave, Intentos\n"
                 + "                FROM vendedor INNER JOIN jornadas USING (IDJornada)\n"
                 + "                INNER JOIN tipodocumento USING (IDTipoDocumento)\n"
-                + "                INNER JOIN estados USING (IDEstado)\n"
                 + "                WHERE IDVendedor != 0 ORDER BY IDVendedor";
 
         model = new DefaultTableModel(null, titulos);
@@ -189,7 +188,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 registros[8] = rs.getString("Correo");
                 registros[9] = rs.getString("Usuario");
                 registros[10] = rs.getString("Clave");
-                registros[11] = rs.getString("Estado");
+                registros[11] = rs.getString("Intentos");
                 model.addRow(registros);
             }
 
@@ -201,12 +200,11 @@ public class panelVendedores extends javax.swing.JPanel {
     }
 
     void buscarData(String valor) {
-        String[] titulos = {"ID", "Nombre", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo", "Usuario", "Clave", "Estado"};
+        String[] titulos = {"ID", "Nombre", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo", "Usuario", "Clave", "Intentos"};
         String[] registros = new String[12];
-        String sql = "SELECT IDVendedor, Nombre, Direccion, Sueldo, TipoJornada, NumeroCelular, NombreDocumento, NumeroDocumento, Correo, Usuario, Clave, Estado\n"
+        String sql = "SELECT IDVendedor, Nombre, Direccion, Sueldo, TipoJornada, NumeroCelular, NombreDocumento, NumeroDocumento, Correo, Usuario, Clave, Intentos\n"
                 + "                FROM vendedor INNER JOIN jornadas USING (IDJornada)\n"
                 + "                INNER JOIN tipodocumento USING (IDTipoDocumento)\n"
-                + "                INNER JOIN estados USING (IDEstado)\n"
                 + "                WHERE CONCAT (IDVendedor, ' ', Nombre) LIKE '%" + valor + "%'";
 
         model = new DefaultTableModel(null, titulos);
@@ -227,7 +225,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 registros[8] = rs.getString("Correo");
                 registros[9] = rs.getString("Usuario");
                 registros[10] = rs.getString("Clave");
-                registros[11] = rs.getString("Estado");
+                registros[11] = rs.getString("Intentos");
                 model.addRow(registros);
             }
 
@@ -790,15 +788,15 @@ public class panelVendedores extends javax.swing.JPanel {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         boolean guardo = true;
         datos data = new datos();
-        if (cbJornada.getSelectedIndex() == 0) {
+        if (cbTipoDocu.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "", JOptionPane.ERROR_MESSAGE);
-        } else if (cbTipoDocu.getSelectedIndex() == 0) {
+        } else if (cbJornada.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada", "", JOptionPane.ERROR_MESSAGE);
         } else if (txtCelular.getText().isEmpty() || cbTipoDocu.getSelectedIndex() == 0 || cbJornada.getSelectedIndex() == 0 || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtNumDocu.getText().isEmpty() || txtNombre.getText().isEmpty() || txtSueldo.getText().isEmpty() || txtClave.getText().isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos", "", JOptionPane.ERROR_MESSAGE);
         } else if (Integer.parseInt(txtSueldo.getText()) < 8000) {
-            JOptionPane.showMessageDialog(null, "El sueldo debe de ser de 8000 en adelante", "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor de 8000", "", JOptionPane.ERROR_MESSAGE);
             txtSueldo.setText("");
         } else if (txtCorreo.getText().contains("@") && txtCorreo.getText().contains(".com") || txtCorreo.getText().contains(".hn")) {
             data.setNombre(txtNombre.getText());
@@ -815,7 +813,6 @@ public class panelVendedores extends javax.swing.JPanel {
             guardo = data.guardar();
             if (guardo == true) {
                 JOptionPane.showMessageDialog(null, "Los datos fueron guardados correctamente");
-                cargarData("");
             }
             limpiarCajas();
             btnEditar.setEnabled(true);
@@ -824,6 +821,7 @@ public class panelVendedores extends javax.swing.JPanel {
             btnGuardar.setEnabled(false);
             txtIDVendedor.setEnabled(false);
             bloquear();
+            cargarData("");
         } else {
             JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com", "", JOptionPane.ERROR_MESSAGE);
         }
@@ -876,8 +874,8 @@ public class panelVendedores extends javax.swing.JPanel {
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         int fila = tablaVendedores.getSelectedRow();
-        String habilitado = "1";
-        String deshabilitado = "2";
+        String habilitado = "3";
+        String deshabilitado = "0";
 
         if (fila >= 0) {
             String id = tablaVendedores.getValueAt(fila, 0).toString();
@@ -895,31 +893,31 @@ public class panelVendedores extends javax.swing.JPanel {
                 btnEliminar.setText("DESHABILITAR");
 
             } else if (btnEliminar.getText().equals("DESHABILITAR")) {
-                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar este vendedor?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                 if (ventanaConfirmacion == 0) {
                     try {
-                        String sqlEstado = "UPDATE `vendedor` SET `IDEstado` = ? WHERE `vendedor`.`IDVendedor` = ? ";
+                        String sqlEstado = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`IDVendedor` = ? ";
                         PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
                         pst.setString(1, deshabilitado);
                         pst.setString(2, id);
                         pst.execute();
 
-                        JOptionPane.showMessageDialog(null, "El usuario de " + nombre + " ha sido deshabilitado", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "El vendedor " + nombre + " ha sido deshabilitado", "Confirmación", JOptionPane.WARNING_MESSAGE);
                     } catch (Exception e) {
 
                     }
                 }
             } else if (btnEliminar.getText().equals("HABILITAR")) {
-                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar este vendedor?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
                 if (ventanaConfirmacion == 0) {
                     try {
-                        String sqlEstado = "UPDATE `vendedor` SET `IDEstado` = ? WHERE `vendedor`.`IDVendedor` = ? ";
+                        String sqlEstado = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`IDVendedor` = ? ";
                         PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
                         pst.setString(1, habilitado);
                         pst.setString(2, id);
                         pst.execute();
 
-                        JOptionPane.showMessageDialog(null, "El usuario de " + nombre + " ahora está habilitado", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "El vendedor " + nombre + " ahora está habilitado", "Confirmación", JOptionPane.WARNING_MESSAGE);
                     } catch (Exception e) {
 
                     }
@@ -1215,11 +1213,11 @@ public class panelVendedores extends javax.swing.JPanel {
             btnEliminar.setEnabled(true);
             String estado = tablaVendedores.getValueAt(fila, 11).toString();
 
-            if ("Habilitado".equals(estado)) {
+            if ("3".equals(estado)) {
                 ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
                 btnEliminar.setIcon(iconobtn);
                 btnEliminar.setText("DESHABILITAR");
-            } else if ("Deshabilitado".equals(estado)) {
+            } else if ("0".equals(estado)) {
                 ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoHabilitar.png");
                 btnEliminar.setIcon(iconobtn);
                 btnEliminar.setText("HABILITAR");
