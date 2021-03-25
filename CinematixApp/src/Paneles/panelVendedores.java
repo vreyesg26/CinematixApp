@@ -1024,7 +1024,7 @@ public class panelVendedores extends javax.swing.JPanel {
             evt.consume();
             JOptionPane.showMessageDialog(null, "Ingresar solo numeros", "", JOptionPane.ERROR_MESSAGE);
         }
-        if (txtSueldo.getText().length() > 5) {
+        if (txtSueldo.getText().length() > 4) {
             evt.consume();
         }
 
