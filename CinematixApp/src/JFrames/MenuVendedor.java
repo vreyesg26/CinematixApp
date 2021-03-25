@@ -30,8 +30,6 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     public MenuVendedor() {
         initComponents();
-        AgregarAComboboxPelicula();
-        Horarios();
         setBackground(new Color(0, 0, 0, 0));
         super.setTitle("Menú CineMatix");
         super.setResizable(false);
@@ -49,7 +47,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb11.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         lb12.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         lb13.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
-        lb_Encender.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        lb_Encender.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         jComboBoxPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         jComboBoxHora.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnContinuar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
@@ -385,14 +383,14 @@ public class MenuVendedor extends javax.swing.JFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBoxPeliculas, 0, 180, Short.MAX_VALUE)
-                    .addComponent(lb1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBoxHora, 0, 180, Short.MAX_VALUE)
-                    .addComponent(lb2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxPeliculas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lb2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -402,10 +400,10 @@ public class MenuVendedor extends javax.swing.JFrame {
                     .addComponent(lb1)
                     .addComponent(lb2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(442, Short.MAX_VALUE))
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(441, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 145, 387, 530));
