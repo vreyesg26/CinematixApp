@@ -6,6 +6,7 @@
 package JFrames;
 
 import Paneles.panelAcercaDe;
+import Paneles.panelInicio;
 import Paneles.panelPeliculas;
 import Paneles.panelVendedores;
 import Tipografia.Fuente;
@@ -29,13 +30,14 @@ public class AdminDashboard extends javax.swing.JFrame {
     public AdminDashboard() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
-        new CambiaPanel(panelContenedor, new panelAcercaDe());
+        new CambiaPanel(panelContenedor, new panelInicio());
         tipoFuente = new Fuente();
 
         btnAcerca.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnSalir.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnVendedores.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnInicio.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
     }
 
     @Override
@@ -53,17 +55,19 @@ public class AdminDashboard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnVendedores = new rojerusan.RSButtonMetro();
+        btnInicio = new rojerusan.RSButtonMetro();
         btnPeliculas = new rojerusan.RSButtonMetro();
-        btnSalir = new rojerusan.RSButtonMetro();
+        btnVendedores = new rojerusan.RSButtonMetro();
         btnAcerca = new rojerusan.RSButtonMetro();
+        btnSalir = new rojerusan.RSButtonMetro();
         panelContenedor = new javax.swing.JPanel();
         back = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
+        setMinimumSize(new java.awt.Dimension(1050, 700));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1050, 700));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -71,19 +75,19 @@ public class AdminDashboard extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnVendedores.setBackground(new java.awt.Color(61, 61, 61));
-        btnVendedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoVendedores.png"))); // NOI18N
-        btnVendedores.setText("   VENDEDORES");
-        btnVendedores.setBorderPainted(false);
-        btnVendedores.setFocusPainted(false);
-        btnVendedores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnVendedores.setSelected(true);
-        btnVendedores.addActionListener(new java.awt.event.ActionListener() {
+        btnInicio.setBackground(new java.awt.Color(61, 61, 61));
+        btnInicio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoInicio.png"))); // NOI18N
+        btnInicio.setText("   INICIO");
+        btnInicio.setBorderPainted(false);
+        btnInicio.setFocusPainted(false);
+        btnInicio.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnInicio.setSelected(true);
+        btnInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVendedoresActionPerformed(evt);
+                btnInicioActionPerformed(evt);
             }
         });
-        getContentPane().add(btnVendedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 320, 190, 50));
+        getContentPane().add(btnInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 248, 190, 26));
 
         btnPeliculas.setBackground(new java.awt.Color(61, 61, 61));
         btnPeliculas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoPelicula.png"))); // NOI18N
@@ -97,21 +101,21 @@ public class AdminDashboard extends javax.swing.JFrame {
                 btnPeliculasActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPeliculas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 260, 190, 50));
+        getContentPane().add(btnPeliculas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 309, 190, 26));
 
-        btnSalir.setBackground(new java.awt.Color(61, 61, 61));
-        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoSalir.png"))); // NOI18N
-        btnSalir.setText("   SALIR");
-        btnSalir.setBorderPainted(false);
-        btnSalir.setFocusPainted(false);
-        btnSalir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        btnSalir.setSelected(true);
-        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+        btnVendedores.setBackground(new java.awt.Color(61, 61, 61));
+        btnVendedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoVendedores.png"))); // NOI18N
+        btnVendedores.setText("   VENDEDORES");
+        btnVendedores.setBorderPainted(false);
+        btnVendedores.setFocusPainted(false);
+        btnVendedores.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnVendedores.setSelected(true);
+        btnVendedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSalirActionPerformed(evt);
+                btnVendedoresActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 190, 50));
+        getContentPane().add(btnVendedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 369, 190, 26));
 
         btnAcerca.setBackground(new java.awt.Color(61, 61, 61));
         btnAcerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoAcerca.png"))); // NOI18N
@@ -125,7 +129,21 @@ public class AdminDashboard extends javax.swing.JFrame {
                 btnAcercaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAcerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 380, 190, 50));
+        getContentPane().add(btnAcerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 429, 190, 26));
+
+        btnSalir.setBackground(new java.awt.Color(61, 61, 61));
+        btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoSalir.png"))); // NOI18N
+        btnSalir.setText("   SALIR");
+        btnSalir.setBorderPainted(false);
+        btnSalir.setFocusPainted(false);
+        btnSalir.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnSalir.setSelected(true);
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 489, 190, 26));
 
         panelContenedor.setBackground(new java.awt.Color(61, 61, 61));
         panelContenedor.setForeground(new java.awt.Color(61, 61, 61));
@@ -135,10 +153,7 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         back.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/AdminDashboard1.png"))); // NOI18N
-        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1060, 710));
-
-        jLabel2.setText("jLabel2");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 400, 170, 50));
+        getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 700));
 
         pack();
         setLocationRelativeTo(null);
@@ -191,6 +206,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         new CambiaPanel(panelContenedor, new panelPeliculas());
     }//GEN-LAST:event_btnPeliculasActionPerformed
 
+    private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
+        new CambiaPanel(panelContenedor, new panelInicio());
+    }//GEN-LAST:event_btnInicioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -229,10 +248,10 @@ public class AdminDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back;
     private rojerusan.RSButtonMetro btnAcerca;
+    private rojerusan.RSButtonMetro btnInicio;
     private rojerusan.RSButtonMetro btnPeliculas;
     private rojerusan.RSButtonMetro btnSalir;
     private rojerusan.RSButtonMetro btnVendedores;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel panelContenedor;
     // End of variables declaration//GEN-END:variables
 }
