@@ -19,7 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 /**
  *
- * @author TALLER VARELA
+ * @author Los Pibes
  */
 public class LoginAdmin extends javax.swing.JFrame {
     

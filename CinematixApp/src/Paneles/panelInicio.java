@@ -5,6 +5,12 @@
  */
 package Paneles;
 
+import JFrames.RegistroAdministradores;
+import JFrames.RegistroDirectores;
+import JFrames.RegistroGeneros;
+import JFrames.RegistroHorarios;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Victor Reyes
@@ -55,6 +61,11 @@ public class panelInicio extends javax.swing.JPanel {
                 btnAdminUsuariosMouseExited(evt);
             }
         });
+        btnAdminUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminUsuariosActionPerformed(evt);
+            }
+        });
         add(btnAdminUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 145, -1, -1));
 
         btnAdminGeneros.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BotónGéneros.png"))); // NOI18N
@@ -63,7 +74,6 @@ public class panelInicio extends javax.swing.JPanel {
         btnAdminGeneros.setContentAreaFilled(false);
         btnAdminGeneros.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnAdminGeneros.setFocusPainted(false);
-        btnAdminGeneros.setOpaque(false);
         btnAdminGeneros.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BotónGéneros2.png"))); // NOI18N
         btnAdminGeneros.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BotónGéneros2.png"))); // NOI18N
         btnAdminGeneros.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -72,6 +82,11 @@ public class panelInicio extends javax.swing.JPanel {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnAdminGenerosMouseExited(evt);
+            }
+        });
+        btnAdminGeneros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminGenerosActionPerformed(evt);
             }
         });
         add(btnAdminGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 150, -1, -1));
@@ -92,6 +107,11 @@ public class panelInicio extends javax.swing.JPanel {
                 btnAdminDirectoresMouseExited(evt);
             }
         });
+        btnAdminDirectores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminDirectoresActionPerformed(evt);
+            }
+        });
         add(btnAdminDirectores, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 395, -1, -1));
 
         btnAdminHorarios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/BotónHorarios.png"))); // NOI18N
@@ -108,6 +128,11 @@ public class panelInicio extends javax.swing.JPanel {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnAdminHorariosMouseExited(evt);
+            }
+        });
+        btnAdminHorarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminHorariosActionPerformed(evt);
             }
         });
         add(btnAdminHorarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 407, -1, -1));
@@ -144,6 +169,47 @@ public class panelInicio extends javax.swing.JPanel {
     private void btnAdminHorariosMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdminHorariosMouseExited
         btnAdminHorarios.setBounds(415, 407, 329, 208);
     }//GEN-LAST:event_btnAdminHorariosMouseExited
+
+    private void btnAdminUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminUsuariosActionPerformed
+        RegistroAdministradores ra = new RegistroAdministradores();
+        ra.setVisible(true);
+    }//GEN-LAST:event_btnAdminUsuariosActionPerformed
+
+    private void btnAdminGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminGenerosActionPerformed
+        RegistroGeneros rg = new RegistroGeneros();
+        rg.setVisible(true);
+    }//GEN-LAST:event_btnAdminGenerosActionPerformed
+
+    private void btnAdminDirectoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminDirectoresActionPerformed
+        RegistroDirectores rd = new RegistroDirectores();
+        rd.setVisible(true);
+    }//GEN-LAST:event_btnAdminDirectoresActionPerformed
+
+    private void btnAdminHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminHorariosActionPerformed
+        RegistroHorarios rh = new RegistroHorarios();
+        RegistroDirectores rd = new RegistroDirectores();
+        RegistroGeneros rg = new RegistroGeneros();
+        RegistroAdministradores ra = new RegistroAdministradores();
+        
+        if(ra.isActive() == true){
+            int decision = JOptionPane.showConfirmDialog(null, "La ventana de administrar usuarios está abierta\n ¿Desea cerrarla antes?", "Advertencia", JOptionPane.YES_NO_OPTION);
+            if(decision == 1){
+                ra.dispose();
+            }
+        } else if(rd.isActive() == true){
+            int decision = JOptionPane.showConfirmDialog(null, "La ventana de administrar directores está abierta\n ¿Desea cerrarla antes?", "Advertencia", JOptionPane.YES_NO_OPTION);
+            if(decision == 1){
+                rd.dispose();
+            }
+        } else if(rg.isActive() == true){
+            int decision = JOptionPane.showConfirmDialog(null, "La ventana de administrar géneros está abierta\n ¿Desea cerrarla antes?", "Advertencia", JOptionPane.YES_NO_OPTION);
+            if(decision == 1){
+                rg.dispose();
+            }
+        } else {
+            rh.setVisible(true);
+        }
+    }//GEN-LAST:event_btnAdminHorariosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -156,7 +156,7 @@ public class Factura extends javax.swing.JFrame {
         jLabelPelicula.setForeground(new java.awt.Color(255, 255, 255));
         jLabelPelicula.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelPelicula.setText("...");
-        jPanel1.add(jLabelPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 130, -1));
+        jPanel1.add(jLabelPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 150, -1));
 
         jLabelSala.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelSala.setForeground(new java.awt.Color(255, 255, 255));
@@ -182,27 +182,27 @@ public class Factura extends javax.swing.JFrame {
 
         jLabelNiños.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
         jLabelNiños.setForeground(new java.awt.Color(255, 255, 255));
-        jLabelNiños.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelNiños.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelNiños.setText("...");
-        jPanel1.add(jLabelNiños, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 240, 30, -1));
+        jPanel1.add(jLabelNiños, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 240, 30, -1));
 
         jLabeNiñosTotal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabeNiñosTotal.setForeground(new java.awt.Color(255, 255, 255));
         jLabeNiñosTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabeNiñosTotal.setText("...");
-        jPanel1.add(jLabeNiñosTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 50, -1));
+        jPanel1.add(jLabeNiñosTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, 90, -1));
 
         jLabeAdultos.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
         jLabeAdultos.setForeground(new java.awt.Color(255, 255, 255));
-        jLabeAdultos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabeAdultos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabeAdultos.setText("...");
-        jPanel1.add(jLabeAdultos, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 280, 30, -1));
+        jPanel1.add(jLabeAdultos, new org.netbeans.lib.awtextra.AbsoluteConstraints(175, 280, 30, -1));
 
         jLabeAdultosTotal.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabeAdultosTotal.setForeground(new java.awt.Color(255, 255, 255));
         jLabeAdultosTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabeAdultosTotal.setText("...");
-        jPanel1.add(jLabeAdultosTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 280, 50, -1));
+        jPanel1.add(jLabeAdultosTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 90, -1));
 
         jLabel12.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));

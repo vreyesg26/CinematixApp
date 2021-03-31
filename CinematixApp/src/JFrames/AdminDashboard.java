@@ -18,7 +18,7 @@ import paneles.CambiaPanel;
 
 /**
  *
- * @author Victor Reyes
+ * @author Los Pibes
  */
 public class AdminDashboard extends javax.swing.JFrame {
 

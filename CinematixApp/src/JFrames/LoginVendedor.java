@@ -128,7 +128,6 @@ public class LoginVendedor extends javax.swing.JFrame {
         Encode encode = new Encode();
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
-        String estado = "2";
         String user = txtCorreo.getText();
         String pass = String.valueOf(txtClave.getPassword());
         String sql = "SELECT * FROM vendedor WHERE Correo = '" + user + "'";
@@ -150,6 +149,7 @@ public class LoginVendedor extends javax.swing.JFrame {
                     } else if (encode.deecnode(secretKey, rs.getString("Clave")).equals(pass)) {
                         MenuVendedor mv = new MenuVendedor();
                         mv.setVisible(true);
+                        mv.lbVendedor.setText("¡Bienvenido " + rs.getString("Nombre") + "!");
                         this.dispose();
                         try {
                             String sqlRestar = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`Correo` = ? ";

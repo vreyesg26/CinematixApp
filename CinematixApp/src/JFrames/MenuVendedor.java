@@ -48,6 +48,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb12.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         lb13.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb_Encender.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        lbVendedor.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
         jComboBoxPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         jComboBoxHora.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnContinuar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
@@ -71,15 +72,15 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     void Encender() {
         if (btnEncendido.isSelected()) {
+            lb_Encender.setText("APAGAR");
             jComboBoxPeliculas.setEnabled(true);
             jComboBoxHora.setEnabled(true);
-            lb_Encender.setText("APAGAR");
             AgregarAComboboxPelicula();
             //jToggleButtonEncender.setText("Apagar");
         } else {
+            lb_Encender.setText("ENCENDER");
             jComboBoxPeliculas.setEnabled(false);
             jComboBoxHora.setEnabled(false);
-            lb_Encender.setText("ENCENDER");
             limpiar();
             Desactivados();
             //jToggleButtonEncender.setText("Encender");
@@ -325,6 +326,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         lbResultado = new javax.swing.JLabel();
         lb3 = new javax.swing.JLabel();
         btnContinuar = new rojerusan.RSButtonHover();
+        lbVendedor = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -645,6 +647,10 @@ public class MenuVendedor extends javax.swing.JFrame {
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 145, 586, 530));
 
+        lbVendedor.setForeground(new java.awt.Color(255, 255, 255));
+        lbVendedor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        getContentPane().add(lbVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(673, 114, 350, 30));
+
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VendedorPantalla2.png"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 700));
 
@@ -835,7 +841,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             pasaDatos();
             ConfirmarVenta.jTextFieldPelicula.setText(jComboBoxPeliculas.getSelectedItem().toString());
             ConfirmarVenta.jTextFieldHora.setText(jComboBoxHora.getSelectedItem().toString());
-
+            ConfirmarVenta.jTextFieldNombreVendedor.setText(lbVendedor.getText().substring(12, lbVendedor.getText().length()-1));
             tarjeta();
             calculo();
             obj.setVisible(true);
@@ -913,6 +919,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     private javax.swing.JLabel lb9;
     public static javax.swing.JLabel lbMenores;
     private javax.swing.JLabel lbResultado;
+    public static javax.swing.JLabel lbVendedor;
     private javax.swing.JLabel lb_Encender;
     public static javax.swing.JRadioButton rbEfectivo;
     public static javax.swing.JRadioButton rbMixto;

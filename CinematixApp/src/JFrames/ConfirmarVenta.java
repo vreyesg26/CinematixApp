@@ -507,7 +507,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     public static javax.swing.JTextField jTextFieldCantidadDeBoletosNiños;
     public static javax.swing.JTextField jTextFieldEfectivoRecibido;
     public static javax.swing.JTextField jTextFieldHora;
-    private javax.swing.JTextField jTextFieldNombreVendedor;
+    public static javax.swing.JTextField jTextFieldNombreVendedor;
     public static javax.swing.JTextField jTextFieldPelicula;
     private javax.swing.JLabel lb1;
     private javax.swing.JLabel lb10;

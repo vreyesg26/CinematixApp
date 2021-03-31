@@ -109,7 +109,7 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
-        dispose();
+        System.exit(0);
     }//GEN-LAST:event_btnCerrarMouseClicked
 
     public void transparenciaButton(){
