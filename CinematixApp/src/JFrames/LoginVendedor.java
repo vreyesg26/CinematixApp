@@ -6,6 +6,7 @@ import encriptacion.Encode;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -112,6 +113,11 @@ public class LoginVendedor extends javax.swing.JFrame {
         txtClave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtClaveActionPerformed(evt);
+            }
+        });
+        txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtClaveKeyReleased(evt);
             }
         });
         getContentPane().add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 314, 240, 45));
@@ -244,6 +250,12 @@ public class LoginVendedor extends javax.swing.JFrame {
     private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtClaveActionPerformed
+
+    private void txtClaveKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            validarVendedores();
+        }
+    }//GEN-LAST:event_txtClaveKeyReleased
 
     /**
      * @param args the command line arguments

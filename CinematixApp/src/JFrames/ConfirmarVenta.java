@@ -210,7 +210,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
 
         lb5.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         lb5.setForeground(new java.awt.Color(255, 255, 255));
-        lb5.setText("Cantidad de boletos (niños)");
+        lb5.setText("Cantidad de boletos (niños):");
         jPanel1.add(lb5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, 30));
         jPanel1.add(jTextFieldHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 55, 100, 30));
 
@@ -230,7 +230,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
 
         lb4.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         lb4.setForeground(new java.awt.Color(255, 255, 255));
-        lb4.setText("Cantidad de boletos (adultos)");
+        lb4.setText("Cantidad de boletos (adultos):");
         jPanel1.add(lb4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 240, 30));
 
         lb2.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
@@ -292,7 +292,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
 
         lb12.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         lb12.setForeground(new java.awt.Color(255, 255, 255));
-        lb12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lb12.setText("Tegucigalpa");
         jPanel2.add(lb12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 185, 30));
 

@@ -36,6 +36,8 @@ public class MenuVendedor extends javax.swing.JFrame {
         super.setLocationRelativeTo(null);
         lbMenores.setVisible(false);
         btnContinuar.setEnabled(false);
+        txtBoletosAdultos.setEditable(false);
+        txtBoletosNiños.setEditable(false);
         Desactivados();
 
         tipoFuente = new Fuente();
@@ -93,8 +95,10 @@ public class MenuVendedor extends javax.swing.JFrame {
         rbEfectivo.setEnabled(false);
         rbTCredito.setEnabled(false);
         rbMixto.setEnabled(false);
-        txtBoletosAdultos.setEnabled(false);
-        txtBoletosNiños.setEnabled(false);
+        btnMas.setEnabled(false);
+        btnMenos.setEnabled(false);
+        btnMas1.setEnabled(false);
+        btnMenos1.setEnabled(false);
         btnContinuar.setEnabled(false);
     }
 
@@ -102,9 +106,13 @@ public class MenuVendedor extends javax.swing.JFrame {
         rbEfectivo.setEnabled(true);
         rbTCredito.setEnabled(true);
         rbMixto.setEnabled(true);
-        txtBoletosAdultos.setEnabled(true);
-        txtBoletosNiños.setEnabled(true);
+        btnMas.setEnabled(true);
+        btnMenos.setEnabled(true);
+        btnMas1.setEnabled(true);
+        btnMenos1.setEnabled(true);
         btnContinuar.setEnabled(true);
+        txtBoletosAdultos.setText(String.valueOf(contador));
+        txtBoletosNiños.setText(String.valueOf(contadorNiños));
     }
 
     /* ResultSet rs;
@@ -138,7 +146,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     void seleccionPelicula() {
         int combo;
         combo = jComboBoxPeliculas.getSelectedIndex();
-        if (combo == 1 || combo == 2 || combo == 3 || combo == 4 || combo == 5) {
+        if (combo != 0) {
             Activar();
             //MenoresEdad();
         } else {
@@ -244,6 +252,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             ConfirmarVenta.jButton3.setVisible(false);
             ConfirmarVenta.jLabelImpuesto.setText("15%");
             ConfirmarVenta.btnComprar.setEnabled(true);
+            ConfirmarVenta.jTextFieldNombreVendedor.setText(lbVendedor.getText().substring(12, lbVendedor.getText().length() - 1));
         }
     }
 
@@ -326,6 +335,10 @@ public class MenuVendedor extends javax.swing.JFrame {
         lbResultado = new javax.swing.JLabel();
         lb3 = new javax.swing.JLabel();
         btnContinuar = new rojerusan.RSButtonHover();
+        btnMenos = new javax.swing.JButton();
+        btnMas = new javax.swing.JButton();
+        btnMenos1 = new javax.swing.JButton();
+        btnMas1 = new javax.swing.JButton();
         lbVendedor = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
@@ -469,26 +482,9 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb13.setText("Cantidad:");
         jPanel1.add(lb13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
 
+        txtBoletosAdultos.setForeground(new java.awt.Color(0, 0, 0));
         txtBoletosAdultos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtBoletosAdultos.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtBoletosAdultosFocusLost(evt);
-            }
-        });
-        txtBoletosAdultos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBoletosAdultosActionPerformed(evt);
-            }
-        });
-        txtBoletosAdultos.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtBoletosAdultosKeyReleased(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtBoletosAdultosKeyTyped(evt);
-            }
-        });
-        jPanel1.add(txtBoletosAdultos, new org.netbeans.lib.awtextra.AbsoluteConstraints(182, 240, 50, 30));
+        jPanel1.add(txtBoletosAdultos, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 240, 50, 30));
 
         lb5.setBackground(new java.awt.Color(168, 168, 168));
         lb5.setFont(new java.awt.Font("Arial Black", 1, 22)); // NOI18N
@@ -591,7 +587,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                 txtBoletosNiñosKeyTyped(evt);
             }
         });
-        jPanel1.add(txtBoletosNiños, new org.netbeans.lib.awtextra.AbsoluteConstraints(424, 240, 50, 30));
+        jPanel1.add(txtBoletosNiños, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 240, 50, 30));
 
         lb4.setBackground(new java.awt.Color(168, 168, 168));
         lb4.setFont(new java.awt.Font("Arial Black", 1, 22)); // NOI18N
@@ -645,6 +641,63 @@ public class MenuVendedor extends javax.swing.JFrame {
         });
         jPanel1.add(btnContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, 140, 40));
 
+        btnMenos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMenos.png"))); // NOI18N
+        btnMenos.setBorder(null);
+        btnMenos.setBorderPainted(false);
+        btnMenos.setContentAreaFilled(false);
+        btnMenos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMenos.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMenos2.png"))); // NOI18N
+        btnMenos.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMenos2.png"))); // NOI18N
+        btnMenos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenosActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnMenos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, -1, -1));
+
+        btnMas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMas.png"))); // NOI18N
+        btnMas.setBorder(null);
+        btnMas.setBorderPainted(false);
+        btnMas.setContentAreaFilled(false);
+        btnMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMas.setOpaque(false);
+        btnMas.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMas2.png"))); // NOI18N
+        btnMas.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMas2.png"))); // NOI18N
+        btnMas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, -1, -1));
+
+        btnMenos1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMenos.png"))); // NOI18N
+        btnMenos1.setBorder(null);
+        btnMenos1.setBorderPainted(false);
+        btnMenos1.setContentAreaFilled(false);
+        btnMenos1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMenos1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMenos2.png"))); // NOI18N
+        btnMenos1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMenos2.png"))); // NOI18N
+        btnMenos1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenos1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnMenos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 240, -1, -1));
+
+        btnMas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMas.png"))); // NOI18N
+        btnMas1.setBorder(null);
+        btnMas1.setBorderPainted(false);
+        btnMas1.setContentAreaFilled(false);
+        btnMas1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnMas1.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMas2.png"))); // NOI18N
+        btnMas1.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMas2.png"))); // NOI18N
+        btnMas1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMas1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnMas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, -1, -1));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 145, 586, 530));
 
         lbVendedor.setForeground(new java.awt.Color(255, 255, 255));
@@ -682,7 +735,6 @@ public class MenuVendedor extends javax.swing.JFrame {
     private void jComboBoxPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPeliculasActionPerformed
         seleccionPelicula();
         Horarios();
-        btnContinuar.setEnabled(false);
     }//GEN-LAST:event_jComboBoxPeliculasActionPerformed
 
     private void btnEncendidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncendidoActionPerformed
@@ -690,7 +742,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEncendidoActionPerformed
 
     private void jComboBoxHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxHoraActionPerformed
-        btnContinuar.setEnabled(false);
+
     }//GEN-LAST:event_jComboBoxHoraActionPerformed
 
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
@@ -705,7 +757,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarMouseClicked
 
     private void lbMenoresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lbMenoresKeyReleased
-        HabilitarBoton();
+        //HabilitarBoton();
     }//GEN-LAST:event_lbMenoresKeyReleased
 
     private void txtBoletosNiñosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBoletosNiñosKeyTyped
@@ -728,11 +780,11 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBoletosNiñosKeyTyped
 
     private void txtBoletosNiñosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBoletosNiñosKeyReleased
-        HabilitarBoton();
+        //HabilitarBoton();
     }//GEN-LAST:event_txtBoletosNiñosKeyReleased
 
     private void txtBoletosNiñosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBoletosNiñosActionPerformed
-        HabilitarBoton();
+        //HabilitarBoton();
     }//GEN-LAST:event_txtBoletosNiñosActionPerformed
 
     private void rbTCreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbTCreditoMouseClicked
@@ -751,38 +803,6 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
         lbResultado.setText(mensaje);
     }//GEN-LAST:event_rbEfectivoMouseClicked
-
-    private void txtBoletosAdultosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBoletosAdultosKeyTyped
-        char cant = evt.getKeyChar();
-
-        if ((cant < '0' || cant > '9') && txtBoletosAdultos.getText().contains("")
-                && (cant != (char) KeyEvent.VK_BACK_SPACE)) {
-            evt.consume();
-
-            JOptionPane.showMessageDialog(null, "Solo se admiten numeros", "Validar numeros",
-                    JOptionPane.WARNING_MESSAGE);
-
-        } else if ((cant < '0' || cant > '9') && txtBoletosAdultos.getText().contains("")
-                && (cant != (char) KeyEvent.VK_BACK_SPACE)) {
-            evt.consume();
-
-            JOptionPane.showMessageDialog(null, "Solo se admiten numeros", "Validar numeros",
-                    JOptionPane.WARNING_MESSAGE);
-        }
-        if (txtBoletosAdultos.getText() != "0") {
-            btnContinuar.setEnabled(false);
-        } else {
-            btnContinuar.setEnabled(true);
-        }
-    }//GEN-LAST:event_txtBoletosAdultosKeyTyped
-
-    private void txtBoletosAdultosKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBoletosAdultosKeyReleased
-        HabilitarBoton();
-    }//GEN-LAST:event_txtBoletosAdultosKeyReleased
-
-    private void txtBoletosAdultosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBoletosAdultosActionPerformed
-        HabilitarBoton();
-    }//GEN-LAST:event_txtBoletosAdultosActionPerformed
 
     private void rbMixtoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMixtoActionPerformed
         // TODO add your handling code here:
@@ -835,13 +855,13 @@ public class MenuVendedor extends javax.swing.JFrame {
             obj.setVisible(true);
 
         } else if (rbEfectivo.isSelected() == false && rbTCredito.isSelected() == false && rbMixto.isSelected() == false) {
-            JOptionPane.showMessageDialog(null, "DEBE SELECCIONAR UN METODO DE PAGO", "Complete datos", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un método de pago", "Complete datos", JOptionPane.WARNING_MESSAGE);
         } else {
             ConfirmarVenta obj = new ConfirmarVenta();
             pasaDatos();
             ConfirmarVenta.jTextFieldPelicula.setText(jComboBoxPeliculas.getSelectedItem().toString());
             ConfirmarVenta.jTextFieldHora.setText(jComboBoxHora.getSelectedItem().toString());
-            ConfirmarVenta.jTextFieldNombreVendedor.setText(lbVendedor.getText().substring(12, lbVendedor.getText().length()-1));
+            ConfirmarVenta.jTextFieldNombreVendedor.setText(lbVendedor.getText().substring(12, lbVendedor.getText().length() - 1));
             tarjeta();
             calculo();
             obj.setVisible(true);
@@ -849,12 +869,55 @@ public class MenuVendedor extends javax.swing.JFrame {
         HabilitarBoton();
     }//GEN-LAST:event_btnContinuarActionPerformed
 
-    private void txtBoletosAdultosFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBoletosAdultosFocusLost
-        if (txtBoletosAdultos.getText().equals("0") && txtBoletosNiños.getText().equals("0")) {
-            JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            btnContinuar.setEnabled(false);
+    int contador = 1;
+    private void btnMenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenosActionPerformed
+        if (contador < 2) {
+            btnMenos.setEnabled(false);
+        } else {
+            contador--;
+            txtBoletosAdultos.setText(String.valueOf(contador));
+            if (contador < 15) {
+                btnMas.setEnabled(true);
+            }
         }
-    }//GEN-LAST:event_txtBoletosAdultosFocusLost
+    }//GEN-LAST:event_btnMenosActionPerformed
+
+    int contadorNiños = 0;
+    private void btnMenos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenos1ActionPerformed
+        if (contadorNiños < 1) {
+            btnMenos1.setEnabled(false);
+        } else {
+            contadorNiños--;
+            txtBoletosNiños.setText(String.valueOf(contadorNiños));
+            if (contadorNiños < 10) {
+                btnMas1.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_btnMenos1ActionPerformed
+
+    private void btnMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasActionPerformed
+        if (contador > 14) {
+            btnMas.setEnabled(false);
+        } else {
+            contador++;
+            txtBoletosAdultos.setText(String.valueOf(contador));
+            if (contador > 1) {
+                btnMenos.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_btnMasActionPerformed
+
+    private void btnMas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMas1ActionPerformed
+        if (contadorNiños > 9) {
+            btnMas1.setEnabled(false);
+        } else {
+            contadorNiños++;
+            txtBoletosNiños.setText(String.valueOf(contadorNiños));
+            if (contadorNiños > 0) {
+                btnMenos1.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_btnMas1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -896,6 +959,10 @@ public class MenuVendedor extends javax.swing.JFrame {
     private javax.swing.JLabel btnCerrar;
     private rojerusan.RSButtonHover btnContinuar;
     public static javax.swing.JToggleButton btnEncendido;
+    private javax.swing.JButton btnMas;
+    private javax.swing.JButton btnMas1;
+    private javax.swing.JButton btnMenos;
+    private javax.swing.JButton btnMenos1;
     public static javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel fondo;
     public static javax.swing.JComboBox<String> jComboBoxHora;

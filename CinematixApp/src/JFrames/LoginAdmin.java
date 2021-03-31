@@ -11,6 +11,7 @@ import encriptacion.Encode;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -123,6 +124,11 @@ public class LoginAdmin extends javax.swing.JFrame {
         txtpassword.setBorder(null);
         txtpassword.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtpassword.setOpaque(false);
+        txtpassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtpasswordKeyReleased(evt);
+            }
+        });
         getContentPane().add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 300, 240, 45));
         txtpassword.getAccessibleContext().setAccessibleName("");
 
@@ -255,6 +261,12 @@ public class LoginAdmin extends javax.swing.JFrame {
       
       
     }//GEN-LAST:event_txtusuarioKeyTyped
+
+    private void txtpasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasswordKeyReleased
+        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+            validarAdministradores();
+        }
+    }//GEN-LAST:event_txtpasswordKeyReleased
 
     /**
      * @param args the command line arguments
