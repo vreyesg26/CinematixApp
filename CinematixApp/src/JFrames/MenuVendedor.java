@@ -78,14 +78,12 @@ public class MenuVendedor extends javax.swing.JFrame {
             jComboBoxPeliculas.setEnabled(true);
             jComboBoxHora.setEnabled(true);
             AgregarAComboboxPelicula();
-            //jToggleButtonEncender.setText("Apagar");
         } else {
             lb_Encender.setText("ENCENDER");
             jComboBoxPeliculas.setEnabled(false);
             jComboBoxHora.setEnabled(false);
             limpiar();
             Desactivados();
-            //jToggleButtonEncender.setText("Encender");
         }
     }
 
@@ -186,10 +184,14 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     void limpiar() {
         ImageIcon i = new ImageIcon("");
+        contador = 1;
+        contadorNiños = 0;
         txtBoletosAdultos.setText("");
+        txtBoletosNiños.setText("");
         buttonGroup1.clearSelection();
         jComboBoxPeliculas.removeAllItems();
         jComboBoxHora.removeAllItems();
+        lbResultado.setText("");
     }
 
     void calculo() {
@@ -221,7 +223,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             ConfirmarVenta.jLabelTotalAdultos.setText(TotalA + "0");
         }
         Total = TotalA + TotalN;
-        ConfirmarVenta.jLabelTotalPago.setText(Total + "0");
+        ConfirmarVenta.jLabelTotalPago.setText("TOTAL A PAGAR: L " + Total + "0");
 
     }
 
@@ -368,6 +370,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         jPanel7.setMaximumSize(new java.awt.Dimension(387, 530));
         jPanel7.setOpaque(false);
         jPanel7.setPreferredSize(new java.awt.Dimension(387, 530));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jComboBoxPeliculas.setFont(new java.awt.Font("Ubuntu Condensed", 0, 14)); // NOI18N
         jComboBoxPeliculas.addActionListener(new java.awt.event.ActionListener() {
@@ -375,51 +378,26 @@ public class MenuVendedor extends javax.swing.JFrame {
                 jComboBoxPeliculasActionPerformed(evt);
             }
         });
+        jPanel7.add(jComboBoxPeliculas, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 55, 180, 35));
 
         lb1.setFont(new java.awt.Font("Ubuntu Condensed", 1, 18)); // NOI18N
         lb1.setForeground(new java.awt.Color(255, 255, 255));
         lb1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb1.setText("PELICULAS");
+        jPanel7.add(lb1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 180, 35));
 
         jComboBoxHora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxHoraActionPerformed(evt);
             }
         });
+        jPanel7.add(jComboBoxHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 55, 180, 35));
 
         lb2.setFont(new java.awt.Font("Ubuntu Condensed", 1, 18)); // NOI18N
         lb2.setForeground(new java.awt.Color(255, 255, 255));
         lb2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb2.setText("HORA");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lb1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxPeliculas, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lb2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb1)
-                    .addComponent(lb2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBoxPeliculas, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxHora, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(441, Short.MAX_VALUE))
-        );
+        jPanel7.add(lb2, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 20, 180, 35));
 
         getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 145, 387, 530));
 
@@ -482,8 +460,11 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb13.setText("Cantidad:");
         jPanel1.add(lb13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
 
+        txtBoletosAdultos.setEditable(false);
         txtBoletosAdultos.setForeground(new java.awt.Color(0, 0, 0));
         txtBoletosAdultos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBoletosAdultos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        txtBoletosAdultos.setOpaque(false);
         jPanel1.add(txtBoletosAdultos, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 240, 50, 30));
 
         lb5.setBackground(new java.awt.Color(168, 168, 168));
@@ -573,7 +554,10 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb8.setText("2D");
         jPanel1.add(lb8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
 
+        txtBoletosNiños.setEditable(false);
         txtBoletosNiños.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBoletosNiños.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        txtBoletosNiños.setOpaque(false);
         txtBoletosNiños.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBoletosNiñosActionPerformed(evt);
@@ -611,7 +595,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                 lbMenoresKeyReleased(evt);
             }
         });
-        jPanel1.add(lbMenores, new org.netbeans.lib.awtextra.AbsoluteConstraints(183, 280, 290, 30));
+        jPanel1.add(lbMenores, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 380, 30));
 
         lbResultado.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         lbResultado.setForeground(new java.awt.Color(255, 255, 255));
@@ -660,7 +644,6 @@ public class MenuVendedor extends javax.swing.JFrame {
         btnMas.setBorderPainted(false);
         btnMas.setContentAreaFilled(false);
         btnMas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnMas.setOpaque(false);
         btnMas.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMas2.png"))); // NOI18N
         btnMas.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMas2.png"))); // NOI18N
         btnMas.addActionListener(new java.awt.event.ActionListener() {
@@ -767,15 +750,13 @@ public class MenuVendedor extends javax.swing.JFrame {
                 && (cant != (char) KeyEvent.VK_BACK_SPACE)) {
             evt.consume();
 
-            JOptionPane.showMessageDialog(null, "Solo se admiten numeros", "Validar numeros",
-                    JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Solo se admiten números", "Advertencia", JOptionPane.WARNING_MESSAGE);
 
         } else if ((cant < '0' || cant > '9') && txtBoletosAdultos.getText().contains("")
                 && (cant != (char) KeyEvent.VK_BACK_SPACE)) {
             evt.consume();
 
-            JOptionPane.showMessageDialog(null, "Solo se admiten numeros", "Validar numeros",
-                    JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Solo se admiten números", "Advertencia", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_txtBoletosNiñosKeyTyped
 
@@ -788,15 +769,15 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBoletosNiñosActionPerformed
 
     private void rbTCreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbTCreditoMouseClicked
-        String mensaje = "Su metodo de pago es con: ";
+        String mensaje = "Su método de pago es con: ";
         if (rbTCredito.isSelected()) {
-            mensaje += "Tarjeta de Credito";
+            mensaje += "Tarjeta de Crédito";
         }
         lbResultado.setText(mensaje);
     }//GEN-LAST:event_rbTCreditoMouseClicked
 
     private void rbEfectivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbEfectivoMouseClicked
-        String mensaje = "Su metodo de pago es en: ";
+        String mensaje = "Su método de pago es en: ";
 
         if (rbEfectivo.isSelected()) {
             mensaje += "Efectivo";
@@ -813,7 +794,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_rbEfectivoActionPerformed
 
     private void rbMixtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbMixtoMouseClicked
-        String mensaje = "Su metodo de pago es: ";
+        String mensaje = "Su método de pago es: ";
 
         if (rbMixto.isSelected()) {
             mensaje += "Mixto";

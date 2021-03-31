@@ -170,7 +170,7 @@ public class LoginVendedor extends javax.swing.JFrame {
                     } else {
                         --intentos;
                         if (intentos == 0) {
-                            JOptionPane.showMessageDialog(null, "Ha excedido el numero de intentos para ingresar \n" + "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(null, "Ha excedido el número de intentos para ingresar \n" + "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su cuenta", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
                             txtCorreo.setText("");
                             txtClave.setText("");
                             try {

@@ -75,10 +75,10 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         double totalPago;
         double cambio;
 
-        totalPago = Double.parseDouble(jLabelTotalPago.getText());
+        totalPago = Double.parseDouble(jLabelTotalPago.getText().substring(17));
         efectivoR = Double.parseDouble(jTextFieldEfectivoRecibido.getText());
         if (efectivoR < totalPago) {
-            JOptionPane.showMessageDialog(this, "No cuentas con suficiente dinero", "Cobro", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "No cuentas con suficiente dinero", "Cobro", JOptionPane.ERROR_MESSAGE);
         } else {
             cambio = efectivoR - totalPago;
             jLabelCambio.setText("L." + cambio + "0");
@@ -95,7 +95,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         Factura.jLabeNiñosTotal.setText("L." + jLabelTotalNiños.getText());
         Factura.jLabeAdultos.setText(jTextFieldCantidadDeBoletosAdultos.getText());
         Factura.jLabeAdultosTotal.setText("L." + jLabelTotalAdultos.getText());
-        Factura.jLabeTotal.setText("L." + jLabelTotalPago.getText());
+        Factura.jLabeTotal.setText("L." + jLabelTotalPago.getText().substring(17));
 
         if (Factura.jLabeEfectivoRecibido.getText().equals("Paga con tarjeta")) {
             Factura.jLabeEfectivoRecibido.setText(jTextFieldEfectivoRecibido.getText());
@@ -138,13 +138,11 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         jLabelTotalNiños = new javax.swing.JLabel();
         jTextFieldPelicula = new javax.swing.JTextField();
         jLabelTotalAdultos = new javax.swing.JLabel();
-        lb8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lb10 = new javax.swing.JLabel();
         lb12 = new javax.swing.JLabel();
         lb11 = new javax.swing.JLabel();
         lb13 = new javax.swing.JLabel();
-        jTextFieldEfectivoRecibido = new javax.swing.JTextField();
         lb14 = new javax.swing.JLabel();
         jLabelCambio = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
@@ -152,7 +150,9 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         jTextFieldNombreVendedor = new javax.swing.JTextField();
         lb15 = new javax.swing.JLabel();
         jLabelImpuesto = new javax.swing.JLabel();
+        jTextFieldEfectivoRecibido = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        lb8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
@@ -200,7 +200,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         lb7.setForeground(new java.awt.Color(255, 255, 255));
         lb7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb7.setText("Total Niños");
-        jPanel1.add(lb7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 210, 120, 30));
+        jPanel1.add(lb7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 215, 120, 30));
 
         lb1.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         lb1.setForeground(new java.awt.Color(255, 255, 255));
@@ -212,15 +212,25 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         lb5.setForeground(new java.awt.Color(255, 255, 255));
         lb5.setText("Cantidad de boletos (niños):");
         jPanel1.add(lb5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 240, 30));
+
+        jTextFieldHora.setEditable(false);
+        jTextFieldHora.setForeground(new java.awt.Color(255, 255, 255));
+        jTextFieldHora.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldHora.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextFieldHora.setOpaque(false);
         jPanel1.add(jTextFieldHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 55, 100, 30));
 
         lb6.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         lb6.setForeground(new java.awt.Color(255, 255, 255));
         lb6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb6.setText("Total Adultos");
-        jPanel1.add(lb6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 210, 120, 30));
+        jPanel1.add(lb6, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 215, 120, 30));
 
         jTextFieldCantidadDeBoletosNiños.setEditable(false);
+        jTextFieldCantidadDeBoletosNiños.setForeground(new java.awt.Color(255, 255, 255));
+        jTextFieldCantidadDeBoletosNiños.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldCantidadDeBoletosNiños.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextFieldCantidadDeBoletosNiños.setOpaque(false);
         jTextFieldCantidadDeBoletosNiños.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCantidadDeBoletosNiñosActionPerformed(evt);
@@ -239,17 +249,24 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         lb2.setText("Sala");
         jPanel1.add(lb2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 20, 100, 30));
 
-        jLabelSala.setBackground(new java.awt.Color(0, 204, 51));
         jLabelSala.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelSala.setForeground(new java.awt.Color(255, 255, 255));
         jLabelSala.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelSala.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.add(jLabelSala, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 55, 100, 30));
 
-        jLabelTotalPago.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabelTotalPago.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel1.add(jLabelTotalPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 310, 80, 30));
+        jLabelTotalPago.setBackground(new java.awt.Color(168, 168, 168));
+        jLabelTotalPago.setFont(new java.awt.Font("Arial Black", 1, 18)); // NOI18N
+        jLabelTotalPago.setForeground(new java.awt.Color(0, 0, 0));
+        jLabelTotalPago.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTotalPago.setOpaque(true);
+        jPanel1.add(jLabelTotalPago, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 320, 475, 40));
 
         jTextFieldCantidadDeBoletosAdultos.setEditable(false);
+        jTextFieldCantidadDeBoletosAdultos.setForeground(new java.awt.Color(255, 255, 255));
+        jTextFieldCantidadDeBoletosAdultos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldCantidadDeBoletosAdultos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextFieldCantidadDeBoletosAdultos.setOpaque(false);
         jTextFieldCantidadDeBoletosAdultos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldCantidadDeBoletosAdultosActionPerformed(evt);
@@ -266,19 +283,21 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         jLabelTotalNiños.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelTotalNiños.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTotalNiños.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTotalNiños.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.add(jLabelTotalNiños, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 250, 120, 30));
+
+        jTextFieldPelicula.setEditable(false);
+        jTextFieldPelicula.setForeground(new java.awt.Color(255, 255, 255));
+        jTextFieldPelicula.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldPelicula.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextFieldPelicula.setOpaque(false);
         jPanel1.add(jTextFieldPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 55, 200, 30));
 
         jLabelTotalAdultos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelTotalAdultos.setForeground(new java.awt.Color(255, 255, 255));
         jLabelTotalAdultos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTotalAdultos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel1.add(jLabelTotalAdultos, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 250, 120, 30));
-
-        lb8.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        lb8.setForeground(new java.awt.Color(255, 255, 255));
-        lb8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb8.setText("Total a pagar: L. ");
-        jPanel1.add(lb8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 140, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 104, 476, 360));
 
@@ -292,8 +311,9 @@ public class ConfirmarVenta extends javax.swing.JFrame {
 
         lb12.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         lb12.setForeground(new java.awt.Color(255, 255, 255));
-        lb12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lb12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb12.setText("Tegucigalpa");
+        lb12.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.add(lb12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 70, 185, 30));
 
         lb11.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
@@ -306,19 +326,6 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         lb13.setText("Efectivo recibido:");
         jPanel2.add(lb13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 155, 30));
 
-        jTextFieldEfectivoRecibido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextFieldEfectivoRecibido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldEfectivoRecibidoActionPerformed(evt);
-            }
-        });
-        jTextFieldEfectivoRecibido.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldEfectivoRecibidoKeyTyped(evt);
-            }
-        });
-        jPanel2.add(jTextFieldEfectivoRecibido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 140, 30));
-
         lb14.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         lb14.setForeground(new java.awt.Color(255, 255, 255));
         lb14.setText("Cambio:");
@@ -326,6 +333,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
 
         jLabelCambio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelCambio.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelCambio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.add(jLabelCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 185, 30));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnCambio.png"))); // NOI18N
@@ -338,7 +346,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(325, 118, -1, 35));
+        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 118, -1, 35));
 
         lb16.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         lb16.setForeground(new java.awt.Color(255, 255, 255));
@@ -346,7 +354,11 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         lb16.setText("CINEMATIX");
         jPanel2.add(lb16, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 180, 30));
 
+        jTextFieldNombreVendedor.setEditable(false);
+        jTextFieldNombreVendedor.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldNombreVendedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldNombreVendedor.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextFieldNombreVendedor.setOpaque(false);
         jTextFieldNombreVendedor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldNombreVendedorActionPerformed(evt);
@@ -366,12 +378,30 @@ public class ConfirmarVenta extends javax.swing.JFrame {
 
         jLabelImpuesto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelImpuesto.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelImpuesto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.add(jLabelImpuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 185, 30));
+
+        jTextFieldEfectivoRecibido.setForeground(new java.awt.Color(255, 255, 255));
+        jTextFieldEfectivoRecibido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextFieldEfectivoRecibido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextFieldEfectivoRecibido.setOpaque(false);
+        jTextFieldEfectivoRecibido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldEfectivoRecibidoActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jTextFieldEfectivoRecibido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 145, 30));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(532, 104, 387, 360));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ConfirmarPantalla.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 550));
+
+        lb8.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb8.setForeground(new java.awt.Color(255, 255, 255));
+        lb8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb8.setText("Total a pagar: L. ");
+        getContentPane().add(lb8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 490, 140, 30));
 
         pack();
         setLocationRelativeTo(null);
@@ -398,36 +428,17 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCantidadDeBoletosNiñosActionPerformed
 
-    private void jTextFieldEfectivoRecibidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEfectivoRecibidoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldEfectivoRecibidoActionPerformed
-
-    private void jTextFieldEfectivoRecibidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldEfectivoRecibidoKeyTyped
-        char cant = evt.getKeyChar();
-
-        if ((cant < '0' || cant > '9') && jTextFieldCantidadDeBoletosAdultos.getText().contains("")
-                && (cant != (char) KeyEvent.VK_BACK_SPACE)) {
-            evt.consume();
-
-            JOptionPane.showMessageDialog(null, "Solo se admiten numeros", "Validar numeros",
-                    JOptionPane.WARNING_MESSAGE);
-
-        } else if ((cant < '0' || cant > '9') && jTextFieldCantidadDeBoletosAdultos.getText().contains("")
-                && (cant != (char) KeyEvent.VK_BACK_SPACE)) {
-            evt.consume();
-
-            JOptionPane.showMessageDialog(null, "Solo se admiten numeros", "Validar numeros",
-                    JOptionPane.WARNING_MESSAGE);
-        }
-    }//GEN-LAST:event_jTextFieldEfectivoRecibidoKeyTyped
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        double efectivoR;
-        double isv;
-        efectivoR = Double.parseDouble(jTextFieldEfectivoRecibido.getText());
-        isv = efectivoR * 0.15;
-        jLabelImpuesto.setText("L." + isv + "0");
-        calculo();
+        if (jTextFieldEfectivoRecibido.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe escribir la cantidad de efectivo recibida", "Advertencia", JOptionPane.WARNING_MESSAGE);
+        } else {
+            double efectivoR;
+            double isv;
+            efectivoR = Double.parseDouble(jTextFieldEfectivoRecibido.getText());
+            isv = efectivoR * 0.15;
+            jLabelImpuesto.setText("L." + isv + "0");
+            calculo();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jTextFieldNombreVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreVendedorActionPerformed
@@ -454,6 +465,10 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         dispose();
         obj.setVisible(true);
     }//GEN-LAST:event_btnComprarActionPerformed
+
+    private void jTextFieldEfectivoRecibidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEfectivoRecibidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldEfectivoRecibidoActionPerformed
 
     /**
      * @param args the command line arguments
