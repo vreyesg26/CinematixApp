@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -78,6 +79,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             jComboBoxPeliculas.setEnabled(true);
             jComboBoxHora.setEnabled(true);
             AgregarAComboboxPelicula();
+            Horarios();
         } else {
             lb_Encender.setText("ENCENDER");
             jComboBoxPeliculas.setEnabled(false);
@@ -163,11 +165,11 @@ public class MenuVendedor extends javax.swing.JFrame {
         Combo = jComboBoxHora.getSelectedIndex();
 
         String sql = "SELECT Hora FROM horarios";
-
+        jComboBoxHora.addItem("Seleccione un Horario");
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            jComboBoxHora.addItem("Seleccione un Horario");
+            
             while (rs.next()) {
                 jComboBoxHora.addItem(rs.getString("Hora"));
             }
@@ -314,6 +316,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb1 = new javax.swing.JLabel();
         jComboBoxHora = new javax.swing.JComboBox<>();
         lb2 = new javax.swing.JLabel();
+        lbImagen = new javax.swing.JLabel();
         btnEncendido = new javax.swing.JToggleButton();
         lb_Encender = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -386,6 +389,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb1.setText("PELICULAS");
         jPanel7.add(lb1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 180, 35));
 
+        jComboBoxHora.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jComboBoxHora.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxHoraActionPerformed(evt);
@@ -398,6 +402,9 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb2.setText("HORA");
         jPanel7.add(lb2, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 20, 180, 35));
+
+        lbImagen.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel7.add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 130, 192, 274));
 
         getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 145, 387, 530));
 
@@ -717,7 +724,21 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     private void jComboBoxPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPeliculasActionPerformed
         seleccionPelicula();
-        Horarios();
+        
+        Conexion cc = new Conexion();
+        Connection cn = cc.GetConexion();
+        String sql = "SELECT Foto FROM peliculas WHERE Titulo = '" + jComboBoxPeliculas.getSelectedItem() + "'";
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            
+            if (rs.next()) {
+                
+            }
+
+        } catch (Exception e) {
+
+        }
     }//GEN-LAST:event_jComboBoxPeliculasActionPerformed
 
     private void btnEncendidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncendidoActionPerformed
@@ -725,7 +746,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEncendidoActionPerformed
 
     private void jComboBoxHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxHoraActionPerformed
-
+        
     }//GEN-LAST:event_jComboBoxHoraActionPerformed
 
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
@@ -965,6 +986,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     private javax.swing.JLabel lb7;
     private javax.swing.JLabel lb8;
     private javax.swing.JLabel lb9;
+    private javax.swing.JLabel lbImagen;
     public static javax.swing.JLabel lbMenores;
     private javax.swing.JLabel lbResultado;
     public static javax.swing.JLabel lbVendedor;

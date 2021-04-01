@@ -40,7 +40,6 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         lb5.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb6.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb7.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
-        lb8.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb10.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb11.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb12.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
@@ -152,7 +151,6 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         jLabelImpuesto = new javax.swing.JLabel();
         jTextFieldEfectivoRecibido = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        lb8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(51, 51, 51));
@@ -397,12 +395,6 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/ConfirmarPantalla.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 550));
 
-        lb8.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
-        lb8.setForeground(new java.awt.Color(255, 255, 255));
-        lb8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb8.setText("Total a pagar: L. ");
-        getContentPane().add(lb8, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 490, 140, 30));
-
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
@@ -538,6 +530,5 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     private javax.swing.JLabel lb5;
     private javax.swing.JLabel lb6;
     private javax.swing.JLabel lb7;
-    private javax.swing.JLabel lb8;
     // End of variables declaration//GEN-END:variables
 }

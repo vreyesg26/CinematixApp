@@ -5,7 +5,23 @@
  */
 package JFrames;
 
+import Datos.Conexion;
+import Paneles.panelVendedores;
+import Tipografia.Fuente;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -16,9 +32,38 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     /**
      * Creates new form RegistroAdministradores
      */
+    Fuente tipoFuente;
+
     public RegistroAdministradores() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
+        tipoFuente = new Fuente();
+        cargarData();
+        anchoColumnas();
+
+        TextPrompt id = new TextPrompt("ID", txtIDUsuario);
+        TextPrompt usuario = new TextPrompt("USUARIO", txtUsuario);
+        TextPrompt contraseña = new TextPrompt("CONTRASEÑA", txtContraseña);
+        id.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        usuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        contraseña.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+
+        txtIDUsuario.setEnabled(false);
+        txtIDUsuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        txtUsuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        txtContraseña.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        tablaUsuarios.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+
+        btnGuardar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        btnActualizar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        btnDeshabilitar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+    }
+
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
+        return retValue;
     }
 
     /**
@@ -30,10 +75,30 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        modificar = new javax.swing.JMenuItem();
         btnRegresar = new javax.swing.JLabel();
+        txtIDUsuario = new javax.swing.JTextField();
+        txtUsuario = new javax.swing.JTextField();
+        txtContraseña = new javax.swing.JTextField();
+        btnNuevo = new rojeru_san.complementos.RSButtonHover();
+        btnActualizar = new rojeru_san.complementos.RSButtonHover();
+        btnDeshabilitar = new rojeru_san.complementos.RSButtonHover();
+        btnGuardar = new rojeru_san.complementos.RSButtonHover();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaUsuarios = new javax.swing.JTable();
         lbFondo = new javax.swing.JLabel();
 
+        modificar.setText("Modificar");
+        modificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(modificar);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -42,12 +107,103 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnRegresarMouseClicked(evt);
             }
         });
         getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 30, 30));
+
+        txtIDUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        txtIDUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIDUsuario.setOpaque(false);
+        getContentPane().add(txtIDUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 50, 40));
+
+        txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        txtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtUsuario.setOpaque(false);
+        getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 170, 220, 40));
+
+        txtContraseña.setForeground(new java.awt.Color(255, 255, 255));
+        txtContraseña.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtContraseña.setOpaque(false);
+        getContentPane().add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 240, 220, 40));
+
+        btnNuevo.setBackground(new java.awt.Color(81, 81, 81));
+        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoNuevo.png"))); // NOI18N
+        btnNuevo.setText("NUEVO");
+        btnNuevo.setBorderPainted(false);
+        btnNuevo.setColorHover(new java.awt.Color(61, 61, 61));
+        btnNuevo.setFocusPainted(false);
+        btnNuevo.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnNuevo.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 130, 40));
+
+        btnActualizar.setBackground(new java.awt.Color(81, 81, 81));
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoActualizar.png"))); // NOI18N
+        btnActualizar.setText("ACTUALIZAR");
+        btnActualizar.setBorderPainted(false);
+        btnActualizar.setColorHover(new java.awt.Color(61, 61, 61));
+        btnActualizar.setFocusPainted(false);
+        btnActualizar.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnActualizar.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        getContentPane().add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 130, 40));
+
+        btnDeshabilitar.setBackground(new java.awt.Color(81, 81, 81));
+        btnDeshabilitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoDeshabilitar.png"))); // NOI18N
+        btnDeshabilitar.setText("DESHABILITAR");
+        btnDeshabilitar.setBorderPainted(false);
+        btnDeshabilitar.setColorHover(new java.awt.Color(61, 61, 61));
+        btnDeshabilitar.setFocusPainted(false);
+        btnDeshabilitar.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnDeshabilitar.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        btnDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeshabilitarActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 390, 130, 40));
+
+        btnGuardar.setBackground(new java.awt.Color(81, 81, 81));
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoGuardar.png"))); // NOI18N
+        btnGuardar.setText("GUARDAR");
+        btnGuardar.setBorderPainted(false);
+        btnGuardar.setColorHover(new java.awt.Color(61, 61, 61));
+        btnGuardar.setFocusPainted(false);
+        btnGuardar.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnGuardar.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 330, 130, 40));
+
+        tablaUsuarios.setBackground(new java.awt.Color(61, 61, 61));
+        tablaUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tablaUsuarios.setAlignmentY(4.0F);
+        tablaUsuarios.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablaUsuarios.setComponentPopupMenu(jPopupMenu1);
+        tablaUsuarios.setFillsViewportHeight(true);
+        tablaUsuarios.setOpaque(false);
+        tablaUsuarios.setPreferredSize(new java.awt.Dimension(300, 60));
+        tablaUsuarios.setRowHeight(25);
+        tablaUsuarios.setSelectionBackground(new java.awt.Color(29, 29, 29));
+        tablaUsuarios.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tablaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablaUsuariosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablaUsuarios);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 430, 340));
 
         lbFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/registroUsuarios.png"))); // NOI18N
         getContentPane().add(lbFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -69,9 +225,164 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    void anchoColumnas() {
+        TableColumnModel anchoColumnas = tablaUsuarios.getColumnModel();
+        anchoColumnas.getColumn(0).setPreferredWidth(30);
+        anchoColumnas.getColumn(1).setPreferredWidth(120);
+        anchoColumnas.getColumn(2).setPreferredWidth(160);
+        anchoColumnas.getColumn(3).setPreferredWidth(40);
+    }
+
+    void limpiarCajas() {
+        txtIDUsuario.setText("");
+        txtUsuario.setText("");
+        txtContraseña.setText("");
+    }
+
+    ResultSet rs;
+    PreparedStatement Pst;
+    DefaultTableModel model;
+    Conexion cc = new Conexion();
+    Connection cn = cc.GetConexion();
+
+    void cargarData() {
+        String[] titulos = {"ID", "Usuario", "Contraseña", "Intentos"};
+        String[] registros = new String[4];
+        String sql = "SELECT IDUsuario, Usuario, Contrasena, Intentos FROM usuarios WHERE IDUsuario != 0 ORDER BY IDUsuario";
+
+        model = new DefaultTableModel(null, titulos);
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                registros[0] = rs.getString("IDUsuario");
+                registros[1] = rs.getString("Usuario");
+                registros[2] = rs.getString("Contrasena");
+                registros[3] = rs.getString("Intentos");
+                model.addRow(registros);
+            }
+
+            tablaUsuarios.setModel(model);
+            anchoColumnas();
+        } catch (SQLException ex) {
+            Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+        }
+    }
+
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
-        this.dispose();
+        if (!txtIDUsuario.getText().isEmpty() || !txtUsuario.getText().isEmpty() || !txtContraseña.getText().isEmpty()) {
+            int salidaConfirmacion = JOptionPane.showConfirmDialog(null, "Al parecer tienes un proceso pendiente\n ¿Estás seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            if (salidaConfirmacion == 0) {
+                this.dispose();
+            } 
+        } else {
+            this.dispose();
+        }
     }//GEN-LAST:event_btnRegresarMouseClicked
+
+    private void tablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsuariosMouseClicked
+        int fila = tablaUsuarios.getSelectedRow();
+        if (fila >= 0) {
+            btnDeshabilitar.setEnabled(true);
+            String estado = tablaUsuarios.getValueAt(fila, 3).toString();
+
+            if ("3".equals(estado)) {
+                ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
+                btnDeshabilitar.setIcon(iconobtn);
+                btnDeshabilitar.setText("DESHABILITAR");
+            } else if ("0".equals(estado)) {
+                ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoHabilitar.png");
+                btnDeshabilitar.setIcon(iconobtn);
+                btnDeshabilitar.setText("HABILITAR");
+            }
+        }
+    }//GEN-LAST:event_tablaUsuariosMouseClicked
+
+    private void btnDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeshabilitarActionPerformed
+        int fila = tablaUsuarios.getSelectedRow();
+        String habilitado = "3";
+        String deshabilitado = "0";
+
+        if (fila >= 0) {
+            String id = tablaUsuarios.getValueAt(fila, 0).toString();
+            String usuario = tablaUsuarios.getValueAt(fila, 1).toString();
+
+            if (btnDeshabilitar.getText().equals("CANCELAR")) {
+                limpiarCajas();
+                btnActualizar.setEnabled(false);
+                btnNuevo.setEnabled(false);
+                btnDeshabilitar.setEnabled(false);
+                btnGuardar.setEnabled(true);
+
+                ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
+                btnDeshabilitar.setIcon(iconobtn);
+                btnDeshabilitar.setText("DESHABILITAR");
+
+            } else if (btnDeshabilitar.getText().equals("DESHABILITAR")) {
+                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (ventanaConfirmacion == 0) {
+                    try {
+                        String sqlEstado = "UPDATE `usuarios` SET `Intentos` = ? WHERE `usuarios`.`IDUsuario` = ? ";
+                        PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
+                        pst.setString(1, deshabilitado);
+                        pst.setString(2, id);
+                        pst.execute();
+
+                        JOptionPane.showMessageDialog(null, "El usuario " + usuario + " ha sido deshabilitado", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                    } catch (Exception e) {
+
+                    }
+                }
+            } else if (btnDeshabilitar.getText().equals("HABILITAR")) {
+                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                if (ventanaConfirmacion == 0) {
+                    try {
+                        String sqlEstado = "UPDATE `usuarios` SET `Intentos` = ? WHERE `usuarios`.`IDUsuario` = ? ";
+                        PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
+                        pst.setString(1, habilitado);
+                        pst.setString(2, id);
+                        pst.execute();
+
+                        JOptionPane.showMessageDialog(null, "El usuario " + usuario + " ahora está habilitado", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+        }
+        cargarData();
+    }//GEN-LAST:event_btnDeshabilitarActionPerformed
+
+    private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+        int fila = tablaUsuarios.getSelectedRow();
+
+        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconobtn);
+        btnDeshabilitar.setText("CANCELAR");
+
+        if (fila >= 0) {
+            btnActualizar.setEnabled(true);
+            btnDeshabilitar.setEnabled(true);
+            btnNuevo.setEnabled(false);
+            txtUsuario.setEnabled(true);
+            txtContraseña.setEnabled(true);
+            btnGuardar.setEnabled(false);
+
+            String id = tablaUsuarios.getValueAt(fila, 0).toString();
+            String usuario = tablaUsuarios.getValueAt(fila, 1).toString();
+            String contraseña = tablaUsuarios.getValueAt(fila, 2).toString();
+
+            txtIDUsuario.setText(id);
+            txtUsuario.setText(usuario);
+            txtContraseña.setText(contraseña);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_modificarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -109,7 +420,18 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private rojeru_san.complementos.RSButtonHover btnActualizar;
+    private rojeru_san.complementos.RSButtonHover btnDeshabilitar;
+    private rojeru_san.complementos.RSButtonHover btnGuardar;
+    private rojeru_san.complementos.RSButtonHover btnNuevo;
     private javax.swing.JLabel btnRegresar;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbFondo;
+    private javax.swing.JMenuItem modificar;
+    private javax.swing.JTable tablaUsuarios;
+    private javax.swing.JTextField txtContraseña;
+    private javax.swing.JTextField txtIDUsuario;
+    private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
