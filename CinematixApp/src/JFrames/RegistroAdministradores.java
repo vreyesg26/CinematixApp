@@ -8,9 +8,11 @@ package JFrames;
 import Datos.Conexion;
 import Paneles.panelVendedores;
 import Tipografia.Fuente;
+import encriptacion.Encode;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,6 +20,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -81,6 +84,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         txtIDUsuario = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
         txtContraseña = new javax.swing.JTextField();
+        lbX = new javax.swing.JLabel();
         btnNuevo = new rojeru_san.complementos.RSButtonHover();
         btnActualizar = new rojeru_san.complementos.RSButtonHover();
         btnDeshabilitar = new rojeru_san.complementos.RSButtonHover();
@@ -123,12 +127,18 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtUsuario.setOpaque(false);
+        txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtUsuarioFocusLost(evt);
+            }
+        });
         getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 170, 220, 40));
 
         txtContraseña.setForeground(new java.awt.Color(255, 255, 255));
         txtContraseña.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtContraseña.setOpaque(false);
         getContentPane().add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 240, 220, 40));
+        getContentPane().add(lbX, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 170, -1, 40));
 
         btnNuevo.setBackground(new java.awt.Color(81, 81, 81));
         btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoNuevo.png"))); // NOI18N
@@ -148,6 +158,11 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         btnActualizar.setFocusPainted(false);
         btnActualizar.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         btnActualizar.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 130, 40));
 
         btnDeshabilitar.setBackground(new java.awt.Color(81, 81, 81));
@@ -173,6 +188,11 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         btnGuardar.setFocusPainted(false);
         btnGuardar.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         btnGuardar.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 330, 130, 40));
 
         tablaUsuarios.setBackground(new java.awt.Color(61, 61, 61));
@@ -225,6 +245,19 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    boolean guardar;
+
+    void validarCamposVacios() {
+        ImageIcon jPaneIcon = new ImageIcon("src/Iconos/iconoError.png");
+        if (txtUsuario.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor rellene el campo usuario", "Error", JOptionPane.PLAIN_MESSAGE, jPaneIcon);
+        } else if (txtContraseña.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor rellene el campo contraseña", "Error", JOptionPane.PLAIN_MESSAGE, jPaneIcon);
+        } else {
+            guardar = true;
+        }
+    }
+
     void anchoColumnas() {
         TableColumnModel anchoColumnas = tablaUsuarios.getColumnModel();
         anchoColumnas.getColumn(0).setPreferredWidth(30);
@@ -274,10 +307,11 @@ public class RegistroAdministradores extends javax.swing.JFrame {
 
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
         if (!txtIDUsuario.getText().isEmpty() || !txtUsuario.getText().isEmpty() || !txtContraseña.getText().isEmpty()) {
-            int salidaConfirmacion = JOptionPane.showConfirmDialog(null, "Al parecer tienes un proceso pendiente\n ¿Estás seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+            ImageIcon jPaneIcon = new ImageIcon("src/Iconos/iconoSalida.png");
+            int salidaConfirmacion = JOptionPane.showConfirmDialog(null, "Al parecer tienes un proceso pendiente\n ¿Estás seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPaneIcon);
             if (salidaConfirmacion == 0) {
                 this.dispose();
-            } 
+            }
         } else {
             this.dispose();
         }
@@ -322,7 +356,8 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 btnDeshabilitar.setText("DESHABILITAR");
 
             } else if (btnDeshabilitar.getText().equals("DESHABILITAR")) {
-                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
+                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 if (ventanaConfirmacion == 0) {
                     try {
                         String sqlEstado = "UPDATE `usuarios` SET `Intentos` = ? WHERE `usuarios`.`IDUsuario` = ? ";
@@ -331,13 +366,15 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                         pst.setString(2, id);
                         pst.execute();
 
-                        JOptionPane.showMessageDialog(null, "El usuario " + usuario + " ha sido deshabilitado", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                        ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
+                        JOptionPane.showMessageDialog(null, "El usuario " + usuario + " ha sido deshabilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                     } catch (Exception e) {
 
                     }
                 }
             } else if (btnDeshabilitar.getText().equals("HABILITAR")) {
-                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
+                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar este usuario?", null, JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 if (ventanaConfirmacion == 0) {
                     try {
                         String sqlEstado = "UPDATE `usuarios` SET `Intentos` = ? WHERE `usuarios`.`IDUsuario` = ? ";
@@ -346,7 +383,8 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                         pst.setString(2, id);
                         pst.execute();
 
-                        JOptionPane.showMessageDialog(null, "El usuario " + usuario + " ahora está habilitado", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                        ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
+                        JOptionPane.showMessageDialog(null, "El usuario " + usuario + " ahora está habilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                     } catch (Exception e) {
 
                     }
@@ -380,9 +418,107 @@ public class RegistroAdministradores extends javax.swing.JFrame {
             txtContraseña.setText(contraseña);
 
         } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "", JOptionPane.ERROR_MESSAGE);
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }//GEN-LAST:event_modificarActionPerformed
+
+    private void txtUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusLost
+        if (!txtUsuario.getText().isEmpty()) {
+            Conexion cc = new Conexion();
+            Connection cn = cc.GetConexion();
+            String user = txtUsuario.getText();
+            String sql = "SELECT Usuario FROM usuarios WHERE Usuario = '" + user + "'";
+
+            try {
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+
+                if (rs.next()) {
+                    if (rs.getString("Usuario").equals(txtUsuario.getText())) {
+                        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                        JOptionPane.showMessageDialog(null, "Este usuario ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                        ImageIcon x = new ImageIcon("src/iconos/iconoX.png");
+                    }
+                }
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        }
+    }//GEN-LAST:event_txtUsuarioFocusLost
+
+    String secretKey = "lospibes";
+    Encode encode = new Encode();
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        Conexion cn = new Conexion();
+        Connection cc = cn.GetConexion();
+        validarCamposVacios();
+        if (guardar == false) {
+
+        } else {
+            String sql = "INSERT INTO usuarios (Usuario, Contrasena) VALUES (?,?)";
+
+            try {
+                PreparedStatement pst = cc.prepareStatement(sql);
+                pst.setString(1, txtUsuario.getText());
+                pst.setString(2, encode.ecnode(secretKey, txtContraseña.getText()));
+
+                int i = pst.executeUpdate();
+                if (i > 0) {
+                    JOptionPane.showMessageDialog(null, "Se guardo correctamente");
+                    limpiarCajas();
+                    btnGuardar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
+                    btnDeshabilitar.setEnabled(false);
+                    btnActualizar.setEnabled(false);
+                    tablaUsuarios.setEnabled(false);
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar");
+                System.out.println(e.getMessage());
+            }
+        }
+        cargarData();
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        Conexion cn = new Conexion();
+        Connection cc = cn.GetConexion();
+        validarCamposVacios();
+        if (guardar == false) {
+
+        } else {
+            String sql = "UPDATE usuarios SET Usuario = ?, Contrasena = ? WHERE IDUsuario = '" + txtIDUsuario.getText() + "'";
+
+            try {
+                PreparedStatement pst = cc.prepareStatement(sql);
+                pst.setString(1, txtUsuario.getText());
+                pst.setString(2, encode.ecnode(secretKey, txtContraseña.getText()));
+
+                int i = pst.executeUpdate();
+                if (i > 0) {
+                    JOptionPane.showMessageDialog(null, "Se guardo correctamente");
+                    limpiarCajas();
+                    btnGuardar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
+                    btnDeshabilitar.setEnabled(false);
+                    btnActualizar.setEnabled(false);
+                    tablaUsuarios.setEnabled(false);
+
+                    ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
+                    btnDeshabilitar.setIcon(iconobtn);
+                    btnDeshabilitar.setText("DESHABILITAR");
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar");
+                System.out.println(e.getMessage());
+            }
+        }
+        cargarData();
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -428,6 +564,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbFondo;
+    private javax.swing.JLabel lbX;
     private javax.swing.JMenuItem modificar;
     private javax.swing.JTable tablaUsuarios;
     private javax.swing.JTextField txtContraseña;

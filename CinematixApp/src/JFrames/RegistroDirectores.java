@@ -30,6 +30,8 @@ public class RegistroDirectores extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablaDirectores = new javax.swing.JTable();
         btnRegresar = new javax.swing.JLabel();
         lbFondo = new javax.swing.JLabel();
 
@@ -42,6 +44,22 @@ public class RegistroDirectores extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        tablaDirectores.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tablaDirectores);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 89, 460, 350));
+
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnRegresarMouseClicked(evt);
@@ -111,6 +129,8 @@ public class RegistroDirectores extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnRegresar;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbFondo;
+    private javax.swing.JTable tablaDirectores;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,27 +12,12 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.print.PageFormat;
 import java.awt.print.Printable;
-import java.awt.print.Printable;
-import static java.awt.print.Printable.NO_SUCH_PAGE;
-import static java.awt.print.Printable.PAGE_EXISTS;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import javax.swing.JFileChooser;
 /**
  *
  * @author Los Pibes
@@ -310,7 +295,8 @@ public class Factura extends javax.swing.JFrame {
             }
         }
 
-        JOptionPane.showMessageDialog(null, "Factura Generada");
+        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
+        JOptionPane.showMessageDialog(null, "Factura Generada", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         limpiar();
         this.dispose();
     }//GEN-LAST:event_jButton_ImprimirActionPerformed

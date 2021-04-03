@@ -750,7 +750,8 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBoxHoraActionPerformed
 
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
-        int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
+        int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         if (ventanaConfirmacion == 0) {
             Inicio ini = new Inicio();
             ini.setVisible(true);
@@ -824,8 +825,12 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_rbMixtoMouseClicked
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        if (jComboBoxPeliculas.getSelectedIndex() == 0 || jComboBoxHora.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(this, "Todavía hacen falta datos por completar", "Complete datos", JOptionPane.WARNING_MESSAGE);
+        if (jComboBoxPeliculas.getSelectedIndex() == 0) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una pelicula", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        } else if (jComboBoxHora.getSelectedIndex() == 0){
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un horario", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         }
 
         if (txtBoletosAdultos.getText().isEmpty()) {
@@ -857,7 +862,8 @@ public class MenuVendedor extends javax.swing.JFrame {
             obj.setVisible(true);
 
         } else if (rbEfectivo.isSelected() == false && rbTCredito.isSelected() == false && rbMixto.isSelected() == false) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un método de pago", "Complete datos", JOptionPane.WARNING_MESSAGE);
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un método de pago", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         } else {
             ConfirmarVenta obj = new ConfirmarVenta();
             pasaDatos();

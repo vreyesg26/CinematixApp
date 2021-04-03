@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -139,7 +140,8 @@ public class LoginVendedor extends javax.swing.JFrame {
         String sql = "SELECT * FROM vendedor WHERE Correo = '" + user + "'";
 
         if (txtCorreo.getText().isEmpty() && txtClave.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtClave.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debes llenar los campos");
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debes llenar los campos", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
 
         } else {
             try {
@@ -149,7 +151,8 @@ public class LoginVendedor extends javax.swing.JFrame {
                 if (rs.next()) {
                     int intentos = Integer.parseInt(rs.getString("Intentos"));
                     if (rs.getString("Intentos").equals("0")) {
-                        JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoSalida.png");
+                        JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                         txtCorreo.setText("");
                         txtClave.setText("");
                     } else if (encode.deecnode(secretKey, rs.getString("Clave")).equals(pass)) {
@@ -165,12 +168,14 @@ public class LoginVendedor extends javax.swing.JFrame {
                             pst.execute();
 
                         } catch (Exception e) {
-                            JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e);
+                            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                            JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                         }
                     } else {
                         --intentos;
                         if (intentos == 0) {
-                            JOptionPane.showMessageDialog(null, "Ha excedido el número de intentos para ingresar \n" + "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su cuenta", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoSalida.png");
+                            JOptionPane.showMessageDialog(null, "Ha excedido el número de intentos para ingresar \n" + "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su cuenta", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                             txtCorreo.setText("");
                             txtClave.setText("");
                             try {
@@ -181,7 +186,8 @@ public class LoginVendedor extends javax.swing.JFrame {
                                 pst.execute();
 
                             } catch (Exception e) {
-                                JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e);
+                                ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoError.png");
+                                JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                             }
                             Inicio inicio = new Inicio();
                             inicio.setVisible(true);
@@ -195,19 +201,23 @@ public class LoginVendedor extends javax.swing.JFrame {
                                 pst.execute();
 
                             } catch (Exception e) {
-                                JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e);
+                                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                                JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                             }
-                            JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Aviso", JOptionPane.WARNING_MESSAGE);
+                            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                            JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                             txtCorreo.setText("");
                             txtClave.setText("");
                         }
                     }
                 } else {
-                    JOptionPane.showMessageDialog(null, "Usuario o correo incorrectos.");
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "Asegurate de utilizar un usuario y contraseña correctos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 }
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error de conexión " + e.getMessage(), "Aviso", JOptionPane.WARNING_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "Error de conexión " + e.getMessage(), "Aviso", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 txtCorreo.setText("");
                 txtClave.setText("");
             }
@@ -252,7 +262,7 @@ public class LoginVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_txtClaveActionPerformed
 
     private void txtClaveKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyReleased
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             validarVendedores();
         }
     }//GEN-LAST:event_txtClaveKeyReleased

@@ -5,12 +5,10 @@
  */
 package JFrames;
 
-import static JFrames.Factura.jLabeEfectivoRecibido;
 import Tipografia.Fuente;
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -77,7 +75,8 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         totalPago = Double.parseDouble(jLabelTotalPago.getText().substring(17));
         efectivoR = Double.parseDouble(jTextFieldEfectivoRecibido.getText());
         if (efectivoR < totalPago) {
-            JOptionPane.showMessageDialog(this, "No cuentas con suficiente dinero", "Cobro", JOptionPane.ERROR_MESSAGE);
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(this, "Hubo un problema al realizar el cobor \n Dinero insuficiente", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         } else {
             cambio = efectivoR - totalPago;
             jLabelCambio.setText("L." + cambio + "0");
@@ -422,7 +421,8 @@ public class ConfirmarVenta extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         if (jTextFieldEfectivoRecibido.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Debe escribir la cantidad de efectivo recibida", "Advertencia", JOptionPane.WARNING_MESSAGE);
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debe escribir la cantidad de efectivo recibida", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         } else {
             double efectivoR;
             double isv;
@@ -443,7 +443,8 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         if (Character.isDigit(validar)) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(this, "Solo se admiten letras");
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Solo se admiten letras", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }//GEN-LAST:event_jTextFieldNombreVendedorKeyTyped
 

@@ -88,7 +88,8 @@ public class panelVendedores extends javax.swing.JPanel {
                 || e.getKeyChar() >= 242 && e.getKeyChar() <= 255) {
 
             e.consume();
-            JOptionPane.showMessageDialog(null, "Este campo no acepta caracteres especiales", "", JOptionPane.ERROR_MESSAGE);
+            ImageIcon jPaneIcon = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "Este campo no acepta caracteres especiales", "Error", JOptionPane.PLAIN_MESSAGE, jPaneIcon);
         }
     }
 
@@ -105,7 +106,7 @@ public class panelVendedores extends javax.swing.JPanel {
     public panelVendedores() {
         initComponents();
         bloquear();
-        cargarData("");
+        cargarData();
         anchoColumnas();
 
         tipoFuente = new Fuente();
@@ -149,7 +150,7 @@ public class panelVendedores extends javax.swing.JPanel {
         anchoColumnas.getColumn(4).setPreferredWidth(90);
         anchoColumnas.getColumn(5).setPreferredWidth(80);
         anchoColumnas.getColumn(6).setPreferredWidth(80);
-        anchoColumnas.getColumn(7).setPreferredWidth(110);
+        anchoColumnas.getColumn(7).setPreferredWidth(120);
         anchoColumnas.getColumn(8).setPreferredWidth(200);
         anchoColumnas.getColumn(9).setPreferredWidth(80);
         anchoColumnas.getColumn(10).setPreferredWidth(200);
@@ -162,7 +163,7 @@ public class panelVendedores extends javax.swing.JPanel {
     Conexion cc = new Conexion();
     Connection cn = cc.GetConexion();
 
-    void cargarData(String valor) {
+    void cargarData() {
         String[] titulos = {"ID", "Nombre", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo", "Usuario", "Clave", "Intentos"};
         String[] registros = new String[12];
         String sql = "SELECT IDVendedor, Nombre , Direccion, Sueldo, TipoJornada, NumeroCelular, NombreDocumento, NumeroDocumento, Correo, Usuario, Clave, Intentos\n"
@@ -196,6 +197,7 @@ public class panelVendedores extends javax.swing.JPanel {
             anchoColumnas();
         } catch (SQLException ex) {
             Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
     }
 
@@ -611,24 +613,6 @@ public class panelVendedores extends javax.swing.JPanel {
                         .addGap(6, 6, 6)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addGap(10, 10, 10)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(cbTipoDocu, 0, 192, Short.MAX_VALUE)
-                                .addComponent(lb9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(34, 34, 34)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtNumDocu)
-                                .addComponent(lb10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGap(18, 18, 18)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(cbJornada, 0, 278, Short.MAX_VALUE)
-                                .addComponent(lb11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(236, 236, 236)
-                            .addComponent(txtDireccion)
-                            .addGap(18, 18, 18)
-                            .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(494, 494, 494)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -637,24 +621,46 @@ public class panelVendedores extends javax.swing.JPanel {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(lb8, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(cbTipoDocu, 0, 192, Short.MAX_VALUE)
+                                        .addComponent(lb9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(34, 34, 34)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtNumDocu)
+                                        .addComponent(lb10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(cbJornada, 0, 278, Short.MAX_VALUE)
+                                        .addComponent(lb11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(txtSueldo)
+                                            .addComponent(txtNombre)
+                                            .addComponent(lb2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                                        .addComponent(lb5, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(lb6, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                                                .addComponent(txtCorreo))
+                                            .addGap(166, 166, 166))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(34, 34, 34)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                .addComponent(txtDireccion)
+                                                .addComponent(lb3, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE))
+                                            .addGap(12, 12, 12)))
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(txtCelular, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                        .addComponent(lb4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addGap(0, 8, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(txtSueldo)
-                        .addComponent(txtNombre)
-                        .addComponent(lb2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
-                    .addComponent(lb5, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lb6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtCorreo)
-                    .addComponent(lb3, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(lb4, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(24, 24, 24))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
@@ -781,22 +787,23 @@ public class panelVendedores extends javax.swing.JPanel {
             txtUsuario.setText(usuario);
             txtClave.setText(clave);
         } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "", JOptionPane.ERROR_MESSAGE);
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }//GEN-LAST:event_menuModificarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         boolean guardo = true;
         datos data = new datos();
+        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
         if (cbTipoDocu.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         } else if (cbJornada.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada", "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         } else if (txtCelular.getText().isEmpty() || cbTipoDocu.getSelectedIndex() == 0 || cbJornada.getSelectedIndex() == 0 || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtNumDocu.getText().isEmpty() || txtNombre.getText().isEmpty() || txtSueldo.getText().isEmpty() || txtClave.getText().isEmpty()) {
-
-            JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos", "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         } else if (Integer.parseInt(txtSueldo.getText()) < 8000) {
-            JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor de 8000", "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor de 8000", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             txtSueldo.setText("");
         } else if (txtCorreo.getText().contains("@") && txtCorreo.getText().contains(".com") || txtCorreo.getText().contains(".hn")) {
             data.setNombre(txtNombre.getText());
@@ -812,7 +819,8 @@ public class panelVendedores extends javax.swing.JPanel {
 
             guardo = data.guardar();
             if (guardo == true) {
-                JOptionPane.showMessageDialog(null, "Los datos fueron guardados correctamente");
+                ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
+                JOptionPane.showMessageDialog(null, "Los datos fueron guardados correctamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
             }
             limpiarCajas();
             btnEditar.setEnabled(true);
@@ -821,9 +829,9 @@ public class panelVendedores extends javax.swing.JPanel {
             btnGuardar.setEnabled(false);
             txtIDVendedor.setEnabled(false);
             bloquear();
-            cargarData("");
+            cargarData();
         } else {
-            JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com", "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -834,15 +842,16 @@ public class panelVendedores extends javax.swing.JPanel {
         btnGuardar.setEnabled(false);
 
         boolean edito = true;
+        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
         if (cbJornada.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada", "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         } else if (cbTipoDocu.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         } else if (txtCelular.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtNumDocu.getText().isEmpty() || txtNombre.getText().isEmpty() || txtSueldo.getText().isEmpty() || txtClave.getText().isEmpty()) {
 
-            JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos", "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         } else if (Integer.parseInt(txtSueldo.getText()) < 8000) {
-            JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor", "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor", "Error", JOptionPane.ERROR_MESSAGE);
             txtSueldo.setText("");
         } else if (txtCorreo.getText().contains("@") && txtCorreo.getText().contains(".com") || txtCorreo.getText().contains(".hn")) {
 
@@ -862,13 +871,14 @@ public class panelVendedores extends javax.swing.JPanel {
 
             datos data = new datos();
             if (edito == true) {
-                JOptionPane.showMessageDialog(null, "Datos actualizados de exitosamente");
+                ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
+                JOptionPane.showMessageDialog(null, "Datos actualizados de exitosamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
             }
-            cargarData("");
+            cargarData();
             limpiarCajas();
             bloquear();
         } else {
-            JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com", "", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com", "", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -893,7 +903,8 @@ public class panelVendedores extends javax.swing.JPanel {
                 btnEliminar.setText("DESHABILITAR");
 
             } else if (btnEliminar.getText().equals("DESHABILITAR")) {
-                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar este vendedor?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
+                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar este vendedor?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 if (ventanaConfirmacion == 0) {
                     try {
                         String sqlEstado = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`IDVendedor` = ? ";
@@ -902,13 +913,15 @@ public class panelVendedores extends javax.swing.JPanel {
                         pst.setString(2, id);
                         pst.execute();
 
-                        JOptionPane.showMessageDialog(null, "El vendedor " + nombre + " ha sido deshabilitado", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                        ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
+                        JOptionPane.showMessageDialog(null, "El vendedor " + nombre + " ha sido deshabilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                     } catch (Exception e) {
 
                     }
                 }
             } else if (btnEliminar.getText().equals("HABILITAR")) {
-                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar este vendedor?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
+                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar este vendedor?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 if (ventanaConfirmacion == 0) {
                     try {
                         String sqlEstado = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`IDVendedor` = ? ";
@@ -917,14 +930,15 @@ public class panelVendedores extends javax.swing.JPanel {
                         pst.setString(2, id);
                         pst.execute();
 
-                        JOptionPane.showMessageDialog(null, "El vendedor " + nombre + " ahora está habilitado", "Confirmación", JOptionPane.WARNING_MESSAGE);
+                        ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
+                        JOptionPane.showMessageDialog(null, "El vendedor " + nombre + " ahora está habilitado", "Confirmación", JOptionPane.WARNING_MESSAGE, jPanelIcon2);
                     } catch (Exception e) {
 
                     }
                 }
             }
         }
-        cargarData("");
+        cargarData();
         btnEliminar.setEnabled(false);
     }//GEN-LAST:event_btnEliminarActionPerformed
 
@@ -983,7 +997,8 @@ public class panelVendedores extends javax.swing.JPanel {
             getToolkit().beep();
             evt.consume();
 
-            JOptionPane.showMessageDialog(null, "Ingresar solo numeros", "", JOptionPane.ERROR_MESSAGE);
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "Ingresar solo numeros", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
         if (txtCelular.getText().length() >= 8) {
             evt.consume();
@@ -1006,7 +1021,8 @@ public class panelVendedores extends javax.swing.JPanel {
         if (Character.isDigit(validar)) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Ingresar solo letras", "", JOptionPane.ERROR_MESSAGE);
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "Ingresar solo letras", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
         if (txtNombre.getText().length() > 50) {
             evt.consume();
@@ -1020,7 +1036,8 @@ public class panelVendedores extends javax.swing.JPanel {
         if (Character.isLetter(validar)) {
             getToolkit().beep();
             evt.consume();
-            JOptionPane.showMessageDialog(null, "Ingresar solo numeros", "", JOptionPane.ERROR_MESSAGE);
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "Ingresar solo numeros", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
         if (txtSueldo.getText().length() > 4) {
             evt.consume();
@@ -1035,10 +1052,11 @@ public class panelVendedores extends javax.swing.JPanel {
     private void txtNumDocuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumDocuKeyTyped
         if (cbTipoDocu.getSelectedIndex() == 1) {
             char validar = evt.getKeyChar();
-             if (Character.isLetter(validar)) {
+            if (Character.isLetter(validar)) {
                 getToolkit().beep();
                 evt.consume();
-                JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "", JOptionPane.ERROR_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
 
             if (txtNumDocu.getText().length() > 12) {
@@ -1048,10 +1066,11 @@ public class panelVendedores extends javax.swing.JPanel {
         if (cbTipoDocu.getSelectedIndex() == 2) {
             validarCaracteres(evt);
             char validar = evt.getKeyChar();
-             if (Character.isLetter(validar)) {
+            if (Character.isLetter(validar)) {
                 getToolkit().beep();
                 evt.consume();
-                JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "", JOptionPane.ERROR_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
             if (txtNumDocu.getText().length() > 6) {
                 evt.consume();
@@ -1062,7 +1081,8 @@ public class panelVendedores extends javax.swing.JPanel {
             if (Character.isLetter(validar)) {
                 getToolkit().beep();
                 evt.consume();
-                JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "", JOptionPane.ERROR_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
 
             if (txtNumDocu.getText().length() > 13) {
@@ -1085,14 +1105,17 @@ public class panelVendedores extends javax.swing.JPanel {
 
                     if (rs.next()) {
                         if (rs.getString("Correo").equals(correo)) {
-                            JOptionPane.showMessageDialog(null, "Este correo ya existe, intenta con otro", "Error", JOptionPane.WARNING_MESSAGE);
+                            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                            JOptionPane.showMessageDialog(null, "Este correo ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                         }
                     }
                 } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 }
             } else {
-                JOptionPane.showMessageDialog(null, "Correo incorrecto,validar ejem: cinematix@gmail.com", "", JOptionPane.ERROR_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "Correo incorrecto,validar ejem: cinematix@gmail.com", "", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
         }
     }//GEN-LAST:event_txtCorreoFocusLost
@@ -1103,8 +1126,12 @@ public class panelVendedores extends javax.swing.JPanel {
 
     private void txtCelularFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelularFocusLost
         if (!txtCelular.getText().isEmpty()) {
-            if (txtCelular.getText().length() < 8 || txtCelular.getText().charAt(0) == '0' || txtCelular.getText().charAt(0) == '1' || txtCelular.getText().charAt(0) == '4' || txtCelular.getText().charAt(0) == '5' || txtCelular.getText().charAt(0) == '6' || txtCelular.getText().charAt(0) == '7' || txtCelular.getText().charAt(0) == '2') {
-                JOptionPane.showMessageDialog(null, "El celular debe contener 8 digitos y debe comenzar con 3, 8 o 9", "", JOptionPane.ERROR_MESSAGE);
+            if (txtCelular.getText().length() < 8) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "El debe comenzar con 3, 8 o 9", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (txtCelular.getText().charAt(0) == '0' || txtCelular.getText().charAt(0) == '1' || txtCelular.getText().charAt(0) == '4' || txtCelular.getText().charAt(0) == '5' || txtCelular.getText().charAt(0) == '6' || txtCelular.getText().charAt(0) == '2') {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "El número de celular debe comenzar con 7, 3, 8 o 9", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 txtCelular.setText("");
             }
         }
@@ -1119,7 +1146,8 @@ public class panelVendedores extends javax.swing.JPanel {
 
         if (cbTipoDocu.getSelectedIndex() == 1) {
             if (txtNumDocu.getText().length() < 13) {
-                JOptionPane.showMessageDialog(null, "El documento de identidad debe contener 13 digitos", "", JOptionPane.ERROR_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "El documento de identidad debe contener 13 digitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
 
             try {
@@ -1128,16 +1156,19 @@ public class panelVendedores extends javax.swing.JPanel {
 
                 if (rs.next()) {
                     if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
-                        JOptionPane.showMessageDialog(null, "Este número de identidad ya existe, intenta con otro", "Error", JOptionPane.ERROR_MESSAGE);
+                        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                        JOptionPane.showMessageDialog(null, "Este número de identidad ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                     }
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
         }
         if (cbTipoDocu.getSelectedIndex() == 2) {
             if (txtNumDocu.getText().length() < 7) {
-                JOptionPane.showMessageDialog(null, "El código del pasaporte debe contener 7 digitos", "", JOptionPane.ERROR_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "El código del pasaporte debe contener 7 digitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
 
             try {
@@ -1146,16 +1177,19 @@ public class panelVendedores extends javax.swing.JPanel {
 
                 if (rs.next()) {
                     if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
-                        JOptionPane.showMessageDialog(null, "Este número de pasaporte ya existe, intenta con otro", "Error", JOptionPane.ERROR_MESSAGE);
+                        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                        JOptionPane.showMessageDialog(null, "Este número de pasaporte ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                     }
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
         }
         if (cbTipoDocu.getSelectedIndex() == 3) {
             if (txtNumDocu.getText().length() < 14) {
-                JOptionPane.showMessageDialog(null, "El número del RTN debe contener 14 digitos", "", JOptionPane.ERROR_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "El número del RTN debe contener 14 digitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
 
             try {
@@ -1164,11 +1198,13 @@ public class panelVendedores extends javax.swing.JPanel {
 
                 if (rs.next()) {
                     if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
-                        JOptionPane.showMessageDialog(null, "Este número de RTN ya existe, intenta con otro", "Error", JOptionPane.ERROR_MESSAGE);
+                        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                        JOptionPane.showMessageDialog(null, "Este número de RTN ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                     }
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
         }
     }//GEN-LAST:event_txtNumDocuFocusLost
@@ -1180,7 +1216,8 @@ public class panelVendedores extends javax.swing.JPanel {
     private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
         if (!txtNombre.getText().isEmpty()) {
             if (txtNombre.getText().length() < 3) {
-                JOptionPane.showMessageDialog(null, "El nombre debe de tener mas de 3 caracteres", "Advertencia", JOptionPane.ERROR_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "El nombre debe de tener mas de 3 caracteres", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
         }
     }//GEN-LAST:event_txtNombreFocusLost
@@ -1198,11 +1235,13 @@ public class panelVendedores extends javax.swing.JPanel {
 
                 if (rs.next()) {
                     if (rs.getString("Usuario").equals(txtUsuario.getText())) {
-                        JOptionPane.showMessageDialog(null, "Este usuario ya existe, intenta con otro", "Error", JOptionPane.ERROR_MESSAGE);
+                        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                        JOptionPane.showMessageDialog(null, "Este usuario ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                     }
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
         }
     }//GEN-LAST:event_txtUsuarioFocusLost

@@ -13,6 +13,7 @@ import Tipografia.Fuente;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import paneles.CambiaPanel;
 
@@ -32,6 +33,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         setBackground(new Color(0, 0, 0, 0));
         new CambiaPanel(panelContenedor, new panelInicio());
         tipoFuente = new Fuente();
+        lbPunto.setVisible(true);
+        lbPunto1.setVisible(false);
+        lbPunto2.setVisible(false);
+        lbPunto3.setVisible(false);
 
         btnAcerca.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
@@ -60,6 +65,10 @@ public class AdminDashboard extends javax.swing.JFrame {
         btnVendedores = new rojerusan.RSButtonMetro();
         btnAcerca = new rojerusan.RSButtonMetro();
         btnSalir = new rojerusan.RSButtonMetro();
+        lbPunto = new javax.swing.JLabel();
+        lbPunto1 = new javax.swing.JLabel();
+        lbPunto2 = new javax.swing.JLabel();
+        lbPunto3 = new javax.swing.JLabel();
         panelContenedor = new javax.swing.JPanel();
         back = new javax.swing.JLabel();
 
@@ -67,7 +76,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         setIconImage(getIconImage());
         setMinimumSize(new java.awt.Dimension(1050, 700));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1050, 700));
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
@@ -145,6 +153,22 @@ public class AdminDashboard extends javax.swing.JFrame {
         });
         getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 489, 190, 26));
 
+        lbPunto.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lbPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoPunto.png"))); // NOI18N
+        getContentPane().add(lbPunto, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 257, -1, -1));
+
+        lbPunto1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lbPunto1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoPunto.png"))); // NOI18N
+        getContentPane().add(lbPunto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 318, -1, -1));
+
+        lbPunto2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lbPunto2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoPunto.png"))); // NOI18N
+        getContentPane().add(lbPunto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 378, -1, -1));
+
+        lbPunto3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lbPunto3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoPunto.png"))); // NOI18N
+        getContentPane().add(lbPunto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 438, -1, -1));
+
         panelContenedor.setBackground(new java.awt.Color(61, 61, 61));
         panelContenedor.setForeground(new java.awt.Color(61, 61, 61));
         panelContenedor.setOpaque(false);
@@ -180,6 +204,10 @@ public class AdminDashboard extends javax.swing.JFrame {
 
     private void btnVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendedoresActionPerformed
         new CambiaPanel(panelContenedor, new panelVendedores());
+        lbPunto.setVisible(false);
+        lbPunto1.setVisible(false);
+        lbPunto2.setVisible(true);
+        lbPunto3.setVisible(false);
     }//GEN-LAST:event_btnVendedoresActionPerformed
 
     private void btnPeliculas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliculas1ActionPerformed
@@ -187,7 +215,8 @@ public class AdminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPeliculas1ActionPerformed
 
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
-        int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
+        int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         if (ventanaConfirmacion == 0) {
             Inicio ini = new Inicio();
             ini.setVisible(true);
@@ -195,19 +224,34 @@ public class AdminDashboard extends javax.swing.JFrame {
         } else {
 
         }
-
+        lbPunto.setVisible(false);
+        lbPunto1.setVisible(false);
+        lbPunto2.setVisible(false);
+        lbPunto3.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAcercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcercaActionPerformed
         new CambiaPanel(panelContenedor, new panelAcercaDe());
+        lbPunto.setVisible(false);
+        lbPunto1.setVisible(false);
+        lbPunto2.setVisible(false);
+        lbPunto3.setVisible(true);
     }//GEN-LAST:event_btnAcercaActionPerformed
 
     private void btnPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliculasActionPerformed
         new CambiaPanel(panelContenedor, new panelPeliculas());
+        lbPunto.setVisible(false);
+        lbPunto1.setVisible(true);
+        lbPunto2.setVisible(false);
+        lbPunto3.setVisible(false);
     }//GEN-LAST:event_btnPeliculasActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
         new CambiaPanel(panelContenedor, new panelInicio());
+        lbPunto.setVisible(true);
+        lbPunto1.setVisible(false);
+        lbPunto2.setVisible(false);
+        lbPunto3.setVisible(false);
     }//GEN-LAST:event_btnInicioActionPerformed
 
     /**
@@ -252,6 +296,10 @@ public class AdminDashboard extends javax.swing.JFrame {
     private rojerusan.RSButtonMetro btnPeliculas;
     private rojerusan.RSButtonMetro btnSalir;
     private rojerusan.RSButtonMetro btnVendedores;
+    private javax.swing.JLabel lbPunto;
+    private javax.swing.JLabel lbPunto1;
+    private javax.swing.JLabel lbPunto2;
+    private javax.swing.JLabel lbPunto3;
     private javax.swing.JPanel panelContenedor;
     // End of variables declaration//GEN-END:variables
 }
