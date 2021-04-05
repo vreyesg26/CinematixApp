@@ -16,25 +16,27 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Los Pibes
  */
 public class LoginAdmin extends javax.swing.JFrame {
-    
 
     /**
      * Creates new form LoginAdmin
      */
     Fuente tipoFuente;
+
     public LoginAdmin() {
         initComponents();
         transparenciaButton();
         TextPrompt prueba = new TextPrompt("INGRESAR USUARIO", txtusuario);
         TextPrompt pru = new TextPrompt("INGRESAR CLAVE", txtpassword);
-        setBackground( new Color (0,0,0,0));  
-        
+        setBackground(new Color(0, 0, 0, 0));
+
         tipoFuente = new Fuente();
         txtusuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
         txtpassword.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
@@ -42,12 +44,12 @@ public class LoginAdmin extends javax.swing.JFrame {
         pru.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
     }
 
-    
     @Override
-    public Image getIconImage(){
+    public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
         return retValue;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -138,13 +140,14 @@ public class LoginAdmin extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-   public void transparenciaButton(){
-       btninicioa.setOpaque(false);
-       btninicioa.setContentAreaFilled(false);
-       btninicioa.setBorderPainted(false);
-   }
-  
-   public void validarAdministradores(){
+    public void transparenciaButton() {
+        btninicioa.setOpaque(false);
+        btninicioa.setContentAreaFilled(false);
+        btninicioa.setBorderPainted(false);
+    }
+
+    public static String usuario;
+    public void validarAdministradores() {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
         Encode encode = new Encode();
@@ -152,22 +155,24 @@ public class LoginAdmin extends javax.swing.JFrame {
         String user = txtusuario.getText();
         String pass = String.valueOf(txtpassword.getPassword());
         String sql = "SELECT * FROM usuarios WHERE Usuario = '" + user + "'";
-        
-        if(txtusuario.getText().isEmpty() && txtpassword.getText().isEmpty() || txtusuario.getText().isEmpty() || txtpassword.getText().isEmpty()){
-            JOptionPane.showMessageDialog(null, "Debes llenar los campos", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            
+
+        if (txtusuario.getText().isEmpty() && txtpassword.getText().isEmpty() || txtusuario.getText().isEmpty() || txtpassword.getText().isEmpty()) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debes llenar los campos", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+
         } else {
             try {
                 Statement st = cn.createStatement();
                 ResultSet rs = st.executeQuery(sql);
 
                 if (rs.next()) {
+                    usuario = rs.getString("Usuario");
                     int intentos = Integer.parseInt(rs.getString("Intentos"));
                     if (rs.getString("Intentos").equals("0")) {
                         JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
                         txtusuario.setText("");
                         txtpassword.setText("");
-                        
+
                     } else if (encode.deecnode(secretKey, rs.getString("Contrasena")).equals(pass)) {
                         AdminDashboard ad = new AdminDashboard();
                         ad.setVisible(true);
@@ -199,7 +204,7 @@ public class LoginAdmin extends javax.swing.JFrame {
                                 pst.execute();
 
                             } catch (Exception e) {
-                                
+
                             }
                         } else {
                             try {
@@ -210,33 +215,38 @@ public class LoginAdmin extends javax.swing.JFrame {
                                 pst.execute();
 
                             } catch (Exception e) {
-                                
+
                             }
-                            JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Aviso", JOptionPane.WARNING_MESSAGE);
+                            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                            JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Adveretencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                             txtusuario.setText("");
                             txtpassword.setText("");
                         }
                     }
+                } else {
+                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                    JOptionPane.showMessageDialog(null, "Asegurate de usar un usuario y una contraseña correctos", "Adveretencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 }
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Error de conexión " + e.getMessage(), "Aviso", JOptionPane.WARNING_MESSAGE);
+                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoSalida.png");
+                JOptionPane.showMessageDialog(null, "No se pudo establecer la conexión", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                System.out.println(e.getMessage());
                 txtusuario.setText("");
                 txtpassword.setText("");
             }
         }
     }
-   
+
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-            for (double i=0.0; i<=1.0; i=i+0.1){
-            String val = i+"";
-            float f=Float.valueOf(val);
+        for (double i = 0.0; i <= 1.0; i = i + 0.1) {
+            String val = i + "";
+            float f = Float.valueOf(val);
             this.setOpacity(f);
             try {
                 Thread.sleep(50);
-            }
-            catch(Exception e){
-                
+            } catch (Exception e) {
+
             }
         }
     }//GEN-LAST:event_formWindowOpened
@@ -251,19 +261,19 @@ public class LoginAdmin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtusuarioActionPerformed
 
-   
+
     private void btninicioaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninicioaActionPerformed
         validarAdministradores();
     }//GEN-LAST:event_btninicioaActionPerformed
 
-    
+
     private void txtusuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtusuarioKeyTyped
-      
-      
+
+
     }//GEN-LAST:event_txtusuarioKeyTyped
 
     private void txtpasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasswordKeyReleased
-        if(evt.getKeyCode() == KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             validarAdministradores();
         }
     }//GEN-LAST:event_txtpasswordKeyReleased

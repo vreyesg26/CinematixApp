@@ -5,6 +5,7 @@
  */
 package JFrames;
 
+import Paneles.panelInicio;
 import java.awt.Color;
 
 /**
@@ -42,6 +43,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
         });
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnRegresar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnRegresar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnRegresarMouseClicked(evt);
@@ -71,6 +73,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
 
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
         this.dispose();
+        panelInicio.pantallaGeneros = false;
     }//GEN-LAST:event_btnRegresarMouseClicked
 
     /**

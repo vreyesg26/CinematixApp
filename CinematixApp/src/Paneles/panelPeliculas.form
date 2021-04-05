@@ -119,11 +119,7 @@
     <Component class="javax.swing.JComboBox" name="cbIdiomas">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Seleccione Idioma..."/>
-            <StringItem index="1" value="Espa&#xf1;ol"/>
-            <StringItem index="2" value="Ingl&#xe9;s"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -149,19 +145,7 @@
     <Component class="javax.swing.JComboBox" name="cbDirector">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="11">
-            <StringItem index="0" value="Seleccione Director..."/>
-            <StringItem index="1" value="Mel Gibson"/>
-            <StringItem index="2" value="Martin Scorsese"/>
-            <StringItem index="3" value="David Lynch"/>
-            <StringItem index="4" value="Federico Fellini"/>
-            <StringItem index="5" value="Stanley Kubrick"/>
-            <StringItem index="6" value="Steven Spielberg"/>
-            <StringItem index="7" value="Quentin Tarantino"/>
-            <StringItem index="8" value="Ingmar Bergman"/>
-            <StringItem index="9" value="Francis Ford Coppola"/>
-            <StringItem index="10" value="Alfred Hitchcock"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
         <Property name="cursor" type="java.awt.Cursor" editor="org.netbeans.modules.form.editors2.CursorEditor">
           <Color id="Cursor de Mano"/>
@@ -437,23 +421,7 @@
     <Component class="javax.swing.JComboBox" name="cbHorarios">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="15">
-            <StringItem index="0" value="Seleccione Horario..."/>
-            <StringItem index="1" value="9:00am"/>
-            <StringItem index="2" value="10:00am"/>
-            <StringItem index="3" value="11:00am"/>
-            <StringItem index="4" value="12:00pm"/>
-            <StringItem index="5" value="1:00pm"/>
-            <StringItem index="6" value="2:00pm"/>
-            <StringItem index="7" value="3:00pm"/>
-            <StringItem index="8" value="4:00pm"/>
-            <StringItem index="9" value="5:00pm"/>
-            <StringItem index="10" value="6:00pm"/>
-            <StringItem index="11" value="7:00pm"/>
-            <StringItem index="12" value="8:00pm"/>
-            <StringItem index="13" value="9:00pm"/>
-            <StringItem index="14" value="10:00pm"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
         <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
           <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
@@ -526,16 +494,7 @@
     <Component class="javax.swing.JComboBox" name="cbGeneros">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="8">
-            <StringItem index="0" value="Seleccionar G&#xe9;nero..."/>
-            <StringItem index="1" value="Acci&#xf3;n "/>
-            <StringItem index="2" value="Aventura"/>
-            <StringItem index="3" value="Comedia"/>
-            <StringItem index="4" value="Drama"/>
-            <StringItem index="5" value="Terror"/>
-            <StringItem index="6" value="Ciencia Ficci&#xf3;n"/>
-            <StringItem index="7" value="Suspenso"/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
@@ -596,10 +555,9 @@
     <Component class="javax.swing.JComboBox" name="cbSalas">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="1">
-            <StringItem index="0" value="Seleccione Sala..."/>
-          </StringArray>
+          <StringArray count="0"/>
         </Property>
+        <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>

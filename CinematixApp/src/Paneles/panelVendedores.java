@@ -57,8 +57,8 @@ public class panelVendedores extends javax.swing.JPanel {
         txtNombre.setEnabled(false);
         txtSueldo.setEnabled(false);
         txtDireccion.setEnabled(false);
-        btnEditar.setEnabled(false);
-        btnEliminar.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        btnDeshabilitar.setEnabled(false);
         btnGuardar.setEnabled(false);
         btnNuevo.setEnabled(true);
         cbTipoDocu.setEnabled(false);
@@ -77,6 +77,40 @@ public class panelVendedores extends javax.swing.JPanel {
         txtClave.setText("");
         cbTipoDocu.setSelectedIndex(0);
         cbJornada.setSelectedIndex(0);
+    }
+
+    void cargarTipoDocumento() {
+        String sql = "SELECT NombreDocumento FROM tipodocumento";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            cbTipoDocu.addItem("SELECCIONE...");
+            while (rs.next()) {
+                cbTipoDocu.addItem(rs.getString("NombreDocumento").toUpperCase());
+            }
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    void cargarJornadas() {
+        String sql = "SELECT TipoJornada FROM jornadas";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            cbJornada.addItem("SELECCIONE...");
+            while (rs.next()) {
+                cbJornada.addItem(rs.getString("TipoJornada").toUpperCase());
+            }
+
+        } catch (Exception e) {
+
+        }
     }
 
     public void validarCaracteres(java.awt.event.KeyEvent e) {
@@ -108,6 +142,8 @@ public class panelVendedores extends javax.swing.JPanel {
         bloquear();
         cargarData();
         anchoColumnas();
+        cargarJornadas();
+        cargarTipoDocumento();
 
         tipoFuente = new Fuente();
         txtIDVendedor.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
@@ -136,8 +172,8 @@ public class panelVendedores extends javax.swing.JPanel {
         lb11.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
 
         btnGuardar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
-        btnEditar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
-        btnEliminar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        btnActualizar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        btnDeshabilitar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
     }
 
@@ -272,8 +308,8 @@ public class panelVendedores extends javax.swing.JPanel {
         txtNombre = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
         btnGuardar = new rojerusan.RSButtonHover();
-        btnEditar = new rojerusan.RSButtonHover();
-        btnEliminar = new rojerusan.RSButtonHover();
+        btnActualizar = new rojerusan.RSButtonHover();
+        btnDeshabilitar = new rojerusan.RSButtonHover();
         btnNuevo = new rojerusan.RSButtonHover();
         txtDireccion = new javax.swing.JTextField();
         lbLupa = new javax.swing.JLabel();
@@ -344,24 +380,32 @@ public class panelVendedores extends javax.swing.JPanel {
         lb10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lb10.setForeground(new java.awt.Color(255, 255, 255));
         lb10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb10.setText("DATOS DOCUMENTO");
+        lb10.setText("NÚMERO DEL DOCUMENTO");
 
         lb11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lb11.setForeground(new java.awt.Color(255, 255, 255));
         lb11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb11.setText("JORNADA");
 
-        cbJornada.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR", "MATUTINA", "VESPERTINA", "NOCTURNA" }));
         cbJornada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
         cbJornada.setPreferredSize(new java.awt.Dimension(166, 26));
+        cbJornada.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbJornadaFocusGained(evt);
+            }
+        });
         cbJornada.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbJornadaActionPerformed(evt);
             }
         });
 
-        cbTipoDocu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECCIONAR", "TARJETA DE IDENTIDAD ", "PASAPORTE ", "RTN" }));
         cbTipoDocu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
+        cbTipoDocu.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbTipoDocuFocusGained(evt);
+            }
+        });
 
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -426,6 +470,11 @@ public class panelVendedores extends javax.swing.JPanel {
         txtClave.setForeground(new java.awt.Color(255, 255, 255));
         txtClave.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtClave.setOpaque(false);
+        txtClave.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtClaveFocusGained(evt);
+            }
+        });
         txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtClaveKeyTyped(evt);
@@ -436,6 +485,9 @@ public class panelVendedores extends javax.swing.JPanel {
         txtNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNombre.setOpaque(false);
         txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNombreFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNombreFocusLost(evt);
             }
@@ -450,6 +502,9 @@ public class panelVendedores extends javax.swing.JPanel {
         txtCorreo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCorreo.setOpaque(false);
         txtCorreo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCorreoFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCorreoFocusLost(evt);
             }
@@ -473,29 +528,29 @@ public class panelVendedores extends javax.swing.JPanel {
             }
         });
 
-        btnEditar.setBackground(new java.awt.Color(81, 81, 81));
-        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoActualizar.png"))); // NOI18N
-        btnEditar.setText("ACTUALIZAR");
-        btnEditar.setBorderPainted(false);
-        btnEditar.setColorHover(new java.awt.Color(61, 61, 61));
-        btnEditar.setFocusable(false);
-        btnEditar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setBackground(new java.awt.Color(81, 81, 81));
+        btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoActualizar.png"))); // NOI18N
+        btnActualizar.setText("ACTUALIZAR");
+        btnActualizar.setBorderPainted(false);
+        btnActualizar.setColorHover(new java.awt.Color(61, 61, 61));
+        btnActualizar.setFocusable(false);
+        btnActualizar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
 
-        btnEliminar.setBackground(new java.awt.Color(81, 81, 81));
-        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoDeshabilitar.png"))); // NOI18N
-        btnEliminar.setText("DESHABILITAR");
-        btnEliminar.setBorderPainted(false);
-        btnEliminar.setColorHover(new java.awt.Color(61, 61, 61));
-        btnEliminar.setFocusable(false);
-        btnEliminar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+        btnDeshabilitar.setBackground(new java.awt.Color(81, 81, 81));
+        btnDeshabilitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoDeshabilitar.png"))); // NOI18N
+        btnDeshabilitar.setText("DESHABILITAR");
+        btnDeshabilitar.setBorderPainted(false);
+        btnDeshabilitar.setColorHover(new java.awt.Color(61, 61, 61));
+        btnDeshabilitar.setFocusable(false);
+        btnDeshabilitar.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
+                btnDeshabilitarActionPerformed(evt);
             }
         });
 
@@ -515,6 +570,11 @@ public class panelVendedores extends javax.swing.JPanel {
         txtDireccion.setForeground(new java.awt.Color(255, 255, 255));
         txtDireccion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtDireccion.setOpaque(false);
+        txtDireccion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDireccionFocusGained(evt);
+            }
+        });
         txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtDireccionKeyTyped(evt);
@@ -529,6 +589,11 @@ public class panelVendedores extends javax.swing.JPanel {
         txtSueldo.setForeground(new java.awt.Color(255, 255, 255));
         txtSueldo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtSueldo.setOpaque(false);
+        txtSueldo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSueldoFocusGained(evt);
+            }
+        });
         txtSueldo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtSueldoKeyReleased(evt);
@@ -542,6 +607,9 @@ public class panelVendedores extends javax.swing.JPanel {
         txtNumDocu.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtNumDocu.setOpaque(false);
         txtNumDocu.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNumDocuFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNumDocuFocusLost(evt);
             }
@@ -561,6 +629,9 @@ public class panelVendedores extends javax.swing.JPanel {
         txtCelular.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCelular.setOpaque(false);
         txtCelular.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtCelularFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCelularFocusLost(evt);
             }
@@ -575,6 +646,9 @@ public class panelVendedores extends javax.swing.JPanel {
         txtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtUsuario.setOpaque(false);
         txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtUsuarioFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtUsuarioFocusLost(evt);
             }
@@ -604,9 +678,9 @@ public class panelVendedores extends javax.swing.JPanel {
                         .addGap(8, 8, 8)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
-                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnDeshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(525, 525, 525)
                         .addComponent(lbLupa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -711,8 +785,8 @@ public class panelVendedores extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDeshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbLupa, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -726,16 +800,16 @@ public class panelVendedores extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbJornadaActionPerformed
 
-    private void menuModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarActionPerformed
+    void modificarRegistro() {
         int fila = tablaVendedores.getSelectedRow();
 
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
-        btnEliminar.setIcon(iconobtn);
-        btnEliminar.setText("CANCELAR");
+        btnDeshabilitar.setIcon(iconobtn);
+        btnDeshabilitar.setText("CANCELAR");
 
         if (fila >= 0) {
-            btnEditar.setEnabled(true);
-            btnEliminar.setEnabled(true);
+            btnActualizar.setEnabled(true);
+            btnDeshabilitar.setEnabled(true);
             btnNuevo.setEnabled(false);
             txtIDVendedor.setEnabled(false);
             cbJornada.setEnabled(true);
@@ -790,6 +864,23 @@ public class panelVendedores extends javax.swing.JPanel {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
+    }
+
+    private void menuModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarActionPerformed
+        if (!txtNombre.getText().isEmpty() || !txtDireccion.getText().isEmpty() || cbJornada.getSelectedIndex() != 0
+                || !txtSueldo.getText().isEmpty() || !txtCorreo.getText().isEmpty() || !txtUsuario.getText().isEmpty()
+                || !txtClave.getText().isEmpty() || cbTipoDocu.getSelectedIndex() != 0 || !txtCelular.getText().isEmpty()
+                || !txtNumDocu.getText().isEmpty()) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
+            int decision = JOptionPane.showConfirmDialog(null, "Los datos aún no se han guardado y podrían perderse\n "
+                    + "¿Seguro que desea entrar en modo edición?", "Confirmación", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            if (decision == 0) {
+                modificarRegistro();
+            }
+        } else {
+            modificarRegistro();
+        }
     }//GEN-LAST:event_menuModificarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -823,8 +914,8 @@ public class panelVendedores extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Los datos fueron guardados correctamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
             }
             limpiarCajas();
-            btnEditar.setEnabled(true);
-            btnEliminar.setEnabled(true);
+            btnActualizar.setEnabled(true);
+            btnDeshabilitar.setEnabled(true);
             btnNuevo.setEnabled(true);
             btnGuardar.setEnabled(false);
             txtIDVendedor.setEnabled(false);
@@ -835,10 +926,10 @@ public class panelVendedores extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         btnNuevo.setEnabled(true);
-        btnEditar.setEnabled(false);
-        btnEliminar.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        btnDeshabilitar.setEnabled(false);
         btnGuardar.setEnabled(false);
 
         boolean edito = true;
@@ -880,9 +971,9 @@ public class panelVendedores extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com", "", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
-    }//GEN-LAST:event_btnEditarActionPerformed
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+    private void btnDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeshabilitarActionPerformed
         int fila = tablaVendedores.getSelectedRow();
         String habilitado = "3";
         String deshabilitado = "0";
@@ -891,18 +982,18 @@ public class panelVendedores extends javax.swing.JPanel {
             String id = tablaVendedores.getValueAt(fila, 0).toString();
             String nombre = tablaVendedores.getValueAt(fila, 1).toString();
 
-            if (btnEliminar.getText().equals("CANCELAR")) {
+            if (btnDeshabilitar.getText().equals("CANCELAR")) {
                 limpiarCajas();
-                btnEditar.setEnabled(false);
+                btnActualizar.setEnabled(false);
                 btnNuevo.setEnabled(false);
-                btnEliminar.setEnabled(false);
+                btnDeshabilitar.setEnabled(false);
                 btnGuardar.setEnabled(true);
 
                 ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
-                btnEliminar.setIcon(iconobtn);
-                btnEliminar.setText("DESHABILITAR");
+                btnDeshabilitar.setIcon(iconobtn);
+                btnDeshabilitar.setText("DESHABILITAR");
 
-            } else if (btnEliminar.getText().equals("DESHABILITAR")) {
+            } else if (btnDeshabilitar.getText().equals("DESHABILITAR")) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
                 int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar este vendedor?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 if (ventanaConfirmacion == 0) {
@@ -919,7 +1010,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
                     }
                 }
-            } else if (btnEliminar.getText().equals("HABILITAR")) {
+            } else if (btnDeshabilitar.getText().equals("HABILITAR")) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
                 int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar este vendedor?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 if (ventanaConfirmacion == 0) {
@@ -939,8 +1030,10 @@ public class panelVendedores extends javax.swing.JPanel {
             }
         }
         cargarData();
-        btnEliminar.setEnabled(false);
-    }//GEN-LAST:event_btnEliminarActionPerformed
+        bloquear();
+        limpiarCajas();
+        btnNuevo.setEnabled(true);
+    }//GEN-LAST:event_btnDeshabilitarActionPerformed
 
     public void limite(TextField txtnombre, TextField txtdireccion1) {
         if (txtnombre.getText().length() > 35) {
@@ -972,6 +1065,10 @@ public class panelVendedores extends javax.swing.JPanel {
         tablaVendedores.setEnabled(true);
         btnGuardar.setEnabled(true);
         btnNuevo.setEnabled(false);
+        btnDeshabilitar.setEnabled(true);
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
@@ -1249,25 +1346,85 @@ public class panelVendedores extends javax.swing.JPanel {
     private void tablaVendedoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaVendedoresMouseClicked
         int fila = tablaVendedores.getSelectedRow();
         if (fila >= 0) {
-            btnEliminar.setEnabled(true);
+            btnDeshabilitar.setEnabled(true);
             String estado = tablaVendedores.getValueAt(fila, 11).toString();
 
             if ("3".equals(estado)) {
                 ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
-                btnEliminar.setIcon(iconobtn);
-                btnEliminar.setText("DESHABILITAR");
+                btnDeshabilitar.setIcon(iconobtn);
+                btnDeshabilitar.setText("DESHABILITAR");
             } else if ("0".equals(estado)) {
                 ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoHabilitar.png");
-                btnEliminar.setIcon(iconobtn);
-                btnEliminar.setText("HABILITAR");
+                btnDeshabilitar.setIcon(iconobtn);
+                btnDeshabilitar.setText("HABILITAR");
             }
         }
     }//GEN-LAST:event_tablaVendedoresMouseClicked
 
+    private void txtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusGained
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtNombreFocusGained
+
+    private void txtDireccionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusGained
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtDireccionFocusGained
+
+    private void txtCelularFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelularFocusGained
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtCelularFocusGained
+
+    private void txtSueldoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSueldoFocusGained
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtSueldoFocusGained
+
+    private void txtCorreoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusGained
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtCorreoFocusGained
+
+    private void txtUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusGained
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtUsuarioFocusGained
+
+    private void txtClaveFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtClaveFocusGained
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtClaveFocusGained
+
+    private void cbTipoDocuFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbTipoDocuFocusGained
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_cbTipoDocuFocusGained
+
+    private void txtNumDocuFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumDocuFocusGained
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtNumDocuFocusGained
+
+    private void cbJornadaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbJornadaFocusGained
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_cbJornadaFocusGained
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private rojerusan.RSButtonHover btnEditar;
-    private rojerusan.RSButtonHover btnEliminar;
+    private rojerusan.RSButtonHover btnActualizar;
+    private rojerusan.RSButtonHover btnDeshabilitar;
     private rojerusan.RSButtonHover btnGuardar;
     private rojerusan.RSButtonHover btnNuevo;
     private javax.swing.JComboBox cbJornada;

@@ -13,6 +13,9 @@ import Tipografia.Fuente;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import paneles.CambiaPanel;
@@ -37,12 +40,14 @@ public class AdminDashboard extends javax.swing.JFrame {
         lbPunto1.setVisible(false);
         lbPunto2.setVisible(false);
         lbPunto3.setVisible(false);
+        lbUsuarioSesion.setText("       "+LoginAdmin.usuario.toUpperCase());
 
         btnAcerca.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnSalir.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnVendedores.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnInicio.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        lbUsuarioSesion.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 11));
     }
 
     @Override
@@ -70,6 +75,8 @@ public class AdminDashboard extends javax.swing.JFrame {
         lbPunto2 = new javax.swing.JLabel();
         lbPunto3 = new javax.swing.JLabel();
         panelContenedor = new javax.swing.JPanel();
+        lbImagenUsuario = new javax.swing.JLabel();
+        lbUsuarioSesion = new javax.swing.JLabel();
         back = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -175,6 +182,24 @@ public class AdminDashboard extends javax.swing.JFrame {
         panelContenedor.setLayout(new javax.swing.BoxLayout(panelContenedor, javax.swing.BoxLayout.LINE_AXIS));
         getContentPane().add(panelContenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 10, 805, 690));
 
+        lbImagenUsuario.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoUsuario.png"))); // NOI18N
+        lbImagenUsuario.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        lbImagenUsuario.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        lbImagenUsuario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lbImagenUsuarioMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lbImagenUsuarioMouseExited(evt);
+            }
+        });
+        getContentPane().add(lbImagenUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 655, -1, -1));
+
+        lbUsuarioSesion.setForeground(new java.awt.Color(255, 255, 255));
+        lbUsuarioSesion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/labelRedondeado.png"))); // NOI18N
+        lbUsuarioSesion.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        getContentPane().add(lbUsuarioSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 655, 160, 24));
+
         back.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         back.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/AdminDashboard1.png"))); // NOI18N
         getContentPane().add(back, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 700));
@@ -254,6 +279,14 @@ public class AdminDashboard extends javax.swing.JFrame {
         lbPunto3.setVisible(false);
     }//GEN-LAST:event_btnInicioActionPerformed
 
+    private void lbImagenUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbImagenUsuarioMouseEntered
+        //lbUsuarioSesion.setBounds(31, 655, 160, 24);
+    }//GEN-LAST:event_lbImagenUsuarioMouseEntered
+
+    private void lbImagenUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbImagenUsuarioMouseExited
+        //lbUsuarioSesion.setBounds(31, 655, 15, 24);
+    }//GEN-LAST:event_lbImagenUsuarioMouseExited
+
     /**
      * @param args the command line arguments
      */
@@ -296,10 +329,12 @@ public class AdminDashboard extends javax.swing.JFrame {
     private rojerusan.RSButtonMetro btnPeliculas;
     private rojerusan.RSButtonMetro btnSalir;
     private rojerusan.RSButtonMetro btnVendedores;
+    private javax.swing.JLabel lbImagenUsuario;
     private javax.swing.JLabel lbPunto;
     private javax.swing.JLabel lbPunto1;
     private javax.swing.JLabel lbPunto2;
     private javax.swing.JLabel lbPunto3;
+    private javax.swing.JLabel lbUsuarioSesion;
     private javax.swing.JPanel panelContenedor;
     // End of variables declaration//GEN-END:variables
 }

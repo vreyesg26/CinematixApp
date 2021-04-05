@@ -11,7 +11,6 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -121,12 +120,9 @@ public class MenuVendedor extends javax.swing.JFrame {
     Conexion cc = new Conexion();
     Connection cn = cc.GetConexion();*/
     void AgregarAComboboxPelicula() {
-        int Combo;
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
-        Combo = jComboBoxPeliculas.getSelectedIndex();
-
-        String sql = "SELECT Titulo FROM peliculas";
+        String sql = "SELECT Titulo FROM peliculas WHERE IDEstado = 1";
 
         try {
             Statement st = cn.createStatement();

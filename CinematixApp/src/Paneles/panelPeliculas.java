@@ -36,6 +36,11 @@ public class panelPeliculas extends javax.swing.JPanel {
         cargarData("");
         bloquearCampos();
         anchoColumnas();
+        cargarIdiomas();
+        cargarHorarios();
+        cargarDirectores();
+        cargarGeneros();
+        cargarSalas();
         txtUrl.setEnabled(false);
         txtIDPelicula.setVisible(false);
         tipoFuente = new Fuente();
@@ -56,6 +61,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         cbIdiomas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         cbHorarios.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         cbGeneros.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        cbSalas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         tablaPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
 
         btnImagen.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
@@ -65,6 +71,91 @@ public class panelPeliculas extends javax.swing.JPanel {
         btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
     }
 
+    void cargarIdiomas() {
+        String sql = "SELECT Idioma FROM idiomas";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            cbIdiomas.addItem("Seleccione Idioma...");
+            while (rs.next()) {
+                cbIdiomas.addItem(rs.getString("Idioma"));
+            }
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    void cargarHorarios() {
+        String sql = "SELECT Hora FROM horarios WHERE IDEstado = 1";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            cbHorarios.addItem("Seleccione Horario...");
+            while (rs.next()) {
+                cbHorarios.addItem(rs.getString("Hora"));
+            }
+
+        } catch (Exception e) {
+
+        }
+    }
+    
+    void cargarDirectores(){
+        String sql = "SELECT Nombre FROM director WHERE IDEstado = 1";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            cbDirector.addItem("Seleccione Director...");
+            while (rs.next()) {
+                cbDirector.addItem(rs.getString("Nombre"));
+            }
+
+        } catch (Exception e) {
+
+        }
+    }
+    
+    void cargarGeneros(){
+        String sql = "SELECT Genero FROM generos WHERE IDEstado = 1";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            cbGeneros.addItem("Seleccione Género...");
+            while (rs.next()) {
+                cbGeneros.addItem(rs.getString("Genero"));
+            }
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    void cargarSalas(){
+        String sql = "SELECT Sala FROM salas";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            cbSalas.addItem("Seleccione Sala...");
+            while (rs.next()) {
+                cbSalas.addItem(rs.getString("Sala"));
+            }
+
+        } catch (Exception e) {
+
+        }
+    }
+    
     void anchoColumnas() {
         TableColumnModel anchoColumnas = tablaPeliculas.getColumnModel();
         anchoColumnas.getColumn(0).setPreferredWidth(30);
@@ -90,6 +181,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         cbHorarios.setEnabled(false);
         cbIdiomas.setEnabled(false);
         cbGeneros.setEnabled(false);
+        cbSalas.setEnabled(false);
         btnGuardar.setEnabled(false);
         btnDeshabilitar.setEnabled(false);
         btnActualizar.setEnabled(false);
@@ -135,14 +227,15 @@ public class panelPeliculas extends javax.swing.JPanel {
     void buscarData(String valor) {
         String[] titulos = {"ID", "Titulo", "Duración", "Director", "Reparto", "Idioma", "Sinopsis", "Horario", "Género", "Sala", "Foto", "URL", "Estado"};
         String[] registros = new String[13];
-        String sql = "SELECT IdPelicula, Titulo, Duracion, Nombre, Reparto, Idioma, Sinopsis, Hora, Genero, Sala, Foto, urlFoto, Estado\n"
-                + "                FROM peliculas INNER JOIN director USING (IDDirector)\n"
-                + "                INNER JOIN idiomas USING (IDIdioma)\n"
-                + "                INNER JOIN horarios USING (IDHorario)\n"
-                + "                INNER JOIN generos USING (IDGenero)\n"
-                + "                INNER JOIN salas USING (IDSala)\n"
-                + "                INNER JOIN estados USING (IDEstado)\n"
-                + "                WHERE CONCAT (IdPelicula, ' ', Titulo) LIKE '%" + valor + "%'";
+        String sql = "SELECT P.IdPelicula, P.Titulo, P.Duracion, D.Nombre, P.Reparto, I.Idioma, H.Hora, G.Genero, S.Sala, P.Foto, P.urlFoto, E.Estado\n"
+                + "FROM peliculas AS P \n"
+                + "INNER JOIN director AS D ON P.IDDirector = D.IDDirector\n"
+                + "INNER JOIN idiomas AS I ON P.IDIdioma = I.IDIdioma\n"
+                + "INNER JOIN horarios AS H ON P.IDHorario = H.IDHorario\n"
+                + "INNER JOIN generos AS G ON P.IDGenero = G.IDGenero\n"
+                + "INNER JOIN salas AS S ON P.IDSalas = S.IDSalas\n"
+                + "INNER JOIN estados AS E ON P.IDEstado = E.IDEstado"
+                + "WHERE CONCAT (IdPelicula, ' ', Titulo) LIKE '%" + valor + "%'";
 
         model = new DefaultTableModel(null, titulos);
 
@@ -179,17 +272,19 @@ public class panelPeliculas extends javax.swing.JPanel {
     DefaultTableModel model;
     Conexion cc = new Conexion();
     Connection cn = cc.GetConexion();
+
     void cargarData(String valor) {
         String[] titulos = {"ID", "Titulo", "Duración", "Director", "Reparto", "Idioma", "Sinopsis", "Horario", "Género", "Sala", "Foto", "URL", "Estado"};
         String[] registros = new String[13];
-        String sql = "SELECT IdPelicula, Titulo, Duracion, Nombre, Reparto, Idioma, Sinopsis, Hora, Genero, Sala, Foto, urlFoto, Estado\n"
-                + "                FROM peliculas INNER JOIN director USING (IDDirector)\n"
-                + "                INNER JOIN idiomas USING (IDIdioma)\n"
-                + "                INNER JOIN horarios USING (IDHorario)\n"
-                + "                INNER JOIN generos USING (IDGenero)\n"
-                + "                INNER JOIN salas USING (IDSalas)\n"
-                + "                INNER JOIN estados USING (IDEstado)\n"
-                + "                WHERE IdPelicula != 0 ORDER BY IdPelicula";
+
+        String sql = "SELECT P.IdPelicula, P.Titulo, P.Duracion, D.Nombre, P.Reparto, I.Idioma, H.Hora, G.Genero, S.Sala, P.Foto, P.urlFoto, E.Estado\n"
+                + "FROM peliculas AS P \n"
+                + "INNER JOIN director AS D ON P.IDDirector = D.IDDirector\n"
+                + "INNER JOIN idiomas AS I ON P.IDIdioma = I.IDIdioma\n"
+                + "INNER JOIN horarios AS H ON P.IDHorario = H.IDHorario\n"
+                + "INNER JOIN generos AS G ON P.IDGenero = G.IDGenero\n"
+                + "INNER JOIN salas AS S ON P.IDSalas = S.IDSalas\n"
+                + "INNER JOIN estados AS E ON P.IDEstado = E.IDEstado";
 
         model = new DefaultTableModel(null, titulos);
 
@@ -234,6 +329,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         cbHorarios.setSelectedIndex(0);
         cbIdiomas.setSelectedIndex(0);
         cbGeneros.setSelectedIndex(0);
+        cbSalas.setSelectedIndex(0);
         labelFoto.setIcon(null);
     }
 
@@ -354,13 +450,11 @@ public class panelPeliculas extends javax.swing.JPanel {
         labelFoto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         add(labelFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 74, 192, 274));
 
-        cbIdiomas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Idioma...", "Español", "Inglés" }));
         cbIdiomas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
         cbIdiomas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbIdiomas.setOpaque(false);
         add(cbIdiomas, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 135, 206, 35));
 
-        cbDirector.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Director...", "Mel Gibson", "Martin Scorsese", "David Lynch", "Federico Fellini", "Stanley Kubrick", "Steven Spielberg", "Quentin Tarantino", "Ingmar Bergman", "Francis Ford Coppola", "Alfred Hitchcock" }));
         cbDirector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbDirector.setOpaque(false);
         add(cbDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 74, 206, 35));
@@ -512,7 +606,6 @@ public class panelPeliculas extends javax.swing.JPanel {
         });
         add(txtReparto, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 135, 326, 35));
 
-        cbHorarios.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Horario...", "9:00am", "10:00am", "11:00am", "12:00pm", "1:00pm", "2:00pm", "3:00pm", "4:00pm", "5:00pm", "6:00pm", "7:00pm", "8:00pm", "9:00pm", "10:00pm" }));
         cbHorarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
         cbHorarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbHorarios.setOpaque(false);
@@ -540,7 +633,6 @@ public class panelPeliculas extends javax.swing.JPanel {
         labelLupa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoBuscar.png"))); // NOI18N
         add(labelLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 410, -1, 29));
 
-        cbGeneros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Género...", "Acción ", "Aventura", "Comedia", "Drama", "Terror", "Ciencia Ficción", "Suspenso" }));
         cbGeneros.setOpaque(false);
         add(cbGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 198, 206, 35));
 
@@ -560,7 +652,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         txtIDPelicula.setOpaque(false);
         add(txtIDPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 31, 25, 25));
 
-        cbSalas.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione Sala..." }));
+        cbSalas.setOpaque(false);
         add(cbSalas, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 315, 206, 35));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -607,7 +699,7 @@ public class panelPeliculas extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar");
                 System.out.println(e.getMessage());
             }
-        } 
+        }
         cargarData("");
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -665,48 +757,65 @@ public class panelPeliculas extends javax.swing.JPanel {
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeshabilitarActionPerformed
-        if ("CANCELAR".equals(btnDeshabilitar.getText())) {
-            limpiarCajas();
-            btnActualizar.setEnabled(false);
-            btnGuardar.setEnabled(true);
-            btnDeshabilitar.setEnabled(false);
+        int fila = tablaPeliculas.getSelectedRow();
+        String habilitado = "1";
+        String deshabilitado = "2";
 
-            ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
-            btnDeshabilitar.setIcon(iconobtn);
-            btnDeshabilitar.setText("DESHABILITAR");
-        } else if ("DESHABILITAR".equals(btnDeshabilitar.getText())) {
-            int fila = tablaPeliculas.getSelectedRow();
-            if (fila < 0) {
-                JOptionPane.showMessageDialog(null, "Para borrar debe seleccionar una pelicula de la tabla", "Aviso", JOptionPane.WARNING_MESSAGE);
+        if (fila >= 0) {
+            String id = tablaPeliculas.getValueAt(fila, 0).toString();
+            String pelicula = tablaPeliculas.getValueAt(fila, 1).toString();
+
+            if (btnDeshabilitar.getText().equals("CANCELAR")) {
+                limpiarCajas();
+                btnActualizar.setEnabled(false);
+                btnNuevo.setEnabled(false);
                 btnDeshabilitar.setEnabled(false);
-            } else {
-                btnDeshabilitar.setEnabled(true);
-                String elemento = tablaPeliculas.getValueAt(fila, 0).toString();
-                String pelicula = tablaPeliculas.getValueAt(fila, 1).toString();
-                int confirmación = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas borrar " + pelicula + "?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-                if (confirmación == 0) {
-                    String sqlElim = "DELETE FROM peliculas WHERE IdPelicula='" + elemento + "'";
-                    try {
-                        PreparedStatement pst = cn.prepareStatement(sqlElim);
-                        int n = pst.executeUpdate();
-                        if (n > 0) {
-                            JOptionPane.showMessageDialog(null, "Los datos fueron eliminados con exito", "Confirmación", JOptionPane.PLAIN_MESSAGE);
-                            cargarData("");
-                            btnDeshabilitar.setEnabled(false);
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Hubo problemas al querer eliminar esta pelicula");
-                        }
-                    } catch (SQLException ex) {
-                        System.out.println(ex.getMessage());
-                    }
-                    limpiarCajas();
-                } else {
+                btnGuardar.setEnabled(true);
 
+                ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
+                btnDeshabilitar.setIcon(iconobtn);
+                btnDeshabilitar.setText("DESHABILITAR");
+
+            } else if (btnDeshabilitar.getText().equals("DESHABILITAR")) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
+                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar esta pelicula?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                if (ventanaConfirmacion == 0) {
+                    try {
+                        String sqlEstado = "UPDATE `peliculas` SET `IDEstado` = ? WHERE `peliculas`.`IdPelicula` = ? ";
+                        PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
+                        pst.setString(1, deshabilitado);
+                        pst.setString(2, id);
+                        pst.execute();
+
+                        ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
+                        JOptionPane.showMessageDialog(null, "La pelicula " + pelicula + " ha sido deshabilitada", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
+                    } catch (Exception e) {
+
+                    }
+                }
+            } else if (btnDeshabilitar.getText().equals("HABILITAR")) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
+                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar esta pelicula?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                if (ventanaConfirmacion == 0) {
+                    try {
+                        String sqlEstado = "UPDATE `peliculas` SET `IDEstado` = ? WHERE `peliculas`.`IdPelicula` = ? ";
+                        PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
+                        pst.setString(1, habilitado);
+                        pst.setString(2, id);
+                        pst.execute();
+
+                        ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
+                        JOptionPane.showMessageDialog(null, "La pelicula " + pelicula + " ahora está habilitada", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
+                    } catch (Exception e) {
+
+                    }
                 }
             }
-        } else if (btnDeshabilitar.getText().equals("HABILITAR")) {
-
         }
+        limpiarCajas();
+        cargarData("");
+        bloquearCampos();
+        btnNuevo.setEnabled(true);
     }//GEN-LAST:event_btnDeshabilitarActionPerformed
 
     private void btnImagenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImagenActionPerformed
@@ -746,7 +855,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         validarSoloNumeros(evt);
     }//GEN-LAST:event_txtDuracionKeyTyped
 
-    private void menuModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarActionPerformed
+    void modificarRegistro() {
         btnGuardar.setEnabled(false);
         btnActualizar.setEnabled(true);
         btnDeshabilitar.setEnabled(true);
@@ -855,6 +964,23 @@ public class panelPeliculas extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila");
         }
+    }
+
+    private void menuModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuModificarActionPerformed
+        if (!txtTitulo.getText().isEmpty() || !txtDuracion.getText().isEmpty() || cbDirector.getSelectedIndex() != 0
+                || !txtReparto.getText().isEmpty() || cbIdiomas.getSelectedIndex() != 0 || !txtSinopsis.getText().isEmpty()
+                || cbGeneros.getSelectedIndex() != 0 || cbHorarios.getSelectedIndex() != 0 || cbSalas.getSelectedIndex() != 0
+                || !txtUrl.getText().isEmpty() || labelFoto.getIcon() != null) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
+            int decision = JOptionPane.showConfirmDialog(null, "Los datos aún no se han guardado y podrían perderse\n "
+                    + "¿Seguro que desea entrar en modo edición?", "Confirmación", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            if (decision == 0) {
+                modificarRegistro();
+            }
+        } else {
+            modificarRegistro();
+        }
     }//GEN-LAST:event_menuModificarActionPerformed
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
@@ -872,12 +998,16 @@ public class panelPeliculas extends javax.swing.JPanel {
         cbHorarios.setEnabled(true);
         cbIdiomas.setEnabled(true);
         cbGeneros.setEnabled(true);
+        cbSalas.setEnabled(true);
         btnNuevo.setEnabled(false);
         btnGuardar.setEnabled(true);
-        btnDeshabilitar.setEnabled(false);
+        btnDeshabilitar.setEnabled(true);
         btnActualizar.setEnabled(false);
         btnImagen.setEnabled(true);
         tablaPeliculas.setEnabled(true);
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void txtSinopsisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSinopsisKeyTyped

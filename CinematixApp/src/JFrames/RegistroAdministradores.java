@@ -6,13 +6,13 @@
 package JFrames;
 
 import Datos.Conexion;
+import Paneles.panelInicio;
 import Paneles.panelVendedores;
 import Tipografia.Fuente;
 import encriptacion.Encode;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.FileInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,7 +20,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -43,6 +42,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         tipoFuente = new Fuente();
         cargarData();
         anchoColumnas();
+        bloquear();
 
         TextPrompt id = new TextPrompt("ID", txtIDUsuario);
         TextPrompt usuario = new TextPrompt("USUARIO", txtUsuario);
@@ -56,6 +56,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         txtUsuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
         txtContraseña.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
         tablaUsuarios.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        modificarUsuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
 
         btnGuardar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
@@ -79,7 +80,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     private void initComponents() {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
-        modificar = new javax.swing.JMenuItem();
+        modificarUsuario = new javax.swing.JMenuItem();
         btnRegresar = new javax.swing.JLabel();
         txtIDUsuario = new javax.swing.JTextField();
         txtUsuario = new javax.swing.JTextField();
@@ -93,13 +94,13 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         tablaUsuarios = new javax.swing.JTable();
         lbFondo = new javax.swing.JLabel();
 
-        modificar.setText("Modificar");
-        modificar.addActionListener(new java.awt.event.ActionListener() {
+        modificarUsuario.setText("Modificar");
+        modificarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modificarActionPerformed(evt);
+                modificarUsuarioActionPerformed(evt);
             }
         });
-        jPopupMenu1.add(modificar);
+        jPopupMenu1.add(modificarUsuario);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -128,6 +129,9 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         txtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtUsuario.setOpaque(false);
         txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtUsuarioFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtUsuarioFocusLost(evt);
             }
@@ -137,6 +141,14 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         txtContraseña.setForeground(new java.awt.Color(255, 255, 255));
         txtContraseña.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtContraseña.setOpaque(false);
+        txtContraseña.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtContraseñaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtContraseñaFocusLost(evt);
+            }
+        });
         getContentPane().add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 240, 220, 40));
         getContentPane().add(lbX, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 170, -1, 40));
 
@@ -148,6 +160,11 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         btnNuevo.setFocusPainted(false);
         btnNuevo.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         btnNuevo.setMargin(new java.awt.Insets(2, 4, 2, 4));
+        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNuevoActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 130, 40));
 
         btnActualizar.setBackground(new java.awt.Color(81, 81, 81));
@@ -199,6 +216,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         tablaUsuarios.setForeground(new java.awt.Color(255, 255, 255));
         tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
+                {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null}
@@ -272,6 +290,23 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         txtContraseña.setText("");
     }
 
+    void bloquear() {
+        txtUsuario.setEnabled(false);
+        txtContraseña.setEnabled(false);
+        btnGuardar.setEnabled(false);
+        btnActualizar.setEnabled(false);
+        btnDeshabilitar.setEnabled(false);
+        tablaUsuarios.setEnabled(false);
+    }
+
+    void desbloquear() {
+        txtUsuario.setEnabled(true);
+        txtContraseña.setEnabled(true);
+        btnGuardar.setEnabled(true);
+        btnDeshabilitar.setEnabled(true);
+        tablaUsuarios.setEnabled(true);
+    }
+
     ResultSet rs;
     PreparedStatement Pst;
     DefaultTableModel model;
@@ -304,16 +339,18 @@ public class RegistroAdministradores extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
-
+    
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
         if (!txtIDUsuario.getText().isEmpty() || !txtUsuario.getText().isEmpty() || !txtContraseña.getText().isEmpty()) {
             ImageIcon jPaneIcon = new ImageIcon("src/Iconos/iconoSalida.png");
             int salidaConfirmacion = JOptionPane.showConfirmDialog(null, "Al parecer tienes un proceso pendiente\n ¿Estás seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPaneIcon);
             if (salidaConfirmacion == 0) {
                 this.dispose();
+                panelInicio.pantallaUsuarios = false;
             }
         } else {
             this.dispose();
+            panelInicio.pantallaUsuarios = false;
         }
     }//GEN-LAST:event_btnRegresarMouseClicked
 
@@ -374,7 +411,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 }
             } else if (btnDeshabilitar.getText().equals("HABILITAR")) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
-                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar este usuario?", null, JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 if (ventanaConfirmacion == 0) {
                     try {
                         String sqlEstado = "UPDATE `usuarios` SET `Intentos` = ? WHERE `usuarios`.`IDUsuario` = ? ";
@@ -391,10 +428,13 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 }
             }
         }
+        limpiarCajas();
         cargarData();
+        bloquear();
+        btnNuevo.setEnabled(true);
     }//GEN-LAST:event_btnDeshabilitarActionPerformed
 
-    private void modificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarActionPerformed
+    void modificarRegistro() {
         int fila = tablaUsuarios.getSelectedRow();
 
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
@@ -421,7 +461,21 @@ public class RegistroAdministradores extends javax.swing.JFrame {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
-    }//GEN-LAST:event_modificarActionPerformed
+    }
+
+    private void modificarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarUsuarioActionPerformed
+        if (!txtUsuario.getText().isEmpty() || !txtContraseña.getText().isEmpty()) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
+            int decision = JOptionPane.showConfirmDialog(null, "Los datos aún no se han guardado y podrían perderse\n "
+                    + "¿Seguro que desea entrar en modo edición?", "Confirmación", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            if (decision == 0) {
+                modificarRegistro();
+            }
+        } else {
+            modificarRegistro();
+        }
+    }//GEN-LAST:event_modificarUsuarioActionPerformed
 
     private void txtUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusLost
         if (!txtUsuario.getText().isEmpty()) {
@@ -466,21 +520,20 @@ public class RegistroAdministradores extends javax.swing.JFrame {
 
                 int i = pst.executeUpdate();
                 if (i > 0) {
-                    JOptionPane.showMessageDialog(null, "Se guardo correctamente");
-                    limpiarCajas();
-                    btnGuardar.setEnabled(false);
-                    btnNuevo.setEnabled(true);
-                    btnDeshabilitar.setEnabled(false);
-                    btnActualizar.setEnabled(false);
-                    tablaUsuarios.setEnabled(false);
+                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
+                    JOptionPane.showMessageDialog(null, "El registro se guardo correctamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 }
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar");
+                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());
             }
         }
+        limpiarCajas();
         cargarData();
+        bloquear();
+        btnNuevo.setEnabled(true);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -499,13 +552,8 @@ public class RegistroAdministradores extends javax.swing.JFrame {
 
                 int i = pst.executeUpdate();
                 if (i > 0) {
-                    JOptionPane.showMessageDialog(null, "Se guardo correctamente");
-                    limpiarCajas();
-                    btnGuardar.setEnabled(false);
-                    btnNuevo.setEnabled(true);
-                    btnDeshabilitar.setEnabled(false);
-                    btnActualizar.setEnabled(false);
-                    tablaUsuarios.setEnabled(false);
+                    ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoCorrecto.png");
+                    JOptionPane.showMessageDialog(null, "El registro fue actualizado correctamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
 
                     ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
                     btnDeshabilitar.setIcon(iconobtn);
@@ -513,12 +561,45 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar");
+                ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoCorrecto.png");
+                JOptionPane.showMessageDialog(null, "Hubo un error al intentar actualizar", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());
             }
         }
+        limpiarCajas();
         cargarData();
+        bloquear();
+        btnNuevo.setEnabled(true);
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        desbloquear();
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
+        btnNuevo.setEnabled(false);
+    }//GEN-LAST:event_btnNuevoActionPerformed
+
+    private void txtUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusGained
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtUsuarioFocusGained
+
+    private void txtContraseñaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContraseñaFocusGained
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtContraseñaFocusGained
+
+    private void txtContraseñaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContraseñaFocusLost
+        if (!txtContraseña.getText().isEmpty()) {
+            if (txtContraseña.getText().length() < 6) {
+                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La contraseña debe tener minimo 6 caracteres", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            }
+        }
+    }//GEN-LAST:event_txtContraseñaFocusLost
 
     /**
      * @param args the command line arguments
@@ -560,12 +641,12 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     private rojeru_san.complementos.RSButtonHover btnDeshabilitar;
     private rojeru_san.complementos.RSButtonHover btnGuardar;
     private rojeru_san.complementos.RSButtonHover btnNuevo;
-    private javax.swing.JLabel btnRegresar;
+    public static javax.swing.JLabel btnRegresar;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbFondo;
     private javax.swing.JLabel lbX;
-    private javax.swing.JMenuItem modificar;
+    private javax.swing.JMenuItem modificarUsuario;
     private javax.swing.JTable tablaUsuarios;
     private javax.swing.JTextField txtContraseña;
     private javax.swing.JTextField txtIDUsuario;
