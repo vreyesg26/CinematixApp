@@ -708,7 +708,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         Connection cc = cn.GetConexion();
         validarCamposVacios();
         if (guardar == false) {
-
+            
         } else {
             String sql = "UPDATE peliculas SET Titulo = ?, Duracion = ?, IDDirector = ?, "
                     + "Reparto = ?, IDIdioma = ?, Sinopsis = ?, IDHorario = ?, "

@@ -149,12 +149,12 @@ public class datos extends Conexion {
     public boolean editar() {
         PreparedStatement Pst = null;
         Connection cc = GetConexion();
-        //String vSql = "UPDATE vendedor SET Nombre = ? , Direccion = ?, Sueldo = ?, IDJornada = ?, NumeroCelular = ?, IDTipoDocumento = ?, Correo = ? where IDVendedor= ? ";
+        //String vSql = "UPDATE vendedor SET Nombre = ? , Direccion = ?, Sueldo = ?, IDJornada = ?, NumeroCelular = ?, IDTipoDocumento = ?, NumeroDocumento = ?, Correo = ? where IDVendedor= ? ";
 
         /**
          * String vSql="UPDATE vendedor SET Nombre = ?, " + "Direccion = ?," +
          * "Sueldo = ?," + "IDJornada = ?," + "NumeroCelular = ?," +
-         * "IDTipoDocumento=?" + "Correo=?" + "WHERE IDVendedor = ?";*
+         * "IDTipoDocumento=?," + "NumeroDocumento=?," + "Correo=?," + "WHERE IDVendedor = ?,";*
          */
         String vSql = "UPDATE vendedor SET  Nombre= ? , Direccion = ?, Sueldo = ?, IDJornada = ?, NumeroCelular = ?, IDTipoDocumento = ?, NumeroDocumento = ?, Correo = ?, Usuario = ?, Clave = ? where IDVendedor = ?";
         try {
