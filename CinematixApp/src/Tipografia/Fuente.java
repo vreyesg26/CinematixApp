@@ -10,6 +10,7 @@ import java.io.InputStream;
 public class Fuente {
     private Font font = null;
     public String LUSI = "Lusitana-Bold.ttf";
+    public String LUSI2 = "Lusitana-Bold.ttf";
     
     public Font fuente( String fontName, int estilo, float tamanio)
     {

@@ -33,7 +33,6 @@ public class RegistroDirectores extends javax.swing.JFrame {
     /**
      * Creates new form RegistroAdministradores
      */
-    Fuente tipoFuente;
 
     public RegistroDirectores() {
         initComponents();
@@ -41,32 +40,17 @@ public class RegistroDirectores extends javax.swing.JFrame {
         cargarData();
         anchoColumnas();
         bloquear();
+        //inicio();
 
         txtIDDirector.setEnabled(false);
+        TextPrompt idDirector = new TextPrompt("ID", txtIDDirector);
+        TextPrompt director = new TextPrompt("DIRECTOR", txtDirector);
     }
 
     @Override
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
         return retValue;
-    }
-
-    void inicio() {
-        TextPrompt idDirector = new TextPrompt("ID", txtIDDirector);
-        TextPrompt director = new TextPrompt("DIRECTOR", txtDirector);
-        idDirector.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        director.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-
-        txtIDDirector.setEnabled(false);
-        txtIDDirector.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
-        txtDirector.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
-        tablaDirectores.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
-        modificarDirector.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
-
-        btnGuardar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
-        btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
-        btnActualizar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
-        btnDeshabilitar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
     }
 
     /**
@@ -110,6 +94,7 @@ public class RegistroDirectores extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tablaDirectores.setBackground(new java.awt.Color(61, 61, 61));
+        tablaDirectores.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         tablaDirectores.setForeground(new java.awt.Color(255, 255, 255));
         tablaDirectores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -144,14 +129,14 @@ public class RegistroDirectores extends javax.swing.JFrame {
         btnNuevo.setBorderPainted(false);
         btnNuevo.setColorHover(new java.awt.Color(61, 61, 61));
         btnNuevo.setFocusPainted(false);
-        btnNuevo.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnNuevo.setFont(new java.awt.Font("Garamond", 0, 11)); // NOI18N
         btnNuevo.setMargin(new java.awt.Insets(2, 4, 2, 4));
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 130, 40));
+        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 330, 140, 40));
 
         btnGuardar.setBackground(new java.awt.Color(81, 81, 81));
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoGuardar.png"))); // NOI18N
@@ -159,14 +144,14 @@ public class RegistroDirectores extends javax.swing.JFrame {
         btnGuardar.setBorderPainted(false);
         btnGuardar.setColorHover(new java.awt.Color(61, 61, 61));
         btnGuardar.setFocusPainted(false);
-        btnGuardar.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnGuardar.setFont(new java.awt.Font("Garamond", 0, 11)); // NOI18N
         btnGuardar.setMargin(new java.awt.Insets(2, 4, 2, 4));
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 330, 130, 40));
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 330, 140, 40));
 
         btnActualizar.setBackground(new java.awt.Color(81, 81, 81));
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoActualizar.png"))); // NOI18N
@@ -174,14 +159,14 @@ public class RegistroDirectores extends javax.swing.JFrame {
         btnActualizar.setBorderPainted(false);
         btnActualizar.setColorHover(new java.awt.Color(61, 61, 61));
         btnActualizar.setFocusPainted(false);
-        btnActualizar.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnActualizar.setFont(new java.awt.Font("Garamond", 0, 11)); // NOI18N
         btnActualizar.setMargin(new java.awt.Insets(2, 4, 2, 4));
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 130, 40));
+        getContentPane().add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 390, 140, 40));
 
         btnDeshabilitar.setBackground(new java.awt.Color(81, 81, 81));
         btnDeshabilitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoDeshabilitar.png"))); // NOI18N
@@ -189,29 +174,28 @@ public class RegistroDirectores extends javax.swing.JFrame {
         btnDeshabilitar.setBorderPainted(false);
         btnDeshabilitar.setColorHover(new java.awt.Color(61, 61, 61));
         btnDeshabilitar.setFocusPainted(false);
-        btnDeshabilitar.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnDeshabilitar.setFont(new java.awt.Font("Garamond", 0, 11)); // NOI18N
         btnDeshabilitar.setMargin(new java.awt.Insets(2, 4, 2, 4));
         btnDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeshabilitarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 390, 130, 40));
+        getContentPane().add(btnDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 140, 40));
 
+        txtIDDirector.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtIDDirector.setForeground(new java.awt.Color(255, 255, 255));
         txtIDDirector.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtIDDirector.setOpaque(false);
         getContentPane().add(txtIDDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 50, 40));
 
+        txtDirector.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtDirector.setForeground(new java.awt.Color(255, 255, 255));
         txtDirector.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtDirector.setOpaque(false);
         txtDirector.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtDirectorFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDirectorFocusLost(evt);
             }
         });
         getContentPane().add(txtDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 220, 220, 40));
@@ -362,9 +346,8 @@ public class RegistroDirectores extends javax.swing.JFrame {
         Conexion cn = new Conexion();
         Connection cc = cn.GetConexion();
         validarCamposVacios();
-        if (guardar == false) {
-
-        } else {
+        verificarNombre();
+        if (!guardar == false) {
             String sql = "UPDATE director SET Nombre = ? WHERE IDDirector = '" + txtIDDirector.getText() + "'";
 
             try {
@@ -482,10 +465,6 @@ public class RegistroDirectores extends javax.swing.JFrame {
             }
         }
     }
-
-    private void txtDirectorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDirectorFocusLost
-        //verificarNombre();
-    }//GEN-LAST:event_txtDirectorFocusLost
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         desbloquear();

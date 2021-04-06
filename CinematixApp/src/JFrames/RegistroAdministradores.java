@@ -34,12 +34,10 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     /**
      * Creates new form RegistroAdministradores
      */
-    Fuente tipoFuente;
 
     public RegistroAdministradores() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
-        tipoFuente = new Fuente();
         cargarData();
         anchoColumnas();
         bloquear();
@@ -47,21 +45,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         TextPrompt id = new TextPrompt("ID", txtIDUsuario);
         TextPrompt usuario = new TextPrompt("USUARIO", txtUsuario);
         TextPrompt contraseña = new TextPrompt("CONTRASEÑA", txtContraseña);
-        id.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        usuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        contraseña.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-
         txtIDUsuario.setEnabled(false);
-        txtIDUsuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
-        txtUsuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
-        txtContraseña.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
-        tablaUsuarios.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
-        modificarUsuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-
-        btnGuardar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
-        btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
-        btnActualizar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
-        btnDeshabilitar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
     }
 
     @Override
@@ -120,11 +104,13 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         });
         getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 30, 30));
 
+        txtIDUsuario.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtIDUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtIDUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtIDUsuario.setOpaque(false);
         getContentPane().add(txtIDUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 50, 40));
 
+        txtUsuario.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtUsuario.setOpaque(false);
@@ -138,6 +124,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         });
         getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 170, 220, 40));
 
+        txtContraseña.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtContraseña.setForeground(new java.awt.Color(255, 255, 255));
         txtContraseña.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtContraseña.setOpaque(false);
@@ -158,14 +145,14 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         btnNuevo.setBorderPainted(false);
         btnNuevo.setColorHover(new java.awt.Color(61, 61, 61));
         btnNuevo.setFocusPainted(false);
-        btnNuevo.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnNuevo.setFont(new java.awt.Font("Garamond", 0, 11)); // NOI18N
         btnNuevo.setMargin(new java.awt.Insets(2, 4, 2, 4));
         btnNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNuevoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 330, 130, 40));
+        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 330, 140, 40));
 
         btnActualizar.setBackground(new java.awt.Color(81, 81, 81));
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoActualizar.png"))); // NOI18N
@@ -173,14 +160,14 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         btnActualizar.setBorderPainted(false);
         btnActualizar.setColorHover(new java.awt.Color(61, 61, 61));
         btnActualizar.setFocusPainted(false);
-        btnActualizar.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnActualizar.setFont(new java.awt.Font("Garamond", 0, 11)); // NOI18N
         btnActualizar.setMargin(new java.awt.Insets(2, 4, 2, 4));
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnActualizarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 130, 40));
+        getContentPane().add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 390, 140, 40));
 
         btnDeshabilitar.setBackground(new java.awt.Color(81, 81, 81));
         btnDeshabilitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoDeshabilitar.png"))); // NOI18N
@@ -188,14 +175,14 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         btnDeshabilitar.setBorderPainted(false);
         btnDeshabilitar.setColorHover(new java.awt.Color(61, 61, 61));
         btnDeshabilitar.setFocusPainted(false);
-        btnDeshabilitar.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnDeshabilitar.setFont(new java.awt.Font("Garamond", 0, 11)); // NOI18N
         btnDeshabilitar.setMargin(new java.awt.Insets(2, 4, 2, 4));
         btnDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeshabilitarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 390, 130, 40));
+        getContentPane().add(btnDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 140, 40));
 
         btnGuardar.setBackground(new java.awt.Color(81, 81, 81));
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoGuardar.png"))); // NOI18N
@@ -203,16 +190,17 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         btnGuardar.setBorderPainted(false);
         btnGuardar.setColorHover(new java.awt.Color(61, 61, 61));
         btnGuardar.setFocusPainted(false);
-        btnGuardar.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
+        btnGuardar.setFont(new java.awt.Font("Garamond", 0, 11)); // NOI18N
         btnGuardar.setMargin(new java.awt.Insets(2, 4, 2, 4));
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 330, 130, 40));
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 330, 140, 40));
 
         tablaUsuarios.setBackground(new java.awt.Color(61, 61, 61));
+        tablaUsuarios.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         tablaUsuarios.setForeground(new java.awt.Color(255, 255, 255));
         tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
