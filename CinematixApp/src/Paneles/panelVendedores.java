@@ -102,8 +102,34 @@ public class panelVendedores extends javax.swing.JPanel {
     public boolean pasaporte(String pasaporte) {
         Pattern p = null;
         Matcher m = null;
-        p = Pattern.compile("^([A-Z-ÁÉÍÓÚÑa-z-áéíóúñ ,.#0-9]+[ ]*){2,4}$");
+        p = Pattern.compile("[A-Z-ÁÉÍÓÚÑ]{1}[0-9]{6}");
         m = p.matcher(pasaporte);
+
+        if (m.find()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean identidad(String identidad) {
+        Pattern p = null;
+        Matcher m = null;
+        p = Pattern.compile("[0,1]{1}[1,8]{1}[0-9]{11}");
+        m = p.matcher(identidad);
+
+        if (m.find()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean sueldo(String sueldo) {
+        Pattern p = null;
+        Matcher m = null;
+        p = Pattern.compile("[0-9]+(.[0-9]+)");
+        m = p.matcher(sueldo);
 
         if (m.find()) {
             return true;
@@ -268,7 +294,7 @@ public class panelVendedores extends javax.swing.JPanel {
     void cargarData() {
         String[] titulos = {"ID", "Nombre", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo", "Usuario", "Clave", "Intentos"};
         String[] registros = new String[12];
-        
+
         String sql = "SELECT V.IDVendedor, V.Nombre, V.Direccion, V.Sueldo, J.TipoJornada, V.NumeroCelular,\n"
                 + "TD.NombreDocumento, V.NumeroDocumento, V.Correo, V.Usuario, V.Clave, V.Intentos\n"
                 + "FROM vendedor AS V\n"
@@ -543,6 +569,9 @@ public class panelVendedores extends javax.swing.JPanel {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtClaveFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtClaveFocusLost(evt);
+            }
         });
         txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -661,6 +690,9 @@ public class panelVendedores extends javax.swing.JPanel {
         txtSueldo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtSueldoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSueldoFocusLost(evt);
             }
         });
         txtSueldo.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -1199,7 +1231,7 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtSueldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSueldoKeyTyped
-
+        
         char validar = evt.getKeyChar();
 
         if (Character.isLetter(validar)) {
@@ -1208,9 +1240,10 @@ public class panelVendedores extends javax.swing.JPanel {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
             JOptionPane.showMessageDialog(null, "Ingresar solo numeros", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
-        if (txtSueldo.getText().length() > 4) {
+        if (txtSueldo.getText().length() > 6) {
             evt.consume();
         }
+
 
     }//GEN-LAST:event_txtSueldoKeyTyped
 
@@ -1219,6 +1252,7 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSueldoKeyReleased
 
     private void txtNumDocuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumDocuKeyTyped
+
         if (cbTipoDocu.getSelectedIndex() == 1) {
             char validar = evt.getKeyChar();
             if (Character.isLetter(validar)) {
@@ -1284,6 +1318,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
     private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
         validarCaracteres(evt);
+      
     }//GEN-LAST:event_txtClaveKeyTyped
 
     private void txtCelularFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelularFocusLost
@@ -1311,6 +1346,10 @@ public class panelVendedores extends javax.swing.JPanel {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "El documento de identidad debe contener 13 digitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
+            if (!identidad(txtNumDocu.getText())) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "El numero de identidad debe comenzar de 01 a 18", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
 
             try {
                 Statement st = cn.createStatement();
@@ -1335,7 +1374,7 @@ public class panelVendedores extends javax.swing.JPanel {
             }
             if (!pasaporte(txtNumDocu.getText())) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "El código del pasaporte debe empezar con una letra seguido de 6 numeros", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                JOptionPane.showMessageDialog(null, "El código del pasaporte debe empezar con una letra mayúsucula seguido de 6 numeros", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
 
             try {
@@ -1496,6 +1535,20 @@ public class panelVendedores extends javax.swing.JPanel {
         btnDeshabilitar.setIcon(iconoBoton);
         btnDeshabilitar.setText("CANCELAR");
     }//GEN-LAST:event_cbJornadaFocusGained
+
+    private void txtSueldoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSueldoFocusLost
+        if (!sueldo(txtSueldo.getText())) {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "el sueldo debe contener decimales por ejemplo: 8000.50", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
+    }//GEN-LAST:event_txtSueldoFocusLost
+
+    private void txtClaveFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtClaveFocusLost
+         if (txtClave.getText().length() < 6) {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "La clave debe contener 6 o mas caracteres", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
+    }//GEN-LAST:event_txtClaveFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

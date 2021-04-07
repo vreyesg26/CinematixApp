@@ -63,6 +63,7 @@ public class datos extends Conexion {
 
     public String getDireccion() {
         return Direccion;
+    
     }
 
     public void setDireccion(String Direccion) {
@@ -129,7 +130,7 @@ public class datos extends Conexion {
             pst = cc.prepareStatement(sql);
             pst.setString(1, this.getNombre());
             pst.setString(2, this.getDireccion());
-            pst.setInt(3, this.getSueldo());
+            pst.setFloat(3, this.getSueldo());
             pst.setInt(4, this.getIDJornada());
             pst.setInt(5, this.getNumeroCelular());
             pst.setInt(6, this.getIDTipoDocumento());
@@ -161,7 +162,7 @@ public class datos extends Conexion {
             Pst = cc.prepareStatement(vSql);
             Pst.setString(1, this.getNombre());
             Pst.setString(2, this.getDireccion());
-            Pst.setInt(3, this.getSueldo());
+            Pst.setFloat(3, this.getSueldo());
             Pst.setInt(4, this.getIDJornada());
             Pst.setInt(5, this.getNumeroCelular());
             Pst.setInt(6, this.getIDTipoDocumento());
