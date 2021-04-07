@@ -69,8 +69,6 @@ public class FrmReservaciones extends javax.swing.JFrame {
                 
                 contadorasientos++;
                 ejex += 70;
-                
-                
             }
             ejex =20;
             ejey += 70;

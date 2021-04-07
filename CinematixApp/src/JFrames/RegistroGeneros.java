@@ -10,6 +10,8 @@ import Paneles.panelInicio;
 import Paneles.panelVendedores;
 import Tipografia.Fuente;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,6 +46,12 @@ public class RegistroGeneros extends javax.swing.JFrame {
         TextPrompt genero = new TextPrompt("GÉNERO", txtGeneros);
         
     }
+    
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
+        return retValue;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -68,9 +76,15 @@ public class RegistroGeneros extends javax.swing.JFrame {
         lbFondo = new javax.swing.JLabel();
 
         modificarGeneros.setText("Modificar");
+        modificarGeneros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarGenerosActionPerformed(evt);
+            }
+        });
         jPopupMenu1.add(modificarGeneros);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -125,6 +139,11 @@ public class RegistroGeneros extends javax.swing.JFrame {
         txtGeneros.setForeground(new java.awt.Color(255, 255, 255));
         txtGeneros.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtGeneros.setOpaque(false);
+        txtGeneros.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtGenerosFocusGained(evt);
+            }
+        });
         getContentPane().add(txtGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 220, 220, 40));
 
         btnGuardar.setBackground(new java.awt.Color(81, 81, 81));
@@ -466,6 +485,52 @@ public class RegistroGeneros extends javax.swing.JFrame {
         limpiarCajas();
         btnNuevo.setEnabled(true);
     }//GEN-LAST:event_btnDeshabilitarActionPerformed
+
+    private void txtGenerosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtGenerosFocusGained
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtGenerosFocusGained
+
+    void modificarRegistro() {
+        int fila = tablaGeneros.getSelectedRow();
+
+        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconobtn);
+        btnDeshabilitar.setText("CANCELAR");
+
+        if (fila >= 0) {
+            btnActualizar.setEnabled(true);
+            btnDeshabilitar.setEnabled(true);
+            btnNuevo.setEnabled(false);
+            txtGeneros.setEnabled(true);
+            btnGuardar.setEnabled(false);
+
+            String id = tablaGeneros.getValueAt(fila, 0).toString();
+            String genero = tablaGeneros.getValueAt(fila, 1).toString();
+
+            txtIDGenero.setText(id);
+            txtGeneros.setText(genero);
+
+        } else {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
+    }
+    
+    private void modificarGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarGenerosActionPerformed
+        if (!txtGeneros.getText().isEmpty()) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
+            int decision = JOptionPane.showConfirmDialog(null, "Los datos aún no se han guardado y podrían perderse\n "
+                    + "¿Seguro que desea entrar en modo edición?", "Confirmación", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            if (decision == 0) {
+                modificarRegistro();
+            }
+        } else {
+            modificarRegistro();
+        }
+    }//GEN-LAST:event_modificarGenerosActionPerformed
 
     /**
      * @param args the command line arguments

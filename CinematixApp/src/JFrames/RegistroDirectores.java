@@ -495,10 +495,10 @@ public class RegistroDirectores extends javax.swing.JFrame {
             btnGuardar.setEnabled(false);
 
             String id = tablaDirectores.getValueAt(fila, 0).toString();
-            String usuario = tablaDirectores.getValueAt(fila, 1).toString();
+            String director = tablaDirectores.getValueAt(fila, 1).toString();
 
             txtIDDirector.setText(id);
-            txtDirector.setText(usuario);
+            txtDirector.setText(director);
 
         } else {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");

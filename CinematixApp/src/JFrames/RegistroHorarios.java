@@ -9,6 +9,8 @@ import Datos.Conexion;
 import Paneles.panelInicio;
 import Paneles.panelVendedores;
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +18,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -36,12 +40,18 @@ public class RegistroHorarios extends javax.swing.JFrame {
         anchoColumnas();
         cargarData();
         bloquear();
-        
+
         txtIDHorario.setEnabled(false);
         TextPrompt idHora = new TextPrompt("ID", txtIDHorario);
         TextPrompt hora = new TextPrompt("HORARIO", txtHorarios);
     }
 
+    @Override
+    public Image getIconImage() {
+        Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
+        return retValue;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,6 +61,8 @@ public class RegistroHorarios extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        modificarHorarios = new javax.swing.JMenuItem();
         btnRegresar = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaHorarios = new javax.swing.JTable();
@@ -62,7 +74,16 @@ public class RegistroHorarios extends javax.swing.JFrame {
         btnDeshabilitar = new rojerusan.RSButtonHover();
         lbFondo = new javax.swing.JLabel();
 
+        modificarHorarios.setText("Modificar");
+        modificarHorarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                modificarHorariosActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(modificarHorarios);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
         setUndecorated(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -93,6 +114,7 @@ public class RegistroHorarios extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3"
             }
         ));
+        tablaHorarios.setComponentPopupMenu(jPopupMenu1);
         tablaHorarios.setOpaque(false);
         tablaHorarios.setRowHeight(25);
         tablaHorarios.setSelectionBackground(new java.awt.Color(29, 29, 29));
@@ -116,6 +138,11 @@ public class RegistroHorarios extends javax.swing.JFrame {
         txtHorarios.setForeground(new java.awt.Color(255, 255, 255));
         txtHorarios.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtHorarios.setOpaque(false);
+        txtHorarios.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtHorariosFocusGained(evt);
+            }
+        });
         getContentPane().add(txtHorarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 220, 220, 40));
 
         btnNuevo.setBackground(new java.awt.Color(81, 81, 81));
@@ -236,7 +263,7 @@ public class RegistroHorarios extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     void anchoColumnas() {
         TableColumnModel anchoColumnas = tablaHorarios.getColumnModel();
         anchoColumnas.getColumn(0).setPreferredWidth(30);
@@ -263,7 +290,20 @@ public class RegistroHorarios extends javax.swing.JFrame {
         btnDeshabilitar.setEnabled(true);
         tablaHorarios.setEnabled(true);
     }
-    
+
+    void verificarFormatoHora(String hora) {
+        String patron = "^(?:0?[1-9]|1[0-2]):[0-5][0-9]\\s?[ap][m]$";
+        Pattern patt = Pattern.compile(patron);
+        Matcher comparador = patt.matcher(hora);
+        if (!comparador.matches()) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Asegurate de escribir el horario de forma correcta\nFormato: 12 horas", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            guardar = false;
+        } else {
+            guardar = true;
+        }
+    }
+
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
         if (!txtIDHorario.getText().isEmpty() || !txtHorarios.getText().isEmpty()) {
             ImageIcon jPaneIcon = new ImageIcon("src/Iconos/iconoSalida.png");
@@ -331,12 +371,13 @@ public class RegistroHorarios extends javax.swing.JFrame {
             }
         }
     }
-    
+
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         Conexion cn = new Conexion();
         Connection cc = cn.GetConexion();
         validarCamposVacios();
         verificarHorario();
+        verificarFormatoHora(txtHorarios.getText());
         if (!guardar == false) {
             String sql = "INSERT INTO horarios (Hora) VALUES (?)";
 
@@ -367,6 +408,7 @@ public class RegistroHorarios extends javax.swing.JFrame {
         Connection cc = cn.GetConexion();
         validarCamposVacios();
         verificarHorario();
+        verificarFormatoHora(txtHorarios.getText());
         if (!guardar == false) {
             String sql = "UPDATE horarios SET Hora = ? WHERE IDHorario = '" + txtIDHorario.getText() + "'";
 
@@ -458,6 +500,52 @@ public class RegistroHorarios extends javax.swing.JFrame {
         btnNuevo.setEnabled(true);
     }//GEN-LAST:event_btnDeshabilitarActionPerformed
 
+    private void txtHorariosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtHorariosFocusGained
+        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconoBoton);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtHorariosFocusGained
+
+    void modificarRegistro() {
+        int fila = tablaHorarios.getSelectedRow();
+
+        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconobtn);
+        btnDeshabilitar.setText("CANCELAR");
+
+        if (fila >= 0) {
+            btnActualizar.setEnabled(true);
+            btnDeshabilitar.setEnabled(true);
+            btnNuevo.setEnabled(false);
+            txtHorarios.setEnabled(true);
+            btnGuardar.setEnabled(false);
+
+            String id = tablaHorarios.getValueAt(fila, 0).toString();
+            String horario = tablaHorarios.getValueAt(fila, 1).toString();
+
+            txtIDHorario.setText(id);
+            txtHorarios.setText(horario);
+
+        } else {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
+    }
+    
+    private void modificarHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarHorariosActionPerformed
+        if (!txtHorarios.getText().isEmpty()) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
+            int decision = JOptionPane.showConfirmDialog(null, "Los datos aún no se han guardado y podrían perderse\n "
+                    + "¿Seguro que desea entrar en modo edición?", "Confirmación", JOptionPane.YES_NO_OPTION,
+                    JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            if (decision == 0) {
+                modificarRegistro();
+            }
+        } else {
+            modificarRegistro();
+        }
+    }//GEN-LAST:event_modificarHorariosActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -500,8 +588,10 @@ public class RegistroHorarios extends javax.swing.JFrame {
     private rojerusan.RSButtonHover btnGuardar;
     private rojerusan.RSButtonHover btnNuevo;
     private javax.swing.JLabel btnRegresar;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbFondo;
+    private javax.swing.JMenuItem modificarHorarios;
     private javax.swing.JTable tablaHorarios;
     private javax.swing.JTextField txtHorarios;
     private javax.swing.JTextField txtIDHorario;

@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -104,8 +106,8 @@ public class panelPeliculas extends javax.swing.JPanel {
 
         }
     }
-    
-    void cargarDirectores(){
+
+    void cargarDirectores() {
         String sql = "SELECT Nombre FROM director WHERE IDEstado = 1";
 
         try {
@@ -121,8 +123,8 @@ public class panelPeliculas extends javax.swing.JPanel {
 
         }
     }
-    
-    void cargarGeneros(){
+
+    void cargarGeneros() {
         String sql = "SELECT Genero FROM generos WHERE IDEstado = 1";
 
         try {
@@ -139,7 +141,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         }
     }
 
-    void cargarSalas(){
+    void cargarSalas() {
         String sql = "SELECT Sala FROM salas";
 
         try {
@@ -155,7 +157,17 @@ public class panelPeliculas extends javax.swing.JPanel {
 
         }
     }
-    
+
+    public void verificarCaracteresRepetidos(String cadena) {
+        String patron = "^(?:([a-zA-Z])(?!.*\\1{2})[ ]?)+$";
+        Pattern patt = Pattern.compile(patron);
+        Matcher comparador = patt.matcher(cadena);
+        if (!comparador.matches()) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Tienes caracteres repetidos de forma incorrecta", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        }
+    }
+
     void anchoColumnas() {
         TableColumnModel anchoColumnas = tablaPeliculas.getColumnModel();
         anchoColumnas.getColumn(0).setPreferredWidth(30);
@@ -687,8 +699,6 @@ public class panelPeliculas extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, "Se guardo correctamente");
                     limpiarCajas();
                     bloquearCampos();
-                    btnGuardar.setEnabled(false);
-                    btnNuevo.setEnabled(true);
                     btnImagen.setEnabled(false);
                     btnDeshabilitar.setEnabled(false);
                     btnActualizar.setEnabled(false);
@@ -708,7 +718,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         Connection cc = cn.GetConexion();
         validarCamposVacios();
         if (guardar == false) {
-            
+
         } else {
             String sql = "UPDATE peliculas SET Titulo = ?, Duracion = ?, IDDirector = ?, "
                     + "Reparto = ?, IDIdioma = ?, Sinopsis = ?, IDHorario = ?, "
@@ -1038,6 +1048,7 @@ public class panelPeliculas extends javax.swing.JPanel {
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }
+            verificarCaracteresRepetidos(txtTitulo.getText());
         }
     }//GEN-LAST:event_txtTituloFocusLost
 
@@ -1046,6 +1057,7 @@ public class panelPeliculas extends javax.swing.JPanel {
             if (txtDuracion.getText().length() < 3) {
                 JOptionPane.showMessageDialog(null, "El campo duración debe contener 3 números", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            verificarCaracteresRepetidos(txtDuracion.getText());
         }
     }//GEN-LAST:event_txtDuracionFocusLost
 
@@ -1054,6 +1066,7 @@ public class panelPeliculas extends javax.swing.JPanel {
             if (txtReparto.getText().length() < 10) {
                 JOptionPane.showMessageDialog(null, "El campo reparto debe contener 10 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            verificarCaracteresRepetidos(txtReparto.getText());
         }
     }//GEN-LAST:event_txtRepartoFocusLost
 
@@ -1062,6 +1075,7 @@ public class panelPeliculas extends javax.swing.JPanel {
             if (txtSinopsis.getText().length() < 15) {
                 JOptionPane.showMessageDialog(null, "El campo sinopsis debe contener 15 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
             }
+            verificarCaracteresRepetidos(txtSinopsis.getText());
         }
     }//GEN-LAST:event_txtSinopsisFocusLost
 
