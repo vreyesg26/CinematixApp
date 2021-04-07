@@ -22,7 +22,7 @@ public class datos extends Conexion {
     private String Usuario;
     private String Clave;
     private String Direccion;
-    private int Sueldo;
+    private String Sueldo;
     private int IDJornada;
     private int NumeroCelular;
     private int IDTipoDocumento;
@@ -70,11 +70,11 @@ public class datos extends Conexion {
         this.Direccion = Direccion;
     }
 
-    public int getSueldo() {
+    public String getSueldo() {
         return Sueldo;
     }
 
-    public void setSueldo(int Sueldo) {
+    public void setSueldo(String Sueldo) {
         this.Sueldo = Sueldo;
     }
 
@@ -130,7 +130,7 @@ public class datos extends Conexion {
             pst = cc.prepareStatement(sql);
             pst.setString(1, this.getNombre());
             pst.setString(2, this.getDireccion());
-            pst.setFloat(3, this.getSueldo());
+            pst.setString(3, this.getSueldo());
             pst.setInt(4, this.getIDJornada());
             pst.setInt(5, this.getNumeroCelular());
             pst.setInt(6, this.getIDTipoDocumento());
@@ -162,7 +162,7 @@ public class datos extends Conexion {
             Pst = cc.prepareStatement(vSql);
             Pst.setString(1, this.getNombre());
             Pst.setString(2, this.getDireccion());
-            Pst.setFloat(3, this.getSueldo());
+            Pst.setString(3, this.getSueldo());
             Pst.setInt(4, this.getIDJornada());
             Pst.setInt(5, this.getNumeroCelular());
             Pst.setInt(6, this.getIDTipoDocumento());

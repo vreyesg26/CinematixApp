@@ -40,7 +40,7 @@ public class panelVendedores extends javax.swing.JPanel {
     void validarCamposVacios() {
         ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
         if (txtCelular.getText().isEmpty() && txtClave.getText().isEmpty() && txtCorreo.getText().isEmpty()
-                && txtDireccion.getText().isEmpty() && txtIDVendedor.getText().isEmpty()
+                && txtDireccion.getText().isEmpty()
                 && cbJornada.getSelectedIndex() == 0
                 && cbTipoDocu.getSelectedIndex() == 0 && txtNombre.getText().isEmpty()
                 && txtNumDocu.getText().isEmpty() && txtSueldo.getText().isEmpty()
@@ -54,21 +54,16 @@ public class panelVendedores extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Por favor rellene el campo correo", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         } else if (txtDireccion.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor rellene el campo direccion", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-        } else if (txtIDVendedor.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor rellene el campo id vendedor", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-        } else if (txtNombre.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor rellene el campo nombre", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-        } else if (txtNumDocu.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor rellene el campo numero documento", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-        } else if (txtSueldo.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor rellene el campo sueldo", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-        } else if (txtUsuario.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor rellene el campo usuario", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         } else if (cbJornada.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una jornada", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         } else if (cbTipoDocu.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-        } else {
+        } else if (cbTipoDocu.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        }else if (Float.valueOf(txtSueldo.getText()) < 8000) {
+            JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor de 8000", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            txtSueldo.setText("");
+        }else {
             guardar = true;
         }
     }
@@ -83,6 +78,16 @@ public class panelVendedores extends javax.swing.JPanel {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public void verificarCaracteresRepetidos(String cadena) {
+        String patron = "^(?:([a-zA-Z])(?!.*\\1{2})[ ]?)+$";
+        Pattern patt = Pattern.compile(patron);
+        Matcher comparador = patt.matcher(cadena);
+        if (!comparador.matches()) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Tienes caracteres repetidos de forma incorrecta", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         }
     }
 
@@ -115,7 +120,7 @@ public class panelVendedores extends javax.swing.JPanel {
     public boolean identidad(String identidad) {
         Pattern p = null;
         Matcher m = null;
-        p = Pattern.compile("[0,1]{1}[1,8]{1}[0-9]{11}");
+        p = Pattern.compile("^[0,1]{1}[1,8]{1}[0-9]{2}[19|20]{2}[0-9]{7}");
         m = p.matcher(identidad);
 
         if (m.find()) {
@@ -128,7 +133,7 @@ public class panelVendedores extends javax.swing.JPanel {
     public boolean sueldo(String sueldo) {
         Pattern p = null;
         Matcher m = null;
-        p = Pattern.compile("[0-9]+(.[0-9]+)");
+        p = Pattern.compile("^[0-9]{5}$|^[0-9]{5}\\.[0-9]{2}$");
         m = p.matcher(sueldo);
 
         if (m.find()) {
@@ -672,6 +677,9 @@ public class panelVendedores extends javax.swing.JPanel {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtDireccionFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDireccionFocusLost(evt);
+            }
         });
         txtDireccion.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -985,46 +993,45 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_menuModificarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        boolean guardo = true;
-        datos data = new datos();
-        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-        if (cbTipoDocu.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (cbJornada.getSelectedIndex() == 0) {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una Jornada", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (txtCelular.getText().isEmpty() || cbTipoDocu.getSelectedIndex() == 0 || cbJornada.getSelectedIndex() == 0 || txtCorreo.getText().isEmpty() || txtDireccion.getText().isEmpty() || txtNumDocu.getText().isEmpty() || txtNombre.getText().isEmpty() || txtSueldo.getText().isEmpty() || txtClave.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Aun hay campos vacios porfavor llenar todos los campos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (Integer.parseInt(txtSueldo.getText()) < 8000) {
-            JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor de 8000", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-            txtSueldo.setText("");
-        } else if (txtCorreo.getText().contains("@") && txtCorreo.getText().contains(".com") || txtCorreo.getText().contains(".hn")) {
-            data.setNombre(txtNombre.getText());
-            data.setUsuario(txtUsuario.getText());
-            data.setClave(txtClave.getText());
-            data.setDireccion(txtDireccion.getText());
-            data.setSueldo(Integer.parseInt(txtSueldo.getText()));
-            data.setIDJornada(cbJornada.getSelectedIndex());
-            data.setNumeroCelular(Integer.parseInt(txtCelular.getText()));
-            data.setIDTipoDocumento(cbTipoDocu.getSelectedIndex());
-            data.setNumeroDocumento(txtNumDocu.getText());
-            data.setCorrreo(txtCorreo.getText());
+        Conexion cn = new Conexion();
+        Connection cc = cn.GetConexion();
+        validarCamposVacios();
+        if (!guardar == false) {
+            String sql = "INSERT INTO vendedor "
+                    + "(Nombre, Direccion, Sueldo, IDJornada, NumeroCelular, IDTipoDocumento, NumeroDocumento, Correo, Usuario, Clave)"
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?)";
 
-            guardo = data.guardar();
-            if (guardo == true) {
-                ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
-                JOptionPane.showMessageDialog(null, "Los datos fueron guardados correctamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
+            try {
+
+                PreparedStatement pst = cc.prepareStatement(sql);
+                pst.setString(1, txtNombre.getText());
+                pst.setString(2, txtDireccion.getText());
+                pst.setString(3, txtSueldo.getText());
+                pst.setInt(4, cbJornada.getSelectedIndex());
+                pst.setInt(5, Integer.parseInt(txtCelular.getText()));
+                pst.setInt(6, cbTipoDocu.getSelectedIndex());
+                pst.setString(7, txtNumDocu.getText());
+                pst.setString(8, txtCorreo.getText());
+                pst.setString(9, txtUsuario.getText());
+                pst.setString(10, txtClave.getText());
+
+                int i = pst.executeUpdate();
+                if (i > 0) {
+                    JOptionPane.showMessageDialog(null, "Se guardo correctamente");
+                    limpiarCajas();
+                    bloquear();
+
+                    btnDeshabilitar.setEnabled(false);
+                    btnActualizar.setEnabled(false);
+
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar");
+                System.out.println(e.getMessage());
             }
-            limpiarCajas();
-            btnActualizar.setEnabled(true);
-            btnDeshabilitar.setEnabled(true);
-            btnNuevo.setEnabled(true);
-            btnGuardar.setEnabled(false);
-            txtIDVendedor.setEnabled(false);
-            bloquear();
-            cargarData();
-        } else {
-            JOptionPane.showMessageDialog(null, "Correo NO Válido,Ejem: cinematix@gmail.com", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
+        cargarData();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -1041,7 +1048,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 PreparedStatement pst = cc.prepareStatement(sql);
                 pst.setString(1, txtNombre.getText());
                 pst.setString(2, txtDireccion.getText());
-                pst.setFloat(3, Float.valueOf(txtSueldo.getText()));
+                pst.setString(3, txtSueldo.getText());
                 pst.setInt(4, cbJornada.getSelectedIndex());
                 pst.setInt(5, Integer.parseInt(txtCelular.getText()));
                 pst.setInt(6, cbTipoDocu.getSelectedIndex());
@@ -1231,7 +1238,7 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNombreKeyTyped
 
     private void txtSueldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSueldoKeyTyped
-        
+
         char validar = evt.getKeyChar();
 
         if (Character.isLetter(validar)) {
@@ -1240,11 +1247,12 @@ public class panelVendedores extends javax.swing.JPanel {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
             JOptionPane.showMessageDialog(null, "Ingresar solo numeros", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
-        if (txtSueldo.getText().length() > 6) {
-            evt.consume();
+
+        if (txtSueldo.getText().contains(".")) {
+            if (txtSueldo.getText().length() == 8) {
+                evt.consume();
+            }
         }
-
-
     }//GEN-LAST:event_txtSueldoKeyTyped
 
     private void txtSueldoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSueldoKeyReleased
@@ -1318,7 +1326,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
     private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
         validarCaracteres(evt);
-      
+
     }//GEN-LAST:event_txtClaveKeyTyped
 
     private void txtCelularFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelularFocusLost
@@ -1335,82 +1343,84 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCelularFocusLost
 
     private void txtNumDocuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumDocuFocusLost
-        Conexion cc = new Conexion();
-        Connection cn = cc.GetConexion();
-        String numDocu = txtNumDocu.getText();
-        String tipoDocu = String.valueOf(cbTipoDocu.getSelectedIndex());
-        String sql = "SELECT IDTipoDocumento, NumeroDocumento FROM vendedor WHERE IDTipoDocumento = '" + tipoDocu + "' and NumeroDocumento = '" + numDocu + "'";
+        if (!txtNumDocu.getText().isEmpty()) {
+            Conexion cc = new Conexion();
+            Connection cn = cc.GetConexion();
+            String numDocu = txtNumDocu.getText();
+            String tipoDocu = String.valueOf(cbTipoDocu.getSelectedIndex());
+            String sql = "SELECT IDTipoDocumento, NumeroDocumento FROM vendedor WHERE IDTipoDocumento = '" + tipoDocu + "' and NumeroDocumento = '" + numDocu + "'";
 
-        if (cbTipoDocu.getSelectedIndex() == 1) {
-            if (txtNumDocu.getText().length() < 13) {
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "El documento de identidad debe contener 13 digitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-            }
-            if (!identidad(txtNumDocu.getText())) {
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "El numero de identidad debe comenzar de 01 a 18", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-            }
-
-            try {
-                Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql);
-
-                if (rs.next()) {
-                    if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
-                        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                        JOptionPane.showMessageDialog(null, "Este número de identidad ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                    }
+            if (cbTipoDocu.getSelectedIndex() == 1) {
+                if (txtNumDocu.getText().length() < 13) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "El número de identidad debe contener 13 dígitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 }
-            } catch (Exception e) {
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-            }
-        }
-        if (cbTipoDocu.getSelectedIndex() == 2) {
-
-            if (txtNumDocu.getText().length() < 7) {
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "El código del pasaporte debe contener 7 digitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-            }
-            if (!pasaporte(txtNumDocu.getText())) {
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "El código del pasaporte debe empezar con una letra mayúsucula seguido de 6 numeros", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-            }
-
-            try {
-                Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql);
-
-                if (rs.next()) {
-                    if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
-                        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                        JOptionPane.showMessageDialog(null, "Este número de pasaporte ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                    }
+                if (!identidad(txtNumDocu.getText())) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "El número de identidad debe comenzar con dígitos del 01 al 18\nAsegurate de que el año sea correcto", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 }
-            } catch (Exception e) {
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-            }
-        }
-        if (cbTipoDocu.getSelectedIndex() == 3) {
-            if (txtNumDocu.getText().length() < 14) {
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "El número del RTN debe contener 14 digitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-            }
 
-            try {
-                Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql);
+                try {
+                    Statement st = cn.createStatement();
+                    ResultSet rs = st.executeQuery(sql);
 
-                if (rs.next()) {
-                    if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
-                        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                        JOptionPane.showMessageDialog(null, "Este número de RTN ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    if (rs.next()) {
+                        if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
+                            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                            JOptionPane.showMessageDialog(null, "Este número de identidad ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                        }
                     }
+                } catch (Exception e) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 }
-            } catch (Exception e) {
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+            if (cbTipoDocu.getSelectedIndex() == 2) {
+
+                if (txtNumDocu.getText().length() < 7) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "El código del pasaporte debe contener 7 digitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                }
+                if (!pasaporte(txtNumDocu.getText())) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "El código del pasaporte debe empezar con una letra mayúsucula seguido de 6 numeros", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                }
+
+                try {
+                    Statement st = cn.createStatement();
+                    ResultSet rs = st.executeQuery(sql);
+
+                    if (rs.next()) {
+                        if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
+                            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                            JOptionPane.showMessageDialog(null, "Este número de pasaporte ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                        }
+                    }
+                } catch (Exception e) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                }
+            }
+            if (cbTipoDocu.getSelectedIndex() == 3) {
+                if (txtNumDocu.getText().length() < 14) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "El número del RTN debe contener 14 digitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                }
+
+                try {
+                    Statement st = cn.createStatement();
+                    ResultSet rs = st.executeQuery(sql);
+
+                    if (rs.next()) {
+                        if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
+                            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                            JOptionPane.showMessageDialog(null, "Este número de RTN ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                        }
+                    }
+                } catch (Exception e) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                }
             }
         }
     }//GEN-LAST:event_txtNumDocuFocusLost
@@ -1430,11 +1440,14 @@ public class panelVendedores extends javax.swing.JPanel {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "El nombre debe empezar con mayúscula y debe contener al menos un apellido", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
+
+            verificarCaracteresRepetidos(txtNombre.getText());
         }
 
     }//GEN-LAST:event_txtNombreFocusLost
 
     private void txtUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusLost
+
         if (!txtUsuario.getText().isEmpty()) {
             Conexion cc = new Conexion();
             Connection cn = cc.GetConexion();
@@ -1455,6 +1468,9 @@ public class panelVendedores extends javax.swing.JPanel {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
+
+            verificarCaracteresRepetidos(txtUsuario.getText());
+
         }
     }//GEN-LAST:event_txtUsuarioFocusLost
 
@@ -1539,16 +1555,24 @@ public class panelVendedores extends javax.swing.JPanel {
     private void txtSueldoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSueldoFocusLost
         if (!sueldo(txtSueldo.getText())) {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-            JOptionPane.showMessageDialog(null, "el sueldo debe contener decimales por ejemplo: 8000.50", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            JOptionPane.showMessageDialog(null, "El sueldo debe contener solo dos digitos despues del punto", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
+
+
     }//GEN-LAST:event_txtSueldoFocusLost
 
     private void txtClaveFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtClaveFocusLost
-         if (txtClave.getText().length() < 6) {
+        if (txtClave.getText().length() < 6) {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
             JOptionPane.showMessageDialog(null, "La clave debe contener 6 o mas caracteres", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }//GEN-LAST:event_txtClaveFocusLost
+
+    private void txtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusLost
+        if (!txtDireccion.getText().isEmpty()) {
+            verificarCaracteresRepetidos(txtDireccion.getText());
+        }
+    }//GEN-LAST:event_txtDireccionFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
