@@ -297,7 +297,7 @@ public class panelVendedores extends javax.swing.JPanel {
     Connection cn = cc.GetConexion();
 
     void cargarData() {
-        String[] titulos = {"ID", "Nombre", "Direccion", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo", "Usuario", "Clave", "Intentos"};
+        String[] titulos = {"ID", "Nombre", "Dirección", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo", "Usuario", "Clave", "Intentos"};
         String[] registros = new String[12];
 
         String sql = "SELECT V.IDVendedor, V.Nombre, V.Direccion, V.Sueldo, J.TipoJornada, V.NumeroCelular,\n"
@@ -445,7 +445,7 @@ public class panelVendedores extends javax.swing.JPanel {
         lb3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lb3.setForeground(new java.awt.Color(255, 255, 255));
         lb3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb3.setText("DIRECCION");
+        lb3.setText("DIRECCIÓN");
 
         lb4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lb4.setForeground(new java.awt.Color(255, 255, 255));

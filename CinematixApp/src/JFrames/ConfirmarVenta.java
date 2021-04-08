@@ -428,7 +428,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
             double efectivoR;
             double isv;
             efectivoR = Double.parseDouble(jTextFieldEfectivoRecibido.getText());
-
+            totalPago = Double.parseDouble(jLabelTotalPago.getText().substring(17));
             System.out.println(totalPago);
             if (MenuVendedor.rbMixto.isSelected() == true) {
                 if (efectivoR >= totalPago) {
@@ -437,11 +437,13 @@ public class ConfirmarVenta extends javax.swing.JFrame {
                 } else {
                     isv = efectivoR * 0.15;
                     jLabelImpuesto.setText("L." + isv + "0");
-                    calculo();
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
+                    JOptionPane.showMessageDialog(null, "Se cobraron "+efectivoR +" lempiras en efectivo\nLa diferencia fue cargada a la tarjeta", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 }
             } else if (MenuVendedor.rbEfectivo.isSelected()) {
                 isv = efectivoR * 0.15;
                 jLabelImpuesto.setText("L." + isv + "0");
+                jLabelCambio.setText("Pago Mixto");
                 calculo();
             } else if (MenuVendedor.rbTCredito.isSelected()) {
                 calculo();
