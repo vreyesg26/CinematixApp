@@ -478,6 +478,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         pasaDatos();
         this.dispose();
         obj.setVisible(true);
+        MenuVendedor.confirmarVenta = false;
     }//GEN-LAST:event_btnComprarActionPerformed
 
     private void jTextFieldEfectivoRecibidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEfectivoRecibidoActionPerformed

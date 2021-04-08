@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -248,8 +249,9 @@ public class panelPeliculas extends javax.swing.JPanel {
                 + "INNER JOIN horarios AS H ON P.IDHorario = H.IDHorario\n"
                 + "INNER JOIN generos AS G ON P.IDGenero = G.IDGenero\n"
                 + "INNER JOIN salas AS S ON P.IDSalas = S.IDSalas\n"
-                + "INNER JOIN estados AS E ON P.IDEstado = E.IDEstado"
-                + "WHERE CONCAT (IdPelicula, ' ', Titulo) LIKE '%" + valor + "%'";
+                + "INNER JOIN estados AS E ON P.IDEstado = E.IDEstado\n"
+                + "WHERE CONCAT (IdPelicula, ' ', Titulo) LIKE '%" + valor + "%'\n"
+                + "ORDER BY P.IdPelicula";
 
         model = new DefaultTableModel(null, titulos);
 
@@ -298,7 +300,8 @@ public class panelPeliculas extends javax.swing.JPanel {
                 + "INNER JOIN horarios AS H ON P.IDHorario = H.IDHorario\n"
                 + "INNER JOIN generos AS G ON P.IDGenero = G.IDGenero\n"
                 + "INNER JOIN salas AS S ON P.IDSalas = S.IDSalas\n"
-                + "INNER JOIN estados AS E ON P.IDEstado = E.IDEstado";
+                + "INNER JOIN estados AS E ON P.IDEstado = E.IDEstado\n"
+                + "ORDER BY P.IdPelicula";
 
         model = new DefaultTableModel(null, titulos);
 
@@ -361,7 +364,7 @@ public class panelPeliculas extends javax.swing.JPanel {
     }
 
     public void validarSoloNumeros(String numero) {
-        String patron = "^[1-9]{2,3}$";
+        String patron = "^[1-9]{1}[0-9]{2,3}$";
         Pattern patt = Pattern.compile(patron);
         Matcher comparador = patt.matcher(numero);
         if (!comparador.matches()) {
@@ -679,8 +682,8 @@ public class panelPeliculas extends javax.swing.JPanel {
         Connection cc = cn.GetConexion();
         validarCamposVacios();
         if (!guardar == false) {
-            String sql = "INSERT INTO peliculas "
-                    + "(Titulo, Duracion, IDDirector, Reparto, IDIdioma, Sinopsis, IDHorario, IDGenero, IDSalas, Foto, urlFoto)"
+            String sql = "INSERT INTO peliculas\n"
+                    + "(Titulo, Duracion, IDDirector, Reparto, IDIdioma, Sinopsis, IDHorario, IDGenero, IDSalas, Foto, urlFoto)\n"
                     + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 
             try {
@@ -850,8 +853,10 @@ public class panelPeliculas extends javax.swing.JPanel {
             File file = archivo.getSelectedFile();
             txtUrl.setText(String.valueOf(file));
             Image portada = getToolkit().getImage(txtUrl.getText());
-            portada.getScaledInstance(178, 233, Image.SCALE_DEFAULT);
+            portada.getScaledInstance(labelFoto.getWidth(), labelFoto.getHeight(), Image.SCALE_SMOOTH);
             labelFoto.setIcon(new ImageIcon(portada));
+            
+            rsscalelabel.RSScaleLabel.setScaleLabel(labelFoto, txtUrl.getText());
         }
     }//GEN-LAST:event_btnImagenActionPerformed
 

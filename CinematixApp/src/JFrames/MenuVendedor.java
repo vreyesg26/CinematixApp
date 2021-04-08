@@ -11,6 +11,7 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -55,8 +56,9 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb16.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
         lb17.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
         lb18.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
+        lbMenores.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb_Encender.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        lbVendedor.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
+        lbVendedor.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         jComboBoxPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         jComboBoxHora.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnContinuar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
@@ -228,7 +230,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         txtBoletosNiños.setText("");
     }
 
-    void limpiar() {
+    public static void limpiar() {
         ImageIcon i = new ImageIcon("");
         contadorAdultos = 1;
         contadorNiños = 0;
@@ -243,6 +245,8 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb8.setText("");
         lb9.setText("");
         lb10.setText("");
+        lbImagen.setIcon(null);
+        lbMenores.setText("");
     }
 
     void calculo() {
@@ -459,29 +463,29 @@ public class MenuVendedor extends javax.swing.JFrame {
         jPanel7.add(lb2, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 20, 180, 35));
 
         lbImagen.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel7.add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 192, 274));
+        jPanel7.add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 105, 225, 325));
 
         lb14.setForeground(new java.awt.Color(255, 255, 255));
         lb14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb14.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel7.add(lb14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 465, 180, 35));
+        jPanel7.add(lb14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 475, 180, 35));
 
         lb15.setForeground(new java.awt.Color(255, 255, 255));
         lb15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb15.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel7.add(lb15, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 465, 180, 35));
+        jPanel7.add(lb15, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 475, 180, 35));
 
         lb16.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lb16.setForeground(new java.awt.Color(255, 255, 255));
         lb16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb16.setText("DIRECTOR");
-        jPanel7.add(lb16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 180, 35));
+        jPanel7.add(lb16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 180, 35));
 
         lb17.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lb17.setForeground(new java.awt.Color(255, 255, 255));
         lb17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb17.setText("GÉNERO");
-        jPanel7.add(lb17, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 430, 180, 35));
+        jPanel7.add(lb17, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 440, 180, 35));
 
         getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 145, 387, 530));
 
@@ -505,7 +509,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb_Encender.setForeground(new java.awt.Color(255, 255, 255));
         lb_Encender.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb_Encender.setText("ENCENDER");
-        getContentPane().add(lb_Encender, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 100, 108, 21));
+        getContentPane().add(lb_Encender, new org.netbeans.lib.awtextra.AbsoluteConstraints(24, 100, 108, 21));
 
         jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(586, 530));
@@ -780,6 +784,7 @@ public class MenuVendedor extends javax.swing.JFrame {
 
         lbVendedor.setForeground(new java.awt.Color(255, 255, 255));
         lbVendedor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        lbVendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoUsuario.png"))); // NOI18N
         getContentPane().add(lbVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(673, 114, 350, 30));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VendedorPantalla2.png"))); // NOI18N
@@ -813,12 +818,12 @@ public class MenuVendedor extends javax.swing.JFrame {
     private void jComboBoxPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPeliculasActionPerformed
         seleccionPelicula();
 
-        String sql = "SELECT G.Genero, S.Sala, D.Nombre\n"
+        String sql = "SELECT G.Genero, S.Sala, D.Nombre, P.Foto\n"
                 + "FROM peliculas AS P\n"
                 + "INNER JOIN generos AS G ON P.IDGenero = G.IDGenero\n"
                 + "INNER JOIN director AS D ON P.IDDirector = D.IDDirector\n"
                 + "INNER JOIN salas AS S ON P.IDSalas = S.IDSalas\n"
-                + "WHERE P.IdPelicula = '" + jComboBoxPeliculas.getSelectedIndex() + "'";
+                + "WHERE P.Titulo = '" + jComboBoxPeliculas.getSelectedItem() + "'";
 
         try {
             Statement st = cn.createStatement();
@@ -832,6 +837,25 @@ public class MenuVendedor extends javax.swing.JFrame {
                 lb8.setText(sala);
                 lb14.setText(director);
                 lb15.setText(genero);
+
+                Image i = null;
+
+                Blob blob = rs.getBlob("P.Foto");
+                i = javax.imageio.ImageIO.read(blob.getBinaryStream());
+                ImageIcon image = new ImageIcon(i.getScaledInstance(lbImagen.getWidth(), lbImagen.getHeight(), Image.SCALE_DEFAULT));
+                lbImagen.setIcon(image);
+                this.repaint();
+                //rsscalelabel.RSScaleLabel.setScaleLabel(lbImagen, image.toString());
+                
+                if (genero.equals("Terror") || genero.equals("Suspenso")){
+                    lbMenores.setText("Esta pelicula no es apta para menores de edad");
+                    btnMas1.setEnabled(false);
+                    btnMenos1.setEnabled(false);
+                } else {
+                    btnMas1.setEnabled(true);
+                    btnMenos1.setEnabled(true);
+                    lbMenores.setText("");
+                }
             }
 
         } catch (Exception e) {
@@ -993,7 +1017,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnContinuarActionPerformed
 
-    int contadorAdultos = 1;
+    public static int contadorAdultos = 1;
     private void btnMenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenosActionPerformed
         if (contadorAdultos < 2) {
             btnMenos.setEnabled(false);
@@ -1006,7 +1030,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnMenosActionPerformed
 
-    int contadorNiños = 0;
+    public static int contadorNiños = 0;
     private void btnMenos1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenos1ActionPerformed
         if (contadorNiños < 1) {
             btnMenos1.setEnabled(false);
@@ -1100,12 +1124,12 @@ public class MenuVendedor extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JLabel lb1;
-    private javax.swing.JLabel lb10;
+    public static javax.swing.JLabel lb10;
     private javax.swing.JLabel lb11;
     private javax.swing.JLabel lb12;
     private javax.swing.JLabel lb13;
-    private javax.swing.JLabel lb14;
-    private javax.swing.JLabel lb15;
+    public static javax.swing.JLabel lb14;
+    public static javax.swing.JLabel lb15;
     private javax.swing.JLabel lb16;
     private javax.swing.JLabel lb17;
     private javax.swing.JLabel lb18;
@@ -1116,10 +1140,10 @@ public class MenuVendedor extends javax.swing.JFrame {
     private javax.swing.JLabel lb6;
     private javax.swing.JLabel lb7;
     public static javax.swing.JLabel lb8;
-    private javax.swing.JLabel lb9;
-    private javax.swing.JLabel lbImagen;
+    public static javax.swing.JLabel lb9;
+    public static javax.swing.JLabel lbImagen;
     public static javax.swing.JLabel lbMenores;
-    private javax.swing.JLabel lbResultado;
+    public static javax.swing.JLabel lbResultado;
     public static javax.swing.JLabel lbVendedor;
     private javax.swing.JLabel lb_Encender;
     public static javax.swing.JRadioButton rbEfectivo;
