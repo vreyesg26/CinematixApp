@@ -439,14 +439,16 @@ public class ConfirmarVenta extends javax.swing.JFrame {
                     jLabelImpuesto.setText("L." + isv + "0");
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
                     JOptionPane.showMessageDialog(null, "Se cobraron "+efectivoR +" lempiras en efectivo\nLa diferencia fue cargada a la tarjeta", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    jLabelCambio.setText("Pago Mixto");
+                    btnComprar.setEnabled(true);
                 }
             } else if (MenuVendedor.rbEfectivo.isSelected()) {
                 isv = efectivoR * 0.15;
                 jLabelImpuesto.setText("L." + isv + "0");
-                jLabelCambio.setText("Pago Mixto");
                 calculo();
             } else if (MenuVendedor.rbTCredito.isSelected()) {
                 calculo();
+                btnComprar.setEnabled(true);
             }
         }
     }//GEN-LAST:event_btnCambioActionPerformed
