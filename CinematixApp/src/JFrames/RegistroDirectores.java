@@ -8,7 +8,6 @@ package JFrames;
 import Datos.Conexion;
 import Paneles.panelInicio;
 import Paneles.panelVendedores;
-import Tipografia.Fuente;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -19,6 +18,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -33,7 +34,6 @@ public class RegistroDirectores extends javax.swing.JFrame {
     /**
      * Creates new form RegistroAdministradores
      */
-
     public RegistroDirectores() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
@@ -197,6 +197,9 @@ public class RegistroDirectores extends javax.swing.JFrame {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtDirectorFocusGained(evt);
             }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDirectorFocusLost(evt);
+            }
         });
         getContentPane().add(txtDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 220, 220, 40));
 
@@ -242,6 +245,19 @@ public class RegistroDirectores extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Por favor rellene el campo usuario", "Error", JOptionPane.PLAIN_MESSAGE, jPaneIcon);
         } else {
             guardar = true;
+        }
+    }
+
+    public boolean nombre(String nombre) {
+        Pattern p = null;
+        Matcher m = null;
+        p = Pattern.compile("^([A-Z-ÁÉÍÓÚÑ]{1}[a-z-áéíóúñ]+[ ]*){2,4}$");
+        m = p.matcher(nombre);
+
+        if (m.find()) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -317,6 +333,7 @@ public class RegistroDirectores extends javax.swing.JFrame {
         Connection cc = cn.GetConexion();
         validarCamposVacios();
         verificarNombre();
+        directores();
         if (!guardar == false) {
             String sql = "INSERT INTO director (Nombre) VALUES (?)";
 
@@ -347,6 +364,7 @@ public class RegistroDirectores extends javax.swing.JFrame {
         Connection cc = cn.GetConexion();
         validarCamposVacios();
         verificarNombre();
+        directores();
         if (!guardar == false) {
             String sql = "UPDATE director SET Nombre = ? WHERE IDDirector = '" + txtIDDirector.getText() + "'";
 
@@ -537,6 +555,19 @@ public class RegistroDirectores extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_tablaDirectoresMouseClicked
+
+    void directores() {
+        if (!nombre(txtDirector.getText())) {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "Los nombes deben comenzar con letra mayúscula y tener al menos 1 apellido", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            guardar = false;
+        } else {
+            guardar = true;
+        }
+    }
+    private void txtDirectorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDirectorFocusLost
+
+    }//GEN-LAST:event_txtDirectorFocusLost
 
     /**
      * @param args the command line arguments

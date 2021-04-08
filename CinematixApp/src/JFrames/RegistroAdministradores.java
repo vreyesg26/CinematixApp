@@ -34,7 +34,6 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     /**
      * Creates new form RegistroAdministradores
      */
-
     public RegistroAdministradores() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
@@ -327,7 +326,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
         if (!txtIDUsuario.getText().isEmpty() || !txtUsuario.getText().isEmpty() || !txtContraseña.getText().isEmpty()) {
             ImageIcon jPaneIcon = new ImageIcon("src/Iconos/iconoSalida.png");
@@ -465,6 +464,32 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_modificarUsuarioActionPerformed
 
+    void usuarios() {
+        Conexion cc = new Conexion();
+        Connection cn = cc.GetConexion();
+        String user = txtUsuario.getText();
+        String sql = "SELECT Usuario FROM usuarios WHERE Usuario = '" + user + "'";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                if (rs.getString("Usuario").equals(txtUsuario.getText())) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                    JOptionPane.showMessageDialog(null, "Este usuario ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    ImageIcon x = new ImageIcon("src/iconos/iconoX.png");
+                    guardar = false;
+                }
+            } else {
+                guardar = true;
+            }
+        } catch (Exception e) {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
+    }
+
     private void txtUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusLost
         if (!txtUsuario.getText().isEmpty()) {
             Conexion cc = new Conexion();
@@ -481,7 +506,10 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                         ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
                         JOptionPane.showMessageDialog(null, "Este usuario ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                         ImageIcon x = new ImageIcon("src/iconos/iconoX.png");
+                        guardar = false;
                     }
+                } else {
+                    guardar = true;
                 }
             } catch (Exception e) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
@@ -496,9 +524,9 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         Conexion cn = new Conexion();
         Connection cc = cn.GetConexion();
         validarCamposVacios();
-        if (guardar == false) {
-
-        } else {
+        contraseña();
+        usuarios();
+        if (!guardar == false) {
             String sql = "INSERT INTO usuarios (Usuario, Contrasena) VALUES (?,?)";
 
             try {
@@ -528,9 +556,8 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         Conexion cn = new Conexion();
         Connection cc = cn.GetConexion();
         validarCamposVacios();
-        if (guardar == false) {
-
-        } else {
+        usuarios();
+        if (!guardar == false) {
             String sql = "UPDATE usuarios SET Usuario = ?, Contrasena = ? WHERE IDUsuario = '" + txtIDUsuario.getText() + "'";
 
             try {
@@ -580,12 +607,19 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         btnDeshabilitar.setText("CANCELAR");
     }//GEN-LAST:event_txtContraseñaFocusGained
 
+    void contraseña() {
+        if (txtContraseña.getText().length() < 6) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "La contraseña debe tener minimo 6 caracteres", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            guardar = false;
+        } else {
+            guardar = true;
+        }
+    }
+
     private void txtContraseñaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContraseñaFocusLost
         if (!txtContraseña.getText().isEmpty()) {
-            if (txtContraseña.getText().length() < 6) {
-                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                JOptionPane.showMessageDialog(null, "La contraseña debe tener minimo 6 caracteres", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-            }
+
         }
     }//GEN-LAST:event_txtContraseñaFocusLost
 
@@ -603,16 +637,24 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistroAdministradores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroAdministradores.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistroAdministradores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroAdministradores.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistroAdministradores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroAdministradores.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistroAdministradores.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RegistroAdministradores.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 

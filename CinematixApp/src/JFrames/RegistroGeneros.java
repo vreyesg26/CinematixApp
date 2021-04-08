@@ -8,7 +8,6 @@ package JFrames;
 import Datos.Conexion;
 import Paneles.panelInicio;
 import Paneles.panelVendedores;
-import Tipografia.Fuente;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -19,6 +18,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -238,6 +239,19 @@ public class RegistroGeneros extends javax.swing.JFrame {
             guardar = true;
         }
     }
+    
+    public void verificarCaracteres(String cadena) {
+        String patron = "^[A-Z]((([A-Za-zñÑáéíóúÁÉÍÓÚ ,.\\s])\\3?(?!\\3)))+$";
+        Pattern patt = Pattern.compile(patron);
+        Matcher comparador = patt.matcher(cadena);
+        if (!comparador.matches()) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "Al parecer estás cometiendo alguno de estos errores:\n•Asegurate de iniciar el párrafo con letras mayúsculas\n•No utilices caracteres especiales\n•No repitas letras de forma incorrecta", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            guardar = false;
+        } else {
+            guardar = true;
+        }
+    }
 
     void cargarData() {
         String[] titulos = {"ID", "Género", "Estado"};
@@ -365,6 +379,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
         Connection cc = cn.GetConexion();
         validarCamposVacios();
         verificarGenero();
+        verificarCaracteres(txtGeneros.getText());
         if (!guardar == false) {
             String sql = "INSERT INTO generos (Genero) VALUES (?)";
 
@@ -395,6 +410,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
         Connection cc = cn.GetConexion();
         validarCamposVacios();
         verificarGenero();
+        verificarCaracteres(txtGeneros.getText());
         if (!guardar == false) {
             String sql = "UPDATE generos SET Genero = ? WHERE IDGenero = '" + txtIDGenero.getText() + "'";
 

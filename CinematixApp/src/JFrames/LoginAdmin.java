@@ -170,7 +170,6 @@ public class LoginAdmin extends javax.swing.JFrame {
                     int intentos = Integer.parseInt(rs.getString("Intentos"));
                     if (rs.getString("Intentos").equals("0")) {
                         JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
-                        txtusuario.setText("");
                         txtpassword.setText("");
 
                     } else if (encode.deecnode(secretKey, rs.getString("Contrasena")).equals(pass)) {
@@ -219,7 +218,6 @@ public class LoginAdmin extends javax.swing.JFrame {
                             }
                             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
                             JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Adveretencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-                            txtusuario.setText("");
                             txtpassword.setText("");
                         }
                     }

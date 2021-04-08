@@ -356,7 +356,7 @@ public class RegistroHorarios extends javax.swing.JFrame {
                 ResultSet rs = st.executeQuery(sql);
 
                 if (rs.next()) {
-                    if (rs.getString("Genero").equals(txtHorarios.getText())) {
+                    if (rs.getString("Hora").equals(txtHorarios.getText())) {
                         ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
                         JOptionPane.showMessageDialog(null, "Este horario ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                         ImageIcon x = new ImageIcon("src/iconos/iconoX.png");

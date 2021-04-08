@@ -67,16 +67,17 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         jTextFieldHora.setEditable(false);
     }
 
+    double efectivoR;
+    public static double totalPago;
+    double cambio;
+
     void calculo() {
-        double efectivoR;
-        double totalPago;
-        double cambio;
 
         totalPago = Double.parseDouble(jLabelTotalPago.getText().substring(17));
         efectivoR = Double.parseDouble(jTextFieldEfectivoRecibido.getText());
         if (efectivoR < totalPago) {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-            JOptionPane.showMessageDialog(this, "Hubo un problema al realizar el cobor \n Dinero insuficiente", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            JOptionPane.showMessageDialog(this, "Hubo un problema al realizar el cobro\n Dinero insuficiente", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         } else {
             cambio = efectivoR - totalPago;
             jLabelCambio.setText("L." + cambio + "0");
@@ -143,7 +144,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         lb13 = new javax.swing.JLabel();
         lb14 = new javax.swing.JLabel();
         jLabelCambio = new javax.swing.JLabel();
-        jButton3 = new javax.swing.JButton();
+        btnCambio = new javax.swing.JButton();
         lb16 = new javax.swing.JLabel();
         jTextFieldNombreVendedor = new javax.swing.JTextField();
         lb15 = new javax.swing.JLabel();
@@ -333,17 +334,17 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         jLabelCambio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.add(jLabelCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 185, 30));
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnCambio.png"))); // NOI18N
-        jButton3.setBorder(null);
-        jButton3.setContentAreaFilled(false);
-        jButton3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        jButton3.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnCambio2.png"))); // NOI18N
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnCambio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnCambio.png"))); // NOI18N
+        btnCambio.setBorder(null);
+        btnCambio.setContentAreaFilled(false);
+        btnCambio.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCambio.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnCambio2.png"))); // NOI18N
+        btnCambio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnCambioActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 118, -1, 35));
+        jPanel2.add(btnCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 118, -1, 35));
 
         lb16.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         lb16.setForeground(new java.awt.Color(255, 255, 255));
@@ -419,7 +420,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldCantidadDeBoletosNiñosActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnCambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambioActionPerformed
         if (jTextFieldEfectivoRecibido.getText().isEmpty()) {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
             JOptionPane.showMessageDialog(null, "Debe escribir la cantidad de efectivo recibida", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
@@ -427,11 +428,26 @@ public class ConfirmarVenta extends javax.swing.JFrame {
             double efectivoR;
             double isv;
             efectivoR = Double.parseDouble(jTextFieldEfectivoRecibido.getText());
-            isv = efectivoR * 0.15;
-            jLabelImpuesto.setText("L." + isv + "0");
-            calculo();
+
+            System.out.println(totalPago);
+            if (MenuVendedor.rbMixto.isSelected() == true) {
+                if (efectivoR >= totalPago) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                    JOptionPane.showMessageDialog(null, "Al hacer un pago de tipo mixto, la cantidad de efectivo debe ser menor al total", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                } else {
+                    isv = efectivoR * 0.15;
+                    jLabelImpuesto.setText("L." + isv + "0");
+                    calculo();
+                }
+            } else if (MenuVendedor.rbEfectivo.isSelected()) {
+                isv = efectivoR * 0.15;
+                jLabelImpuesto.setText("L." + isv + "0");
+                calculo();
+            } else if (MenuVendedor.rbTCredito.isSelected()) {
+                calculo();
+            }
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnCambioActionPerformed
 
     private void jTextFieldNombreVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreVendedorActionPerformed
         // TODO add your handling code here:
@@ -450,12 +466,13 @@ public class ConfirmarVenta extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.dispose();
+        MenuVendedor.confirmarVenta = false;
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
         Factura obj = new Factura();
         pasaDatos();
-        dispose();
+        this.dispose();
         obj.setVisible(true);
     }//GEN-LAST:event_btnComprarActionPerformed
 
@@ -499,9 +516,9 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JButton btnCambio;
     public static rojerusan.RSButtonHover btnComprar;
     private rojerusan.RSButtonHover btnRegresar;
-    public static javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     public static javax.swing.JLabel jLabelCambio;
     public static javax.swing.JLabel jLabelImpuesto;

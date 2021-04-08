@@ -82,7 +82,7 @@ public class panelVendedores extends javax.swing.JPanel {
     }
 
     public void verificarCaracteresRepetidos(String cadena) {
-        String patron = "^(?:([a-zA-Z])(?!.*\\1{2})[ ]?)+$";
+        String patron = "^(\\d|(([A-Za-zñÑáéíóúÁÉÍÓÚ\\s])\\3?(?!\\3)))+$";
         Pattern patt = Pattern.compile(patron);
         Matcher comparador = patt.matcher(cadena);
         if (!comparador.matches()) {

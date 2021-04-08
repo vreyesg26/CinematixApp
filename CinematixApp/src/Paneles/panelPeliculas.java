@@ -159,28 +159,30 @@ public class panelPeliculas extends javax.swing.JPanel {
     }
 
     public void verificarCaracteresRepetidos(String cadena) {
-        String patron = "^(?:([a-zA-Z])(?!.*\\1{2})[ ]?)+$";
+        String patron = "^[A-Z]((([A-Za-zñÑáéíóúÁÉÍÓÚ ,.\\s])\\3?(?!\\3)))+$";
         Pattern patt = Pattern.compile(patron);
         Matcher comparador = patt.matcher(cadena);
         if (!comparador.matches()) {
-            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "Tienes caracteres repetidos de forma incorrecta", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "Al parecer estás cometiendo alguno de estos errores:\n•Asegurate de iniciar el párrafo con letras mayúsculas\n•No utilices caracteres especiales ni números\n•No repitas letras de forma incorrecta", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         }
     }
 
     void anchoColumnas() {
         TableColumnModel anchoColumnas = tablaPeliculas.getColumnModel();
         anchoColumnas.getColumn(0).setPreferredWidth(30);
-        anchoColumnas.getColumn(1).setPreferredWidth(180);
+        anchoColumnas.getColumn(1).setPreferredWidth(140);
         anchoColumnas.getColumn(2).setPreferredWidth(70);
-        anchoColumnas.getColumn(3).setPreferredWidth(90);
-        anchoColumnas.getColumn(4).setPreferredWidth(170);
+        anchoColumnas.getColumn(3).setPreferredWidth(130);
+        anchoColumnas.getColumn(4).setPreferredWidth(250);
         anchoColumnas.getColumn(5).setPreferredWidth(70);
-        anchoColumnas.getColumn(6).setPreferredWidth(220);
+        anchoColumnas.getColumn(6).setPreferredWidth(500);
         anchoColumnas.getColumn(7).setPreferredWidth(80);
-        anchoColumnas.getColumn(8).setPreferredWidth(100);
+        anchoColumnas.getColumn(8).setPreferredWidth(80);
         anchoColumnas.getColumn(9).setPreferredWidth(80);
-        anchoColumnas.getColumn(10).setPreferredWidth(220);
+        anchoColumnas.getColumn(10).setPreferredWidth(100);
+        anchoColumnas.getColumn(11).setPreferredWidth(220);
+        anchoColumnas.getColumn(12).setPreferredWidth(100);
     }
 
     void bloquearCampos() {
@@ -239,7 +241,7 @@ public class panelPeliculas extends javax.swing.JPanel {
     void buscarData(String valor) {
         String[] titulos = {"ID", "Titulo", "Duración", "Director", "Reparto", "Idioma", "Sinopsis", "Horario", "Género", "Sala", "Foto", "URL", "Estado"};
         String[] registros = new String[13];
-        String sql = "SELECT P.IdPelicula, P.Titulo, P.Duracion, D.Nombre, P.Reparto, I.Idioma, H.Hora, G.Genero, S.Sala, P.Foto, P.urlFoto, E.Estado\n"
+        String sql = "SELECT P.IdPelicula, P.Titulo, P.Duracion, D.Nombre, P.Reparto, I.Idioma, P.Sinopsis, H.Hora, G.Genero, S.Sala, P.Foto, P.urlFoto, E.Estado\n"
                 + "FROM peliculas AS P \n"
                 + "INNER JOIN director AS D ON P.IDDirector = D.IDDirector\n"
                 + "INNER JOIN idiomas AS I ON P.IDIdioma = I.IDIdioma\n"
@@ -289,7 +291,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         String[] titulos = {"ID", "Titulo", "Duración", "Director", "Reparto", "Idioma", "Sinopsis", "Horario", "Género", "Sala", "Foto", "URL", "Estado"};
         String[] registros = new String[13];
 
-        String sql = "SELECT P.IdPelicula, P.Titulo, P.Duracion, D.Nombre, P.Reparto, I.Idioma, H.Hora, G.Genero, S.Sala, P.Foto, P.urlFoto, E.Estado\n"
+        String sql = "SELECT P.IdPelicula, P.Titulo, P.Duracion, D.Nombre, P.Reparto, I.Idioma, P.Sinopsis, H.Hora, G.Genero, S.Sala, P.Foto, P.urlFoto, E.Estado\n"
                 + "FROM peliculas AS P \n"
                 + "INNER JOIN director AS D ON P.IDDirector = D.IDDirector\n"
                 + "INNER JOIN idiomas AS I ON P.IDIdioma = I.IDIdioma\n"
@@ -358,10 +360,13 @@ public class panelPeliculas extends javax.swing.JPanel {
         }
     }
 
-    public void validarSoloNumeros(java.awt.event.KeyEvent e) {
-        if (e.getKeyChar() >= 32 && e.getKeyChar() <= 47 || e.getKeyChar() >= 58 && e.getKeyChar() <= 255) {
-            e.consume();
-            JOptionPane.showMessageDialog(null, "Este campo solo admite números");
+    public void validarSoloNumeros(String numero) {
+        String patron = "^[1-9]{2,3}$";
+        Pattern patt = Pattern.compile(patron);
+        Matcher comparador = patt.matcher(numero);
+        if (!comparador.matches()) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Este campo debe contener mínimo 2 números o máximo 3 del 1 al 9", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         }
     }
 
@@ -696,7 +701,8 @@ public class panelPeliculas extends javax.swing.JPanel {
 
                 int i = pst.executeUpdate();
                 if (i > 0) {
-                    JOptionPane.showMessageDialog(null, "Se guardo correctamente");
+                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
+                    JOptionPane.showMessageDialog(null, "El registro se guardó satisfactoriamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                     limpiarCajas();
                     bloquearCampos();
                     btnImagen.setEnabled(false);
@@ -706,11 +712,13 @@ public class panelPeliculas extends javax.swing.JPanel {
                 }
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar");
+                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar el registro", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());
             }
         }
         cargarData("");
+        btnNuevo.setEnabled(true);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -743,7 +751,8 @@ public class panelPeliculas extends javax.swing.JPanel {
 
                 int i = pst.executeUpdate();
                 if (i > 0) {
-                    JOptionPane.showMessageDialog(null, "Se guardo correctamente");
+                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
+                    JOptionPane.showMessageDialog(null, "El registro se actualizó satisfactoriamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                     limpiarCajas();
                     btnGuardar.setEnabled(false);
                     btnNuevo.setEnabled(true);
@@ -759,7 +768,8 @@ public class panelPeliculas extends javax.swing.JPanel {
                 }
 
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar");
+                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "Hubo un error al intentar actualizar el registro", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());
             }
         }
@@ -851,7 +861,7 @@ public class panelPeliculas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarKeyTyped
 
     private void txtTituloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTituloKeyTyped
-        validarNumerosLetras(evt);
+        //validarNumerosLetras(evt);
     }//GEN-LAST:event_txtTituloKeyTyped
 
     private void txtRepartoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRepartoKeyTyped
@@ -862,7 +872,6 @@ public class panelPeliculas extends javax.swing.JPanel {
         if (txtDuracion.getText().length() > 2) {
             evt.consume();
         }
-        validarSoloNumeros(evt);
     }//GEN-LAST:event_txtDuracionKeyTyped
 
     void modificarRegistro() {
@@ -885,12 +894,15 @@ public class panelPeliculas extends javax.swing.JPanel {
             String sinopsis = tablaPeliculas.getValueAt(fila, 6).toString();
             String horario = tablaPeliculas.getValueAt(fila, 7).toString();
             String genero = tablaPeliculas.getValueAt(fila, 8).toString();
-            String url = tablaPeliculas.getValueAt(fila, 10).toString();
+            String sala = tablaPeliculas.getValueAt(fila, 9).toString();
+            String url = tablaPeliculas.getValueAt(fila, 11).toString();
 
             txtIDPelicula.setText(id);
             txtTitulo.setText(titulo);
             txtDuracion.setText(duracion);
-            if (director.contains("Mel Gibson")) {
+            txtReparto.setText(reparto);
+            txtSinopsis.setText(sinopsis);
+            /*if (director.contains("Mel Gibson")) {
                 cbDirector.setSelectedIndex(1);
             } else if (director.contains("Martin Scorsese")) {
                 cbDirector.setSelectedIndex(2);
@@ -912,14 +924,11 @@ public class panelPeliculas extends javax.swing.JPanel {
                 cbDirector.setSelectedIndex(10);
             }
 
-            txtReparto.setText(reparto);
-
             if (idioma.contains("Español")) {
                 cbIdiomas.setSelectedIndex(1);
             } else if (idioma.contains("Inglés")) {
                 cbIdiomas.setSelectedIndex(2);
             }
-            txtSinopsis.setText(sinopsis);
 
             if (horario.contains("09:00am")) {
                 cbHorarios.setSelectedIndex(1);
@@ -965,8 +974,13 @@ public class panelPeliculas extends javax.swing.JPanel {
                 cbGeneros.setSelectedIndex(6);
             } else if (genero.contains("Suspenso")) {
                 cbGeneros.setSelectedIndex(7);
-            }
+            }*/
 
+            cbIdiomas.setSelectedItem(idioma);
+            cbDirector.setSelectedItem(director);
+            cbHorarios.setSelectedItem(horario);
+            cbGeneros.setSelectedItem(genero);
+            cbSalas.setSelectedItem(sala);
             txtUrl.setText(url);
             Image foto = getToolkit().getImage(url);
             foto = foto.getScaledInstance(192, 274, 1);
@@ -1028,36 +1042,34 @@ public class panelPeliculas extends javax.swing.JPanel {
         if (!txtTitulo.getText().isEmpty()) {
             if (txtTitulo.getText().length() < 4) {
                 JOptionPane.showMessageDialog(null, "Titulo debe contener al menos 4 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+            } else {
 
-            Conexion cc = new Conexion();
-            Connection cn = cc.GetConexion();
-            String titulo = txtTitulo.getText();
-            String sql = "SELECT Titulo FROM peliculas WHERE Titulo = '" + titulo + "'";
+                Conexion cc = new Conexion();
+                Connection cn = cc.GetConexion();
+                String titulo = txtTitulo.getText();
+                String sql = "SELECT Titulo FROM peliculas WHERE Titulo = '" + titulo + "'";
 
-            try {
-                Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql);
+                try {
+                    Statement st = cn.createStatement();
+                    ResultSet rs = st.executeQuery(sql);
 
-                if (rs.next()) {
-                    if (rs.getString("Titulo").equals(titulo)) {
-                        JOptionPane.showMessageDialog(null, "Esta pelicula ya está almacenada", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                        txtTitulo.setText("");
+                    if (rs.next()) {
+                        if (rs.getString("Titulo").equals(titulo)) {
+                            JOptionPane.showMessageDialog(null, "Esta pelicula ya está almacenada", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                            txtTitulo.setText("");
+                        }
                     }
+                } catch (Exception e) {
+                    JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                verificarCaracteresRepetidos(txtTitulo.getText());
             }
-            verificarCaracteresRepetidos(txtTitulo.getText());
         }
     }//GEN-LAST:event_txtTituloFocusLost
 
     private void txtDuracionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDuracionFocusLost
         if (!txtDuracion.getText().isEmpty()) {
-            if (txtDuracion.getText().length() < 3) {
-                JOptionPane.showMessageDialog(null, "El campo duración debe contener 3 números", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-            verificarCaracteresRepetidos(txtDuracion.getText());
+            validarSoloNumeros(txtDuracion.getText());
         }
     }//GEN-LAST:event_txtDuracionFocusLost
 
@@ -1065,8 +1077,9 @@ public class panelPeliculas extends javax.swing.JPanel {
         if (!txtReparto.getText().isEmpty()) {
             if (txtReparto.getText().length() < 10) {
                 JOptionPane.showMessageDialog(null, "El campo reparto debe contener 10 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                verificarCaracteresRepetidos(txtReparto.getText());
             }
-            verificarCaracteresRepetidos(txtReparto.getText());
         }
     }//GEN-LAST:event_txtRepartoFocusLost
 
@@ -1074,8 +1087,9 @@ public class panelPeliculas extends javax.swing.JPanel {
         if (!txtSinopsis.getText().isEmpty()) {
             if (txtSinopsis.getText().length() < 15) {
                 JOptionPane.showMessageDialog(null, "El campo sinopsis debe contener 15 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                verificarCaracteresRepetidos(txtSinopsis.getText());
             }
-            verificarCaracteresRepetidos(txtSinopsis.getText());
         }
     }//GEN-LAST:event_txtSinopsisFocusLost
 
@@ -1083,7 +1097,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         int fila = tablaPeliculas.getSelectedRow();
         if (fila >= 0) {
             btnDeshabilitar.setEnabled(true);
-            String estado = tablaPeliculas.getValueAt(fila, 13).toString();
+            String estado = tablaPeliculas.getValueAt(fila, 12).toString();
 
             if ("Habilitado".equals(estado)) {
                 ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");

@@ -18,6 +18,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Los Pibes
@@ -40,11 +41,11 @@ public class Factura extends javax.swing.JFrame {
         Date dia = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         jLabelFecha.setText(sdf.format(dia));
-       // jLabelFecha.setText(dia.getDay() + "/" +dia.getMonth() + "/"+(dia.getYear()+1900));
-       //.setText("Fecha: " + (dia.getDay()+ 21) + "/" + (dia.getMonth() + 1) + "/" + (dia.getYear() + 1900));
+        // jLabelFecha.setText(dia.getDay() + "/" +dia.getMonth() + "/"+(dia.getYear()+1900));
+        //.setText("Fecha: " + (dia.getDay()+ 21) + "/" + (dia.getMonth() + 1) + "/" + (dia.getYear() + 1900));
         jLabelHora.setText("Hora: " + (dia.getHours()) + ":" + (dia.getMinutes()) + ":" + (dia.getSeconds()));
     }
-    
+
     void limpiar() {
         ImageIcon i = new ImageIcon("");
         MenuVendedor.txtBoletosAdultos.setText("");
@@ -62,7 +63,7 @@ public class Factura extends javax.swing.JFrame {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
         return retValue;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -268,37 +269,45 @@ public class Factura extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton_ImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ImprimirActionPerformed
-        PrinterJob job = PrinterJob.getPrinterJob();
-        job.setJobName("Factura");
+        ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
+        int decision = JOptionPane.showConfirmDialog(null, "¿Desea imprimir la factura de la venta?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        if (decision == 0) {
+            PrinterJob job = PrinterJob.getPrinterJob();
+            job.setJobName("Factura");
 
-        job.setPrintable(new Printable(){
-            public int print(Graphics pg, PageFormat pf, int pageNum){
+            job.setPrintable(new Printable() {
+                public int print(Graphics pg, PageFormat pf, int pageNum) {
 
-                if(pageNum > 0){
-                    return Printable.NO_SUCH_PAGE;
+                    if (pageNum > 0) {
+                        return Printable.NO_SUCH_PAGE;
+                    }
+
+                    Graphics2D g2 = (Graphics2D) pg;
+                    g2.translate(pf.getImageableX(), pf.getImageableY());
+                    g2.scale(1.0, 1.0);
+
+                    jPanel1.paint(g2);
+                    return Printable.PAGE_EXISTS;
                 }
+            });
+            boolean ok = job.printDialog();
+            if (ok) {
+                try {
+                    job.print();
+                } catch (PrinterException ex) {
 
-                Graphics2D g2 = (Graphics2D)pg;
-                g2.translate(pf.getImageableX(), pf.getImageableY());
-                g2.scale(1.0, 1.0);
-
-                jPanel1.paint(g2);
-                return Printable.PAGE_EXISTS;
+                }
             }
-        });
-        boolean ok = job.printDialog();
-        if (ok){
-            try{
-                job.print();
-            }catch (PrinterException ex){
 
-            }
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
+            JOptionPane.showMessageDialog(null, "Factura Generada", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            limpiar();
+            this.dispose();
+        } else if (decision == 1){
+            this.dispose();
+            MenuVendedor mv = new MenuVendedor();
+            mv.setVisible(true);
         }
-
-        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
-        JOptionPane.showMessageDialog(null, "Factura Generada", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        limpiar();
-        this.dispose();
     }//GEN-LAST:event_jButton_ImprimirActionPerformed
 
     /**

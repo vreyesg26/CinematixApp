@@ -153,7 +153,6 @@ public class LoginVendedor extends javax.swing.JFrame {
                     if (rs.getString("Intentos").equals("0")) {
                         ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoSalida.png");
                         JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                        txtCorreo.setText("");
                         txtClave.setText("");
                     } else if (encode.deecnode(secretKey, rs.getString("Clave")).equals(pass)) {
                         MenuVendedor mv = new MenuVendedor();
@@ -206,13 +205,14 @@ public class LoginVendedor extends javax.swing.JFrame {
                             }
                             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
                             JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                            txtCorreo.setText("");
                             txtClave.setText("");
                         }
                     }
                 } else {
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                     JOptionPane.showMessageDialog(null, "Asegurate de utilizar un usuario y contraseña correctos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    txtCorreo.setText("");
+                    txtClave.setText("");
                 }
 
             } catch (Exception e) {

@@ -34,13 +34,14 @@ public class MenuVendedor extends javax.swing.JFrame {
         super.setTitle("Menú CineMatix");
         super.setResizable(false);
         super.setLocationRelativeTo(null);
-        lbMenores.setVisible(false);
         btnContinuar.setEnabled(false);
         txtBoletosAdultos.setEditable(false);
         txtBoletosNiños.setEditable(false);
         Desactivados();
 
         tipoFuente = new Fuente();
+        lb1.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        lb2.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
         lb6.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         lb7.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         lb8.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
@@ -49,8 +50,13 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb11.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         lb12.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         lb13.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lb14.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        lb15.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        lb16.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        lb17.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        lb18.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         lb_Encender.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
-        lbVendedor.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        lbVendedor.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         jComboBoxPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         jComboBoxHora.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnContinuar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
@@ -60,7 +66,6 @@ public class MenuVendedor extends javax.swing.JFrame {
         rbTCredito.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
 
         lbResultado.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
-        lbMenores.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
 
         txtBoletosAdultos.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         txtBoletosNiños.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
@@ -88,6 +93,49 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
     }
 
+    Conexion cc = new Conexion();
+    Connection cn = cc.GetConexion();
+
+    void consultarSala() {
+        int indexPelicula = jComboBoxPeliculas.getSelectedIndex();
+        String sql = "SELECT Sala\n"
+                + "FROM salas\n"
+                + "INNER JOIN peliculas USING (IDSalas)\n"
+                + "WHERE IdPelicula = 1";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                String sala = rs.getString("Sala");
+                System.out.println(sala);
+                lb8.setText(sala);
+            }
+
+        } catch (Exception e) {
+
+        }
+    }
+
+    void consultarPrecios() {
+        String sql = "SELECT PrecioBoletoAdulto, PrecioBoletoNino FROM salas WHERE Sala = '" + lb8.getText() + "'";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            if (rs.next()) {
+                String boletoAdulto = rs.getString("PrecioBoletoAdulto");
+                String boletoNiño = rs.getString("PrecioBoletoNino");
+                lb9.setText("L. " + boletoAdulto);
+                lb10.setText("L. " + boletoNiño);
+            }
+
+        } catch (Exception e) {
+
+        }
+    }
+
     void Desactivados() {
         jComboBoxPeliculas.setEnabled(false);
         jComboBoxHora.setEnabled(false);
@@ -110,7 +158,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         btnMas1.setEnabled(true);
         btnMenos1.setEnabled(true);
         btnContinuar.setEnabled(true);
-        txtBoletosAdultos.setText(String.valueOf(contador));
+        txtBoletosAdultos.setText(String.valueOf(contadorAdultos));
         txtBoletosNiños.setText(String.valueOf(contadorNiños));
     }
 
@@ -160,12 +208,12 @@ public class MenuVendedor extends javax.swing.JFrame {
         Connection cn = cc.GetConexion();
         Combo = jComboBoxHora.getSelectedIndex();
 
-        String sql = "SELECT Hora FROM horarios";
-        jComboBoxHora.addItem("Seleccione un Horario");
+        String sql = "SELECT Hora FROM horarios ORDER BY IDHorario";
+        jComboBoxHora.addItem("Seleccione un horario");
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            
+
             while (rs.next()) {
                 jComboBoxHora.addItem(rs.getString("Hora"));
             }
@@ -182,7 +230,7 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     void limpiar() {
         ImageIcon i = new ImageIcon("");
-        contador = 1;
+        contadorAdultos = 1;
         contadorNiños = 0;
         txtBoletosAdultos.setText("");
         txtBoletosNiños.setText("");
@@ -190,12 +238,17 @@ public class MenuVendedor extends javax.swing.JFrame {
         jComboBoxPeliculas.removeAllItems();
         jComboBoxHora.removeAllItems();
         lbResultado.setText("");
+        lb14.setText("");
+        lb15.setText("");
+        lb8.setText("");
+        lb9.setText("");
+        lb10.setText("");
     }
 
     void calculo() {
 
-        double boletoAdulto = 90;
-        double boletoNiño = 40;
+        double boletoAdulto = Double.valueOf(lb9.getText().substring(3));
+        double boletoNiño = Double.valueOf(lb10.getText().substring(3));
         double cantidadAdultos = 0.0, cantidadNiños = 0.0;
         double precioAdultos = 0.0, precioNiños = 0.0;
         double TotalN = 0, TotalA = 0, Total;
@@ -228,6 +281,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     void pasaDatos() {
         ConfirmarVenta.jTextFieldCantidadDeBoletosAdultos.setText(txtBoletosAdultos.getText());
         ConfirmarVenta.jTextFieldCantidadDeBoletosNiños.setText(txtBoletosNiños.getText());
+        ConfirmarVenta.jLabelSala.setText(lb8.getText());
     }
 
     /*void MenoresEdad() {
@@ -249,7 +303,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             ConfirmarVenta.jTextFieldEfectivoRecibido.setEditable(false);
             ConfirmarVenta.lb14.setVisible(true);
             ConfirmarVenta.jLabelCambio.setText("Paga con tarjeta");
-            ConfirmarVenta.jButton3.setVisible(false);
+            ConfirmarVenta.btnCambio.setEnabled(false);
             ConfirmarVenta.jLabelImpuesto.setText("15%");
             ConfirmarVenta.btnComprar.setEnabled(true);
             ConfirmarVenta.jTextFieldNombreVendedor.setText(lbVendedor.getText().substring(12, lbVendedor.getText().length() - 1));
@@ -313,6 +367,10 @@ public class MenuVendedor extends javax.swing.JFrame {
         jComboBoxHora = new javax.swing.JComboBox<>();
         lb2 = new javax.swing.JLabel();
         lbImagen = new javax.swing.JLabel();
+        lb14 = new javax.swing.JLabel();
+        lb15 = new javax.swing.JLabel();
+        lb16 = new javax.swing.JLabel();
+        lb17 = new javax.swing.JLabel();
         btnEncendido = new javax.swing.JToggleButton();
         lb_Encender = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -340,6 +398,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         btnMas = new javax.swing.JButton();
         btnMenos1 = new javax.swing.JButton();
         btnMas1 = new javax.swing.JButton();
+        lb18 = new javax.swing.JLabel();
         lbVendedor = new javax.swing.JLabel();
         fondo = new javax.swing.JLabel();
 
@@ -400,7 +459,29 @@ public class MenuVendedor extends javax.swing.JFrame {
         jPanel7.add(lb2, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 20, 180, 35));
 
         lbImagen.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel7.add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 130, 192, 274));
+        jPanel7.add(lbImagen, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 192, 274));
+
+        lb14.setForeground(new java.awt.Color(255, 255, 255));
+        lb14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb14.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel7.add(lb14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 465, 180, 35));
+
+        lb15.setForeground(new java.awt.Color(255, 255, 255));
+        lb15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb15.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel7.add(lb15, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 465, 180, 35));
+
+        lb16.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lb16.setForeground(new java.awt.Color(255, 255, 255));
+        lb16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb16.setText("DIRECTOR");
+        jPanel7.add(lb16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 180, 35));
+
+        lb17.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lb17.setForeground(new java.awt.Color(255, 255, 255));
+        lb17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb17.setText("GÉNERO");
+        jPanel7.add(lb17, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 430, 180, 35));
 
         getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 145, 387, 530));
 
@@ -432,43 +513,46 @@ public class MenuVendedor extends javax.swing.JFrame {
 
         lb9.setFont(new java.awt.Font("Ubuntu Condensed", 0, 16)); // NOI18N
         lb9.setForeground(new java.awt.Color(255, 255, 255));
-        lb9.setText("L. 90");
-        jPanel1.add(lb9, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 90, -1, -1));
+        lb9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb9.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.add(lb9, new org.netbeans.lib.awtextra.AbsoluteConstraints(255, 90, 70, 35));
 
         lb6.setFont(new java.awt.Font("Ubuntu Condensed", 1, 20)); // NOI18N
         lb6.setForeground(new java.awt.Color(255, 255, 255));
         lb6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb6.setText("Precio Adultos");
-        jPanel1.add(lb6, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 140, 30));
+        lb6.setText("Tipo Sala");
+        jPanel1.add(lb6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 50, 140, 30));
 
         lb7.setFont(new java.awt.Font("Ubuntu Condensed", 1, 20)); // NOI18N
         lb7.setForeground(new java.awt.Color(255, 255, 255));
         lb7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb7.setText("Precio Niños");
-        jPanel1.add(lb7, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 50, 140, 30));
+        jPanel1.add(lb7, new org.netbeans.lib.awtextra.AbsoluteConstraints(405, 50, 140, 30));
 
         lb10.setFont(new java.awt.Font("Ubuntu Condensed", 0, 16)); // NOI18N
         lb10.setForeground(new java.awt.Color(255, 255, 255));
-        lb10.setText("L. 40");
-        jPanel1.add(lb10, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 90, -1, -1));
+        lb10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb10.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.add(lb10, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 90, 70, 35));
 
         lb11.setFont(new java.awt.Font("Ubuntu Condensed", 1, 20)); // NOI18N
         lb11.setForeground(new java.awt.Color(255, 255, 255));
         lb11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb11.setText("Adultos");
-        jPanel1.add(lb11, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 200, 140, 30));
+        jPanel1.add(lb11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 140, 30));
 
-        lb13.setFont(new java.awt.Font("Ubuntu Condensed", 1, 16)); // NOI18N
+        lb13.setFont(new java.awt.Font("Ubuntu Condensed", 1, 20)); // NOI18N
         lb13.setForeground(new java.awt.Color(255, 255, 255));
-        lb13.setText("Cantidad:");
-        jPanel1.add(lb13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 240, -1, -1));
+        lb13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb13.setText("CANTIDAD");
+        jPanel1.add(lb13, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 240, 120, 30));
 
         txtBoletosAdultos.setEditable(false);
         txtBoletosAdultos.setForeground(new java.awt.Color(0, 0, 0));
         txtBoletosAdultos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtBoletosAdultos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtBoletosAdultos.setOpaque(false);
-        jPanel1.add(txtBoletosAdultos, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 240, 50, 30));
+        jPanel1.add(txtBoletosAdultos, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 240, 50, 30));
 
         lb5.setBackground(new java.awt.Color(168, 168, 168));
         lb5.setFont(new java.awt.Font("Arial Black", 1, 22)); // NOI18N
@@ -554,8 +638,9 @@ public class MenuVendedor extends javax.swing.JFrame {
 
         lb8.setFont(new java.awt.Font("Ubuntu Condensed", 0, 16)); // NOI18N
         lb8.setForeground(new java.awt.Color(255, 255, 255));
-        lb8.setText("2D");
-        jPanel1.add(lb8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, -1, -1));
+        lb8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel1.add(lb8, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 90, 90, 35));
 
         txtBoletosNiños.setEditable(false);
         txtBoletosNiños.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -574,7 +659,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                 txtBoletosNiñosKeyTyped(evt);
             }
         });
-        jPanel1.add(txtBoletosNiños, new org.netbeans.lib.awtextra.AbsoluteConstraints(425, 240, 50, 30));
+        jPanel1.add(txtBoletosNiños, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 240, 50, 30));
 
         lb4.setBackground(new java.awt.Color(168, 168, 168));
         lb4.setFont(new java.awt.Font("Arial Black", 1, 22)); // NOI18N
@@ -588,17 +673,18 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb12.setForeground(new java.awt.Color(255, 255, 255));
         lb12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb12.setText("Niños");
-        jPanel1.add(lb12, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 200, 140, 30));
+        jPanel1.add(lb12, new org.netbeans.lib.awtextra.AbsoluteConstraints(405, 200, 140, 30));
 
         lbMenores.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         lbMenores.setForeground(new java.awt.Color(255, 255, 255));
         lbMenores.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbMenores.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         lbMenores.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 lbMenoresKeyReleased(evt);
             }
         });
-        jPanel1.add(lbMenores, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 280, 380, 30));
+        jPanel1.add(lbMenores, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 280, 495, 30));
 
         lbResultado.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         lbResultado.setForeground(new java.awt.Color(255, 255, 255));
@@ -640,7 +726,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                 btnMenosActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMenos, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, -1, -1));
+        jPanel1.add(btnMenos, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 240, -1, -1));
 
         btnMas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMas.png"))); // NOI18N
         btnMas.setBorder(null);
@@ -654,7 +740,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                 btnMasActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, -1, -1));
+        jPanel1.add(btnMas, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 240, -1, -1));
 
         btnMenos1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMenos.png"))); // NOI18N
         btnMenos1.setBorder(null);
@@ -668,7 +754,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                 btnMenos1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMenos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 240, -1, -1));
+        jPanel1.add(btnMenos1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 240, -1, -1));
 
         btnMas1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMas.png"))); // NOI18N
         btnMas1.setBorder(null);
@@ -682,7 +768,13 @@ public class MenuVendedor extends javax.swing.JFrame {
                 btnMas1ActionPerformed(evt);
             }
         });
-        jPanel1.add(btnMas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, -1, -1));
+        jPanel1.add(btnMas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 240, -1, -1));
+
+        lb18.setFont(new java.awt.Font("Ubuntu Condensed", 1, 20)); // NOI18N
+        lb18.setForeground(new java.awt.Color(255, 255, 255));
+        lb18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lb18.setText("Precio Adultos");
+        jPanel1.add(lb18, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 140, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(438, 145, 586, 530));
 
@@ -720,21 +812,32 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     private void jComboBoxPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPeliculasActionPerformed
         seleccionPelicula();
-        
-        Conexion cc = new Conexion();
-        Connection cn = cc.GetConexion();
-        String sql = "SELECT Foto FROM peliculas WHERE Titulo = '" + jComboBoxPeliculas.getSelectedItem() + "'";
+
+        String sql = "SELECT G.Genero, S.Sala, D.Nombre\n"
+                + "FROM peliculas AS P\n"
+                + "INNER JOIN generos AS G ON P.IDGenero = G.IDGenero\n"
+                + "INNER JOIN director AS D ON P.IDDirector = D.IDDirector\n"
+                + "INNER JOIN salas AS S ON P.IDSalas = S.IDSalas\n"
+                + "WHERE P.IdPelicula = '" + jComboBoxPeliculas.getSelectedIndex() + "'";
+
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            
+
             if (rs.next()) {
-                
+                String sala = rs.getString("S.Sala");
+                String director = rs.getString("D.Nombre");
+                String genero = rs.getString("G.Genero");
+                System.out.println(sala);
+                lb8.setText(sala);
+                lb14.setText(director);
+                lb15.setText(genero);
             }
 
         } catch (Exception e) {
 
         }
+        consultarPrecios();
     }//GEN-LAST:event_jComboBoxPeliculasActionPerformed
 
     private void btnEncendidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncendidoActionPerformed
@@ -742,24 +845,34 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEncendidoActionPerformed
 
     private void jComboBoxHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxHoraActionPerformed
-        
+
     }//GEN-LAST:event_jComboBoxHoraActionPerformed
 
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
-        ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
-        int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-        if (ventanaConfirmacion == 0) {
-            Inicio ini = new Inicio();
-            ini.setVisible(true);
-            this.dispose();
-        } else {
+        if (MenuVendedor.confirmarVenta == true) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
+            int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "La pantalla de confirmar venta se está ejecutando\n¿Estás seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            if (ventanaConfirmacion == 0) {
+                Inicio ini = new Inicio();
+                ini.setVisible(true);
+                this.dispose();
+                ConfirmarVenta cv = new ConfirmarVenta();
+                cv.dispose();
+            } else {
 
+            }
+        } else {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
+            int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            if (ventanaConfirmacion == 0) {
+                Inicio ini = new Inicio();
+                ini.setVisible(true);
+                this.dispose();
+            } else {
+
+            }
         }
     }//GEN-LAST:event_btnCerrarMouseClicked
-
-    private void lbMenoresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lbMenoresKeyReleased
-        //HabilitarBoton();
-    }//GEN-LAST:event_lbMenoresKeyReleased
 
     private void txtBoletosNiñosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBoletosNiñosKeyTyped
         char cant = evt.getKeyChar();
@@ -820,67 +933,74 @@ public class MenuVendedor extends javax.swing.JFrame {
         lbResultado.setText(mensaje);
     }//GEN-LAST:event_rbMixtoMouseClicked
 
+    public static boolean confirmarVenta = false;
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        if (jComboBoxPeliculas.getSelectedIndex() == 0) {
+        if (confirmarVenta == false) {
+            if (jComboBoxPeliculas.getSelectedIndex() == 0) {
+                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una pelicula", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            } else if (jComboBoxHora.getSelectedIndex() == 0) {
+                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(this, "Debe seleccionar un horario", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            }
+
+            if (txtBoletosAdultos.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Escriba la cantidad de boletos", "Complete datos", JOptionPane.WARNING_MESSAGE);
+            }
+            if ("0".equals(txtBoletosAdultos.getText()) && "0".equals(txtBoletosNiños.getText())) {
+                JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
+                txtBoletosAdultos.setText("1");
+                btnContinuar.setEnabled(false);
+
+            } else {
+                btnContinuar.setEnabled(true);
+            }
+
+            if (rbEfectivo.isSelected() == true) {
+            }
+
+            if (rbMixto.isSelected() == true) {
+            }
+
+            if (rbTCredito.isSelected() == true) {
+                ConfirmarVenta obj = new ConfirmarVenta();
+                pasaDatos();
+                ConfirmarVenta.jTextFieldPelicula.setText(jComboBoxPeliculas.getSelectedItem().toString());
+                ConfirmarVenta.jTextFieldHora.setText(jComboBoxHora.getSelectedItem().toString());
+
+                tarjeta();
+                calculo();
+                obj.setVisible(true);
+
+            } else if (rbEfectivo.isSelected() == false && rbTCredito.isSelected() == false && rbMixto.isSelected() == false) {
+                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "Debe seleccionar un método de pago", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            } else {
+                ConfirmarVenta obj = new ConfirmarVenta();
+                pasaDatos();
+                ConfirmarVenta.jTextFieldPelicula.setText(jComboBoxPeliculas.getSelectedItem().toString());
+                ConfirmarVenta.jTextFieldHora.setText(jComboBoxHora.getSelectedItem().toString());
+                ConfirmarVenta.jTextFieldNombreVendedor.setText(lbVendedor.getText().substring(12, lbVendedor.getText().length() - 1));
+                tarjeta();
+                calculo();
+                obj.setVisible(true);
+            }
+            HabilitarBoton();
+            confirmarVenta = true;
+        } else if (confirmarVenta == true) {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(this, "Debe seleccionar una pelicula", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-        } else if (jComboBoxHora.getSelectedIndex() == 0){
-            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(this, "Debe seleccionar un horario", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            JOptionPane.showMessageDialog(null, "Esta pantalla se está ejecutando actualmente", "Aviso", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         }
-
-        if (txtBoletosAdultos.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Escriba la cantidad de boletos", "Complete datos", JOptionPane.WARNING_MESSAGE);
-        }
-        if ("0".equals(txtBoletosAdultos.getText()) && "0".equals(txtBoletosNiños.getText())) {
-            JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            txtBoletosAdultos.setText("1");
-            btnContinuar.setEnabled(false);
-
-        } else {
-            btnContinuar.setEnabled(true);
-        }
-
-        if (rbEfectivo.isSelected() == true) {
-        }
-
-        if (rbMixto.isSelected() == true) {
-        }
-
-        if (rbTCredito.isSelected() == true) {
-            ConfirmarVenta obj = new ConfirmarVenta();
-            pasaDatos();
-            ConfirmarVenta.jTextFieldPelicula.setText(jComboBoxPeliculas.getSelectedItem().toString());
-            ConfirmarVenta.jTextFieldHora.setText(jComboBoxHora.getSelectedItem().toString());
-
-            tarjeta();
-            calculo();
-            obj.setVisible(true);
-
-        } else if (rbEfectivo.isSelected() == false && rbTCredito.isSelected() == false && rbMixto.isSelected() == false) {
-            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "Debe seleccionar un método de pago", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-        } else {
-            ConfirmarVenta obj = new ConfirmarVenta();
-            pasaDatos();
-            ConfirmarVenta.jTextFieldPelicula.setText(jComboBoxPeliculas.getSelectedItem().toString());
-            ConfirmarVenta.jTextFieldHora.setText(jComboBoxHora.getSelectedItem().toString());
-            ConfirmarVenta.jTextFieldNombreVendedor.setText(lbVendedor.getText().substring(12, lbVendedor.getText().length() - 1));
-            tarjeta();
-            calculo();
-            obj.setVisible(true);
-        }
-        HabilitarBoton();
     }//GEN-LAST:event_btnContinuarActionPerformed
 
-    int contador = 1;
+    int contadorAdultos = 1;
     private void btnMenosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenosActionPerformed
-        if (contador < 2) {
+        if (contadorAdultos < 2) {
             btnMenos.setEnabled(false);
         } else {
-            contador--;
-            txtBoletosAdultos.setText(String.valueOf(contador));
-            if (contador < 15) {
+            contadorAdultos--;
+            txtBoletosAdultos.setText(String.valueOf(contadorAdultos));
+            if (contadorAdultos < 15) {
                 btnMas.setEnabled(true);
             }
         }
@@ -900,12 +1020,12 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnMenos1ActionPerformed
 
     private void btnMasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMasActionPerformed
-        if (contador > 14) {
+        if (contadorAdultos > 14) {
             btnMas.setEnabled(false);
         } else {
-            contador++;
-            txtBoletosAdultos.setText(String.valueOf(contador));
-            if (contador > 1) {
+            contadorAdultos++;
+            txtBoletosAdultos.setText(String.valueOf(contadorAdultos));
+            if (contadorAdultos > 1) {
                 btnMenos.setEnabled(true);
             }
         }
@@ -922,6 +1042,10 @@ public class MenuVendedor extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnMas1ActionPerformed
+
+    private void lbMenoresKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_lbMenoresKeyReleased
+        //HabilitarBoton();
+    }//GEN-LAST:event_lbMenoresKeyReleased
 
     /**
      * @param args the command line arguments
@@ -980,13 +1104,18 @@ public class MenuVendedor extends javax.swing.JFrame {
     private javax.swing.JLabel lb11;
     private javax.swing.JLabel lb12;
     private javax.swing.JLabel lb13;
+    private javax.swing.JLabel lb14;
+    private javax.swing.JLabel lb15;
+    private javax.swing.JLabel lb16;
+    private javax.swing.JLabel lb17;
+    private javax.swing.JLabel lb18;
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lb3;
     private javax.swing.JLabel lb4;
     private javax.swing.JLabel lb5;
     private javax.swing.JLabel lb6;
     private javax.swing.JLabel lb7;
-    private javax.swing.JLabel lb8;
+    public static javax.swing.JLabel lb8;
     private javax.swing.JLabel lb9;
     private javax.swing.JLabel lbImagen;
     public static javax.swing.JLabel lbMenores;
