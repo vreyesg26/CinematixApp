@@ -91,6 +91,7 @@ public class LoginVendedor extends javax.swing.JFrame {
         txtCorreo.setForeground(new java.awt.Color(255, 255, 255));
         txtCorreo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCorreo.setBorder(null);
+        txtCorreo.setCaretColor(new java.awt.Color(255, 255, 255));
         txtCorreo.setOpaque(false);
         getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 224, 240, 45));
 
@@ -110,6 +111,7 @@ public class LoginVendedor extends javax.swing.JFrame {
         txtClave.setForeground(new java.awt.Color(255, 255, 255));
         txtClave.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtClave.setBorder(null);
+        txtClave.setCaretColor(new java.awt.Color(255, 255, 255));
         txtClave.setOpaque(false);
         txtClave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

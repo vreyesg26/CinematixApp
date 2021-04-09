@@ -169,7 +169,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     DefaultComboBoxModel model;
     Conexion cc = new Conexion();
     Connection cn = cc.GetConexion();*/
-    void AgregarAComboboxPelicula() {
+    public static void AgregarAComboboxPelicula() {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
         String sql = "SELECT Titulo FROM peliculas WHERE IDEstado = 1";
@@ -204,7 +204,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
     }
 
-    void Horarios() {
+    public static void Horarios() {
         int Combo;
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
@@ -846,11 +846,13 @@ public class MenuVendedor extends javax.swing.JFrame {
                 lbImagen.setIcon(image);
                 this.repaint();
                 //rsscalelabel.RSScaleLabel.setScaleLabel(lbImagen, image.toString());
-                
-                if (genero.equals("Terror") || genero.equals("Suspenso")){
+
+                if (genero.equals("Terror") || genero.equals("Suspenso")) {
                     lbMenores.setText("Esta pelicula no es apta para menores de edad");
                     btnMas1.setEnabled(false);
                     btnMenos1.setEnabled(false);
+                    contadorNiños = 0;
+                    txtBoletosNiños.setText(String.valueOf(contadorNiños));
                 } else {
                     btnMas1.setEnabled(true);
                     btnMenos1.setEnabled(true);
@@ -959,47 +961,17 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     public static boolean confirmarVenta = false;
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        if (confirmarVenta == false) {
-            if (jComboBoxPeliculas.getSelectedIndex() == 0) {
-                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                JOptionPane.showMessageDialog(this, "Debe seleccionar una pelicula", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-            } else if (jComboBoxHora.getSelectedIndex() == 0) {
-                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                JOptionPane.showMessageDialog(this, "Debe seleccionar un horario", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-            }
-
-            if (txtBoletosAdultos.getText().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Escriba la cantidad de boletos", "Complete datos", JOptionPane.WARNING_MESSAGE);
-            }
-            if ("0".equals(txtBoletosAdultos.getText()) && "0".equals(txtBoletosNiños.getText())) {
-                JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                txtBoletosAdultos.setText("1");
-                btnContinuar.setEnabled(false);
-
-            } else {
-                btnContinuar.setEnabled(true);
-            }
-
-            if (rbEfectivo.isSelected() == true) {
-            }
-
-            if (rbMixto.isSelected() == true) {
-            }
-
-            if (rbTCredito.isSelected() == true) {
-                ConfirmarVenta obj = new ConfirmarVenta();
-                pasaDatos();
-                ConfirmarVenta.jTextFieldPelicula.setText(jComboBoxPeliculas.getSelectedItem().toString());
-                ConfirmarVenta.jTextFieldHora.setText(jComboBoxHora.getSelectedItem().toString());
-
-                tarjeta();
-                calculo();
-                obj.setVisible(true);
-
-            } else if (rbEfectivo.isSelected() == false && rbTCredito.isSelected() == false && rbMixto.isSelected() == false) {
-                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                JOptionPane.showMessageDialog(null, "Debe seleccionar un método de pago", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-            } else {
+        if (jComboBoxPeliculas.getSelectedIndex() == 0) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una pelicula", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        } else if (jComboBoxHora.getSelectedIndex() == 0) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un horario", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        } else if (rbEfectivo.isSelected() == false && rbTCredito.isSelected() == false && rbMixto.isSelected() == false) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un método de pago", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        } else {
+            if (confirmarVenta == false) {
                 ConfirmarVenta obj = new ConfirmarVenta();
                 pasaDatos();
                 ConfirmarVenta.jTextFieldPelicula.setText(jComboBoxPeliculas.getSelectedItem().toString());
@@ -1008,13 +980,13 @@ public class MenuVendedor extends javax.swing.JFrame {
                 tarjeta();
                 calculo();
                 obj.setVisible(true);
+                confirmarVenta = true;
+            } else if (confirmarVenta == true) {
+                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "Esta pantalla se está ejecutando actualmente", "Aviso", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
             }
-            HabilitarBoton();
-            confirmarVenta = true;
-        } else if (confirmarVenta == true) {
-            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "Esta pantalla se está ejecutando actualmente", "Aviso", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         }
+        HabilitarBoton();
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     public static int contadorAdultos = 1;

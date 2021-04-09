@@ -131,13 +131,19 @@ public class RegistroHorarios extends javax.swing.JFrame {
         txtIDHorario.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtIDHorario.setForeground(new java.awt.Color(255, 255, 255));
         txtIDHorario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIDHorario.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtIDHorario.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtIDHorario.setOpaque(false);
+        txtIDHorario.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         getContentPane().add(txtIDHorario, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 50, 40));
 
         txtHorarios.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtHorarios.setForeground(new java.awt.Color(255, 255, 255));
         txtHorarios.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtHorarios.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtHorarios.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtHorarios.setOpaque(false);
+        txtHorarios.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtHorarios.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtHorariosFocusGained(evt);

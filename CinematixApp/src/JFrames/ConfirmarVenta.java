@@ -6,6 +6,7 @@
 package JFrames;
 
 import Tipografia.Fuente;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import javax.swing.ImageIcon;
@@ -24,10 +25,10 @@ public class ConfirmarVenta extends javax.swing.JFrame {
 
     public ConfirmarVenta() {
         //setBackground(new Color(0, 0, 0, 0));
-        super.setUndecorated(true);
+        //super.setUndecorated(true);
         initComponents();
         noEditable();
-        super.setLocationRelativeTo(this);
+        //super.setLocationRelativeTo(this);
         btnComprar.setEnabled(false);
 
         tipoFuente = new Fuente();
@@ -331,6 +332,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
 
         jLabelCambio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelCambio.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelCambio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCambio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.add(jLabelCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 185, 30));
 
@@ -350,7 +352,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         lb16.setForeground(new java.awt.Color(255, 255, 255));
         lb16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb16.setText("CINEMATIX");
-        jPanel2.add(lb16, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 180, 30));
+        jPanel2.add(lb16, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 180, 40));
 
         jTextFieldNombreVendedor.setEditable(false);
         jTextFieldNombreVendedor.setForeground(new java.awt.Color(255, 255, 255));
@@ -376,13 +378,17 @@ public class ConfirmarVenta extends javax.swing.JFrame {
 
         jLabelImpuesto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelImpuesto.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelImpuesto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelImpuesto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jPanel2.add(jLabelImpuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 185, 30));
 
         jTextFieldEfectivoRecibido.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldEfectivoRecibido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextFieldEfectivoRecibido.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jTextFieldEfectivoRecibido.setCaretColor(new java.awt.Color(255, 255, 255));
+        jTextFieldEfectivoRecibido.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         jTextFieldEfectivoRecibido.setOpaque(false);
+        jTextFieldEfectivoRecibido.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         jTextFieldEfectivoRecibido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldEfectivoRecibidoActionPerformed(evt);
@@ -437,9 +443,9 @@ public class ConfirmarVenta extends javax.swing.JFrame {
                 } else {
                     isv = efectivoR * 0.15;
                     jLabelImpuesto.setText("L." + isv + "0");
+                    jLabelCambio.setText("Pago Mixto");
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
                     JOptionPane.showMessageDialog(null, "Se cobraron "+efectivoR +" lempiras en efectivo\nLa diferencia fue cargada a la tarjeta", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                    jLabelCambio.setText("Pago Mixto");
                     btnComprar.setEnabled(true);
                 }
             } else if (MenuVendedor.rbEfectivo.isSelected()) {

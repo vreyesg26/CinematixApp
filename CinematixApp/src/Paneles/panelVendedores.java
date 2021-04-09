@@ -509,7 +509,10 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBuscar.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtBuscar.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtBuscar.setOpaque(false);
+        txtBuscar.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBuscarActionPerformed(evt);
@@ -565,11 +568,17 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtIDVendedor.setForeground(new java.awt.Color(255, 255, 255));
         txtIDVendedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIDVendedor.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtIDVendedor.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtIDVendedor.setOpaque(false);
+        txtIDVendedor.setSelectedTextColor(new java.awt.Color(255, 255, 255));
 
         txtClave.setForeground(new java.awt.Color(255, 255, 255));
         txtClave.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtClave.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtClave.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtClave.setOpaque(false);
+        txtClave.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtClave.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtClaveFocusGained(evt);
@@ -586,7 +595,10 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtNombre.setForeground(new java.awt.Color(255, 255, 255));
         txtNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNombre.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtNombre.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtNombre.setOpaque(false);
+        txtNombre.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtNombreFocusGained(evt);
@@ -603,7 +615,10 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtCorreo.setForeground(new java.awt.Color(255, 255, 255));
         txtCorreo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCorreo.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtCorreo.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtCorreo.setOpaque(false);
+        txtCorreo.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtCorreo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtCorreoFocusGained(evt);
@@ -672,7 +687,10 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtDireccion.setForeground(new java.awt.Color(255, 255, 255));
         txtDireccion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDireccion.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtDireccion.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtDireccion.setOpaque(false);
+        txtDireccion.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtDireccion.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtDireccionFocusGained(evt);
@@ -694,7 +712,10 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtSueldo.setForeground(new java.awt.Color(255, 255, 255));
         txtSueldo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtSueldo.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtSueldo.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtSueldo.setOpaque(false);
+        txtSueldo.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtSueldo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtSueldoFocusGained(evt);
@@ -714,7 +735,10 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtNumDocu.setForeground(new java.awt.Color(255, 255, 255));
         txtNumDocu.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNumDocu.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtNumDocu.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtNumDocu.setOpaque(false);
+        txtNumDocu.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtNumDocu.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtNumDocuFocusGained(evt);
@@ -736,7 +760,10 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtCelular.setForeground(new java.awt.Color(255, 255, 255));
         txtCelular.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCelular.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtCelular.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtCelular.setOpaque(false);
+        txtCelular.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtCelular.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtCelularFocusGained(evt);
@@ -753,7 +780,10 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtUsuario.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtUsuario.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtUsuario.setOpaque(false);
+        txtUsuario.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtUsuarioFocusGained(evt);

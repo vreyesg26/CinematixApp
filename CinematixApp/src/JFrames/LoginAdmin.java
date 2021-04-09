@@ -103,9 +103,11 @@ public class LoginAdmin extends javax.swing.JFrame {
         txtusuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtusuario.setAutoscrolls(false);
         txtusuario.setBorder(null);
+        txtusuario.setCaretColor(new java.awt.Color(255, 255, 255));
         txtusuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         txtusuario.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtusuario.setOpaque(false);
+        txtusuario.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtusuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtusuarioActionPerformed(evt);
@@ -123,8 +125,10 @@ public class LoginAdmin extends javax.swing.JFrame {
         txtpassword.setForeground(new java.awt.Color(255, 255, 255));
         txtpassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtpassword.setBorder(null);
+        txtpassword.setCaretColor(new java.awt.Color(255, 255, 255));
         txtpassword.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtpassword.setOpaque(false);
+        txtpassword.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtpassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtpasswordKeyReleased(evt);

@@ -106,13 +106,19 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         txtIDUsuario.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtIDUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtIDUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIDUsuario.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtIDUsuario.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtIDUsuario.setOpaque(false);
+        txtIDUsuario.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         getContentPane().add(txtIDUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 50, 40));
 
         txtUsuario.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtUsuario.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtUsuario.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtUsuario.setOpaque(false);
+        txtUsuario.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtUsuarioFocusGained(evt);
@@ -126,7 +132,10 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         txtContraseña.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtContraseña.setForeground(new java.awt.Color(255, 255, 255));
         txtContraseña.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtContraseña.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtContraseña.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtContraseña.setOpaque(false);
+        txtContraseña.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtContraseña.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtContraseñaFocusGained(evt);

@@ -186,13 +186,19 @@ public class RegistroDirectores extends javax.swing.JFrame {
         txtIDDirector.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtIDDirector.setForeground(new java.awt.Color(255, 255, 255));
         txtIDDirector.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIDDirector.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtIDDirector.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtIDDirector.setOpaque(false);
+        txtIDDirector.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         getContentPane().add(txtIDDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 50, 40));
 
         txtDirector.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtDirector.setForeground(new java.awt.Color(255, 255, 255));
         txtDirector.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDirector.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtDirector.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtDirector.setOpaque(false);
+        txtDirector.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtDirector.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtDirectorFocusGained(evt);

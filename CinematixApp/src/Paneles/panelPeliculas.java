@@ -481,7 +481,10 @@ public class panelPeliculas extends javax.swing.JPanel {
 
         txtTitulo.setForeground(new java.awt.Color(255, 255, 255));
         txtTitulo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTitulo.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtTitulo.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtTitulo.setOpaque(false);
+        txtTitulo.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtTitulo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtTituloFocusLost(evt);
@@ -495,7 +498,10 @@ public class panelPeliculas extends javax.swing.JPanel {
         add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 74, 158, 35));
 
         txtSinopsis.setForeground(new java.awt.Color(255, 255, 255));
+        txtSinopsis.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtSinopsis.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtSinopsis.setOpaque(false);
+        txtSinopsis.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtSinopsis.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtSinopsisFocusLost(evt);
@@ -510,7 +516,10 @@ public class panelPeliculas extends javax.swing.JPanel {
 
         txtDuracion.setForeground(new java.awt.Color(255, 255, 255));
         txtDuracion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDuracion.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtDuracion.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtDuracion.setOpaque(false);
+        txtDuracion.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtDuracion.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtDuracionFocusLost(evt);
@@ -613,7 +622,10 @@ public class panelPeliculas extends javax.swing.JPanel {
 
         txtReparto.setForeground(new java.awt.Color(255, 255, 255));
         txtReparto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtReparto.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtReparto.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtReparto.setOpaque(false);
+        txtReparto.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtReparto.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtRepartoFocusLost(evt);
@@ -633,7 +645,10 @@ public class panelPeliculas extends javax.swing.JPanel {
 
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBuscar.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtBuscar.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtBuscar.setOpaque(false);
+        txtBuscar.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarKeyReleased(evt);
@@ -658,7 +673,10 @@ public class panelPeliculas extends javax.swing.JPanel {
 
         txtUrl.setForeground(new java.awt.Color(255, 255, 255));
         txtUrl.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtUrl.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtUrl.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtUrl.setOpaque(false);
+        txtUrl.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         add(txtUrl, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 285, 326, 35));
 
         lbUrl.setFont(new java.awt.Font("Dialog", 1, 10)); // NOI18N

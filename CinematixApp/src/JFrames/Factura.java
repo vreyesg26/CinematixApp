@@ -306,6 +306,8 @@ public class Factura extends javax.swing.JFrame {
         } else if (decision == 1){
             this.dispose();
             MenuVendedor.limpiar();
+            MenuVendedor.AgregarAComboboxPelicula();
+            MenuVendedor.Horarios();
         }
     }//GEN-LAST:event_jButton_ImprimirActionPerformed
 

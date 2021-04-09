@@ -133,13 +133,19 @@ public class RegistroGeneros extends javax.swing.JFrame {
         txtIDGenero.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtIDGenero.setForeground(new java.awt.Color(255, 255, 255));
         txtIDGenero.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIDGenero.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtIDGenero.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtIDGenero.setOpaque(false);
+        txtIDGenero.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         getContentPane().add(txtIDGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 50, 40));
 
         txtGeneros.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtGeneros.setForeground(new java.awt.Color(255, 255, 255));
         txtGeneros.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtGeneros.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtGeneros.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtGeneros.setOpaque(false);
+        txtGeneros.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtGeneros.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtGenerosFocusGained(evt);
