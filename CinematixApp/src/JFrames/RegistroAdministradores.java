@@ -8,7 +8,6 @@ package JFrames;
 import Datos.Conexion;
 import Paneles.panelInicio;
 import Paneles.panelVendedores;
-import Tipografia.Fuente;
 import encriptacion.Encode;
 import java.awt.Color;
 import java.awt.Image;
@@ -565,7 +564,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         Conexion cn = new Conexion();
         Connection cc = cn.GetConexion();
         validarCamposVacios();
-        usuarios();
+        //usuarios();
         if (!guardar == false) {
             String sql = "UPDATE usuarios SET Usuario = ?, Contrasena = ? WHERE IDUsuario = '" + txtIDUsuario.getText() + "'";
 

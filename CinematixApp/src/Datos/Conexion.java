@@ -11,10 +11,10 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class Conexion {
-    public String db = "id3CNvJlJO";
+    public String db = "dn8nB7Jl0c";
     public String driver = "com.mysql.jdbc.Driver";
-    public String usuario = "id3CNvJlJO";
-    public String clave = "OzdTRNEPTP";
+    public String usuario = "dn8nB7Jl0c";
+    public String clave = "oMZapKdHQ3";
     //public String url = "jdbc:mysql://remotemysql.com:3306/"+db+"?verifyServerCertificate=false&useSSL=true";
     public String url = "jdbc:mysql://remotemysql.com:3306/"+db+"?autoReconnect=true&useUnicode=yes";
     

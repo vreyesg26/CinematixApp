@@ -10,6 +10,7 @@ import java.util.Arrays;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import org.apache.commons.codec.binary.Base64;
 
@@ -34,7 +35,8 @@ public class Encode {
             byte[] base64Bytes = Base64.encodeBase64(buf);
             encriptacion = new String(base64Bytes);
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "No fue posible encriptar");
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "No fue posible encriptar la contraseña", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         }
         return encriptacion;
     }
@@ -53,7 +55,8 @@ public class Encode {
             desencriptacion = new String(plainText, "UTF-8");
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "No fue posible desencriptar");
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "No fue posible desencriptar la contraseña", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         }
         return desencriptacion;
     }

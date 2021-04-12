@@ -1,6 +1,7 @@
 package Paneles;
 
 import Datos.Conexion;
+import JFrames.TextPrompt;
 import Logica.datosPeliculas;
 import Tipografia.Fuente;
 import java.awt.Image;
@@ -15,7 +16,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -72,6 +72,9 @@ public class panelPeliculas extends javax.swing.JPanel {
         btnActualizar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnDeshabilitar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        
+        TextPrompt buscar = new TextPrompt("Buscar por ID o Título", txtBuscar);
+        buscar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
     }
 
     void cargarIdiomas() {

@@ -151,6 +151,7 @@ public class LoginAdmin extends javax.swing.JFrame {
     }
 
     public static String usuario;
+
     public void validarAdministradores() {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
@@ -173,7 +174,8 @@ public class LoginAdmin extends javax.swing.JFrame {
                     usuario = rs.getString("Usuario");
                     int intentos = Integer.parseInt(rs.getString("Intentos"));
                     if (rs.getString("Intentos").equals("0")) {
-                        JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                        ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoSalida.png");
+                        JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                         txtpassword.setText("");
 
                     } else if (encode.deecnode(secretKey, rs.getString("Contrasena")).equals(pass)) {
@@ -182,18 +184,21 @@ public class LoginAdmin extends javax.swing.JFrame {
                         this.dispose();
                         try {
                             String sqlRestar = "UPDATE `usuarios` SET `Intentos` = ? WHERE `usuarios`.`Usuario` = ? ";
-                            PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlRestar);
+                            PreparedStatement pst = (PreparedStatement)
+                            cn.prepareStatement(sqlRestar);
                             pst.setString(1, String.valueOf("3"));
                             pst.setString(2, user);
                             pst.execute();
 
                         } catch (Exception e) {
-                            JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e);
+                            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                            JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                         }
                     } else {
                         --intentos;
                         if (intentos == 0) {
-                            JOptionPane.showMessageDialog(null, "Ha excedido el número de intentos para ingresar \n" + "Su usuario ha sido deshabilitado", "Acceso denegado", JOptionPane.ERROR_MESSAGE);
+                            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+                            JOptionPane.showMessageDialog(null, "Ha excedido el número de intentos para ingresar \n" + "Su usuario ha sido deshabilitado", "Acceso denegado", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                             txtusuario.setText("");
                             txtpassword.setText("");
                             Inicio inicio = new Inicio();

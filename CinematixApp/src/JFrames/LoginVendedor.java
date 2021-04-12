@@ -213,14 +213,12 @@ public class LoginVendedor extends javax.swing.JFrame {
                 } else {
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                     JOptionPane.showMessageDialog(null, "Asegurate de utilizar un usuario y contraseña correctos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                    txtCorreo.setText("");
                     txtClave.setText("");
                 }
 
             } catch (Exception e) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "Error de conexión " + e.getMessage(), "Aviso", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                txtCorreo.setText("");
                 txtClave.setText("");
             }
         }

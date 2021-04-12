@@ -483,8 +483,23 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         Factura obj = new Factura();
         pasaDatos();
         this.dispose();
-        obj.setVisible(true);
+//        obj.setVisible(true);
+        MenuVendedor mv = new MenuVendedor();
+        mv.setVisible(false);
         MenuVendedor.confirmarVenta = false;
+        if (jLabelSala.getText().equals("2D")){
+            Sala2D sala = new Sala2D();
+            sala.setVisible(true);
+        } else if (jLabelSala.getText().equals("3D")){
+            Sala3D sala = new Sala3D();
+            sala.setVisible(true);
+        } else if (jLabelSala.getText().equals("Max2D")){
+            SalaMax2D sala = new SalaMax2D();
+            sala.setVisible(true);
+        } else if (jLabelSala.getText().equals("Max3D")){
+            SalaMax3D sala = new SalaMax3D();
+            sala.setVisible(true);
+        }
     }//GEN-LAST:event_btnComprarActionPerformed
 
     private void jTextFieldEfectivoRecibidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldEfectivoRecibidoActionPerformed

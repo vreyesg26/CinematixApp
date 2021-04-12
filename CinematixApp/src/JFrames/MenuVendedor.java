@@ -99,7 +99,6 @@ public class MenuVendedor extends javax.swing.JFrame {
     Connection cn = cc.GetConexion();
 
     void consultarSala() {
-        int indexPelicula = jComboBoxPeliculas.getSelectedIndex();
         String sql = "SELECT Sala\n"
                 + "FROM salas\n"
                 + "INNER JOIN peliculas USING (IDSalas)\n"
@@ -120,15 +119,18 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
     }
 
-    void consultarPrecios() {
-        String sql = "SELECT PrecioBoletoAdulto, PrecioBoletoNino FROM salas WHERE Sala = '" + lb8.getText() + "'";
+    void consultarPrecios(String numeroSala) {
+        String sql = "SELECT  PrecioBoletosAdultos, PrecioBoletosNinos\n"
+                + "FROM preciosalas\n"
+                + "WHERE IDSalas = '" + numeroSala +"'\n"
+                + "ORDER BY FechaInicio DESC LIMIT 1";
 
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
             if (rs.next()) {
-                String boletoAdulto = rs.getString("PrecioBoletoAdulto");
-                String boletoNiño = rs.getString("PrecioBoletoNino");
+                String boletoAdulto = rs.getString("PrecioBoletosAdultos");
+                String boletoNiño = rs.getString("PrecioBoletosNinos");
                 lb9.setText("L. " + boletoAdulto);
                 lb10.setText("L. " + boletoNiño);
             }
@@ -814,11 +816,10 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
-
     private void jComboBoxPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPeliculasActionPerformed
         seleccionPelicula();
 
-        String sql = "SELECT G.Genero, S.Sala, D.Nombre, P.Foto\n"
+        String sql = "SELECT G.Genero, S.Sala, D.Nombre, P.Foto, P.IDSalas\n"
                 + "FROM peliculas AS P\n"
                 + "INNER JOIN generos AS G ON P.IDGenero = G.IDGenero\n"
                 + "INNER JOIN director AS D ON P.IDDirector = D.IDDirector\n"
@@ -837,6 +838,9 @@ public class MenuVendedor extends javax.swing.JFrame {
                 lb8.setText(sala);
                 lb14.setText(director);
                 lb15.setText(genero);
+                String numeroSala = rs.getString("P.IDSalas");
+                System.out.println(numeroSala);
+                consultarPrecios(numeroSala);
 
                 Image i = null;
 
@@ -863,7 +867,6 @@ public class MenuVendedor extends javax.swing.JFrame {
         } catch (Exception e) {
 
         }
-        consultarPrecios();
     }//GEN-LAST:event_jComboBoxPeliculasActionPerformed
 
     private void btnEncendidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncendidoActionPerformed
