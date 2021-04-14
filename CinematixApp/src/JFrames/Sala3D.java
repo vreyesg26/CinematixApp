@@ -186,9 +186,11 @@ public class Sala3D extends javax.swing.JFrame {
                                 if (totalBoletos != 1) {
                                     ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
                                     JOptionPane.showMessageDialog(null, "Ya se completó la reservación de tus " + totalBoletos + " asientos", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                                    JTBotones[i][j].setSelected(false);
                                 } else {
                                     ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
                                     JOptionPane.showMessageDialog(null, "Ya se completó la reservación de tu asiento", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                                    JTBotones[i][j].setSelected(false);
                                 }
                             } else if (JTBotones[i][j].getText().length() == 2) {
                                 ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento2.png");

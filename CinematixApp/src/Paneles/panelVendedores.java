@@ -9,6 +9,7 @@ import Datos.Conexion;
 import JFrames.TextPrompt;
 import Tipografia.Fuente;
 import encriptacion.Encode;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,6 +21,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -80,6 +82,9 @@ public class panelVendedores extends javax.swing.JPanel {
         }
     }
 
+    public boolean aprobado = false;
+    public int aciertos = 0;
+
     public void verificarCaracteresRepetidos(String cadena) {
         String patron = "^(\\d|(([A-Za-zñÑáéíóúÁÉÍÓÚ\\s])\\3?(?!\\3)))+$";
         Pattern patt = Pattern.compile(patron);
@@ -87,6 +92,9 @@ public class panelVendedores extends javax.swing.JPanel {
         if (!comparador.matches()) {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
             JOptionPane.showMessageDialog(null, "Tienes caracteres repetidos de forma incorrecta", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            aprobado = false;
+        } else {
+            aprobado = true;
         }
     }
 
@@ -132,7 +140,7 @@ public class panelVendedores extends javax.swing.JPanel {
     public boolean sueldo(String sueldo) {
         Pattern p = null;
         Matcher m = null;
-        p = Pattern.compile("^[0-9]{5}$|^[0-9]{5}\\.[0-9]{2}$");
+        p = Pattern.compile("^\\d{4,5}([.][\\d]{2})?$");
         m = p.matcher(sueldo);
 
         if (m.find()) {
@@ -297,8 +305,7 @@ public class panelVendedores extends javax.swing.JPanel {
     DefaultTableModel model;
     Conexion cc = new Conexion();
     Connection cn = cc.GetConexion();
-    
-    
+
     void cargarData() {
         String[] titulos = {"ID", "Nombre", "Dirección", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo", "Usuario", "Clave", "Intentos"};
         String[] registros = new String[12];
@@ -612,11 +619,6 @@ public class panelVendedores extends javax.swing.JPanel {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNombreFocusLost(evt);
-            }
-        });
-        txtNombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtNombreKeyTyped(evt);
             }
         });
 
@@ -1269,21 +1271,6 @@ public class panelVendedores extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtDireccionKeyTyped
 
-    private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
-
-        validarCaracteres(evt);
-        char validar = evt.getKeyChar();
-        if (Character.isDigit(validar)) {
-            getToolkit().beep();
-            evt.consume();
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-            JOptionPane.showMessageDialog(null, "Ingresar solo letras", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        }
-        if (txtNombre.getText().length() > 50) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_txtNombreKeyTyped
-
     private void txtSueldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSueldoKeyTyped
 
         char validar = evt.getKeyChar();
@@ -1315,9 +1302,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 evt.consume();
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-            }
-
-            if (txtNumDocu.getText().length() > 12) {
+            } else if (txtNumDocu.getText().length() > 12) {
                 evt.consume();
             }
         }
@@ -1334,9 +1319,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 evt.consume();
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-            }
-
-            if (txtNumDocu.getText().length() > 13) {
+            } else if (txtNumDocu.getText().length() > 13) {
                 evt.consume();
             }
         }
@@ -1366,21 +1349,20 @@ public class panelVendedores extends javax.swing.JPanel {
                 }
             } else {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "Correo incorrecto,validar ejem: cinematix@gmail.com", "", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                JOptionPane.showMessageDialog(null, "Debes escribir un correo que sea válido\n•Ejemplo: cinematix@gmail.com", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
         }
     }//GEN-LAST:event_txtCorreoFocusLost
 
     private void txtClaveKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyTyped
-        validarCaracteres(evt);
-
+        //validarCaracteres(evt);
     }//GEN-LAST:event_txtClaveKeyTyped
 
     private void txtCelularFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCelularFocusLost
         if (!txtCelular.getText().isEmpty()) {
             if (txtCelular.getText().length() < 8) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "El debe comenzar con 3, 8 o 9", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                JOptionPane.showMessageDialog(null, "El número de celular debe contener 8 digitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             } else if (txtCelular.getText().charAt(0) == '0' || txtCelular.getText().charAt(0) == '1' || txtCelular.getText().charAt(0) == '4' || txtCelular.getText().charAt(0) == '5' || txtCelular.getText().charAt(0) == '6' || txtCelular.getText().charAt(0) == '2') {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "El número de celular debe comenzar con 7, 3, 8 o 9", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
@@ -1475,45 +1457,43 @@ public class panelVendedores extends javax.swing.JPanel {
 
     private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
         if (!txtNombre.getText().isEmpty()) {
-            if (txtNombre.getText().length() < 3) {
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "El nombre debe de tener mas de 3 caracteres", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-            }
-
-            if (!nombre(txtNombre.getText())) {
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "El nombre debe empezar con mayúscula y debe contener al menos un apellido", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-            }
-
             verificarCaracteresRepetidos(txtNombre.getText());
+            if (aprobado != false) {
+                if (!nombre(txtNombre.getText())) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "El nombre debe empezar con mayúscula y debe contener al menos un apellido", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                } else if (txtNombre.getText().length() < 3) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "El nombre debe de tener más de 3 caracteres", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                }
+            }
         }
-
     }//GEN-LAST:event_txtNombreFocusLost
 
     private void txtUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusLost
         if (!txtUsuario.getText().isEmpty()) {
-            Conexion cc = new Conexion();
-            Connection cn = cc.GetConexion();
-            String user = txtUsuario.getText();
-            String sql = "SELECT Usuario FROM vendedor WHERE Usuario = '" + user + "'";
-
-            try {
-                Statement st = cn.createStatement();
-                ResultSet rs = st.executeQuery(sql);
-
-                if (rs.next()) {
-                    if (rs.getString("Usuario").equals(txtUsuario.getText())) {
-                        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                        JOptionPane.showMessageDialog(null, "Este usuario ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                    }
-                }
-            } catch (Exception e) {
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-            }
-
             verificarCaracteresRepetidos(txtUsuario.getText());
+            if (aprobado != false) {
+                Conexion cc = new Conexion();
+                Connection cn = cc.GetConexion();
+                String user = txtUsuario.getText();
+                String sql = "SELECT Usuario FROM vendedor WHERE Usuario = '" + user + "'";
 
+                try {
+                    Statement st = cn.createStatement();
+                    ResultSet rs = st.executeQuery(sql);
+
+                    if (rs.next()) {
+                        if (rs.getString("Usuario").equals(txtUsuario.getText())) {
+                            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                            JOptionPane.showMessageDialog(null, "Este usuario ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                        }
+                    }
+                } catch (Exception e) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                }
+            }
         }
     }//GEN-LAST:event_txtUsuarioFocusLost
 
@@ -1599,7 +1579,7 @@ public class panelVendedores extends javax.swing.JPanel {
         if (!txtSueldo.getText().isEmpty()) {
             if (!sueldo(txtSueldo.getText())) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "El sueldo debe contener solo dos digitos despues del punto", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                JOptionPane.showMessageDialog(null, "Para el sueldo cumplir con estos requisitos:\n•Debe contener 4 o 5 dígitos\n•Si es un número decimal debe poner 2 digitos después del punto", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
         }
     }//GEN-LAST:event_txtSueldoFocusLost
@@ -1616,6 +1596,12 @@ public class panelVendedores extends javax.swing.JPanel {
     private void txtDireccionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccionFocusLost
         if (!txtDireccion.getText().isEmpty()) {
             verificarCaracteresRepetidos(txtDireccion.getText());
+            if (aprobado != false) {
+                if (txtDireccion.getText().length() < 6) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "La dirección debe contener al menos 6 caracteres", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                }
+            }
         }
     }//GEN-LAST:event_txtDireccionFocusLost
 

@@ -1,7 +1,6 @@
 package Paneles;
 
 import Datos.Conexion;
-import static JFrames.MenuVendedor.lbImagen;
 import JFrames.TextPrompt;
 import Logica.datosPeliculas;
 import Tipografia.Fuente;
@@ -182,16 +181,6 @@ public class panelPeliculas extends javax.swing.JPanel {
         }
     }
 
-    void comprobarAciertos() {
-        if (aciertos != 4) {
-            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
-            JOptionPane.showMessageDialog(null, "Es necesario que toda la información sea correcta para poder guardar este registro", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-            guardar = false;
-        } else {
-            guardar = true;
-        }
-    }
-
     void anchoColumnas() {
         TableColumnModel anchoColumnas = tablaPeliculas.getColumnModel();
         anchoColumnas.getColumn(0).setPreferredWidth(30);
@@ -228,7 +217,6 @@ public class panelPeliculas extends javax.swing.JPanel {
     }
 
     boolean guardar = false;
-
     void validarCamposVacios() {
         ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
         if (txtDuracion.getText().isEmpty() && txtLetras.getText().isEmpty() && txtReparto.getText().isEmpty()
@@ -257,6 +245,8 @@ public class panelPeliculas extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un horario", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         } else if (cbSalas.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una sala", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        } else if (aciertos != 4) {
+            JOptionPane.showMessageDialog(null, "Debes corregir los errores para poder guardar este registro", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         } else {
             guardar = true;
         }
@@ -768,7 +758,6 @@ public class panelPeliculas extends javax.swing.JPanel {
         Conexion cn = new Conexion();
         Connection cc = cn.GetConexion();
         validarCamposVacios();
-        comprobarAciertos();
         if (!guardar == false) {
             String sql = "INSERT INTO peliculas\n"
                     + "(Titulo, Duracion, IDDirector, Reparto, IDIdioma, Sinopsis, IDHorario, IDGenero, IDSalas, Foto, urlFoto)\n"
@@ -816,7 +805,6 @@ public class panelPeliculas extends javax.swing.JPanel {
         Conexion cn = new Conexion();
         Connection cc = cn.GetConexion();
         validarCamposVacios();
-        comprobarAciertos();
         if (guardar != false) {
             String sql = "UPDATE peliculas SET Titulo = ?, Duracion = ?, IDDirector = ?, "
                     + "Reparto = ?, IDIdioma = ?, Sinopsis = ?, IDHorario = ?, "
@@ -917,6 +905,7 @@ public class panelPeliculas extends javax.swing.JPanel {
 
                         ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
                         JOptionPane.showMessageDialog(null, "La pelicula " + pelicula + " ha sido deshabilitada", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
+                        cargarData("");
                     } catch (Exception e) {
 
                     }
@@ -934,6 +923,7 @@ public class panelPeliculas extends javax.swing.JPanel {
 
                         ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
                         JOptionPane.showMessageDialog(null, "La pelicula " + pelicula + " ahora está habilitada", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
+                        cargarData("");
                     } catch (Exception e) {
 
                     }
@@ -941,7 +931,6 @@ public class panelPeliculas extends javax.swing.JPanel {
             }
         }
         limpiarCajas();
-        cargarData("");
         bloquearCampos();
         btnNuevo.setEnabled(true);
     }//GEN-LAST:event_btnDeshabilitarActionPerformed
