@@ -297,7 +297,8 @@ public class panelVendedores extends javax.swing.JPanel {
     DefaultTableModel model;
     Conexion cc = new Conexion();
     Connection cn = cc.GetConexion();
-
+    
+    
     void cargarData() {
         String[] titulos = {"ID", "Nombre", "Dirección", "Sueldo", "Jornada", "Celular", "Documento", "NumeroDocumento", "Correo", "Usuario", "Clave", "Intentos"};
         String[] registros = new String[12];
@@ -489,7 +490,7 @@ public class panelVendedores extends javax.swing.JPanel {
         lb11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb11.setText("JORNADA");
 
-        cbJornada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
+        cbJornada.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         cbJornada.setPreferredSize(new java.awt.Dimension(166, 26));
         cbJornada.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -511,6 +512,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtBuscar.setCaretColor(new java.awt.Color(255, 255, 255));
         txtBuscar.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtBuscar.setOpaque(false);
@@ -570,6 +572,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtIDVendedor.setForeground(new java.awt.Color(255, 255, 255));
         txtIDVendedor.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIDVendedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtIDVendedor.setCaretColor(new java.awt.Color(255, 255, 255));
         txtIDVendedor.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtIDVendedor.setOpaque(false);
@@ -577,6 +580,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtClave.setForeground(new java.awt.Color(255, 255, 255));
         txtClave.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtClave.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtClave.setCaretColor(new java.awt.Color(255, 255, 255));
         txtClave.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtClave.setOpaque(false);
@@ -597,6 +601,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtNombre.setForeground(new java.awt.Color(255, 255, 255));
         txtNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtNombre.setCaretColor(new java.awt.Color(255, 255, 255));
         txtNombre.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtNombre.setOpaque(false);
@@ -617,6 +622,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtCorreo.setForeground(new java.awt.Color(255, 255, 255));
         txtCorreo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCorreo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtCorreo.setCaretColor(new java.awt.Color(255, 255, 255));
         txtCorreo.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtCorreo.setOpaque(false);
@@ -689,6 +695,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtDireccion.setForeground(new java.awt.Color(255, 255, 255));
         txtDireccion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDireccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtDireccion.setCaretColor(new java.awt.Color(255, 255, 255));
         txtDireccion.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtDireccion.setOpaque(false);
@@ -714,6 +721,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtSueldo.setForeground(new java.awt.Color(255, 255, 255));
         txtSueldo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtSueldo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtSueldo.setCaretColor(new java.awt.Color(255, 255, 255));
         txtSueldo.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtSueldo.setOpaque(false);
@@ -737,6 +745,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtNumDocu.setForeground(new java.awt.Color(255, 255, 255));
         txtNumDocu.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNumDocu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtNumDocu.setCaretColor(new java.awt.Color(255, 255, 255));
         txtNumDocu.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtNumDocu.setOpaque(false);
@@ -762,6 +771,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtCelular.setForeground(new java.awt.Color(255, 255, 255));
         txtCelular.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCelular.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtCelular.setCaretColor(new java.awt.Color(255, 255, 255));
         txtCelular.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtCelular.setOpaque(false);
@@ -782,6 +792,7 @@ public class panelVendedores extends javax.swing.JPanel {
 
         txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
         txtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtUsuario.setCaretColor(new java.awt.Color(255, 255, 255));
         txtUsuario.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtUsuario.setOpaque(false);

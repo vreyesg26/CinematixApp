@@ -5,10 +5,13 @@
  */
 package JFrames;
 
+import Datos.Conexion;
 import Tipografia.Fuente;
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -72,6 +75,40 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     public static double totalPago;
     double cambio;
 
+    //Variables que almacenarán todos los datos para enviar a la factura.
+    public static String idPelicula;
+    public static String idSala;
+    public static String idHorario;
+
+    Conexion cn = new Conexion();
+    Connection cc = cn.GetConexion();
+
+    void datosFactura() {
+        String sql = "SELECT P.IdPelicula, S.IDSalas, H.IDHorario\n"
+                + "FROM peliculas AS P\n"
+                + "INNER JOIN salas AS S ON P.IDSalas = S.IDSalas\n"
+                + "INNER JOIN horarios AS H ON P.IDHorario = H.IDHorario\n"
+                + "WHERE P.Titulo = '"+jTextFieldPelicula.getText()+"'";
+
+        try {
+            Statement st = cc.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                idPelicula = rs.getString("P.IdPelicula");
+                idSala = rs.getString("S.IDSalas");
+                idHorario = rs.getString("H.IDHorario");
+                System.out.println("IDPelicula: " + idPelicula);
+                System.out.println("IDSala: " + idSala);
+                System.out.println("IDHorario: " + idHorario);
+            }
+
+        } catch (Exception e) {
+
+        }
+    }
+    
+    
     void calculo() {
 
         totalPago = Double.parseDouble(jLabelTotalPago.getText().substring(17));
@@ -445,7 +482,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
                     jLabelImpuesto.setText("L." + isv + "0");
                     jLabelCambio.setText("Pago Mixto");
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
-                    JOptionPane.showMessageDialog(null, "Se cobraron "+efectivoR +" lempiras en efectivo\nLa diferencia fue cargada a la tarjeta", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    JOptionPane.showMessageDialog(null, "Se cobraron " + efectivoR + " lempiras en efectivo\nLa diferencia fue cargada a la tarjeta", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                     btnComprar.setEnabled(true);
                 }
             } else if (MenuVendedor.rbEfectivo.isSelected()) {
@@ -477,26 +514,26 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.dispose();
         MenuVendedor.confirmarVenta = false;
+        MenuVendedor.btnSalas.setEnabled(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
-        Factura obj = new Factura();
-        pasaDatos();
+        datosFactura();
         this.dispose();
 //        obj.setVisible(true);
-        MenuVendedor mv = new MenuVendedor();
-        mv.setVisible(false);
+//        MenuVendedor mv = new MenuVendedor();
+//        mv.setVisible(false);
         MenuVendedor.confirmarVenta = false;
-        if (jLabelSala.getText().equals("2D")){
+        if (jLabelSala.getText().equals("2D")) {
             Sala2D sala = new Sala2D();
             sala.setVisible(true);
-        } else if (jLabelSala.getText().equals("3D")){
+        } else if (jLabelSala.getText().equals("3D")) {
             Sala3D sala = new Sala3D();
             sala.setVisible(true);
-        } else if (jLabelSala.getText().equals("Max2D")){
+        } else if (jLabelSala.getText().equals("Max2D")) {
             SalaMax2D sala = new SalaMax2D();
             sala.setVisible(true);
-        } else if (jLabelSala.getText().equals("Max3D")){
+        } else if (jLabelSala.getText().equals("Max3D")) {
             SalaMax3D sala = new SalaMax3D();
             sala.setVisible(true);
         }

@@ -21,6 +21,7 @@ import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -63,7 +64,7 @@ public class Sala3D extends javax.swing.JFrame {
     public static ResultSet resultado;
 
     public JToggleButton[][] JTBotones = new JToggleButton[filas][columnas];
-    
+
     public void botones() {
         Font fuenteletra = new Font("Arial", Font.BOLD, 12);
         int contadorasientos = 1;
@@ -110,7 +111,7 @@ public class Sala3D extends javax.swing.JFrame {
                 JTBotones[i][j].setContentAreaFilled(false);
                 JTBotones[i][j].setOpaque(false);
                 JTBotones[i][j].setCursor(new Cursor(HAND_CURSOR));
-                
+
                 contadorasientos++;
                 ejex += 70;
             }
@@ -118,7 +119,7 @@ public class Sala3D extends javax.swing.JFrame {
             ejey += 70;
         }
     }
-    
+
     public void reservaAsiento(int numeroasiento) {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
@@ -169,30 +170,43 @@ public class Sala3D extends javax.swing.JFrame {
         }
     }
 
+    int totalBoletos = Integer.parseInt(ConfirmarVenta.jTextFieldCantidadDeBoletosAdultos.getText()) + Integer.parseInt(ConfirmarVenta.jTextFieldCantidadDeBoletosNiños.getText());
+    ArrayList cantidadBoletos = new ArrayList();
+
     public class AccionBotones implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-
             for (int i = 0; i < filas; i++) {
                 for (int j = 0; j < columnas; j++) {
                     if (ae.getSource().equals(JTBotones[i][j])) {
                         if (JTBotones[i][j].isSelected()) {
                             JTBotones[i][j].setBackground(new Color(36, 36, 36));
-
-                            if (JTBotones[i][j].getText().length() == 2) {
-//                                ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento2.png");
-//                                JTBotones[i][j].setIcon(btnIcono);
+                            if (totalBoletos == cantidadBoletos.size()) {
+                                if (totalBoletos != 1) {
+                                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
+                                    JOptionPane.showMessageDialog(null, "Ya se completó la reservación de tus " + totalBoletos + " asientos", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                                } else {
+                                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
+                                    JOptionPane.showMessageDialog(null, "Ya se completó la reservación de tu asiento", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                                }
+                            } else if (JTBotones[i][j].getText().length() == 2) {
+                                ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento2.png");
+                                JTBotones[i][j].setIcon(btnIcono);
                                 String numeroLetra = JTBotones[i][j].getText().charAt(1) + "";
                                 int numero = Integer.parseInt(numeroLetra);
                                 System.out.println(numero);
                                 reservaAsiento(numero);
+                                cantidadBoletos.add(JTBotones[i][j].getText());
+                                System.out.println(cantidadBoletos);
                             } else if (JTBotones[i][j].getText().length() == 3) {
                                 ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento2.png");
                                 JTBotones[i][j].setIcon(btnIcono);
                                 String numeroLetra = JTBotones[i][j].getText().charAt(1) + "" + JTBotones[i][j].getText().charAt(2);
                                 int numero = Integer.parseInt(numeroLetra);
                                 reservaAsiento(numero);
+                                cantidadBoletos.add(JTBotones[i][j].getText());
+                                System.out.println(cantidadBoletos);
                             }
                         } else {
                             JTBotones[i][j].setBackground(new Color(50, 50, 50));
@@ -202,12 +216,16 @@ public class Sala3D extends javax.swing.JFrame {
                                 String numeroLetra = JTBotones[i][j].getText().charAt(1) + "";
                                 int numero = Integer.parseInt(numeroLetra);
                                 QuitarReservaAsiento(numero);
+                                cantidadBoletos.remove(JTBotones[i][j].getText());
+                                System.out.println(cantidadBoletos);
                             } else if (JTBotones[i][j].getText().length() == 3) {
                                 ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento.png");
                                 JTBotones[i][j].setIcon(btnIcono);
                                 String numeroLetra = JTBotones[i][j].getText().charAt(1) + "" + JTBotones[i][j].getText().charAt(2);
                                 int numero = Integer.parseInt(numeroLetra);
                                 QuitarReservaAsiento(numero);
+                                cantidadBoletos.remove(JTBotones[i][j].getText());
+                                System.out.println(cantidadBoletos);
                             }
                         }
                     }
@@ -333,9 +351,20 @@ public class Sala3D extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
-        this.dispose();
-        Factura factura = new Factura();
-        factura.setVisible(true);
+        if (totalBoletos == cantidadBoletos.size()) {
+            this.dispose();
+            Factura ft = new Factura();
+            ft.setVisible(true);
+            String asientos = cantidadBoletos.toString();
+            Factura.jLabelAsientos.setText(asientos.substring(1, asientos.length() - 1));
+            cantidadBoletos.clear();
+        } else if (totalBoletos != 1) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debes seleccionar los " + totalBoletos + " asientos", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        } else {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debes seleccionar el asiento", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        }
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
     /**

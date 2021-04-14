@@ -108,16 +108,6 @@ public class LoginAdmin extends javax.swing.JFrame {
         txtusuario.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtusuario.setOpaque(false);
         txtusuario.setSelectedTextColor(new java.awt.Color(255, 255, 255));
-        txtusuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtusuarioActionPerformed(evt);
-            }
-        });
-        txtusuario.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtusuarioKeyTyped(evt);
-            }
-        });
         getContentPane().add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 210, 240, 45));
         txtusuario.getAccessibleContext().setAccessibleName("");
 
@@ -264,20 +254,11 @@ public class LoginAdmin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCerrarMouseClicked
 
-    private void txtusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtusuarioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtusuarioActionPerformed
-
 
     private void btninicioaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninicioaActionPerformed
         validarAdministradores();
     }//GEN-LAST:event_btninicioaActionPerformed
 
-
-    private void txtusuarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtusuarioKeyTyped
-
-
-    }//GEN-LAST:event_txtusuarioKeyTyped
 
     private void txtpasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasswordKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {

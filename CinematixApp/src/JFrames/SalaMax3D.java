@@ -17,9 +17,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import Datos.Conexion;
 import Tipografia.Fuente;
+import static java.awt.Component.CENTER_ALIGNMENT;
+import java.awt.Cursor;
+import static java.awt.Frame.HAND_CURSOR;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -55,8 +59,8 @@ public class SalaMax3D extends javax.swing.JFrame {
     int columnas1 = 8;
     int filas = 7;
     int columnas = 10;
-    int largoBoton = 55;
-    int AnchoBoton = 55;
+    int largoBoton = 60;
+    int AnchoBoton = 60;
     int ejex1 = 90;
     int ejey1 = 10;
     int ejex = 20;
@@ -79,13 +83,23 @@ public class SalaMax3D extends javax.swing.JFrame {
                 JTBotones1Fila[i][j].setBounds(ejex1, ejey1, largoBoton, AnchoBoton);
                 jPanel1.add(JTBotones1Fila[i][j]);
                 JTBotones1Fila[i][j].setText("A" + contadorasientos);
-                
+
                 AccionBotones accion = new AccionBotones();
                 JTBotones1Fila[i][j].addActionListener(accion);
 
                 JTBotones1Fila[i][j].setFont(fuenteletra);
                 JTBotones1Fila[i][j].setBackground(new Color(50, 50, 50));
                 JTBotones1Fila[i][j].setForeground(Color.WHITE);
+                ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento.png");
+                JTBotones1Fila[i][j].setIcon(btnIcono);
+                JTBotones1Fila[i][j].setVerticalTextPosition((int) CENTER_ALIGNMENT);
+                JTBotones1Fila[i][j].setHorizontalTextPosition((int) CENTER_ALIGNMENT);
+                JTBotones1Fila[i][j].setHorizontalAlignment((int) CENTER_ALIGNMENT);
+                JTBotones1Fila[i][j].setFocusPainted(false);
+                JTBotones1Fila[i][j].setBorderPainted(false);
+                JTBotones1Fila[i][j].setContentAreaFilled(false);
+                JTBotones1Fila[i][j].setOpaque(false);
+                JTBotones1Fila[i][j].setCursor(new Cursor(HAND_CURSOR));
                 contadorasientos++;
                 ejex1 += 70;
             }
@@ -96,7 +110,7 @@ public class SalaMax3D extends javax.swing.JFrame {
         int contador2 = 9;
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                
+
                 JTBotones[i][j] = new JToggleButton();
                 JTBotones[i][j].setBounds(ejex, ejey, largoBoton, AnchoBoton);
 
@@ -118,10 +132,20 @@ public class SalaMax3D extends javax.swing.JFrame {
                     JTBotones[i][j].setText("G" + contador2);
                 } else if (contador2 >= 69 && contador2 <= 78) {
                     JTBotones[i][j].setText("H" + contador2);
-                } 
+                }
                 JTBotones[i][j].setFont(fuenteletra);
                 JTBotones[i][j].setBackground(new Color(50, 50, 50));
                 JTBotones[i][j].setForeground(Color.WHITE);
+                ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento.png");
+                JTBotones[i][j].setIcon(btnIcono);
+                JTBotones[i][j].setVerticalTextPosition((int) CENTER_ALIGNMENT);
+                JTBotones[i][j].setHorizontalTextPosition((int) CENTER_ALIGNMENT);
+                JTBotones[i][j].setHorizontalAlignment((int) CENTER_ALIGNMENT);
+                JTBotones[i][j].setFocusPainted(false);
+                JTBotones[i][j].setBorderPainted(false);
+                JTBotones[i][j].setContentAreaFilled(false);
+                JTBotones[i][j].setOpaque(false);
+                JTBotones[i][j].setCursor(new Cursor(HAND_CURSOR));
 
                 contador2++;
                 ejex += 70;
@@ -181,61 +205,101 @@ public class SalaMax3D extends javax.swing.JFrame {
         }
     }
 
+    int totalBoletos = Integer.parseInt(ConfirmarVenta.jTextFieldCantidadDeBoletosAdultos.getText()) + Integer.parseInt(ConfirmarVenta.jTextFieldCantidadDeBoletosNiños.getText());
+    ArrayList cantidadBoletos = new ArrayList();
+
     public class AccionBotones implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-
             for (int i = 0; i < fila1; i++) {
                 for (int j = 0; j < columnas1; j++) {
                     if (ae.getSource().equals(JTBotones1Fila[i][j])) {
                         if (JTBotones1Fila[i][j].isSelected()) {
                             JTBotones1Fila[i][j].setBackground(new Color(36, 36, 36));
-
-                            if (JTBotones1Fila[i][j].getText().length() == 2) {
+                            if (totalBoletos == cantidadBoletos.size()) {
+                                if (totalBoletos != 1) {
+                                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
+                                    JOptionPane.showMessageDialog(null, "Ya se completó la reservación de tus " + totalBoletos + " asientos", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                                } else {
+                                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
+                                    JOptionPane.showMessageDialog(null, "Ya se completó la reservación de tu asiento", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                                }
+                            } else if (JTBotones1Fila[i][j].getText().length() == 2) {
+                                ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento2.png");
+                                JTBotones1Fila[i][j].setIcon(btnIcono);
                                 String numeroLetra = JTBotones1Fila[i][j].getText().charAt(1) + "";
                                 int numero = Integer.parseInt(numeroLetra);
                                 System.out.println(numero);
                                 reservaAsiento(numero);
-                            } 
+                                cantidadBoletos.add(JTBotones1Fila[i][j].getText());
+                                System.out.println(cantidadBoletos);
+                            }
                         } else {
                             JTBotones1Fila[i][j].setBackground(new Color(50, 50, 50));
                             if (JTBotones1Fila[i][j].getText().length() == 2) {
+                                ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento.png");
+                                JTBotones1Fila[i][j].setIcon(btnIcono);
                                 String numeroLetra = JTBotones1Fila[i][j].getText().charAt(1) + "";
                                 int numero = Integer.parseInt(numeroLetra);
                                 QuitarReservaAsiento(numero);
+                                cantidadBoletos.remove(JTBotones1Fila[i][j].getText());
+                                System.out.println(cantidadBoletos);
                             }
                         }
                     }
                 }
             }
-            
+
             for (int i = 0; i < filas; i++) {
                 for (int j = 0; j < columnas; j++) {
                     if (ae.getSource().equals(JTBotones[i][j])) {
                         if (JTBotones[i][j].isSelected()) {
                             JTBotones[i][j].setBackground(new Color(36, 36, 36));
-
-                            if (JTBotones[i][j].getText().length() == 2) {
+                            if (totalBoletos == cantidadBoletos.size()) {
+                                if (totalBoletos != 1) {
+                                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
+                                    JOptionPane.showMessageDialog(null, "Ya se completó la reservación de tus " + totalBoletos + " asientos", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                                } else {
+                                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
+                                    JOptionPane.showMessageDialog(null, "Ya se completó la reservación de tu asiento", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                                }
+                            } else if (JTBotones[i][j].getText().length() == 2) {
+                                ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento2.png");
+                                JTBotones[i][j].setIcon(btnIcono);
                                 String numeroLetra = JTBotones[i][j].getText().charAt(1) + "";
                                 int numero = Integer.parseInt(numeroLetra);
                                 System.out.println(numero);
                                 reservaAsiento(numero);
+                                cantidadBoletos.add(JTBotones[i][j].getText());
+                                System.out.println(cantidadBoletos);
                             } else if (JTBotones[i][j].getText().length() == 3) {
+                                ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento2.png");
+                                JTBotones[i][j].setIcon(btnIcono);
                                 String numeroLetra = JTBotones[i][j].getText().charAt(1) + "" + JTBotones[i][j].getText().charAt(2);
                                 int numero = Integer.parseInt(numeroLetra);
                                 reservaAsiento(numero);
+                                cantidadBoletos.add(JTBotones[i][j].getText());
+                                System.out.println(cantidadBoletos);
                             }
                         } else {
                             JTBotones[i][j].setBackground(new Color(50, 50, 50));
                             if (JTBotones[i][j].getText().length() == 2) {
+                                ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento.png");
+                                JTBotones[i][j].setIcon(btnIcono);
                                 String numeroLetra = JTBotones[i][j].getText().charAt(1) + "";
                                 int numero = Integer.parseInt(numeroLetra);
                                 QuitarReservaAsiento(numero);
+                                cantidadBoletos.remove(JTBotones[i][j].getText());
+                                System.out.println(cantidadBoletos);
                             } else if (JTBotones[i][j].getText().length() == 3) {
+                                ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento.png");
+                                JTBotones[i][j].setIcon(btnIcono);
                                 String numeroLetra = JTBotones[i][j].getText().charAt(1) + "" + JTBotones[i][j].getText().charAt(2);
                                 int numero = Integer.parseInt(numeroLetra);
                                 QuitarReservaAsiento(numero);
+                                cantidadBoletos.remove(JTBotones[i][j].getText());
+                                System.out.println(cantidadBoletos);
                             }
                         }
                     }
@@ -263,19 +327,23 @@ public class SalaMax3D extends javax.swing.JFrame {
                             String numeroLetra = JTBotones1Fila[i][j].getText().charAt(1) + "";
                             String numeroN = numeroLetra;
                             if (numero.equals(numeroN) && estado.equals("2")) {
+                                ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento2.png");
+                                JTBotones1Fila[i][j].setIcon(btnIcono);
                                 JTBotones1Fila[i][j].setBackground(new Color(36, 36, 36));
                                 JTBotones1Fila[i][j].setSelected(true);
                             }
-                        } 
+                        }
                     }
                 }
-                
+
                 for (int i = 0; i < filas; i++) {
                     for (int j = 0; j < columnas; j++) {
                         if (JTBotones[i][j].getText().length() == 2) {
                             String numeroLetra = JTBotones[i][j].getText().charAt(1) + "";
                             String numeroN = numeroLetra;
                             if (numero.equals(numeroN) && estado.equals("2")) {
+                                ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento2.png");
+                                JTBotones[i][j].setIcon(btnIcono);
                                 JTBotones[i][j].setBackground(new Color(36, 36, 36));
                                 JTBotones[i][j].setSelected(true);
                             }
@@ -283,6 +351,8 @@ public class SalaMax3D extends javax.swing.JFrame {
                             String numeroLetra = JTBotones[i][j].getText().charAt(1) + "" + JTBotones[i][j].getText().charAt(2);
                             String numeroN = numeroLetra;
                             if (numero.equals(numeroN) && estado.equals("2")) {
+                                ImageIcon btnIcono = new ImageIcon("src/imagenes/btnAsiento2.png");
+                                JTBotones[i][j].setIcon(btnIcono);
                                 JTBotones[i][j].setBackground(new Color(36, 36, 36));
                                 JTBotones[i][j].setSelected(true);
                             }
@@ -370,7 +440,20 @@ public class SalaMax3D extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
-        this.dispose();
+        if (totalBoletos == cantidadBoletos.size()) {
+            this.dispose();
+            Factura ft = new Factura();
+            ft.setVisible(true);
+            String asientos = cantidadBoletos.toString();
+            Factura.jLabelAsientos.setText(asientos.substring(1, asientos.length() - 1));
+            cantidadBoletos.clear();
+        } else if (totalBoletos != 1) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debes seleccionar los " + totalBoletos + " asientos", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        } else {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debes seleccionar el asiento", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        }
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
     /**

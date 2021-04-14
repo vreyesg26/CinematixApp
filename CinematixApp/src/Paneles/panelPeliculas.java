@@ -1,12 +1,15 @@
 package Paneles;
 
 import Datos.Conexion;
+import static JFrames.MenuVendedor.lbImagen;
 import JFrames.TextPrompt;
 import Logica.datosPeliculas;
 import Tipografia.Fuente;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.io.FileInputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,6 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -72,7 +76,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         btnActualizar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnDeshabilitar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
-        
+
         TextPrompt buscar = new TextPrompt("Buscar por ID o Título", txtBuscar);
         buscar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
     }
@@ -162,6 +166,9 @@ public class panelPeliculas extends javax.swing.JPanel {
         }
     }
 
+    public boolean aprobado = false;
+    public int aciertos = 0;
+
     public void verificarCaracteresRepetidos(String cadena) {
         String patron = "^[A-Z]((([A-Za-zñÑáéíóúÁÉÍÓÚ ,.\\s])\\3?(?!\\3)))+$";
         Pattern patt = Pattern.compile(patron);
@@ -169,6 +176,19 @@ public class panelPeliculas extends javax.swing.JPanel {
         if (!comparador.matches()) {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
             JOptionPane.showMessageDialog(null, "Al parecer estás cometiendo alguno de estos errores:\n•Asegurate de iniciar el párrafo con letras mayúsculas\n•No utilices caracteres especiales ni números\n•No repitas letras de forma incorrecta", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            aprobado = false;
+        } else {
+            aprobado = true;
+        }
+    }
+
+    void comprobarAciertos() {
+        if (aciertos != 4) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "Es necesario que toda la información sea correcta para poder guardar este registro", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            guardar = false;
+        } else {
+            guardar = true;
         }
     }
 
@@ -367,12 +387,15 @@ public class panelPeliculas extends javax.swing.JPanel {
     }
 
     public void validarSoloNumeros(String numero) {
-        String patron = "^[1-9]{1}[0-9]{2,3}$";
+        String patron = "^[1-9][0-9]([0-9]?)$";
         Pattern patt = Pattern.compile(patron);
         Matcher comparador = patt.matcher(numero);
         if (!comparador.matches()) {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
             JOptionPane.showMessageDialog(null, "Este campo debe contener mínimo 2 números o máximo 3 del 1 al 9", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            aprobado = false;
+        } else {
+            aprobado = true;
         }
     }
 
@@ -476,19 +499,33 @@ public class panelPeliculas extends javax.swing.JPanel {
         cbIdiomas.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
         cbIdiomas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbIdiomas.setOpaque(false);
+        cbIdiomas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbIdiomasFocusGained(evt);
+            }
+        });
         add(cbIdiomas, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 135, 206, 35));
 
         cbDirector.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbDirector.setOpaque(false);
+        cbDirector.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbDirectorFocusGained(evt);
+            }
+        });
         add(cbDirector, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 74, 206, 35));
 
         txtTitulo.setForeground(new java.awt.Color(255, 255, 255));
         txtTitulo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtTitulo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtTitulo.setCaretColor(new java.awt.Color(255, 255, 255));
         txtTitulo.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtTitulo.setOpaque(false);
         txtTitulo.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtTitulo.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtTituloFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtTituloFocusLost(evt);
             }
@@ -501,11 +538,15 @@ public class panelPeliculas extends javax.swing.JPanel {
         add(txtTitulo, new org.netbeans.lib.awtextra.AbsoluteConstraints(226, 74, 158, 35));
 
         txtSinopsis.setForeground(new java.awt.Color(255, 255, 255));
+        txtSinopsis.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtSinopsis.setCaretColor(new java.awt.Color(255, 255, 255));
         txtSinopsis.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtSinopsis.setOpaque(false);
         txtSinopsis.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtSinopsis.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSinopsisFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtSinopsisFocusLost(evt);
             }
@@ -519,11 +560,15 @@ public class panelPeliculas extends javax.swing.JPanel {
 
         txtDuracion.setForeground(new java.awt.Color(255, 255, 255));
         txtDuracion.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtDuracion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtDuracion.setCaretColor(new java.awt.Color(255, 255, 255));
         txtDuracion.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtDuracion.setOpaque(false);
         txtDuracion.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtDuracion.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtDuracionFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtDuracionFocusLost(evt);
             }
@@ -625,11 +670,15 @@ public class panelPeliculas extends javax.swing.JPanel {
 
         txtReparto.setForeground(new java.awt.Color(255, 255, 255));
         txtReparto.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtReparto.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtReparto.setCaretColor(new java.awt.Color(255, 255, 255));
         txtReparto.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtReparto.setOpaque(false);
         txtReparto.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         txtReparto.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtRepartoFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtRepartoFocusLost(evt);
             }
@@ -644,10 +693,16 @@ public class panelPeliculas extends javax.swing.JPanel {
         cbHorarios.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(61, 61, 61)));
         cbHorarios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         cbHorarios.setOpaque(false);
+        cbHorarios.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbHorariosFocusGained(evt);
+            }
+        });
         add(cbHorarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 255, 206, 35));
 
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtBuscar.setCaretColor(new java.awt.Color(255, 255, 255));
         txtBuscar.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtBuscar.setOpaque(false);
@@ -672,10 +727,16 @@ public class panelPeliculas extends javax.swing.JPanel {
         add(labelLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(514, 410, -1, 29));
 
         cbGeneros.setOpaque(false);
+        cbGeneros.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbGenerosFocusGained(evt);
+            }
+        });
         add(cbGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 198, 206, 35));
 
         txtUrl.setForeground(new java.awt.Color(255, 255, 255));
         txtUrl.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtUrl.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
         txtUrl.setCaretColor(new java.awt.Color(255, 255, 255));
         txtUrl.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtUrl.setOpaque(false);
@@ -694,6 +755,11 @@ public class panelPeliculas extends javax.swing.JPanel {
         add(txtIDPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 31, 25, 25));
 
         cbSalas.setOpaque(false);
+        cbSalas.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                cbSalasFocusGained(evt);
+            }
+        });
         add(cbSalas, new org.netbeans.lib.awtextra.AbsoluteConstraints(564, 315, 206, 35));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -702,6 +768,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         Conexion cn = new Conexion();
         Connection cc = cn.GetConexion();
         validarCamposVacios();
+        comprobarAciertos();
         if (!guardar == false) {
             String sql = "INSERT INTO peliculas\n"
                     + "(Titulo, Duracion, IDDirector, Reparto, IDIdioma, Sinopsis, IDHorario, IDGenero, IDSalas, Foto, urlFoto)\n"
@@ -733,25 +800,24 @@ public class panelPeliculas extends javax.swing.JPanel {
                     btnDeshabilitar.setEnabled(false);
                     btnActualizar.setEnabled(false);
                     tablaPeliculas.setEnabled(false);
+                    cargarData("");
+                    btnNuevo.setEnabled(true);
                 }
 
             } catch (Exception e) {
-                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar el registro", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-                System.out.println(e.getMessage());
+                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar el registro", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                    System.out.println(e.getMessage());
             }
         }
-        cargarData("");
-        btnNuevo.setEnabled(true);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         Conexion cn = new Conexion();
         Connection cc = cn.GetConexion();
         validarCamposVacios();
-        if (guardar == false) {
-
-        } else {
+        comprobarAciertos();
+        if (guardar != false) {
             String sql = "UPDATE peliculas SET Titulo = ?, Duracion = ?, IDDirector = ?, "
                     + "Reparto = ?, IDIdioma = ?, Sinopsis = ?, IDHorario = ?, "
                     + "IDGenero = ?, IDSalas = ?, Foto = ?, urlFoto = ?"
@@ -785,6 +851,7 @@ public class panelPeliculas extends javax.swing.JPanel {
                     btnActualizar.setEnabled(false);
                     tablaPeliculas.setEnabled(false);
                     bloquearCampos();
+                    cargarData("");
 
                     ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
                     btnDeshabilitar.setIcon(iconobtn);
@@ -797,7 +864,6 @@ public class panelPeliculas extends javax.swing.JPanel {
                 System.out.println(e.getMessage());
             }
         }
-        cargarData("");
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeshabilitarActionPerformed
@@ -805,7 +871,21 @@ public class panelPeliculas extends javax.swing.JPanel {
         String habilitado = "1";
         String deshabilitado = "2";
 
-        if (fila >= 0) {
+        if (btnDeshabilitar.getText().equals("CANCELAR")) {
+            limpiarCajas();
+            btnActualizar.setEnabled(false);
+            btnNuevo.setEnabled(false);
+            btnDeshabilitar.setEnabled(false);
+            btnGuardar.setEnabled(true);
+            txtTitulo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+            txtDuracion.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+            txtReparto.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+            txtSinopsis.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+
+            ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
+            btnDeshabilitar.setIcon(iconobtn);
+            btnDeshabilitar.setText("DESHABILITAR");
+        } else if (fila >= 0) {
             String id = tablaPeliculas.getValueAt(fila, 0).toString();
             String pelicula = tablaPeliculas.getValueAt(fila, 1).toString();
 
@@ -815,9 +895,13 @@ public class panelPeliculas extends javax.swing.JPanel {
                 btnNuevo.setEnabled(false);
                 btnDeshabilitar.setEnabled(false);
                 btnGuardar.setEnabled(true);
+                txtTitulo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                txtDuracion.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                txtReparto.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                txtSinopsis.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
 
-                ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
-                btnDeshabilitar.setIcon(iconobtn);
+                ImageIcon iconobtn2 = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
+                btnDeshabilitar.setIcon(iconobtn2);
                 btnDeshabilitar.setText("DESHABILITAR");
 
             } else if (btnDeshabilitar.getText().equals("DESHABILITAR")) {
@@ -876,7 +960,7 @@ public class panelPeliculas extends javax.swing.JPanel {
             Image portada = getToolkit().getImage(txtUrl.getText());
             portada.getScaledInstance(labelFoto.getWidth(), labelFoto.getHeight(), Image.SCALE_SMOOTH);
             labelFoto.setIcon(new ImageIcon(portada));
-            
+
             rsscalelabel.RSScaleLabel.setScaleLabel(labelFoto, txtUrl.getText());
         }
     }//GEN-LAST:event_btnImagenActionPerformed
@@ -1008,11 +1092,31 @@ public class panelPeliculas extends javax.swing.JPanel {
             cbGeneros.setSelectedItem(genero);
             cbSalas.setSelectedItem(sala);
             txtUrl.setText(url);
-            Image foto = getToolkit().getImage(url);
-            foto = foto.getScaledInstance(192, 274, 1);
-            labelFoto.setIcon(new ImageIcon(foto));
+//            Image foto = getToolkit().getImage(url);
+//            foto = foto.getScaledInstance(192, 274, 1);
+//            labelFoto.setIcon(new ImageIcon(foto));
+
+            String sql = "SELECT Foto FROM peliculas WHERE IdPelicula = " + id;
+
+            try {
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+
+                if (rs.next()) {
+                    Image i = null;
+
+                    Blob blob = rs.getBlob("Foto");
+                    i = javax.imageio.ImageIO.read(blob.getBinaryStream());
+                    ImageIcon image = new ImageIcon(i.getScaledInstance(labelFoto.getWidth(), labelFoto.getHeight(), Image.SCALE_DEFAULT));
+                    labelFoto.setIcon(image);
+                    this.repaint();
+                }
+            } catch (Exception e) {
+            }
+
         } else {
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila");
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         }
     }
 
@@ -1066,56 +1170,95 @@ public class panelPeliculas extends javax.swing.JPanel {
 
     private void txtTituloFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTituloFocusLost
         if (!txtTitulo.getText().isEmpty()) {
-            if (txtTitulo.getText().length() < 4) {
-                JOptionPane.showMessageDialog(null, "Titulo debe contener al menos 4 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
-            } else {
+            verificarCaracteresRepetidos(txtTitulo.getText());
+            if (aprobado != false) {
+                if (txtTitulo.getText().length() < 4) {
+                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "Titulo debe contener al menos 4 caracteres", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                    txtTitulo.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                } else {
+                    Conexion cc = new Conexion();
+                    Connection cn = cc.GetConexion();
+                    String titulo = txtTitulo.getText();
+                    String sql = "SELECT Titulo FROM peliculas WHERE Titulo = '" + titulo + "'";
 
-                Conexion cc = new Conexion();
-                Connection cn = cc.GetConexion();
-                String titulo = txtTitulo.getText();
-                String sql = "SELECT Titulo FROM peliculas WHERE Titulo = '" + titulo + "'";
+                    try {
+                        Statement st = cn.createStatement();
+                        ResultSet rs = st.executeQuery(sql);
 
-                try {
-                    Statement st = cn.createStatement();
-                    ResultSet rs = st.executeQuery(sql);
-
-                    if (rs.next()) {
-                        if (rs.getString("Titulo").equals(titulo)) {
-                            JOptionPane.showMessageDialog(null, "Esta pelicula ya está almacenada", "Advertencia", JOptionPane.WARNING_MESSAGE);
-                            txtTitulo.setText("");
+                        if (rs.next()) {
+                            if (rs.getString("Titulo").equals(titulo)) {
+                                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                                JOptionPane.showMessageDialog(null, "Esta pelicula ya está almacenada", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                                txtTitulo.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                            }
+                        } else {
+                            txtTitulo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                            aciertos += 1;
                         }
+                    } catch (Exception e) {
+                        JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                     }
-                } catch (Exception e) {
-                    JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
-                verificarCaracteresRepetidos(txtTitulo.getText());
+            } else {
+                txtTitulo.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
             }
+        } else {
+            txtTitulo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
         }
     }//GEN-LAST:event_txtTituloFocusLost
 
     private void txtDuracionFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDuracionFocusLost
         if (!txtDuracion.getText().isEmpty()) {
             validarSoloNumeros(txtDuracion.getText());
+            if (aprobado != true) {
+                txtDuracion.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+            } else {
+                txtDuracion.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                aciertos += 1;
+            }
+        } else {
+            txtDuracion.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
         }
     }//GEN-LAST:event_txtDuracionFocusLost
 
     private void txtRepartoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRepartoFocusLost
         if (!txtReparto.getText().isEmpty()) {
-            if (txtReparto.getText().length() < 10) {
-                JOptionPane.showMessageDialog(null, "El campo reparto debe contener 10 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            verificarCaracteresRepetidos(txtReparto.getText());
+            if (aprobado != false) {
+                if (txtReparto.getText().length() < 10) {
+                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "El campo reparto debe contener un mínimo de 10 caracteres", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                    txtTitulo.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                } else {
+                    txtReparto.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                    aciertos += 1;
+                }
             } else {
-                verificarCaracteresRepetidos(txtReparto.getText());
+                txtReparto.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
             }
+        } else {
+            txtReparto.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
         }
     }//GEN-LAST:event_txtRepartoFocusLost
 
     private void txtSinopsisFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSinopsisFocusLost
         if (!txtSinopsis.getText().isEmpty()) {
-            if (txtSinopsis.getText().length() < 15) {
-                JOptionPane.showMessageDialog(null, "El campo sinopsis debe contener 15 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+            verificarCaracteresRepetidos(txtSinopsis.getText());
+            if (aprobado != false) {
+                if (txtSinopsis.getText().length() < 15) {
+                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "El campo sinopsis debe contener un mínimo de 15 caracteres", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                    txtTitulo.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                } else {
+                    txtSinopsis.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                    aciertos += 1;
+                }
             } else {
-                verificarCaracteresRepetidos(txtSinopsis.getText());
+                txtSinopsis.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
             }
+        } else {
+            txtSinopsis.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
         }
     }//GEN-LAST:event_txtSinopsisFocusLost
 
@@ -1136,6 +1279,60 @@ public class panelPeliculas extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_tablaPeliculasMouseClicked
+
+    private void txtTituloFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTituloFocusGained
+        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconobtn);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtTituloFocusGained
+
+    private void txtDuracionFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDuracionFocusGained
+        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconobtn);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtDuracionFocusGained
+
+    private void txtRepartoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtRepartoFocusGained
+        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconobtn);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtRepartoFocusGained
+
+    private void txtSinopsisFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSinopsisFocusGained
+        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconobtn);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_txtSinopsisFocusGained
+
+    private void cbDirectorFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbDirectorFocusGained
+        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconobtn);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_cbDirectorFocusGained
+
+    private void cbIdiomasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbIdiomasFocusGained
+        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconobtn);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_cbIdiomasFocusGained
+
+    private void cbGenerosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbGenerosFocusGained
+        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconobtn);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_cbGenerosFocusGained
+
+    private void cbHorariosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbHorariosFocusGained
+        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconobtn);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_cbHorariosFocusGained
+
+    private void cbSalasFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_cbSalasFocusGained
+        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
+        btnDeshabilitar.setIcon(iconobtn);
+        btnDeshabilitar.setText("CANCELAR");
+    }//GEN-LAST:event_cbSalasFocusGained
 
     datosPeliculas dataPeli = new datosPeliculas();
 

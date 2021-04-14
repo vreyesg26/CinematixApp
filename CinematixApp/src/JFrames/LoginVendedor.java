@@ -132,6 +132,7 @@ public class LoginVendedor extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public static String idVendedor;
     public void validarVendedores() {
         String secretKey = "lospibes";
         Encode encode = new Encode();
@@ -160,6 +161,8 @@ public class LoginVendedor extends javax.swing.JFrame {
                         MenuVendedor mv = new MenuVendedor();
                         mv.setVisible(true);
                         mv.lbVendedor.setText("¡Bienvenido " + rs.getString("Nombre") + "!");
+                        idVendedor = rs.getString("IDVendedor");
+                        System.out.println("IDVendedor: " + idVendedor);
                         this.dispose();
                         try {
                             String sqlRestar = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`Correo` = ? ";

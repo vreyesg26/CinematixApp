@@ -62,6 +62,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         jComboBoxPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         jComboBoxHora.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnContinuar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        btnSalas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
 
         rbEfectivo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         rbMixto.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
@@ -92,6 +93,24 @@ public class MenuVendedor extends javax.swing.JFrame {
             jComboBoxHora.setEnabled(false);
             limpiar();
             Desactivados();
+        }
+    }
+    
+    public static String idPago;
+    void obtenerMetodoPago(){
+        String sql = "SELECT IDPago FROM formaspago WHERE Tipo = '"+lbResultado.getText().substring(16)+"'";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                idPago = rs.getString("IDPago");
+                System.out.println("IDPago: " + idPago);
+            }
+
+        } catch (Exception e) {
+
         }
     }
 
@@ -140,7 +159,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
     }
 
-    void Desactivados() {
+    public static void Desactivados() {
         jComboBoxPeliculas.setEnabled(false);
         jComboBoxHora.setEnabled(false);
         rbEfectivo.setEnabled(false);
@@ -165,12 +184,6 @@ public class MenuVendedor extends javax.swing.JFrame {
         txtBoletosAdultos.setText(String.valueOf(contadorAdultos));
         txtBoletosNiños.setText(String.valueOf(contadorNiños));
     }
-
-    /* ResultSet rs;
-    PreparedStatement Pst;
-    DefaultComboBoxModel model;
-    Conexion cc = new Conexion();
-    Connection cn = cc.GetConexion();*/
     public static void AgregarAComboboxPelicula() {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
@@ -196,7 +209,6 @@ public class MenuVendedor extends javax.swing.JFrame {
         combo = jComboBoxPeliculas.getSelectedIndex();
         if (combo != 0) {
             Activar();
-            //MenoresEdad();
         } else {
             rbEfectivo.setEnabled(false);
             rbTCredito.setEnabled(false);
@@ -212,7 +224,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         Connection cn = cc.GetConexion();
         Combo = jComboBoxHora.getSelectedIndex();
 
-        String sql = "SELECT Hora FROM horarios ORDER BY IDHorario";
+        String sql = "SELECT Hora FROM horarios ORDER BY RAND() LIMIT 3";
         jComboBoxHora.addItem("Seleccione un horario");
         try {
             Statement st = cn.createStatement();
@@ -267,7 +279,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             cantidadNiños = Double.parseDouble(txtBoletosNiños.getText());
             precioNiños = boletoNiño;
             TotalN = (cantidadNiños * precioNiños);
-            ConfirmarVenta.jLabelTotalNiños.setText(TotalN + "0");
+            ConfirmarVenta.jLabelTotalNiños.setText("L."+TotalN + "0");
         }
 
         if ("".equals(txtBoletosAdultos.getText())) {
@@ -277,10 +289,10 @@ public class MenuVendedor extends javax.swing.JFrame {
             cantidadAdultos = Double.parseDouble(txtBoletosAdultos.getText());
             precioAdultos = boletoAdulto;
             TotalA = (cantidadAdultos * precioAdultos);
-            ConfirmarVenta.jLabelTotalAdultos.setText(TotalA + "0");
+            ConfirmarVenta.jLabelTotalAdultos.setText("L."+TotalA + "0");
         }
         Total = TotalA + TotalN;
-        ConfirmarVenta.jLabelTotalPago.setText("TOTAL A PAGAR: L " + Total + "0");
+        ConfirmarVenta.jLabelTotalPago.setText("TOTAL A PAGAR: L." + Total + "0");
 
     }
 
@@ -289,20 +301,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         ConfirmarVenta.jTextFieldCantidadDeBoletosNiños.setText(txtBoletosNiños.getText());
         ConfirmarVenta.jLabelSala.setText(lb8.getText());
     }
-
-    /*void MenoresEdad() {
-        int combo = jComboBoxPeliculas.getSelectedIndex();
-        if (combo == 1 || combo == 2) {
-            lbMenores.setVisible(true);
-            txtBoletosNiños.setEnabled(false);
-            lbMenores.setText("No apta para menores de edad");
-        }
-        if (combo == 3 || combo == 4 || combo == 5) {
-            txtBoletosNiños.setVisible(true);
-            lbMenores.setVisible(false);
-        }
-
-    }*/
+    
     void tarjeta() {
         if (rbTCredito.isSelected()) {
             ConfirmarVenta.jTextFieldEfectivoRecibido.setText("Paga con tarjeta");
@@ -313,31 +312,6 @@ public class MenuVendedor extends javax.swing.JFrame {
             ConfirmarVenta.jLabelImpuesto.setText("15%");
             ConfirmarVenta.btnComprar.setEnabled(true);
             ConfirmarVenta.jTextFieldNombreVendedor.setText(lbVendedor.getText().substring(12, lbVendedor.getText().length() - 1));
-        }
-    }
-
-    public void HabilitarBoton() {
-        if ("0".equals(txtBoletosAdultos.getText()) && "0".equals(txtBoletosNiños.getText())) {
-            JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            btnContinuar.setEnabled(false);
-            //txtBoletosAdultos.setText("1");
-
-        } else if ("0".equals(txtBoletosAdultos.getText())) {
-            JOptionPane.showMessageDialog(this, "Tiene que comprar al menos un boleto", "Advertencia", JOptionPane.WARNING_MESSAGE);
-            btnContinuar.setEnabled(false);
-            // txtBoletosAdultos.setText("1");
-
-        } else {
-            btnContinuar.setEnabled(true);
-        }
-
-        if (!txtBoletosAdultos.getText().isEmpty()) {
-            btnContinuar.setEnabled(true);
-        }
-        if (!txtBoletosNiños.getText().isEmpty() || txtBoletosNiños.getText().length() == 0) {
-            btnContinuar.setEnabled(true);
-        } else {
-            btnContinuar.setEnabled(false);
         }
     }
 
@@ -377,7 +351,6 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb15 = new javax.swing.JLabel();
         lb16 = new javax.swing.JLabel();
         lb17 = new javax.swing.JLabel();
-        btnEncendido = new javax.swing.JToggleButton();
         lb_Encender = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         lb9 = new javax.swing.JLabel();
@@ -399,6 +372,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         lbMenores = new javax.swing.JLabel();
         lbResultado = new javax.swing.JLabel();
         lb3 = new javax.swing.JLabel();
+        btnSalas = new rojerusan.RSButtonHover();
         btnContinuar = new rojerusan.RSButtonHover();
         btnMenos = new javax.swing.JButton();
         btnMas = new javax.swing.JButton();
@@ -406,6 +380,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         btnMas1 = new javax.swing.JButton();
         lb18 = new javax.swing.JLabel();
         lbVendedor = new javax.swing.JLabel();
+        btnEncendido = new javax.swing.JToggleButton();
         fondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -491,22 +466,6 @@ public class MenuVendedor extends javax.swing.JFrame {
 
         getContentPane().add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(26, 145, 387, 530));
 
-        btnEncendido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnApagado.png"))); // NOI18N
-        btnEncendido.setBorder(null);
-        btnEncendido.setBorderPainted(false);
-        btnEncendido.setContentAreaFilled(false);
-        btnEncendido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnEncendido.setFocusPainted(false);
-        btnEncendido.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnApagado2.png"))); // NOI18N
-        btnEncendido.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnEncendido2.png"))); // NOI18N
-        btnEncendido.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnEncendido.png"))); // NOI18N
-        btnEncendido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEncendidoActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnEncendido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 38, 55, 55));
-
         lb_Encender.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lb_Encender.setForeground(new java.awt.Color(255, 255, 255));
         lb_Encender.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -590,7 +549,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         buttonGroup1.add(rbTCredito);
         rbTCredito.setFont(new java.awt.Font("Dialog", 1, 16)); // NOI18N
         rbTCredito.setForeground(new java.awt.Color(255, 255, 255));
-        rbTCredito.setText("Tarjeta de crédito");
+        rbTCredito.setText("Tarjeta");
         rbTCredito.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         rbTCredito.setOpaque(false);
         rbTCredito.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -623,9 +582,9 @@ public class MenuVendedor extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(rbEfectivo)
-                .addGap(65, 65, 65)
+                .addGap(95, 95, 95)
                 .addComponent(rbTCredito)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
                 .addComponent(rbMixto)
                 .addContainerGap())
         );
@@ -706,6 +665,20 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb3.setOpaque(true);
         jPanel1.add(lb3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 585, 40));
 
+        btnSalas.setBackground(new java.awt.Color(81, 81, 81));
+        btnSalas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoSalas.png"))); // NOI18N
+        btnSalas.setText("CONTROL DE SALAS");
+        btnSalas.setBorderPainted(false);
+        btnSalas.setColorHover(new java.awt.Color(61, 61, 61));
+        btnSalas.setFocusable(false);
+        btnSalas.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnSalas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btnSalas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 480, 190, 40));
+
         btnContinuar.setBackground(new java.awt.Color(81, 81, 81));
         btnContinuar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoContinuar.png"))); // NOI18N
         btnContinuar.setText("CONTINUAR");
@@ -718,7 +691,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                 btnContinuarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 480, 140, 40));
+        jPanel1.add(btnContinuar, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 480, 190, 40));
 
         btnMenos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnMenos.png"))); // NOI18N
         btnMenos.setBorder(null);
@@ -788,6 +761,20 @@ public class MenuVendedor extends javax.swing.JFrame {
         lbVendedor.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbVendedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoUsuario.png"))); // NOI18N
         getContentPane().add(lbVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(673, 114, 350, 30));
+
+        btnEncendido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnApagado.png"))); // NOI18N
+        btnEncendido.setBorder(null);
+        btnEncendido.setBorderPainted(false);
+        btnEncendido.setContentAreaFilled(false);
+        btnEncendido.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnApagado2.png"))); // NOI18N
+        btnEncendido.setRolloverSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnEncendido2.png"))); // NOI18N
+        btnEncendido.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnEncendido.png"))); // NOI18N
+        btnEncendido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEncendidoActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnEncendido, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, -1, -1));
 
         fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VendedorPantalla2.png"))); // NOI18N
         getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1050, 700));
@@ -869,10 +856,6 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxPeliculasActionPerformed
 
-    private void btnEncendidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncendidoActionPerformed
-        Encender();
-    }//GEN-LAST:event_btnEncendidoActionPerformed
-
     private void jComboBoxHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxHoraActionPerformed
 
     }//GEN-LAST:event_jComboBoxHoraActionPerformed
@@ -928,17 +911,19 @@ public class MenuVendedor extends javax.swing.JFrame {
         //HabilitarBoton();
     }//GEN-LAST:event_txtBoletosNiñosActionPerformed
 
+    
     private void rbTCreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbTCreditoMouseClicked
-        String mensaje = "Su método de pago es con: ";
+        String mensaje = "Método de Pago: ";
+        
         if (rbTCredito.isSelected()) {
-            mensaje += "Tarjeta de Crédito";
+            mensaje += "Tarjeta";
         }
         lbResultado.setText(mensaje);
     }//GEN-LAST:event_rbTCreditoMouseClicked
 
     private void rbEfectivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbEfectivoMouseClicked
-        String mensaje = "Su método de pago es en: ";
-
+        String mensaje = "Método de Pago: ";
+        
         if (rbEfectivo.isSelected()) {
             mensaje += "Efectivo";
         }
@@ -954,8 +939,8 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_rbEfectivoActionPerformed
 
     private void rbMixtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbMixtoMouseClicked
-        String mensaje = "Su método de pago es: ";
-
+        String mensaje = "Método de Pago: ";
+        
         if (rbMixto.isSelected()) {
             mensaje += "Mixto";
         }
@@ -975,6 +960,8 @@ public class MenuVendedor extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un método de pago", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         } else {
             if (confirmarVenta == false) {
+                obtenerMetodoPago();
+                MenuVendedor.btnSalas.setEnabled(false);
                 ConfirmarVenta obj = new ConfirmarVenta();
                 pasaDatos();
                 ConfirmarVenta.jTextFieldPelicula.setText(jComboBoxPeliculas.getSelectedItem().toString());
@@ -989,7 +976,6 @@ public class MenuVendedor extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Esta pantalla se está ejecutando actualmente", "Aviso", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
             }
         }
-        HabilitarBoton();
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     public static int contadorAdultos = 1;
@@ -1046,6 +1032,22 @@ public class MenuVendedor extends javax.swing.JFrame {
         //HabilitarBoton();
     }//GEN-LAST:event_lbMenoresKeyReleased
 
+    public static boolean pantallaControlSalas = false;
+    private void btnSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalasActionPerformed
+        if (pantallaControlSalas == false) {
+            ControlSalas cs = new ControlSalas();
+            cs.setVisible(true);
+            pantallaControlSalas = true;
+        } else if (pantallaControlSalas == true) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Esta ventana se está ejecutando actualmente", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        }
+    }//GEN-LAST:event_btnSalasActionPerformed
+
+    private void btnEncendidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncendidoActionPerformed
+        Encender();
+    }//GEN-LAST:event_btnEncendidoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1084,12 +1086,13 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnCerrar;
-    private rojerusan.RSButtonHover btnContinuar;
+    public static rojerusan.RSButtonHover btnContinuar;
     public static javax.swing.JToggleButton btnEncendido;
-    private javax.swing.JButton btnMas;
-    private javax.swing.JButton btnMas1;
-    private javax.swing.JButton btnMenos;
-    private javax.swing.JButton btnMenos1;
+    public static javax.swing.JButton btnMas;
+    public static javax.swing.JButton btnMas1;
+    public static javax.swing.JButton btnMenos;
+    public static javax.swing.JButton btnMenos1;
+    public static rojerusan.RSButtonHover btnSalas;
     public static javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel fondo;
     public static javax.swing.JComboBox<String> jComboBoxHora;
