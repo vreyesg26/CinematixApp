@@ -43,6 +43,8 @@ public class Factura extends javax.swing.JFrame {
         super.setLocationRelativeTo(this);
         fechaHora();
         recogerDatos();
+        datosCAI();
+        numFactura();
     }
 
     public static void fechaHora() {
@@ -97,16 +99,18 @@ public class Factura extends javax.swing.JFrame {
     }
 
     void facturaDetalle() {
-        String sql = "INSERT INTO facturadetalle (IDFacturaEncabezado, IdPelicula, IDSalas, Asientos, IDHorario, Total) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO facturadetalle (IDFacturaEncabezado, IDParametro, NumeroFactura, IdPelicula, IDSalas, Asientos, IDHorario, Total) VALUES (?,?,?,?,?,?,?,?)";
 
         try {
             PreparedStatement pst = cc.prepareStatement(sql);
             pst.setString(1, idEncabezado);
-            pst.setString(2, ConfirmarVenta.idPelicula);
-            pst.setString(3, ConfirmarVenta.idSala);
-            pst.setString(4, jLabelAsientos.getText());
-            pst.setString(5, ConfirmarVenta.idHorario);
-            pst.setDouble(6, ConfirmarVenta.totalPago);
+            pst.setString(2, idParametro);
+            pst.setString(3, numeroFactura);
+            pst.setString(4, ConfirmarVenta.idPelicula);
+            pst.setString(5, ConfirmarVenta.idSala);
+            pst.setString(6, jLabelAsientos.getText());
+            pst.setString(7, ConfirmarVenta.idHorario);
+            pst.setDouble(8, Double.valueOf(jLabeTotal.getText().substring(3)));
 
             int i = pst.executeUpdate();
             if (i > 0) {
@@ -140,6 +144,52 @@ public class Factura extends javax.swing.JFrame {
         }
         jLabeCambio.setText(ConfirmarVenta.jLabelCambio.getText());
         jLabeTotal.setText(ConfirmarVenta.jLabelTotalPago.getText().substring(15));
+        Factura.jLabelCliente.setText(ConfirmarVenta.lbAgregarCliente.getText());
+    }
+
+    String idParametro, fechaFinal, valor;
+
+    void datosCAI() {
+
+        String sql = "SELECT IDParametro, FechaFinal, Valor FROM parametros";
+        try {
+            Statement st = cc.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                idParametro = rs.getString("idParametro");
+                fechaFinal = rs.getString("FechaFinal");
+                valor = rs.getString("Valor");
+
+                jLabelF_Emision.setText(fechaFinal);
+                jLabelNumCAI.setText(valor);
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    String numeroFactura;
+    void numFactura() {
+
+        String sql = "SELECT NumeroFactura FROM facturadetalle ORDER BY NumeroFactura DESC LIMIT 1";
+        try {
+            Statement st = cc.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                String numeroCompleto = rs.getString("NumeroFactura");
+                String datoConstante = numeroCompleto.substring(0, 14);
+                String numeroSeccionado = numeroCompleto.substring(12);
+                int numeroSeccionadoEntero = Integer.parseInt(numeroSeccionado);
+                int suma = numeroSeccionadoEntero + 1;
+                numeroFactura = datoConstante + suma;
+                jLabelNumeroFactura.setText(numeroFactura);
+                System.out.println(numeroCompleto);
+                System.out.println(datoConstante);
+                System.out.println(numeroFactura);
+            }
+        } catch (Exception e) {
+        }
     }
 
     void limpiar() {
@@ -209,14 +259,17 @@ public class Factura extends javax.swing.JFrame {
         jButton_Imprimir = new javax.swing.JButton();
         jLabelAsientos = new javax.swing.JLabel();
         jLabelVendedor = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
+        jLabelCAI = new javax.swing.JLabel();
+        jLabelFechaEmision = new javax.swing.JLabel();
+        jLabelNumeroFactura = new javax.swing.JLabel();
+        jLabelNumCAI = new javax.swing.JLabel();
+        jLabelF_Emision = new javax.swing.JLabel();
+        jLabelCliente = new javax.swing.JLabel();
         lbFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
         setMinimumSize(new java.awt.Dimension(370, 700));
-        setPreferredSize(new java.awt.Dimension(370, 700));
         setResizable(false);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
@@ -296,7 +349,7 @@ public class Factura extends javax.swing.JFrame {
         jLabeNiñosTotal.setForeground(new java.awt.Color(255, 255, 255));
         jLabeNiñosTotal.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabeNiñosTotal.setText("...");
-        jPanel1.add(jLabeNiñosTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 350, 20, -1));
+        jPanel1.add(jLabeNiñosTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 350, 90, -1));
 
         jLabeAdultos.setFont(new java.awt.Font("Ubuntu Condensed", 1, 14)); // NOI18N
         jLabeAdultos.setForeground(new java.awt.Color(255, 255, 255));
@@ -398,16 +451,43 @@ public class Factura extends javax.swing.JFrame {
         jLabelVendedor.setText("...");
         jPanel1.add(jLabelVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 105, 150, -1));
 
-        jLabel19.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel19.setText("CAI");
-        jPanel1.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 175, -1, -1));
+        jLabelCAI.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabelCAI.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelCAI.setText("CAI");
+        jPanel1.add(jLabelCAI, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 175, -1, -1));
 
-        jLabel20.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel20.setText("Fecha Limite Emisión");
-        jPanel1.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
+        jLabelFechaEmision.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabelFechaEmision.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelFechaEmision.setText("Fecha Limite Emisión");
+        jPanel1.add(jLabelFechaEmision, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 210, -1, -1));
 
+        jLabelNumeroFactura.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabelNumeroFactura.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNumeroFactura.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelNumeroFactura.setText("...");
+        jPanel1.add(jLabelNumeroFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 200, -1));
+
+        jLabelNumCAI.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabelNumCAI.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelNumCAI.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelNumCAI.setText("...");
+        jPanel1.add(jLabelNumCAI, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 175, 250, -1));
+
+        jLabelF_Emision.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabelF_Emision.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelF_Emision.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelF_Emision.setText("...");
+        jPanel1.add(jLabelF_Emision, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 80, -1));
+
+        jLabelCliente.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabelCliente.setForeground(new java.awt.Color(255, 255, 255));
+        jLabelCliente.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabelCliente.setText("...");
+        jPanel1.add(jLabelCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 595, 200, -1));
+
+        lbFondo.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        lbFondo.setForeground(new java.awt.Color(255, 255, 255));
+        lbFondo.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Factura.png"))); // NOI18N
         jPanel1.add(lbFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 370, 700));
 
@@ -529,17 +609,21 @@ public class Factura extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     public static javax.swing.JLabel jLabelAsientos;
+    private javax.swing.JLabel jLabelCAI;
+    public static javax.swing.JLabel jLabelCliente;
+    private javax.swing.JLabel jLabelF_Emision;
     public static javax.swing.JLabel jLabelFecha;
+    private javax.swing.JLabel jLabelFechaEmision;
     public static javax.swing.JLabel jLabelHora;
     public static javax.swing.JLabel jLabelISV;
     public static javax.swing.JLabel jLabelNiños;
+    private javax.swing.JLabel jLabelNumCAI;
+    private javax.swing.JLabel jLabelNumeroFactura;
     public static javax.swing.JLabel jLabelPelicula;
     public static javax.swing.JLabel jLabelSala;
     public static javax.swing.JLabel jLabelTanda;
