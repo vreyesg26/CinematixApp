@@ -216,6 +216,7 @@ public class panelPeliculas extends javax.swing.JPanel {
     }
 
     boolean guardar = false;
+
     void validarCamposVacios() {
         ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
         if (txtDuracion.getText().isEmpty() && txtLetras.getText().isEmpty() && txtReparto.getText().isEmpty()
@@ -793,9 +794,9 @@ public class panelPeliculas extends javax.swing.JPanel {
                 }
 
             } catch (Exception e) {
-                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
-                    JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar el registro", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-                    System.out.println(e.getMessage());
+                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar el registro", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                System.out.println(e.getMessage());
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -857,22 +858,8 @@ public class panelPeliculas extends javax.swing.JPanel {
         int fila = tablaPeliculas.getSelectedRow();
         String habilitado = "1";
         String deshabilitado = "2";
-
-        if (btnDeshabilitar.getText().equals("CANCELAR")) {
-            limpiarCajas();
-            btnActualizar.setEnabled(false);
-            btnNuevo.setEnabled(false);
-            btnDeshabilitar.setEnabled(false);
-            btnGuardar.setEnabled(true);
-            txtTitulo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
-            txtDuracion.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
-            txtReparto.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
-            txtSinopsis.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
-
-            ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
-            btnDeshabilitar.setIcon(iconobtn);
-            btnDeshabilitar.setText("DESHABILITAR");
-        } else if (fila >= 0) {
+        
+        if (fila >= 0) {
             String id = tablaPeliculas.getValueAt(fila, 0).toString();
             String pelicula = tablaPeliculas.getValueAt(fila, 1).toString();
 

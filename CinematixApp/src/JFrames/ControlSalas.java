@@ -28,14 +28,14 @@ public class ControlSalas extends javax.swing.JFrame {
     public ControlSalas() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
-        disponibles2D();
-        reservados2D();
-        disponibles3D();
-        reservados3D();
-        disponiblesMax2D();
-        reservadosMax2D();
-        disponiblesMax3D();
-        reservadosMax3D();
+        lbFS2D.setVisible(false);
+        lbFS3D.setVisible(false);
+        lbFSMax2D.setVisible(false);
+        lbFSMax3D.setVisible(false);
+        estadoSala2D();
+        estadoSala3D();
+        estadoSalaMax2D();
+        estadoSalaMax3D();
 
         tipoFuente = new Fuente();
         lbDisponible2D.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 22));
@@ -71,6 +71,10 @@ public class ControlSalas extends javax.swing.JFrame {
         lbReservadoMax3D = new javax.swing.JLabel();
         lbReservadoMax2D = new javax.swing.JLabel();
         lbDisponibleMax3D = new javax.swing.JLabel();
+        lbFS2D = new javax.swing.JLabel();
+        lbFS3D = new javax.swing.JLabel();
+        lbFSMax2D = new javax.swing.JLabel();
+        lbFSMax3D = new javax.swing.JLabel();
         btnSalir = new javax.swing.JLabel();
         lbFondo = new javax.swing.JLabel();
 
@@ -115,6 +119,18 @@ public class ControlSalas extends javax.swing.JFrame {
         lbDisponibleMax3D.setForeground(new java.awt.Color(255, 255, 255));
         lbDisponibleMax3D.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         getContentPane().add(lbDisponibleMax3D, new org.netbeans.lib.awtextra.AbsoluteConstraints(695, 290, 50, 35));
+
+        lbFS2D.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FS2D.png"))); // NOI18N
+        getContentPane().add(lbFS2D, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 75, 350, 150));
+
+        lbFS3D.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FS3D.png"))); // NOI18N
+        getContentPane().add(lbFS3D, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 75, 350, 150));
+
+        lbFSMax2D.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FSMax2D.png"))); // NOI18N
+        getContentPane().add(lbFSMax2D, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 260, 350, 150));
+
+        lbFSMax3D.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/FSMax3D.png"))); // NOI18N
+        getContentPane().add(lbFSMax3D, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 350, 150));
 
         btnSalir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnSalir.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -282,6 +298,98 @@ public class ControlSalas extends javax.swing.JFrame {
 
         }
     }
+    
+    void estadoSala2D(){
+        String deshabilitado = "2";
+        String sql = "SELECT IDEstado FROM salas WHERE IDSalas = 1";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                String estado = rs.getString("IDEstado");
+                if(estado.equals(deshabilitado)){
+                    lbFS2D.setVisible(true);
+                } else {
+                    disponibles2D();
+                    reservados2D();
+                }
+            }
+
+        } catch (Exception e) {
+            
+        }
+    }
+    
+    void estadoSala3D(){
+        String deshabilitado = "2";
+        String sql = "SELECT IDEstado FROM salas WHERE IDSalas = 2";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                String estado = rs.getString("IDEstado");
+                if(estado.equals(deshabilitado)){
+                    lbFS3D.setVisible(true);
+                } else {
+                    disponibles3D();
+                    reservados3D();
+                }
+            }
+
+        } catch (Exception e) {
+            
+        }
+    }
+    
+    void estadoSalaMax2D(){
+        String deshabilitado = "2";
+        String sql = "SELECT IDEstado FROM salas WHERE IDSalas = 3";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                String estado = rs.getString("IDEstado");
+                if(estado.equals(deshabilitado)){
+                    lbFSMax2D.setVisible(true);
+                } else {
+                    disponiblesMax2D();
+                    reservadosMax2D();
+                }
+            }
+
+        } catch (Exception e) {
+            
+        }
+    }
+    
+    void estadoSalaMax3D(){
+        String deshabilitado = "2";
+        String sql = "SELECT IDEstado FROM salas WHERE IDSalas = 4";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                String estado = rs.getString("IDEstado");
+                if(estado.equals(deshabilitado)){
+                    lbFSMax3D.setVisible(true);
+                } else {
+                    disponiblesMax3D();
+                    reservadosMax3D();
+                }
+            }
+
+        } catch (Exception e) {
+            
+        }
+    }
 
     private void btnSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSalirMouseClicked
         this.dispose();
@@ -329,6 +437,10 @@ public class ControlSalas extends javax.swing.JFrame {
     private javax.swing.JLabel lbDisponible3D;
     private javax.swing.JLabel lbDisponibleMax2D;
     private javax.swing.JLabel lbDisponibleMax3D;
+    private javax.swing.JLabel lbFS2D;
+    private javax.swing.JLabel lbFS3D;
+    private javax.swing.JLabel lbFSMax2D;
+    private javax.swing.JLabel lbFSMax3D;
     private javax.swing.JLabel lbFondo;
     private javax.swing.JLabel lbReservado2D;
     private javax.swing.JLabel lbReservado3D;

@@ -49,6 +49,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         lb14.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb15.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb16.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 24));
+        lb17.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         btnComprar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         btnRegresar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
 

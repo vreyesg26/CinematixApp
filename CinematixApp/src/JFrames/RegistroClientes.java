@@ -8,7 +8,6 @@ package JFrames;
 import Datos.Conexion;
 import Paneles.panelInicio;
 import Paneles.panelVendedores;
-import encriptacion.Encode;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -47,7 +46,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         TextPrompt id = new TextPrompt("ID", txtIDCliente);
         TextPrompt nombre = new TextPrompt("NOMBRE", txtNombre);
         TextPrompt correo = new TextPrompt("CORREO", txtCorreo);
-        TextPrompt numDocumento = new TextPrompt("# DOCUMENTO", txtNumDocu);
+        TextPrompt numDocumento = new TextPrompt("N° DOCUMENTO", txtNumDocu);
 
         txtIDCliente.setEnabled(false);
         lbNombreX.setVisible(false);
@@ -76,7 +75,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         txtIDCliente = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
-        cbTipoDocu = new javax.swing.JComboBox<String>();
+        cbTipoDocu = new javax.swing.JComboBox<>();
         txtNumDocu = new javax.swing.JTextField();
         lbX = new javax.swing.JLabel();
         btnNuevo = new rojeru_san.complementos.RSButtonHover();
@@ -249,13 +248,12 @@ public class RegistroClientes extends javax.swing.JFrame {
         tablaClientes.setForeground(new java.awt.Color(255, 255, 255));
         tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
+
             }
         ));
         tablaClientes.setAlignmentY(4.0F);
@@ -390,11 +388,11 @@ public class RegistroClientes extends javax.swing.JFrame {
     void anchoColumnas() {
         TableColumnModel anchoColumnas = tablaClientes.getColumnModel();
         anchoColumnas.getColumn(0).setPreferredWidth(30);
-        anchoColumnas.getColumn(1).setPreferredWidth(80);
-        anchoColumnas.getColumn(2).setPreferredWidth(80);
-        anchoColumnas.getColumn(3).setPreferredWidth(60);
-        anchoColumnas.getColumn(4).setPreferredWidth(80);
-        anchoColumnas.getColumn(5).setPreferredWidth(40);
+        anchoColumnas.getColumn(1).setPreferredWidth(130);
+        anchoColumnas.getColumn(2).setPreferredWidth(130);
+        anchoColumnas.getColumn(3).setPreferredWidth(90);
+        anchoColumnas.getColumn(4).setPreferredWidth(130);
+        anchoColumnas.getColumn(5).setPreferredWidth(80);
     }
 
     void limpiarCajas() {
