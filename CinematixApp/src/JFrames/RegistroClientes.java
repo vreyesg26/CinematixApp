@@ -6,6 +6,7 @@
 package JFrames;
 
 import Datos.Conexion;
+import JFrames.TextPrompt;
 import Paneles.panelInicio;
 import Paneles.panelVendedores;
 import java.awt.Color;
@@ -47,7 +48,8 @@ public class RegistroClientes extends javax.swing.JFrame {
         TextPrompt nombre = new TextPrompt("NOMBRE", txtNombre);
         TextPrompt correo = new TextPrompt("CORREO", txtCorreo);
         TextPrompt numDocumento = new TextPrompt("N° DOCUMENTO", txtNumDocu);
-
+        TextPrompt buscar = new TextPrompt("Buscar por ID o Nombre", txtBuscar);
+        
         txtIDCliente.setEnabled(false);
         lbNombreX.setVisible(false);
         lbCorreoX.setVisible(false);
@@ -74,8 +76,9 @@ public class RegistroClientes extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JLabel();
         txtIDCliente = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
+        txtBuscar = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
-        cbTipoDocu = new javax.swing.JComboBox<>();
+        cbTipoDocu = new javax.swing.JComboBox<String>();
         txtNumDocu = new javax.swing.JTextField();
         lbX = new javax.swing.JLabel();
         btnNuevo = new rojeru_san.complementos.RSButtonHover();
@@ -87,6 +90,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         lbCorreoX = new javax.swing.JLabel();
         lbNumDocuX = new javax.swing.JLabel();
         lbNombreX = new javax.swing.JLabel();
+        lbLupa = new javax.swing.JLabel();
         lbFondo = new javax.swing.JLabel();
 
         modificarCliente.setText("Modificar");
@@ -142,6 +146,28 @@ public class RegistroClientes extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 220, 40));
+
+        txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
+        txtBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        txtBuscar.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtBuscar.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtBuscar.setOpaque(false);
+        txtBuscar.setSelectedTextColor(new java.awt.Color(255, 255, 255));
+        txtBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtBuscarActionPerformed(evt);
+            }
+        });
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyReleased(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyTyped(evt);
+            }
+        });
+        getContentPane().add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 210, 30));
 
         txtCorreo.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtCorreo.setForeground(new java.awt.Color(255, 255, 255));
@@ -272,7 +298,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablaClientes);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 430, 340));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 430, 300));
 
         lbCorreoX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoX.png"))); // NOI18N
         getContentPane().add(lbCorreoX, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 190, 30, 40));
@@ -282,6 +308,12 @@ public class RegistroClientes extends javax.swing.JFrame {
 
         lbNombreX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoX.png"))); // NOI18N
         getContentPane().add(lbNombreX, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 140, 30, 40));
+
+        lbLupa.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbLupa.setForeground(new java.awt.Color(255, 255, 255));
+        lbLupa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbLupa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoBuscar.png"))); // NOI18N
+        getContentPane().add(lbLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 97, 40, 40));
 
         lbFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/registroClientes.png"))); // NOI18N
         getContentPane().add(lbFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -483,6 +515,38 @@ public class RegistroClientes extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex.getMessage());
+        }
+    }
+    
+    void buscarData(String valor) {
+        String[] titulos = {"ID", "Nombre", "Correo", "Tipo Documento", "NumeroDocumento", "Estado"};
+        String[] registros = new String[6];
+        String sql = "SELECT C.IDCliente, C.Nombre, C.Correo, TD.NombreDocumento, C.NumeroDocumento, E.Estado\n"
+                + "FROM cliente AS C INNER JOIN tipodocumento AS TD ON C.IDTipoDocumento = TD.IDTipoDocumento\n"
+                + "INNER JOIN estados AS E ON C.IDEstado = E.IDEstado\n"
+                + "                WHERE CONCAT (IDCliente, ' ', Nombre) LIKE '%" + valor + "%'";
+
+
+        model = new DefaultTableModel(null, titulos);
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            while (rs.next()) {
+                registros[0] = rs.getString("C.IDCliente");
+                registros[1] = rs.getString("C.Nombre");
+                registros[2] = rs.getString("C.Correo");
+                registros[3] = rs.getString("TD.NombreDocumento");
+                registros[4] = rs.getString("C.NumeroDocumento");
+                registros[5] = rs.getString("E.Estado");
+                model.addRow(registros);
+            }
+
+            tablaClientes.setModel(model);
+            anchoColumnas();
+        } catch (SQLException ex) {
+            Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -697,6 +761,9 @@ public class RegistroClientes extends javax.swing.JFrame {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
+        } else {
+            txtNombre.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+            lbNombreX.setVisible(false);
         }
     }//GEN-LAST:event_txtNombreFocusLost
 
@@ -921,8 +988,23 @@ public class RegistroClientes extends javax.swing.JFrame {
                     }
                 }
             }
+        } else{
+            txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+            lbNumDocuX.setVisible(false);
         }
     }//GEN-LAST:event_txtNumDocuFocusLost
+
+    private void txtBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtBuscarActionPerformed
+
+    private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
+        buscarData(txtBuscar.getText());
+    }//GEN-LAST:event_txtBuscarKeyReleased
+
+    private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
+
+    }//GEN-LAST:event_txtBuscarKeyTyped
 
     /**
      * @param args the command line arguments
@@ -979,11 +1061,13 @@ public class RegistroClientes extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbCorreoX;
     private javax.swing.JLabel lbFondo;
+    private javax.swing.JLabel lbLupa;
     private javax.swing.JLabel lbNombreX;
     private javax.swing.JLabel lbNumDocuX;
     private javax.swing.JLabel lbX;
     private javax.swing.JMenuItem modificarCliente;
     private javax.swing.JTable tablaClientes;
+    private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtIDCliente;
     private javax.swing.JTextField txtNombre;
