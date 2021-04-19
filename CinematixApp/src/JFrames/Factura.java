@@ -56,14 +56,15 @@ public class Factura extends javax.swing.JFrame {
     Connection cc = cn.GetConexion();
 
     void facturaEncabezado() {
-        String sql = "INSERT INTO facturaencabezado (FechaEmision, HoraEmision, IDVendedor, IDPago) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO facturaencabezado (FechaEmision, HoraEmision, IDCliente, IDVendedor, IDPago) VALUES (?,?,?,?,?)";
 
         try {
             PreparedStatement pst = cc.prepareStatement(sql);
             pst.setString(1, jLabelFecha.getText());
             pst.setString(2, jLabelHora.getText());
-            pst.setString(3, LoginVendedor.idVendedor);
-            pst.setString(4, MenuVendedor.idPago);
+            pst.setString(3, RegistroClientesVenta.idCliente);
+            pst.setString(4, LoginVendedor.idVendedor);
+            pst.setString(5, MenuVendedor.idPago);
 
             int i = pst.executeUpdate();
             if (i > 0) {

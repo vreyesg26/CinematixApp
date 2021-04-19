@@ -64,6 +64,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         jLabelTotalNiños.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         jLabelTotalPago.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         jLabelImpuesto.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
+        lbAgregarCliente.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
     }
 
     void noEditable() {
@@ -188,6 +189,9 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         lb15 = new javax.swing.JLabel();
         jLabelImpuesto = new javax.swing.JLabel();
         jTextFieldEfectivoRecibido = new javax.swing.JTextField();
+        lb17 = new javax.swing.JLabel();
+        btnAgregarCliente = new javax.swing.JButton();
+        lbAgregarCliente = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -360,18 +364,18 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         lb13.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         lb13.setForeground(new java.awt.Color(255, 255, 255));
         lb13.setText("Efectivo recibido:");
-        jPanel2.add(lb13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 155, 30));
+        jPanel2.add(lb13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 155, 30));
 
         lb14.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         lb14.setForeground(new java.awt.Color(255, 255, 255));
         lb14.setText("Cambio:");
-        jPanel2.add(lb14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 155, 30));
+        jPanel2.add(lb14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 155, 30));
 
         jLabelCambio.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelCambio.setForeground(new java.awt.Color(255, 255, 255));
         jLabelCambio.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelCambio.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel2.add(jLabelCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 185, 30));
+        jPanel2.add(jLabelCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 185, 30));
 
         btnCambio.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnCambio.png"))); // NOI18N
         btnCambio.setBorder(null);
@@ -383,7 +387,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
                 btnCambioActionPerformed(evt);
             }
         });
-        jPanel2.add(btnCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 118, -1, 35));
+        jPanel2.add(btnCambio, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 165, -1, 35));
 
         lb16.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
         lb16.setForeground(new java.awt.Color(255, 255, 255));
@@ -411,13 +415,13 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         lb15.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         lb15.setForeground(new java.awt.Color(255, 255, 255));
         lb15.setText("ISV:");
-        jPanel2.add(lb15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 155, 30));
+        jPanel2.add(lb15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 155, 30));
 
         jLabelImpuesto.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabelImpuesto.setForeground(new java.awt.Color(255, 255, 255));
         jLabelImpuesto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabelImpuesto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel2.add(jLabelImpuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 220, 185, 30));
+        jPanel2.add(jLabelImpuesto, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 270, 185, 30));
 
         jTextFieldEfectivoRecibido.setForeground(new java.awt.Color(255, 255, 255));
         jTextFieldEfectivoRecibido.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -431,7 +435,31 @@ public class ConfirmarVenta extends javax.swing.JFrame {
                 jTextFieldEfectivoRecibidoActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextFieldEfectivoRecibido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 145, 30));
+        jPanel2.add(jTextFieldEfectivoRecibido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 145, 30));
+
+        lb17.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lb17.setForeground(new java.awt.Color(255, 255, 255));
+        lb17.setText("Cliente:");
+        jPanel2.add(lb17, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 155, 30));
+
+        btnAgregarCliente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnAgregarCliente.png"))); // NOI18N
+        btnAgregarCliente.setBorder(null);
+        btnAgregarCliente.setContentAreaFilled(false);
+        btnAgregarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnAgregarCliente.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnAgregarCliente2.png"))); // NOI18N
+        btnAgregarCliente.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnAgregarCliente2.png"))); // NOI18N
+        btnAgregarCliente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarClienteActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnAgregarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 115, -1, 35));
+
+        lbAgregarCliente.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
+        lbAgregarCliente.setForeground(new java.awt.Color(255, 255, 255));
+        lbAgregarCliente.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbAgregarCliente.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.add(lbAgregarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 120, 145, 30));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(532, 104, 387, 360));
 
@@ -545,6 +573,11 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldEfectivoRecibidoActionPerformed
 
+    private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
+        RegistroClientesVenta rc = new RegistroClientesVenta();
+        rc.setVisible(true);
+    }//GEN-LAST:event_btnAgregarClienteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -581,6 +614,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public static javax.swing.JButton btnAgregarCliente;
     public static javax.swing.JButton btnCambio;
     public static rojerusan.RSButtonHover btnComprar;
     private rojerusan.RSButtonHover btnRegresar;
@@ -607,11 +641,13 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     public static javax.swing.JLabel lb14;
     private javax.swing.JLabel lb15;
     private javax.swing.JLabel lb16;
+    private javax.swing.JLabel lb17;
     private javax.swing.JLabel lb2;
     private javax.swing.JLabel lb3;
     private javax.swing.JLabel lb4;
     private javax.swing.JLabel lb5;
     private javax.swing.JLabel lb6;
     private javax.swing.JLabel lb7;
+    public static javax.swing.JLabel lbAgregarCliente;
     // End of variables declaration//GEN-END:variables
 }
