@@ -241,7 +241,7 @@ public class Factura extends javax.swing.JFrame {
         jLabelFecha.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabelFecha.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoFecha.png"))); // NOI18N
         jLabelFecha.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
-        jPanel1.add(jLabelFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 110, 20));
+        jPanel1.add(jLabelFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 110, 20));
 
         jLabel7.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
