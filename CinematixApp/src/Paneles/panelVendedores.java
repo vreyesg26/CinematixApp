@@ -64,6 +64,10 @@ public class panelVendedores extends javax.swing.JPanel {
         } else if (Float.valueOf(txtSueldo.getText()) < 8000) {
             JOptionPane.showMessageDialog(null, "El sueldo debe de ser mayor de 8000", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
             txtSueldo.setText("");
+        } else if (lbNombre.getForeground() != Color.WHITE || lbDireccion.getForeground() != Color.WHITE || lbCelular.getForeground() != Color.WHITE
+                || lbSueldo.getForeground() != Color.WHITE || lbCorreo.getForeground() != Color.WHITE || lbUsuario.getForeground() != Color.WHITE
+                || lbClave.getForeground() != Color.WHITE || lbNumDocu.getForeground() != Color.WHITE) {
+            JOptionPane.showMessageDialog(null, "Debes corregir los errores para poder guardar este registro", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         } else {
             guardar = true;
         }
@@ -265,15 +269,15 @@ public class panelVendedores extends javax.swing.JPanel {
         txtBuscar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         tablaVendedores.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         lb1.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        lb2.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        lb3.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        lb4.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        lb5.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        lb6.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        lb7.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        lb8.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lbNombre.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lbDireccion.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lbCelular.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lbSueldo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lbCorreo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lbUsuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lbClave.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         lb9.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
-        lb10.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
+        lbNumDocu.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         lb11.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
 
         btnGuardar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
@@ -398,15 +402,15 @@ public class panelVendedores extends javax.swing.JPanel {
         jPopupMenu1 = new javax.swing.JPopupMenu();
         menuModificar = new javax.swing.JMenuItem();
         lb1 = new javax.swing.JLabel();
-        lb2 = new javax.swing.JLabel();
-        lb3 = new javax.swing.JLabel();
-        lb4 = new javax.swing.JLabel();
-        lb5 = new javax.swing.JLabel();
-        lb6 = new javax.swing.JLabel();
-        lb7 = new javax.swing.JLabel();
-        lb8 = new javax.swing.JLabel();
+        lbNombre = new javax.swing.JLabel();
+        lbDireccion = new javax.swing.JLabel();
+        lbCelular = new javax.swing.JLabel();
+        lbSueldo = new javax.swing.JLabel();
+        lbCorreo = new javax.swing.JLabel();
+        lbUsuario = new javax.swing.JLabel();
+        lbClave = new javax.swing.JLabel();
         lb9 = new javax.swing.JLabel();
-        lb10 = new javax.swing.JLabel();
+        lbNumDocu = new javax.swing.JLabel();
         lb11 = new javax.swing.JLabel();
         cbJornada = new javax.swing.JComboBox();
         cbTipoDocu = new javax.swing.JComboBox();
@@ -448,50 +452,50 @@ public class panelVendedores extends javax.swing.JPanel {
         lb1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb1.setText("ID");
 
-        lb2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lb2.setForeground(new java.awt.Color(255, 255, 255));
-        lb2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb2.setText("NOMBRE");
+        lbNombre.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbNombre.setForeground(new java.awt.Color(255, 255, 255));
+        lbNombre.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbNombre.setText("NOMBRE");
 
-        lb3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lb3.setForeground(new java.awt.Color(255, 255, 255));
-        lb3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb3.setText("DIRECCIÓN");
+        lbDireccion.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbDireccion.setForeground(new java.awt.Color(255, 255, 255));
+        lbDireccion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbDireccion.setText("DIRECCIÓN");
 
-        lb4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lb4.setForeground(new java.awt.Color(255, 255, 255));
-        lb4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb4.setText("CELULAR");
+        lbCelular.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbCelular.setForeground(new java.awt.Color(255, 255, 255));
+        lbCelular.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbCelular.setText("CELULAR");
 
-        lb5.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lb5.setForeground(new java.awt.Color(255, 255, 255));
-        lb5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb5.setText("SUELDO");
+        lbSueldo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbSueldo.setForeground(new java.awt.Color(255, 255, 255));
+        lbSueldo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbSueldo.setText("SUELDO");
 
-        lb6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lb6.setForeground(new java.awt.Color(255, 255, 255));
-        lb6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb6.setText("CORREO");
+        lbCorreo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbCorreo.setForeground(new java.awt.Color(255, 255, 255));
+        lbCorreo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbCorreo.setText("CORREO");
 
-        lb7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lb7.setForeground(new java.awt.Color(255, 255, 255));
-        lb7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb7.setText("USUARIO");
+        lbUsuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbUsuario.setForeground(new java.awt.Color(255, 255, 255));
+        lbUsuario.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbUsuario.setText("USUARIO");
 
-        lb8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lb8.setForeground(new java.awt.Color(255, 255, 255));
-        lb8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb8.setText("CLAVE");
+        lbClave.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbClave.setForeground(new java.awt.Color(255, 255, 255));
+        lbClave.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbClave.setText("CLAVE");
 
         lb9.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lb9.setForeground(new java.awt.Color(255, 255, 255));
         lb9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lb9.setText("TIPO DOCUMENTO");
 
-        lb10.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lb10.setForeground(new java.awt.Color(255, 255, 255));
-        lb10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb10.setText("NÚMERO DEL DOCUMENTO");
+        lbNumDocu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lbNumDocu.setForeground(new java.awt.Color(255, 255, 255));
+        lbNumDocu.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbNumDocu.setText("NÚMERO DEL DOCUMENTO");
 
         lb11.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lb11.setForeground(new java.awt.Color(255, 255, 255));
@@ -845,11 +849,11 @@ public class panelVendedores extends javax.swing.JPanel {
                         .addGroup(layout.createSequentialGroup()
                             .addGap(494, 494, 494)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(lb7, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(lb8, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(lbClave, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtClave, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(10, 10, 10)
@@ -861,7 +865,7 @@ public class panelVendedores extends javax.swing.JPanel {
                                     .addGap(34, 34, 34)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(txtNumDocu)
-                                        .addComponent(lb10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(lbNumDocu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(cbJornada, 0, 278, Short.MAX_VALUE)
@@ -871,24 +875,24 @@ public class panelVendedores extends javax.swing.JPanel {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(txtSueldo)
                                             .addComponent(txtNombre)
-                                            .addComponent(lb2, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
-                                        .addComponent(lb5, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(lbNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE))
+                                        .addComponent(lbSueldo, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(lb6, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
+                                                .addComponent(lbCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                                                 .addComponent(txtCorreo))
                                             .addGap(166, 166, 166))
                                         .addGroup(layout.createSequentialGroup()
                                             .addGap(34, 34, 34)
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(txtDireccion)
-                                                .addComponent(lb3, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE))
+                                                .addComponent(lbDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE))
                                             .addGap(12, 12, 12)))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addComponent(txtCelular, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
-                                        .addComponent(lb4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                                        .addComponent(lbCelular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addGap(0, 8, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
@@ -908,9 +912,9 @@ public class panelVendedores extends javax.swing.JPanel {
                     .addComponent(txtCelular, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lb3)
-                    .addComponent(lb2)
-                    .addComponent(lb4))
+                    .addComponent(lbDireccion)
+                    .addComponent(lbNombre)
+                    .addComponent(lbCelular))
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSueldo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -920,11 +924,11 @@ public class panelVendedores extends javax.swing.JPanel {
                         .addComponent(txtUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lb5)
-                    .addComponent(lb6)
+                    .addComponent(lbSueldo)
+                    .addComponent(lbCorreo)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(lb8)
-                        .addComponent(lb7)))
+                        .addComponent(lbClave)
+                        .addComponent(lbUsuario)))
                 .addGap(43, 43, 43)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbTipoDocu, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -934,7 +938,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lb9)
-                    .addComponent(lb10)
+                    .addComponent(lbNumDocu)
                     .addComponent(lb11))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1342,6 +1346,11 @@ public class panelVendedores extends javax.swing.JPanel {
                         if (rs.getString("Correo").equals(correo)) {
                             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
                             JOptionPane.showMessageDialog(null, "Este correo ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                            txtCorreo.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 1));
+                            lbCorreo.setVisible(true);
+                        } else {
+                            txtCorreo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                            lbCorreo.setForeground(Color.WHITE);
                         }
                     }
                 } catch (Exception e) {
@@ -1352,6 +1361,9 @@ public class panelVendedores extends javax.swing.JPanel {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "Debes escribir un correo que sea válido\n•Ejemplo: cinematix@gmail.com", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
+        }else {
+            txtCorreo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+            lbCorreo.setForeground(Color.WHITE);
         }
     }//GEN-LAST:event_txtCorreoFocusLost
 
@@ -1364,11 +1376,20 @@ public class panelVendedores extends javax.swing.JPanel {
             if (txtCelular.getText().length() < 8) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "El número de celular debe contener 8 digitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                txtCelular.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                lbCelular.setForeground(new Color(176, 3, 3));
             } else if (txtCelular.getText().charAt(0) == '0' || txtCelular.getText().charAt(0) == '1' || txtCelular.getText().charAt(0) == '4' || txtCelular.getText().charAt(0) == '5' || txtCelular.getText().charAt(0) == '6' || txtCelular.getText().charAt(0) == '2') {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "El número de celular debe comenzar con 7, 3, 8 o 9", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                txtCelular.setText("");
+                txtCelular.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                lbCelular.setForeground(new Color(176, 3, 3));
+            } else {
+                txtCelular.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                lbCelular.setForeground(Color.WHITE);
             }
+        }else {
+            txtCelular.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+            lbCelular.setForeground(Color.WHITE);
         }
     }//GEN-LAST:event_txtCelularFocusLost
 
@@ -1384,10 +1405,16 @@ public class panelVendedores extends javax.swing.JPanel {
                 if (txtNumDocu.getText().length() < 13) {
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                     JOptionPane.showMessageDialog(null, "El número de identidad debe contener 13 dígitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                    lbNumDocu.setForeground(new Color(176, 3, 3));
                 } else if (!identidad(txtNumDocu.getText())) {
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                     JOptionPane.showMessageDialog(null, "El número de identidad debe comenzar con dígitos del 01 al 18\nAsegurate de que el año sea correcto", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                    lbNumDocu.setForeground(new Color(176, 3, 3));
                 } else {
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                    lbNumDocu.setForeground(Color.WHITE);
                     try {
                         Statement st = cn.createStatement();
                         ResultSet rs = st.executeQuery(sql);
@@ -1396,6 +1423,11 @@ public class panelVendedores extends javax.swing.JPanel {
                             if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
                                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
                                 JOptionPane.showMessageDialog(null, "Este número de identidad ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                                txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                                lbNumDocu.setForeground(new Color(176, 3, 3));
+                            } else {
+                                txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                                lbNumDocu.setForeground(Color.WHITE);
                             }
                         }
                     } catch (Exception e) {
@@ -1408,10 +1440,16 @@ public class panelVendedores extends javax.swing.JPanel {
                 if (txtNumDocu.getText().length() < 7) {
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                     JOptionPane.showMessageDialog(null, "El código del pasaporte debe contener 7 digitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                    lbNumDocu.setForeground(new Color(176, 3, 3));
                 } else if (!pasaporte(txtNumDocu.getText())) {
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                     JOptionPane.showMessageDialog(null, "El código del pasaporte debe empezar con una letra mayúsucula seguido de 6 numeros", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                    lbNumDocu.setForeground(new Color(176, 3, 3));
                 } else {
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                    lbNumDocu.setForeground(Color.WHITE);
                     try {
                         Statement st = cn.createStatement();
                         ResultSet rs = st.executeQuery(sql);
@@ -1420,6 +1458,11 @@ public class panelVendedores extends javax.swing.JPanel {
                             if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
                                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
                                 JOptionPane.showMessageDialog(null, "Este número de pasaporte ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                                txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                                lbNumDocu.setForeground(new Color(176, 3, 3));
+                            } else {
+                                txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                                lbNumDocu.setForeground(Color.WHITE);
                             }
                         }
                     } catch (Exception e) {
@@ -1432,7 +1475,11 @@ public class panelVendedores extends javax.swing.JPanel {
                 if (txtNumDocu.getText().length() < 14) {
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                     JOptionPane.showMessageDialog(null, "El número del RTN debe contener 14 digitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                    lbNumDocu.setForeground(new Color(176, 3, 3));
                 } else {
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                    lbNumDocu.setForeground(Color.WHITE);
                     try {
                         Statement st = cn.createStatement();
                         ResultSet rs = st.executeQuery(sql);
@@ -1441,6 +1488,11 @@ public class panelVendedores extends javax.swing.JPanel {
                             if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
                                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
                                 JOptionPane.showMessageDialog(null, "Este número de RTN ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                                txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                                lbNumDocu.setForeground(new Color(176, 3, 3));
+                            } else {
+                                txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                                lbNumDocu.setForeground(Color.WHITE);
                             }
                         }
                     } catch (Exception e) {
@@ -1449,6 +1501,9 @@ public class panelVendedores extends javax.swing.JPanel {
                     }
                 }
             }
+        }else {
+            txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+            lbNumDocu.setForeground(Color.WHITE);
         }
     }//GEN-LAST:event_txtNumDocuFocusLost
 
@@ -1463,11 +1518,22 @@ public class panelVendedores extends javax.swing.JPanel {
                 if (!nombre(txtNombre.getText())) {
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                     JOptionPane.showMessageDialog(null, "El nombre debe empezar con mayúscula y debe contener al menos un apellido", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    txtNombre.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                    lbNombre.setForeground(new Color(176, 3, 3));
                 } else if (txtNombre.getText().length() < 3) {
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                     JOptionPane.showMessageDialog(null, "El nombre debe de tener más de 3 caracteres", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                } else {
+                    txtNombre.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                    lbNombre.setForeground(Color.WHITE);
                 }
+            } else {
+                txtNombre.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                lbNombre.setForeground(Color.WHITE);
             }
+        } else {
+            txtNombre.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+            lbNombre.setForeground(Color.WHITE);
         }
     }//GEN-LAST:event_txtNombreFocusLost
 
@@ -1488,6 +1554,11 @@ public class panelVendedores extends javax.swing.JPanel {
                         if (rs.getString("Usuario").equals(txtUsuario.getText())) {
                             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
                             JOptionPane.showMessageDialog(null, "Este usuario ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                            txtUsuario.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                            lbUsuario.setForeground(new Color(176, 3, 3));
+                        } else {
+                            txtUsuario.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                            lbUsuario.setForeground(new Color(176, 3, 3));
                         }
                     }
                 } catch (Exception e) {
@@ -1495,6 +1566,9 @@ public class panelVendedores extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 }
             }
+        }else {
+            txtUsuario.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+            lbUsuario.setForeground(Color.WHITE);
         }
     }//GEN-LAST:event_txtUsuarioFocusLost
 
@@ -1581,7 +1655,15 @@ public class panelVendedores extends javax.swing.JPanel {
             if (!sueldo(txtSueldo.getText())) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "Para el sueldo cumplir con estos requisitos:\n•Debe contener 4 o 5 dígitos\n•Si es un número decimal debe poner 2 digitos después del punto", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                txtSueldo.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                lbSueldo.setForeground(new Color(176, 3, 3));
+            } else {
+                txtSueldo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                lbSueldo.setForeground(Color.WHITE);
             }
+        }else {
+            txtSueldo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+            lbSueldo.setForeground(Color.WHITE);
         }
     }//GEN-LAST:event_txtSueldoFocusLost
 
@@ -1590,7 +1672,15 @@ public class panelVendedores extends javax.swing.JPanel {
             if (txtClave.getText().length() < 6) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "La clave debe contener 6 o mas caracteres", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                txtClave.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 1));
+                lbClave.setVisible(true);
+            } else {
+                txtClave.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                lbClave.setForeground(Color.WHITE);
             }
+        }else {
+            txtClave.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+            lbClave.setForeground(Color.WHITE);
         }
     }//GEN-LAST:event_txtClaveFocusLost
 
@@ -1601,8 +1691,16 @@ public class panelVendedores extends javax.swing.JPanel {
                 if (txtDireccion.getText().length() < 6) {
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                     JOptionPane.showMessageDialog(null, "La dirección debe contener al menos 6 caracteres", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    txtDireccion.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                    lbDireccion.setForeground(new Color(176, 3, 3));
+                } else {
+                    txtDireccion.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                    lbDireccion.setForeground(Color.WHITE);
                 }
             }
+        }else {
+            txtDireccion.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+            lbDireccion.setForeground(Color.WHITE);
         }
     }//GEN-LAST:event_txtDireccionFocusLost
 
@@ -1619,17 +1717,17 @@ public class panelVendedores extends javax.swing.JPanel {
     private javax.swing.JScrollBar jScrollBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lb1;
-    private javax.swing.JLabel lb10;
     private javax.swing.JLabel lb11;
-    private javax.swing.JLabel lb2;
-    private javax.swing.JLabel lb3;
-    private javax.swing.JLabel lb4;
-    private javax.swing.JLabel lb5;
-    private javax.swing.JLabel lb6;
-    private javax.swing.JLabel lb7;
-    private javax.swing.JLabel lb8;
     private javax.swing.JLabel lb9;
+    private javax.swing.JLabel lbCelular;
+    private javax.swing.JLabel lbClave;
+    private javax.swing.JLabel lbCorreo;
+    private javax.swing.JLabel lbDireccion;
     private javax.swing.JLabel lbLupa;
+    private javax.swing.JLabel lbNombre;
+    private javax.swing.JLabel lbNumDocu;
+    private javax.swing.JLabel lbSueldo;
+    private javax.swing.JLabel lbUsuario;
     private javax.swing.JMenuItem menuModificar;
     private javax.swing.JTable tablaVendedores;
     private javax.swing.JTextField txtBuscar;

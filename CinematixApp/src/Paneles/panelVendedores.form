@@ -81,12 +81,12 @@
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="494" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Component id="lb7" min="-2" pref="130" max="-2" attributes="0"/>
+                              <Component id="lbUsuario" min="-2" pref="130" max="-2" attributes="0"/>
                               <Component id="txtUsuario" min="-2" pref="136" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="lb8" min="-2" pref="130" max="-2" attributes="0"/>
+                              <Component id="lbClave" min="-2" pref="130" max="-2" attributes="0"/>
                               <Component id="txtClave" min="-2" pref="130" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -101,7 +101,7 @@
                                   <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="txtNumDocu" max="32767" attributes="0"/>
-                                      <Component id="lb10" max="32767" attributes="0"/>
+                                      <Component id="lbNumDocu" max="32767" attributes="0"/>
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -114,15 +114,15 @@
                                       <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
                                           <Component id="txtSueldo" max="32767" attributes="0"/>
                                           <Component id="txtNombre" alignment="0" max="32767" attributes="0"/>
-                                          <Component id="lb2" alignment="0" pref="192" max="32767" attributes="0"/>
+                                          <Component id="lbNombre" alignment="0" pref="192" max="32767" attributes="0"/>
                                       </Group>
-                                      <Component id="lb5" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
+                                      <Component id="lbSueldo" alignment="0" min="-2" pref="192" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Group type="102" attributes="0">
                                           <EmptySpace type="unrelated" min="30" max="32767" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="lb6" pref="240" max="32767" attributes="0"/>
+                                              <Component id="lbCorreo" pref="240" max="32767" attributes="0"/>
                                               <Component id="txtCorreo" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="166" max="-2" attributes="0"/>
@@ -131,14 +131,14 @@
                                           <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="txtDireccion" max="32767" attributes="0"/>
-                                              <Component id="lb3" pref="394" max="32767" attributes="0"/>
+                                              <Component id="lbDireccion" pref="394" max="32767" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="txtCelular" pref="130" max="32767" attributes="0"/>
-                                      <Component id="lb4" max="32767" attributes="0"/>
+                                      <Component id="lbCelular" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -169,9 +169,9 @@
               </Group>
               <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lb3" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lb2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lb4" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbDireccion" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbNombre" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbCelular" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -184,11 +184,11 @@
               </Group>
               <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lb5" min="-2" max="-2" attributes="0"/>
-                  <Component id="lb6" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbSueldo" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbCorreo" min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="lb8" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lb7" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbClave" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lbUsuario" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
@@ -202,7 +202,7 @@
               <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="lb9" min="-2" max="-2" attributes="0"/>
-                  <Component id="lb10" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbNumDocu" min="-2" max="-2" attributes="0"/>
                   <Component id="lb11" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
@@ -236,7 +236,7 @@
         <Property name="text" type="java.lang.String" value="ID"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lb2">
+    <Component class="javax.swing.JLabel" name="lbNombre">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>
@@ -248,7 +248,7 @@
         <Property name="text" type="java.lang.String" value="NOMBRE"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lb3">
+    <Component class="javax.swing.JLabel" name="lbDireccion">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>
@@ -260,7 +260,7 @@
         <Property name="text" type="java.lang.String" value="DIRECCI&#xd3;N"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lb4">
+    <Component class="javax.swing.JLabel" name="lbCelular">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>
@@ -272,7 +272,7 @@
         <Property name="text" type="java.lang.String" value="CELULAR"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lb5">
+    <Component class="javax.swing.JLabel" name="lbSueldo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>
@@ -284,7 +284,7 @@
         <Property name="text" type="java.lang.String" value="SUELDO"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lb6">
+    <Component class="javax.swing.JLabel" name="lbCorreo">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>
@@ -296,7 +296,7 @@
         <Property name="text" type="java.lang.String" value="CORREO"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lb7">
+    <Component class="javax.swing.JLabel" name="lbUsuario">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>
@@ -308,7 +308,7 @@
         <Property name="text" type="java.lang.String" value="USUARIO"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lb8">
+    <Component class="javax.swing.JLabel" name="lbClave">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>
@@ -332,7 +332,7 @@
         <Property name="text" type="java.lang.String" value="TIPO DOCUMENTO"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lb10">
+    <Component class="javax.swing.JLabel" name="lbNumDocu">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Tahoma" size="14" style="1"/>

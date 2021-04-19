@@ -47,7 +47,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         TextPrompt id = new TextPrompt("ID", txtIDCliente);
         TextPrompt nombre = new TextPrompt("NOMBRE", txtNombre);
         TextPrompt correo = new TextPrompt("CORREO", txtCorreo);
-        TextPrompt numDocumento = new TextPrompt("# DOCUMENTO", txtNumDocumento);
+        TextPrompt numDocumento = new TextPrompt("# DOCUMENTO", txtNumDocu);
 
         txtIDCliente.setEnabled(false);
         lbNombreX.setVisible(false);
@@ -76,8 +76,8 @@ public class RegistroClientes extends javax.swing.JFrame {
         txtIDCliente = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
-        cbTipoDocu = new javax.swing.JComboBox<>();
-        txtNumDocumento = new javax.swing.JTextField();
+        cbTipoDocu = new javax.swing.JComboBox<String>();
+        txtNumDocu = new javax.swing.JTextField();
         lbX = new javax.swing.JLabel();
         btnNuevo = new rojeru_san.complementos.RSButtonHover();
         btnActualizar = new rojeru_san.complementos.RSButtonHover();
@@ -165,23 +165,23 @@ public class RegistroClientes extends javax.swing.JFrame {
         cbTipoDocu.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         getContentPane().add(cbTipoDocu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 220, 40));
 
-        txtNumDocumento.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
-        txtNumDocumento.setForeground(new java.awt.Color(255, 255, 255));
-        txtNumDocumento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtNumDocumento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        txtNumDocumento.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtNumDocumento.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        txtNumDocumento.setOpaque(false);
-        txtNumDocumento.setSelectedTextColor(new java.awt.Color(255, 255, 255));
-        txtNumDocumento.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtNumDocu.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
+        txtNumDocu.setForeground(new java.awt.Color(255, 255, 255));
+        txtNumDocu.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNumDocu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        txtNumDocu.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtNumDocu.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtNumDocu.setOpaque(false);
+        txtNumDocu.setSelectedTextColor(new java.awt.Color(255, 255, 255));
+        txtNumDocu.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtNumDocumentoFocusGained(evt);
+                txtNumDocuFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNumDocumentoFocusLost(evt);
+                txtNumDocuFocusLost(evt);
             }
         });
-        getContentPane().add(txtNumDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 220, 40));
+        getContentPane().add(txtNumDocu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 220, 40));
         getContentPane().add(lbX, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 170, -1, 40));
 
         btnNuevo.setBackground(new java.awt.Color(81, 81, 81));
@@ -307,6 +307,7 @@ public class RegistroClientes extends javax.swing.JFrame {
 
     boolean guardar;
     boolean aprobado;
+    boolean probar;
 
     void validarCamposVacios() {
         ImageIcon jPaneIcon = new ImageIcon("src/Iconos/iconoError.png");
@@ -316,12 +317,25 @@ public class RegistroClientes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe rellenar el campo correo", "Error", JOptionPane.PLAIN_MESSAGE, jPaneIcon);
         } else if (cbTipoDocu.getSelectedIndex() == 0) {
             JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "Error", JOptionPane.PLAIN_MESSAGE, jPaneIcon);
-        } else if (txtNumDocumento.getText().isEmpty()) {
+        } else if (txtNumDocu.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Debe rellenar el campo número de documento", "Error", JOptionPane.PLAIN_MESSAGE, jPaneIcon);
         } else if (lbNombreX.isVisible() || lbCorreoX.isVisible() || lbNumDocuX.isVisible()) {
             JOptionPane.showMessageDialog(null, "Debe corregir los errores para poder continuar", "Error", JOptionPane.PLAIN_MESSAGE, jPaneIcon);
         } else {
             guardar = true;
+        }
+    }
+
+    public void verificarCaracteresRepetidos(String cadena) {
+        String patron = "^(\\d|(([A-Za-zñÑáéíóúÁÉÍÓÚ\\s])\\3?(?!\\3)))+$";
+        Pattern patt = Pattern.compile(patron);
+        Matcher comparador = patt.matcher(cadena);
+        if (!comparador.matches()) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Tienes caracteres repetidos de forma incorrecta", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            aprobado = false;
+        } else {
+            aprobado = true;
         }
     }
 
@@ -333,6 +347,43 @@ public class RegistroClientes extends javax.swing.JFrame {
             aprobado = false;
         } else {
             aprobado = true;
+        }
+    }
+
+    void ValidarNombre(String nombre) {
+        String patron = "^([A-Z-ÁÉÍÓÚÑ]{1}[a-z-áéíóúñ]+[ ]*){2,4}$";
+        Pattern patt = Pattern.compile(patron);
+        Matcher comparador = patt.matcher(nombre);
+        if (!comparador.matches()) {
+            probar = false;
+        } else {
+            probar = true;
+        }
+    }
+
+    public boolean pasaporte(String pasaporte) {
+        Pattern p = null;
+        Matcher m = null;
+        p = Pattern.compile("[A-Z-ÁÉÍÓÚÑ]{1}[0-9]{6}");
+        m = p.matcher(pasaporte);
+
+        if (m.find()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean identidad(String identidad) {
+        Pattern p = null;
+        Matcher m = null;
+        p = Pattern.compile("^[0-1]{1}[1-8]{1}[0-9]{2}[19|20]{2}[0-9]{7}");
+        m = p.matcher(identidad);
+
+        if (m.find()) {
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -351,7 +402,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         txtNombre.setText("");
         txtCorreo.setText("");
         cbTipoDocu.setSelectedIndex(0);
-        txtNumDocumento.setText("");
+        txtNumDocu.setText("");
         tablaClientes.clearSelection();
     }
 
@@ -359,7 +410,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         txtNombre.setEnabled(false);
         txtCorreo.setEnabled(false);
         cbTipoDocu.setEnabled(false);
-        txtNumDocumento.setEnabled(false);
+        txtNumDocu.setEnabled(false);
         btnGuardar.setEnabled(false);
         btnActualizar.setEnabled(false);
         btnDeshabilitar.setEnabled(false);
@@ -370,7 +421,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         txtNombre.setEnabled(true);
         txtCorreo.setEnabled(true);
         cbTipoDocu.setEnabled(true);
-        txtNumDocumento.setEnabled(true);
+        txtNumDocu.setEnabled(true);
         btnGuardar.setEnabled(true);
         btnDeshabilitar.setEnabled(true);
         tablaClientes.setEnabled(true);
@@ -432,7 +483,7 @@ public class RegistroClientes extends javax.swing.JFrame {
     }
 
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
-        if (!txtIDCliente.getText().isEmpty() || !txtNombre.getText().isEmpty() || !txtCorreo.getText().isEmpty() || cbTipoDocu.getSelectedIndex() != 0 || !txtNumDocumento.getText().isEmpty()) {
+        if (!txtIDCliente.getText().isEmpty() || !txtNombre.getText().isEmpty() || !txtCorreo.getText().isEmpty() || cbTipoDocu.getSelectedIndex() != 0 || !txtNumDocu.getText().isEmpty()) {
             ImageIcon jPaneIcon = new ImageIcon("src/Iconos/iconoSalida.png");
             int salidaConfirmacion = JOptionPane.showConfirmDialog(null, "Al parecer tienes un proceso pendiente\n ¿Estás seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPaneIcon);
             if (salidaConfirmacion == 0) {
@@ -556,7 +607,7 @@ public class RegistroClientes extends javax.swing.JFrame {
             } else if (idTipoDocumento.contains("RTN")) {
                 cbTipoDocu.setSelectedIndex(3);
             }
-            txtNumDocumento.setText(numDocumento);
+            txtNumDocu.setText(numDocumento);
 
         } else {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
@@ -565,7 +616,7 @@ public class RegistroClientes extends javax.swing.JFrame {
     }
 
     private void modificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarClienteActionPerformed
-        if (!txtIDCliente.getText().isEmpty() || !txtNombre.getText().isEmpty() || !txtCorreo.getText().isEmpty() || cbTipoDocu.getSelectedIndex() != 0 || !txtNumDocumento.getText().isEmpty()) {
+        if (!txtIDCliente.getText().isEmpty() || !txtNombre.getText().isEmpty() || !txtCorreo.getText().isEmpty() || cbTipoDocu.getSelectedIndex() != 0 || !txtNumDocu.getText().isEmpty()) {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
             int decision = JOptionPane.showConfirmDialog(null, "Los datos aún no se han guardado y podrían perderse\n "
                     + "¿Seguro que desea entrar en modo edición?", "Confirmación", JOptionPane.YES_NO_OPTION,
@@ -606,6 +657,17 @@ public class RegistroClientes extends javax.swing.JFrame {
 
     private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
         if (!txtNombre.getText().isEmpty()) {
+            ValidarNombre(txtNombre.getText());
+            if (probar != true) {
+                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "El nombre debe empezar con mayúscula y debe contener al menos un apellido", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                txtNombre.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 1));
+                lbNombreX.setVisible(true);
+            } else {
+                txtNombre.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+                lbNombreX.setVisible(false);
+            }
+
             Conexion cc = new Conexion();
             Connection cn = cc.GetConexion();
             String cliente = txtNombre.getText();
@@ -619,10 +681,13 @@ public class RegistroClientes extends javax.swing.JFrame {
                     if (rs.getString("Nombre").equals(txtNombre.getText())) {
                         ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
                         JOptionPane.showMessageDialog(null, "Este cliente ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                        txtNombre.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 1));
                         lbNombreX.setVisible(true);
+
+                    } else {
+                        lbNombreX.setVisible(false);
+                        txtNombre.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
                     }
-                } else {
-                    lbNombreX.setVisible(false);
                 }
             } catch (Exception e) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
@@ -643,7 +708,7 @@ public class RegistroClientes extends javax.swing.JFrame {
                 pst.setString(1, txtNombre.getText());
                 pst.setString(2, txtCorreo.getText());
                 pst.setString(3, String.valueOf(cbTipoDocu.getSelectedIndex()));
-                pst.setString(4, txtNumDocumento.getText());
+                pst.setString(4, txtNumDocu.getText());
 
                 int i = pst.executeUpdate();
                 if (i > 0) {
@@ -675,7 +740,7 @@ public class RegistroClientes extends javax.swing.JFrame {
                 pst.setString(1, txtNombre.getText());
                 pst.setString(2, txtCorreo.getText());
                 pst.setString(3, String.valueOf(cbTipoDocu.getSelectedIndex()));
-                pst.setString(4, txtNumDocumento.getText());
+                pst.setString(4, txtNumDocu.getText());
 
                 int i = pst.executeUpdate();
                 if (i > 0) {
@@ -738,13 +803,121 @@ public class RegistroClientes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtCorreoFocusLost
 
-    private void txtNumDocumentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumDocumentoFocusGained
+    private void txtNumDocuFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumDocuFocusGained
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNumDocumentoFocusGained
+    }//GEN-LAST:event_txtNumDocuFocusGained
 
-    private void txtNumDocumentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumDocumentoFocusLost
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNumDocumentoFocusLost
+    private void txtNumDocuFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumDocuFocusLost
+        if (!txtNumDocu.getText().isEmpty()) {
+            Conexion cc = new Conexion();
+            Connection cn = cc.GetConexion();
+            String numDocu = txtNumDocu.getText();
+            String tipoDocu = String.valueOf(cbTipoDocu.getSelectedIndex());
+            String sql = "SELECT IDTipoDocumento, NumeroDocumento FROM vendedor WHERE IDTipoDocumento = '" + tipoDocu + "' and NumeroDocumento = '" + numDocu + "'";
+
+            if (cbTipoDocu.getSelectedIndex() == 1) {
+                if (txtNumDocu.getText().length() < 13) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "El número de identidad debe contener 13 dígitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                    lbNumDocuX.setVisible(true);
+                } else if (!identidad(txtNumDocu.getText())) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "El número de identidad debe comenzar con dígitos del 01 al 18\nAsegurate de que el año sea correcto", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                    lbNumDocuX.setVisible(true);
+                } else {
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                    lbNumDocuX.setVisible(false);
+                    try {
+                        Statement st = cn.createStatement();
+                        ResultSet rs = st.executeQuery(sql);
+
+                        if (rs.next()) {
+                            if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
+                                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                                JOptionPane.showMessageDialog(null, "Este número de identidad ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                                txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                                lbNumDocuX.setVisible(true);
+                            } else {
+                                txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                                lbNumDocuX.setVisible(false);
+                            }
+
+                        }
+                    } catch (Exception e) {
+                        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                        JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    }
+                }
+            }
+            if (cbTipoDocu.getSelectedIndex() == 2) {
+                if (txtNumDocu.getText().length() < 7) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "El código del pasaporte debe contener 7 digitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                    lbNumDocuX.setVisible(true);
+                } else if (!pasaporte(txtNumDocu.getText())) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "El código del pasaporte debe empezar con una letra mayúsucula seguido de 6 numeros", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                    lbNumDocuX.setVisible(true);
+                } else {
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                    lbNumDocuX.setVisible(false);
+                    try {
+                        Statement st = cn.createStatement();
+                        ResultSet rs = st.executeQuery(sql);
+
+                        if (rs.next()) {
+                            if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
+                                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                                JOptionPane.showMessageDialog(null, "Este número de pasaporte ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                                txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                                lbNumDocuX.setVisible(true);
+                            } else {
+                                txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                                lbNumDocuX.setVisible(false);
+                            }
+                        }
+                    } catch (Exception e) {
+                        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                        JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    }
+                }
+            }
+            if (cbTipoDocu.getSelectedIndex() == 3) {
+                if (txtNumDocu.getText().length() < 14) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "El número del RTN debe contener 14 digitos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                    lbNumDocuX.setVisible(true);
+                } else {
+                    txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                    lbNumDocuX.setVisible(false);
+                    try {
+                        Statement st = cn.createStatement();
+                        ResultSet rs = st.executeQuery(sql);
+
+                        if (rs.next()) {
+                            if (rs.getString("IDTipoDocumento").equals(tipoDocu) && rs.getString("NumeroDocumento").equals(numDocu)) {
+                                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                                JOptionPane.showMessageDialog(null, "Este número de RTN ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                                txtNumDocu.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 2));
+                                lbNumDocuX.setVisible(true);
+                            } else {
+                                txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+                                lbNumDocuX.setVisible(false);
+                            }
+                        }
+                    } catch (Exception e) {
+                        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                        JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    }
+                }
+            }
+        }
+    }//GEN-LAST:event_txtNumDocuFocusLost
 
     /**
      * @param args the command line arguments
@@ -809,6 +982,6 @@ public class RegistroClientes extends javax.swing.JFrame {
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtIDCliente;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtNumDocumento;
+    private javax.swing.JTextField txtNumDocu;
     // End of variables declaration//GEN-END:variables
 }
