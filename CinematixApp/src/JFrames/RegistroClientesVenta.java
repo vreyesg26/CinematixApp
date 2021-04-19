@@ -413,6 +413,12 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
         cbTipoDocu.setSelectedIndex(0);
         txtNumDocu.setText("");
         tablaClientes.clearSelection();
+        txtNombre.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+        lbNombreX.setVisible(false);
+        txtCorreo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+        lbCorreoX.setVisible(false);
+        txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+        lbNumDocuX.setVisible(false);
     }
 
     void bloquear() {
@@ -723,6 +729,10 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
                 if (i > 0) {
                     ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
                     JOptionPane.showMessageDialog(null, "El registro se guardo correctamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                    limpiarCajas();
+                    cargarData();
+                    bloquear();
+                    btnNuevo.setEnabled(true);
                 }
 
             } catch (Exception e) {
@@ -731,10 +741,7 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
                 System.out.println(e.getMessage());
             }
         }
-        limpiarCajas();
-        cargarData();
-        bloquear();
-        btnNuevo.setEnabled(true);
+
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -927,17 +934,17 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_txtNumDocuFocusLost
-    
+
     public static String idCliente;
     private void AgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarClienteActionPerformed
         int fila = tablaClientes.getSelectedRow();
-        
-        if (fila >= 0){
-           idCliente = tablaClientes.getValueAt(fila, 0).toString();
-           String nombreCliente = tablaClientes.getValueAt(fila, 1).toString();
-           
-           ConfirmarVenta.lbAgregarCliente.setText(nombreCliente);
-           this.dispose();
+
+        if (fila >= 0) {
+            idCliente = tablaClientes.getValueAt(fila, 0).toString();
+            String nombreCliente = tablaClientes.getValueAt(fila, 1).toString();
+
+            ConfirmarVenta.lbAgregarCliente.setText(nombreCliente);
+            this.dispose();
         }
     }//GEN-LAST:event_AgregarClienteActionPerformed
 
