@@ -303,6 +303,7 @@ public class RegistroDirectores extends javax.swing.JFrame {
     void limpiarCajas() {
         txtIDDirector.setText("");
         txtDirector.setText("");
+        tablaDirectores.clearSelection();
     }
 
     void bloquear() {

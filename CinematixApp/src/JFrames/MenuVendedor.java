@@ -863,7 +863,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
         if (MenuVendedor.confirmarVenta == true) {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
-            int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "La pantalla de confirmar venta se está ejecutando\n¿Estás seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "La pantalla de confirmar venta se está ejecutando\n¿Estás seguro que deseas salir?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
             if (ventanaConfirmacion == 0) {
                 Inicio ini = new Inicio();
                 ini.setVisible(true);
@@ -875,7 +875,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             }
         } else {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
-            int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas salir?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
             if (ventanaConfirmacion == 0) {
                 Inicio ini = new Inicio();
                 ini.setVisible(true);

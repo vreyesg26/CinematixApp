@@ -295,6 +295,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
     void limpiarCajas() {
         txtIDGenero.setText("");
         txtGeneros.setText("");
+        tablaGeneros.clearSelection();
     }
 
     void bloquear() {

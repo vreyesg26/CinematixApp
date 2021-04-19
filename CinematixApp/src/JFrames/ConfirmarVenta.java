@@ -465,14 +465,16 @@ public class ConfirmarVenta extends javax.swing.JFrame {
 
     private void btnCambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambioActionPerformed
         if (jTextFieldEfectivoRecibido.getText().isEmpty()) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "Debe escribir la cantidad de efectivo recibida", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "Debe escribir la cantidad de efectivo recibida", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         } else {
             double efectivoR;
             double isv;
             efectivoR = Double.parseDouble(jTextFieldEfectivoRecibido.getText());
             totalPago = Double.parseDouble(jLabelTotalPago.getText().substring(17));
             System.out.println(totalPago);
+            
+            double diferencia = totalPago - efectivoR;
             if (MenuVendedor.rbMixto.isSelected() == true) {
                 if (efectivoR >= totalPago) {
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
@@ -482,7 +484,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
                     jLabelImpuesto.setText("L." + isv + "0");
                     jLabelCambio.setText("Pago Mixto");
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
-                    JOptionPane.showMessageDialog(null, "Se cobraron " + efectivoR + " lempiras en efectivo\nLa diferencia fue cargada a la tarjeta", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    JOptionPane.showMessageDialog(null, "Se cobraron " + efectivoR + " lempiras en efectivo\nLa diferencia de " + diferencia + " lempiras fue cargada a la tarjeta", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                     btnComprar.setEnabled(true);
                 }
             } else if (MenuVendedor.rbEfectivo.isSelected()) {

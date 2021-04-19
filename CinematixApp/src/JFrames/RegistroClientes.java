@@ -19,6 +19,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -29,24 +31,28 @@ import javax.swing.table.TableColumnModel;
  *
  * @author Los Pibes
  */
-public class RegistroAdministradores extends javax.swing.JFrame {
+public class RegistroClientes extends javax.swing.JFrame {
 
     /**
      * Creates new form RegistroAdministradores
      */
-    public RegistroAdministradores() {
+    public RegistroClientes() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         cargarData();
         anchoColumnas();
         bloquear();
+        cargarTipoDocumento();
 
-        lbUsuarioX.setVisible(false);
-        lbContraseñaX.setVisible(false);
-        TextPrompt id = new TextPrompt("ID", txtIDUsuario);
-        TextPrompt usuario = new TextPrompt("USUARIO", txtUsuario);
-        TextPrompt contraseña = new TextPrompt("CONTRASEÑA", txtContraseña);
-        txtIDUsuario.setEnabled(false);
+        TextPrompt id = new TextPrompt("ID", txtIDCliente);
+        TextPrompt nombre = new TextPrompt("NOMBRE", txtNombre);
+        TextPrompt correo = new TextPrompt("CORREO", txtCorreo);
+        TextPrompt numDocumento = new TextPrompt("# DOCUMENTO", txtNumDocumento);
+
+        txtIDCliente.setEnabled(false);
+        lbNombreX.setVisible(false);
+        lbCorreoX.setVisible(false);
+        lbNumDocuX.setVisible(false);
     }
 
     @Override
@@ -65,29 +71,32 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     private void initComponents() {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
-        modificarUsuario = new javax.swing.JMenuItem();
+        modificarCliente = new javax.swing.JMenuItem();
         btnRegresar = new javax.swing.JLabel();
-        txtIDUsuario = new javax.swing.JTextField();
-        txtUsuario = new javax.swing.JTextField();
-        txtContraseña = new javax.swing.JTextField();
+        txtIDCliente = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        cbTipoDocu = new javax.swing.JComboBox<>();
+        txtNumDocumento = new javax.swing.JTextField();
         lbX = new javax.swing.JLabel();
         btnNuevo = new rojeru_san.complementos.RSButtonHover();
         btnActualizar = new rojeru_san.complementos.RSButtonHover();
         btnDeshabilitar = new rojeru_san.complementos.RSButtonHover();
         btnGuardar = new rojeru_san.complementos.RSButtonHover();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaUsuarios = new javax.swing.JTable();
-        lbUsuarioX = new javax.swing.JLabel();
-        lbContraseñaX = new javax.swing.JLabel();
+        tablaClientes = new javax.swing.JTable();
+        lbCorreoX = new javax.swing.JLabel();
+        lbNumDocuX = new javax.swing.JLabel();
+        lbNombreX = new javax.swing.JLabel();
         lbFondo = new javax.swing.JLabel();
 
-        modificarUsuario.setText("Modificar");
-        modificarUsuario.addActionListener(new java.awt.event.ActionListener() {
+        modificarCliente.setText("Modificar");
+        modificarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                modificarUsuarioActionPerformed(evt);
+                modificarClienteActionPerformed(evt);
             }
         });
-        jPopupMenu1.add(modificarUsuario);
+        jPopupMenu1.add(modificarCliente);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -107,51 +116,72 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         });
         getContentPane().add(btnRegresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 30, 30));
 
-        txtIDUsuario.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
-        txtIDUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        txtIDUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtIDUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        txtIDUsuario.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtIDUsuario.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        txtIDUsuario.setOpaque(false);
-        txtIDUsuario.setSelectedTextColor(new java.awt.Color(255, 255, 255));
-        getContentPane().add(txtIDUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 50, 40));
+        txtIDCliente.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
+        txtIDCliente.setForeground(new java.awt.Color(255, 255, 255));
+        txtIDCliente.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtIDCliente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        txtIDCliente.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtIDCliente.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtIDCliente.setOpaque(false);
+        txtIDCliente.setSelectedTextColor(new java.awt.Color(255, 255, 255));
+        getContentPane().add(txtIDCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 55, 40));
 
-        txtUsuario.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
-        txtUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        txtUsuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtUsuario.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        txtUsuario.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtUsuario.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        txtUsuario.setOpaque(false);
-        txtUsuario.setSelectedTextColor(new java.awt.Color(255, 255, 255));
-        txtUsuario.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtNombre.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
+        txtNombre.setForeground(new java.awt.Color(255, 255, 255));
+        txtNombre.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNombre.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        txtNombre.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtNombre.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtNombre.setOpaque(false);
+        txtNombre.setSelectedTextColor(new java.awt.Color(255, 255, 255));
+        txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtUsuarioFocusGained(evt);
+                txtNombreFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtUsuarioFocusLost(evt);
+                txtNombreFocusLost(evt);
             }
         });
-        getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 170, 220, 40));
+        getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 220, 40));
 
-        txtContraseña.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
-        txtContraseña.setForeground(new java.awt.Color(255, 255, 255));
-        txtContraseña.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtContraseña.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
-        txtContraseña.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtContraseña.setDisabledTextColor(new java.awt.Color(255, 255, 255));
-        txtContraseña.setOpaque(false);
-        txtContraseña.setSelectedTextColor(new java.awt.Color(255, 255, 255));
-        txtContraseña.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtCorreo.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
+        txtCorreo.setForeground(new java.awt.Color(255, 255, 255));
+        txtCorreo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCorreo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        txtCorreo.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtCorreo.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtCorreo.setOpaque(false);
+        txtCorreo.setSelectedTextColor(new java.awt.Color(255, 255, 255));
+        txtCorreo.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtContraseñaFocusGained(evt);
+                txtCorreoFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtContraseñaFocusLost(evt);
+                txtCorreoFocusLost(evt);
             }
         });
-        getContentPane().add(txtContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(68, 240, 220, 40));
+        getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 220, 40));
+
+        cbTipoDocu.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
+        getContentPane().add(cbTipoDocu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 220, 40));
+
+        txtNumDocumento.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
+        txtNumDocumento.setForeground(new java.awt.Color(255, 255, 255));
+        txtNumDocumento.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtNumDocumento.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
+        txtNumDocumento.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtNumDocumento.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtNumDocumento.setOpaque(false);
+        txtNumDocumento.setSelectedTextColor(new java.awt.Color(255, 255, 255));
+        txtNumDocumento.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtNumDocumentoFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNumDocumentoFocusLost(evt);
+            }
+        });
+        getContentPane().add(txtNumDocumento, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 220, 40));
         getContentPane().add(lbX, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 170, -1, 40));
 
         btnNuevo.setBackground(new java.awt.Color(81, 81, 81));
@@ -167,7 +197,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 btnNuevoActionPerformed(evt);
             }
         });
-        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 330, 140, 40));
+        getContentPane().add(btnNuevo, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 345, 140, 40));
 
         btnActualizar.setBackground(new java.awt.Color(81, 81, 81));
         btnActualizar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoActualizar.png"))); // NOI18N
@@ -212,47 +242,50 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 btnGuardarActionPerformed(evt);
             }
         });
-        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 330, 140, 40));
+        getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 345, 140, 40));
 
-        tablaUsuarios.setBackground(new java.awt.Color(61, 61, 61));
-        tablaUsuarios.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
-        tablaUsuarios.setForeground(new java.awt.Color(255, 255, 255));
-        tablaUsuarios.setModel(new javax.swing.table.DefaultTableModel(
+        tablaClientes.setBackground(new java.awt.Color(61, 61, 61));
+        tablaClientes.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
+        tablaClientes.setForeground(new java.awt.Color(255, 255, 255));
+        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
             }
         ));
-        tablaUsuarios.setAlignmentY(4.0F);
-        tablaUsuarios.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tablaUsuarios.setComponentPopupMenu(jPopupMenu1);
-        tablaUsuarios.setFillsViewportHeight(true);
-        tablaUsuarios.setOpaque(false);
-        tablaUsuarios.setPreferredSize(new java.awt.Dimension(300, 60));
-        tablaUsuarios.setRowHeight(25);
-        tablaUsuarios.setSelectionBackground(new java.awt.Color(29, 29, 29));
-        tablaUsuarios.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        tablaUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaClientes.setAlignmentY(4.0F);
+        tablaClientes.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tablaClientes.setComponentPopupMenu(jPopupMenu1);
+        tablaClientes.setFillsViewportHeight(true);
+        tablaClientes.setOpaque(false);
+        tablaClientes.setPreferredSize(new java.awt.Dimension(300, 60));
+        tablaClientes.setRowHeight(25);
+        tablaClientes.setSelectionBackground(new java.awt.Color(29, 29, 29));
+        tablaClientes.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tablaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaUsuariosMouseClicked(evt);
+                tablaClientesMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaUsuarios);
+        jScrollPane1.setViewportView(tablaClientes);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 90, 430, 340));
 
-        lbUsuarioX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoX.png"))); // NOI18N
-        getContentPane().add(lbUsuarioX, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 170, 30, 40));
+        lbCorreoX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoX.png"))); // NOI18N
+        getContentPane().add(lbCorreoX, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 190, 30, 40));
 
-        lbContraseñaX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoX.png"))); // NOI18N
-        getContentPane().add(lbContraseñaX, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 240, 30, 40));
+        lbNumDocuX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoX.png"))); // NOI18N
+        getContentPane().add(lbNumDocuX, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 290, 30, 40));
 
-        lbFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/registroUsuarios.png"))); // NOI18N
+        lbNombreX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoX.png"))); // NOI18N
+        getContentPane().add(lbNombreX, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 140, 30, 40));
+
+        lbFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/registroClientes.png"))); // NOI18N
         getContentPane().add(lbFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
 
         pack();
@@ -273,54 +306,91 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     boolean guardar;
+    boolean aprobado;
 
     void validarCamposVacios() {
         ImageIcon jPaneIcon = new ImageIcon("src/Iconos/iconoError.png");
-        if (txtUsuario.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor rellene el campo usuario", "Error", JOptionPane.PLAIN_MESSAGE, jPaneIcon);
-        } else if (txtContraseña.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Por favor rellene el campo contraseña", "Error", JOptionPane.PLAIN_MESSAGE, jPaneIcon);
-        } else if (lbUsuarioX.isVisible() || lbContraseñaX.isVisible()) {
+        if (txtNombre.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe rellenar el campo nombre", "Error", JOptionPane.PLAIN_MESSAGE, jPaneIcon);
+        } else if (txtCorreo.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe rellenar el campo correo", "Error", JOptionPane.PLAIN_MESSAGE, jPaneIcon);
+        } else if (cbTipoDocu.getSelectedIndex() == 0) {
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un tipo de documento", "Error", JOptionPane.PLAIN_MESSAGE, jPaneIcon);
+        } else if (txtNumDocumento.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Debe rellenar el campo número de documento", "Error", JOptionPane.PLAIN_MESSAGE, jPaneIcon);
+        } else if (lbNombreX.isVisible() || lbCorreoX.isVisible() || lbNumDocuX.isVisible()) {
             JOptionPane.showMessageDialog(null, "Debe corregir los errores para poder continuar", "Error", JOptionPane.PLAIN_MESSAGE, jPaneIcon);
         } else {
             guardar = true;
         }
     }
 
+    void validarCorreo(String cadena) {
+        String patron = "^.+[@]{1}[a-z]+([.][a-z]+)+$";
+        Pattern patt = Pattern.compile(patron);
+        Matcher comparador = patt.matcher(cadena);
+        if (!comparador.matches()) {
+            aprobado = false;
+        } else {
+            aprobado = true;
+        }
+    }
+
     void anchoColumnas() {
-        TableColumnModel anchoColumnas = tablaUsuarios.getColumnModel();
+        TableColumnModel anchoColumnas = tablaClientes.getColumnModel();
         anchoColumnas.getColumn(0).setPreferredWidth(30);
-        anchoColumnas.getColumn(1).setPreferredWidth(120);
-        anchoColumnas.getColumn(2).setPreferredWidth(160);
-        anchoColumnas.getColumn(3).setPreferredWidth(40);
+        anchoColumnas.getColumn(1).setPreferredWidth(80);
+        anchoColumnas.getColumn(2).setPreferredWidth(80);
+        anchoColumnas.getColumn(3).setPreferredWidth(60);
+        anchoColumnas.getColumn(4).setPreferredWidth(80);
+        anchoColumnas.getColumn(5).setPreferredWidth(40);
     }
 
     void limpiarCajas() {
-        txtIDUsuario.setText("");
-        txtUsuario.setText("");
-        txtContraseña.setText("");
-        tablaUsuarios.clearSelection();
-        txtUsuario.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
-        txtContraseña.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
-        lbUsuarioX.setVisible(false);
-        lbContraseñaX.setVisible(false);
+        txtIDCliente.setText("");
+        txtNombre.setText("");
+        txtCorreo.setText("");
+        cbTipoDocu.setSelectedIndex(0);
+        txtNumDocumento.setText("");
+        tablaClientes.clearSelection();
     }
 
     void bloquear() {
-        txtUsuario.setEnabled(false);
-        txtContraseña.setEnabled(false);
+        txtNombre.setEnabled(false);
+        txtCorreo.setEnabled(false);
+        cbTipoDocu.setEnabled(false);
+        txtNumDocumento.setEnabled(false);
         btnGuardar.setEnabled(false);
         btnActualizar.setEnabled(false);
         btnDeshabilitar.setEnabled(false);
-        tablaUsuarios.setEnabled(false);
+        tablaClientes.setEnabled(false);
     }
 
     void desbloquear() {
-        txtUsuario.setEnabled(true);
-        txtContraseña.setEnabled(true);
+        txtNombre.setEnabled(true);
+        txtCorreo.setEnabled(true);
+        cbTipoDocu.setEnabled(true);
+        txtNumDocumento.setEnabled(true);
         btnGuardar.setEnabled(true);
         btnDeshabilitar.setEnabled(true);
-        tablaUsuarios.setEnabled(true);
+        tablaClientes.setEnabled(true);
+    }
+
+    void cargarTipoDocumento() {
+        String sql = "SELECT NombreDocumento FROM tipodocumento";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            cbTipoDocu.addItem("SELECCIONE...");
+            while (rs.next()) {
+                cbTipoDocu.addItem(rs.getString("NombreDocumento").toUpperCase());
+            }
+
+        } catch (Exception e) {
+
+        }
     }
 
     ResultSet rs;
@@ -330,9 +400,12 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     Connection cn = cc.GetConexion();
 
     void cargarData() {
-        String[] titulos = {"ID", "Usuario", "Contraseña", "Intentos"};
-        String[] registros = new String[4];
-        String sql = "SELECT IDUsuario, Usuario, Contrasena, Intentos FROM usuarios WHERE IDUsuario != 0 ORDER BY IDUsuario";
+        String[] titulos = {"ID", "Nombre", "Correo", "Tipo Documento", "Número Documento", "Estado"};
+        String[] registros = new String[6];
+        String sql = "SELECT C.IDCliente, C.Nombre, C.Correo, TD.NombreDocumento, C.NumeroDocumento, E.Estado\n"
+                + "FROM cliente AS C INNER JOIN tipodocumento AS TD ON C.IDTipoDocumento = TD.IDTipoDocumento\n"
+                + "INNER JOIN estados AS E ON C.IDEstado = E.IDEstado\n"
+                + "WHERE C.IDCliente != 0 ORDER BY C.IDCliente";
 
         model = new DefaultTableModel(null, titulos);
 
@@ -341,14 +414,16 @@ public class RegistroAdministradores extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery(sql);
 
             while (rs.next()) {
-                registros[0] = rs.getString("IDUsuario");
-                registros[1] = rs.getString("Usuario");
-                registros[2] = rs.getString("Contrasena");
-                registros[3] = rs.getString("Intentos");
+                registros[0] = rs.getString("C.IDCliente");
+                registros[1] = rs.getString("C.Nombre");
+                registros[2] = rs.getString("C.Correo");
+                registros[3] = rs.getString("TD.NombreDocumento");
+                registros[4] = rs.getString("C.NumeroDocumento");
+                registros[5] = rs.getString("E.Estado");
                 model.addRow(registros);
             }
 
-            tablaUsuarios.setModel(model);
+            tablaClientes.setModel(model);
             anchoColumnas();
         } catch (SQLException ex) {
             Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
@@ -357,24 +432,24 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     }
 
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
-        if (!txtIDUsuario.getText().isEmpty() || !txtUsuario.getText().isEmpty() || !txtContraseña.getText().isEmpty()) {
+        if (!txtIDCliente.getText().isEmpty() || !txtNombre.getText().isEmpty() || !txtCorreo.getText().isEmpty() || cbTipoDocu.getSelectedIndex() != 0 || !txtNumDocumento.getText().isEmpty()) {
             ImageIcon jPaneIcon = new ImageIcon("src/Iconos/iconoSalida.png");
             int salidaConfirmacion = JOptionPane.showConfirmDialog(null, "Al parecer tienes un proceso pendiente\n ¿Estás seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPaneIcon);
             if (salidaConfirmacion == 0) {
                 this.dispose();
-                panelInicio.pantallaUsuarios = false;
+                panelInicio.pantallaClientes = false;
             }
         } else {
             this.dispose();
-            panelInicio.pantallaUsuarios = false;
+            panelInicio.pantallaClientes = false;
         }
     }//GEN-LAST:event_btnRegresarMouseClicked
 
-    private void tablaUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaUsuariosMouseClicked
-        int fila = tablaUsuarios.getSelectedRow();
+    private void tablaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClientesMouseClicked
+        int fila = tablaClientes.getSelectedRow();
         if (fila >= 0) {
             btnDeshabilitar.setEnabled(true);
-            String estado = tablaUsuarios.getValueAt(fila, 3).toString();
+            String estado = tablaClientes.getValueAt(fila, 5).toString();
 
             if ("3".equals(estado)) {
                 ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
@@ -386,16 +461,16 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 btnDeshabilitar.setText("HABILITAR");
             }
         }
-    }//GEN-LAST:event_tablaUsuariosMouseClicked
+    }//GEN-LAST:event_tablaClientesMouseClicked
 
     private void btnDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeshabilitarActionPerformed
-        int fila = tablaUsuarios.getSelectedRow();
-        String habilitado = "3";
-        String deshabilitado = "0";
+        int fila = tablaClientes.getSelectedRow();
+        String habilitado = "1";
+        String deshabilitado = "2";
 
         if (fila >= 0) {
-            String id = tablaUsuarios.getValueAt(fila, 0).toString();
-            String usuario = tablaUsuarios.getValueAt(fila, 1).toString();
+            String id = tablaClientes.getValueAt(fila, 0).toString();
+            String cliente = tablaClientes.getValueAt(fila, 1).toString();
 
             if (btnDeshabilitar.getText().equals("CANCELAR")) {
                 limpiarCajas();
@@ -410,54 +485,48 @@ public class RegistroAdministradores extends javax.swing.JFrame {
 
             } else if (btnDeshabilitar.getText().equals("DESHABILITAR")) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
-                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar este cliente?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 if (ventanaConfirmacion == 0) {
                     try {
-                        String sqlEstado = "UPDATE `usuarios` SET `Intentos` = ? WHERE `usuarios`.`IDUsuario` = ? ";
+                        String sqlEstado = "UPDATE `cliente` SET `IDEstado` = ? WHERE `cliente`.`IDCliente` = ? ";
                         PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
                         pst.setString(1, deshabilitado);
                         pst.setString(2, id);
                         pst.execute();
 
                         ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
-                        JOptionPane.showMessageDialog(null, "El usuario " + usuario + " ha sido deshabilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
-                        limpiarCajas();
-                        cargarData();
-                        bloquear();
-                        btnNuevo.setEnabled(true);
+                        JOptionPane.showMessageDialog(null, "El cliente " + cliente + " ha sido deshabilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                     } catch (Exception e) {
 
                     }
                 }
             } else if (btnDeshabilitar.getText().equals("HABILITAR")) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
-                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar este usuario?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar este cliente?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 if (ventanaConfirmacion == 0) {
                     try {
-                        String sqlEstado = "UPDATE `usuarios` SET `Intentos` = ? WHERE `usuarios`.`IDUsuario` = ? ";
+                        String sqlEstado = "UPDATE `cliente` SET `IDEstado` = ? WHERE `cliente`.`IDCliente` = ? ";
                         PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
                         pst.setString(1, habilitado);
                         pst.setString(2, id);
                         pst.execute();
 
                         ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
-                        JOptionPane.showMessageDialog(null, "El usuario " + usuario + " ahora está habilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
-                        limpiarCajas();
-                        cargarData();
-                        bloquear();
-                        btnNuevo.setEnabled(true);
+                        JOptionPane.showMessageDialog(null, "El cliente " + cliente + " ahora está habilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                     } catch (Exception e) {
 
                     }
                 }
             }
         }
+        limpiarCajas();
+        cargarData();
+        bloquear();
+        btnNuevo.setEnabled(true);
     }//GEN-LAST:event_btnDeshabilitarActionPerformed
 
-    public String usuario;
-
     void modificarRegistro() {
-        int fila = tablaUsuarios.getSelectedRow();
+        int fila = tablaClientes.getSelectedRow();
 
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
         btnDeshabilitar.setIcon(iconobtn);
@@ -467,17 +536,27 @@ public class RegistroAdministradores extends javax.swing.JFrame {
             btnActualizar.setEnabled(true);
             btnDeshabilitar.setEnabled(true);
             btnNuevo.setEnabled(false);
-            txtUsuario.setEnabled(true);
-            txtContraseña.setEnabled(true);
+            txtNombre.setEnabled(true);
+            txtCorreo.setEnabled(true);
             btnGuardar.setEnabled(false);
 
-            String id = tablaUsuarios.getValueAt(fila, 0).toString();
-            usuario = tablaUsuarios.getValueAt(fila, 1).toString();
-            String contraseña = tablaUsuarios.getValueAt(fila, 2).toString();
+            String id = tablaClientes.getValueAt(fila, 0).toString();
+            String nombre = tablaClientes.getValueAt(fila, 1).toString();
+            String correo = tablaClientes.getValueAt(fila, 2).toString();
+            String idTipoDocumento = tablaClientes.getValueAt(fila, 3).toString();
+            String numDocumento = tablaClientes.getValueAt(fila, 4).toString();
 
-            txtIDUsuario.setText(id);
-            txtUsuario.setText(usuario);
-            txtContraseña.setText(contraseña);
+            txtIDCliente.setText(id);
+            txtNombre.setText(nombre);
+            txtCorreo.setText(correo);
+            if (idTipoDocumento.contains("Identidad")) {
+                cbTipoDocu.setSelectedIndex(1);
+            } else if (idTipoDocumento.contains("Pasaporte")) {
+                cbTipoDocu.setSelectedIndex(2);
+            } else if (idTipoDocumento.contains("RTN")) {
+                cbTipoDocu.setSelectedIndex(3);
+            }
+            txtNumDocumento.setText(numDocumento);
 
         } else {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
@@ -485,25 +564,8 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         }
     }
 
-    void contraseña() {
-        if (!txtContraseña.getText().isEmpty()) {
-            if (txtContraseña.getText().length() < 6) {
-                ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "La contraseña debe contener al menos 6 caracteres", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-                txtContraseña.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 1));
-                lbContraseñaX.setVisible(true);
-            } else {
-                txtContraseña.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
-                lbContraseñaX.setVisible(false);
-            }
-        } else {
-            txtContraseña.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
-            lbContraseñaX.setVisible(false);
-        }
-    }
-
-    private void modificarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarUsuarioActionPerformed
-        if (!txtUsuario.getText().isEmpty() || !txtContraseña.getText().isEmpty()) {
+    private void modificarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarClienteActionPerformed
+        if (!txtIDCliente.getText().isEmpty() || !txtNombre.getText().isEmpty() || !txtCorreo.getText().isEmpty() || cbTipoDocu.getSelectedIndex() != 0 || !txtNumDocumento.getText().isEmpty()) {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
             int decision = JOptionPane.showConfirmDialog(null, "Los datos aún no se han guardado y podrían perderse\n "
                     + "¿Seguro que desea entrar en modo edición?", "Confirmación", JOptionPane.YES_NO_OPTION,
@@ -514,20 +576,20 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         } else {
             modificarRegistro();
         }
-    }//GEN-LAST:event_modificarUsuarioActionPerformed
+    }//GEN-LAST:event_modificarClienteActionPerformed
 
-    void usuarios() {
+    void documento() {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
-        String user = txtUsuario.getText();
-        String sql = "SELECT Usuario FROM usuarios WHERE Usuario = '" + user + "'";
+        String cliente = txtNombre.getText();
+        String sql = "SELECT IDTipoDocumento, NumeroDocumento FROM cliente WHERE Nombre = '" + cliente + "'";
 
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
 
             if (rs.next()) {
-                if (rs.getString("Usuario").equals(txtUsuario.getText())) {
+                if (rs.getString("IDTipoDocumento").equals(cbTipoDocu.getSelectedIndex())) {
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
                     JOptionPane.showMessageDialog(null, "Este usuario ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                     ImageIcon x = new ImageIcon("src/iconos/iconoX.png");
@@ -542,88 +604,51 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         }
     }
 
-    private void txtUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusLost
-        if (!txtUsuario.getText().isEmpty()) {
-            if (!usuario.equals(txtUsuario.getText())) {
-                String user = txtUsuario.getText();
-                String sql = "SELECT Usuario FROM usuarios WHERE Usuario = '" + user + "'";
+    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
+        if (!txtNombre.getText().isEmpty()) {
+            Conexion cc = new Conexion();
+            Connection cn = cc.GetConexion();
+            String cliente = txtNombre.getText();
+            String sql = "SELECT Nombre FROM cliente WHERE Nombre = '" + cliente + "'";
 
-                try {
-                    Statement st = cn.createStatement();
-                    ResultSet rs = st.executeQuery(sql);
+            try {
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery(sql);
 
-                    if (rs.next()) {
-                        if (rs.getString("Usuario").equals(txtUsuario.getText())) {
-                            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                            JOptionPane.showMessageDialog(null, "Este usuario ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                            txtUsuario.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 1));
-                            lbUsuarioX.setVisible(true);
-                        }
-                    } else {
-                        txtUsuario.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
-                        lbUsuarioX.setVisible(false);
+                if (rs.next()) {
+                    if (rs.getString("Nombre").equals(txtNombre.getText())) {
+                        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                        JOptionPane.showMessageDialog(null, "Este cliente ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                        lbNombreX.setVisible(true);
                     }
-                } catch (Exception e) {
-                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                    JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                } else {
+                    lbNombreX.setVisible(false);
                 }
-            } else if (usuario.equals(null)) {
-                String user = txtUsuario.getText();
-                String sql = "SELECT Usuario FROM usuarios WHERE Usuario = '" + user + "'";
-
-                try {
-                    Statement st = cn.createStatement();
-                    ResultSet rs = st.executeQuery(sql);
-
-                    if (rs.next()) {
-                        if (rs.getString("Usuario").equals(txtUsuario.getText())) {
-                            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                            JOptionPane.showMessageDialog(null, "Este usuario ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                            txtUsuario.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 1));
-                            lbUsuarioX.setVisible(true);
-                        }
-                    } else {
-                        txtUsuario.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
-                        lbUsuarioX.setVisible(false);
-                    }
-                } catch (Exception e) {
-                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                    JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                }
-            } else {
-                txtUsuario.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
-                lbUsuarioX.setVisible(false);
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
-        } else {
-            txtUsuario.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
-            lbUsuarioX.setVisible(false);
         }
-    }//GEN-LAST:event_txtUsuarioFocusLost
+    }//GEN-LAST:event_txtNombreFocusLost
 
-    String secretKey = "lospibes";
-    Encode encode = new Encode();
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         Conexion cn = new Conexion();
         Connection cc = cn.GetConexion();
-        usuarios();
-        contraseña();
         validarCamposVacios();
         if (!guardar == false) {
-            String sql = "INSERT INTO usuarios (Usuario, Contrasena) VALUES (?,?)";
+            String sql = "INSERT INTO cliente (Nombre, Correo, IDTipoDocumento, NumeroDocumento) VALUES (?,?,?,?)";
 
             try {
                 PreparedStatement pst = cc.prepareStatement(sql);
-                pst.setString(1, txtUsuario.getText());
-                pst.setString(2, encode.ecnode(secretKey, txtContraseña.getText()));
+                pst.setString(1, txtNombre.getText());
+                pst.setString(2, txtCorreo.getText());
+                pst.setString(3, String.valueOf(cbTipoDocu.getSelectedIndex()));
+                pst.setString(4, txtNumDocumento.getText());
 
                 int i = pst.executeUpdate();
                 if (i > 0) {
                     ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
                     JOptionPane.showMessageDialog(null, "El registro se guardo correctamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-                    limpiarCajas();
-                    cargarData();
-                    bloquear();
-                    btnNuevo.setEnabled(true);
                 }
 
             } catch (Exception e) {
@@ -632,6 +657,10 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 System.out.println(e.getMessage());
             }
         }
+        limpiarCajas();
+        cargarData();
+        bloquear();
+        btnNuevo.setEnabled(true);
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -639,12 +668,14 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         Connection cc = cn.GetConexion();
         validarCamposVacios();
         if (!guardar == false) {
-            String sql = "UPDATE usuarios SET Usuario = ?, Contrasena = ? WHERE IDUsuario = '" + txtIDUsuario.getText() + "'";
+            String sql = "UPDATE cliente SET Nombre = ?, Correo = ?, IDTipoDocumento = ?, NumeroDocumento = ? WHERE IDCliente = '" + txtIDCliente.getText() + "'";
 
             try {
                 PreparedStatement pst = cc.prepareStatement(sql);
-                pst.setString(1, txtUsuario.getText());
-                pst.setString(2, encode.ecnode(secretKey, txtContraseña.getText()));
+                pst.setString(1, txtNombre.getText());
+                pst.setString(2, txtCorreo.getText());
+                pst.setString(3, String.valueOf(cbTipoDocu.getSelectedIndex()));
+                pst.setString(4, txtNumDocumento.getText());
 
                 int i = pst.executeUpdate();
                 if (i > 0) {
@@ -654,10 +685,6 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                     ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
                     btnDeshabilitar.setIcon(iconobtn);
                     btnDeshabilitar.setText("DESHABILITAR");
-                    limpiarCajas();
-                    cargarData();
-                    bloquear();
-                    btnNuevo.setEnabled(true);
                 }
 
             } catch (Exception e) {
@@ -666,6 +693,10 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 System.out.println(e.getMessage());
             }
         }
+        limpiarCajas();
+        cargarData();
+        bloquear();
+        btnNuevo.setEnabled(true);
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -676,21 +707,44 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         btnNuevo.setEnabled(false);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
-    private void txtUsuarioFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusGained
+    private void txtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusGained
         ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
         btnDeshabilitar.setIcon(iconoBoton);
         btnDeshabilitar.setText("CANCELAR");
-    }//GEN-LAST:event_txtUsuarioFocusGained
+    }//GEN-LAST:event_txtNombreFocusGained
 
-    private void txtContraseñaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContraseñaFocusGained
+    private void txtCorreoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusGained
         ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
         btnDeshabilitar.setIcon(iconoBoton);
         btnDeshabilitar.setText("CANCELAR");
-    }//GEN-LAST:event_txtContraseñaFocusGained
+    }//GEN-LAST:event_txtCorreoFocusGained
 
-    private void txtContraseñaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContraseñaFocusLost
 
-    }//GEN-LAST:event_txtContraseñaFocusLost
+    private void txtCorreoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCorreoFocusLost
+        if (!txtCorreo.getText().isEmpty()) {
+            validarCorreo(txtCorreo.getText());
+            if (aprobado != true) {
+                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "Debes escribir un correo válido\nEjemplo: cinematix@gmail.com", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                txtCorreo.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 1));
+                lbCorreoX.setVisible(true);
+            } else {
+                txtCorreo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+                lbCorreoX.setVisible(false);
+            }
+        } else {
+            txtCorreo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
+            lbCorreoX.setVisible(false);
+        }
+    }//GEN-LAST:event_txtCorreoFocusLost
+
+    private void txtNumDocumentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumDocumentoFocusGained
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumDocumentoFocusGained
+
+    private void txtNumDocumentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNumDocumentoFocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNumDocumentoFocusLost
 
     /**
      * @param args the command line arguments
@@ -710,27 +764,28 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RegistroAdministradores.class
+            java.util.logging.Logger.getLogger(RegistroClientes.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RegistroAdministradores.class
+            java.util.logging.Logger.getLogger(RegistroClientes.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RegistroAdministradores.class
+            java.util.logging.Logger.getLogger(RegistroClientes.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RegistroAdministradores.class
+            java.util.logging.Logger.getLogger(RegistroClientes.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RegistroAdministradores().setVisible(true);
+                new RegistroClientes().setVisible(true);
             }
         });
     }
@@ -741,16 +796,19 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     private rojeru_san.complementos.RSButtonHover btnGuardar;
     private rojeru_san.complementos.RSButtonHover btnNuevo;
     public static javax.swing.JLabel btnRegresar;
+    private javax.swing.JComboBox<String> cbTipoDocu;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JLabel lbContraseñaX;
+    private javax.swing.JLabel lbCorreoX;
     private javax.swing.JLabel lbFondo;
-    private javax.swing.JLabel lbUsuarioX;
+    private javax.swing.JLabel lbNombreX;
+    private javax.swing.JLabel lbNumDocuX;
     private javax.swing.JLabel lbX;
-    private javax.swing.JMenuItem modificarUsuario;
-    private javax.swing.JTable tablaUsuarios;
-    private javax.swing.JTextField txtContraseña;
-    private javax.swing.JTextField txtIDUsuario;
-    private javax.swing.JTextField txtUsuario;
+    private javax.swing.JMenuItem modificarCliente;
+    private javax.swing.JTable tablaClientes;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtIDCliente;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNumDocumento;
     // End of variables declaration//GEN-END:variables
 }

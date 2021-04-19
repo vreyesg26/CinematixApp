@@ -11,11 +11,8 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -75,10 +72,6 @@ public class ControlSalas extends javax.swing.JFrame {
         lbReservadoMax2D = new javax.swing.JLabel();
         lbDisponibleMax3D = new javax.swing.JLabel();
         btnSalir = new javax.swing.JLabel();
-        btnVaciar2D = new javax.swing.JToggleButton();
-        btnVaciar3D = new javax.swing.JToggleButton();
-        btnVaciar2DMax = new javax.swing.JToggleButton();
-        btnVaciar3DMax = new javax.swing.JToggleButton();
         lbFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -130,58 +123,6 @@ public class ControlSalas extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 30, 30));
-
-        btnVaciar2D.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnVaciar.png"))); // NOI18N
-        btnVaciar2D.setBorder(null);
-        btnVaciar2D.setBorderPainted(false);
-        btnVaciar2D.setContentAreaFilled(false);
-        btnVaciar2D.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnVaciar2.png"))); // NOI18N
-        btnVaciar2D.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnVaciando.png"))); // NOI18N
-        btnVaciar2D.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVaciar2DActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnVaciar2D, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 206, -1, -1));
-
-        btnVaciar3D.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnVaciar.png"))); // NOI18N
-        btnVaciar3D.setBorder(null);
-        btnVaciar3D.setBorderPainted(false);
-        btnVaciar3D.setContentAreaFilled(false);
-        btnVaciar3D.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnVaciar2.png"))); // NOI18N
-        btnVaciar3D.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnVaciando.png"))); // NOI18N
-        btnVaciar3D.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVaciar3DActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnVaciar3D, new org.netbeans.lib.awtextra.AbsoluteConstraints(462, 206, -1, -1));
-
-        btnVaciar2DMax.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnVaciar.png"))); // NOI18N
-        btnVaciar2DMax.setBorder(null);
-        btnVaciar2DMax.setBorderPainted(false);
-        btnVaciar2DMax.setContentAreaFilled(false);
-        btnVaciar2DMax.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnVaciar2.png"))); // NOI18N
-        btnVaciar2DMax.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnVaciando.png"))); // NOI18N
-        btnVaciar2DMax.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVaciar2DMaxActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnVaciar2DMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(97, 391, -1, -1));
-
-        btnVaciar3DMax.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnVaciar.png"))); // NOI18N
-        btnVaciar3DMax.setBorder(null);
-        btnVaciar3DMax.setBorderPainted(false);
-        btnVaciar3DMax.setContentAreaFilled(false);
-        btnVaciar3DMax.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnVaciar2.png"))); // NOI18N
-        btnVaciar3DMax.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btnVaciando.png"))); // NOI18N
-        btnVaciar3DMax.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVaciar3DMaxActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnVaciar3DMax, new org.netbeans.lib.awtextra.AbsoluteConstraints(462, 391, -1, -1));
 
         lbFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/controlSalas.png"))); // NOI18N
         getContentPane().add(lbFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 450));
@@ -347,126 +288,6 @@ public class ControlSalas extends javax.swing.JFrame {
         MenuVendedor.pantallaControlSalas = false;
     }//GEN-LAST:event_btnSalirMouseClicked
 
-    private void btnVaciar2DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVaciar2DActionPerformed
-        ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
-        int decision = JOptionPane.showConfirmDialog(null, "Estás a punto de vaciar la sala 2D\n¿Deseas continuar?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-        if (decision == 0) {
-            int contador = 1;
-            int asientos = 80;
-            for (int i = 0; i < asientos; i++) {
-                try {
-                    String sqlVaciar = "UPDATE `asiento` SET `IDEstado` = ? WHERE `asiento`.`Numero` = ? AND `asiento`.`IDSalas` = ?";
-                    PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlVaciar);
-                    pst.setString(1, "1");
-                    pst.setString(2, String.valueOf(contador));
-                    pst.setString(3, "1");
-                    pst.execute();
-
-                } catch (Exception e) {
-
-                }
-                contador++;
-            }
-            disponibles2D();
-            reservados2D();
-            btnVaciar2D.setSelected(false);
-            ImageIcon jPanelIcono2 = new ImageIcon("src/iconos/iconoCorrecto.png");
-            JOptionPane.showMessageDialog(null, "La sala fue vaciada, todos los asientos ahora están disponibles", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono2);
-        } else {
-            btnVaciar2D.setSelected(false);
-        }
-    }//GEN-LAST:event_btnVaciar2DActionPerformed
-
-    private void btnVaciar3DActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVaciar3DActionPerformed
-        ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
-        int decision = JOptionPane.showConfirmDialog(null, "Estás a punto de vaciar la sala 3D\n¿Deseas continuar?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-        if (decision == 0) {
-            int contador = 1;
-            int asientos = 80;
-            for (int i = 0; i < asientos; i++) {
-                try {
-                    String sqlVaciar = "UPDATE `asiento` SET `IDEstado` = ? WHERE `asiento`.`Numero` = ? AND `asiento`.`IDSalas` = ?";
-                    PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlVaciar);
-                    pst.setString(1, "1");
-                    pst.setString(2, String.valueOf(contador));
-                    pst.setString(3, "2");
-                    pst.execute();
-
-                } catch (Exception e) {
-
-                }
-                contador++;
-            }
-            disponibles3D();
-            reservados3D();
-            btnVaciar3D.setSelected(false);
-            ImageIcon jPanelIcono2 = new ImageIcon("src/iconos/iconoCorrecto.png");
-            JOptionPane.showMessageDialog(null, "La sala fue vaciada, todos los asientos ahora están disponibles", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono2);
-        } else {
-            btnVaciar3D.setSelected(false);
-        }
-    }//GEN-LAST:event_btnVaciar3DActionPerformed
-
-    private void btnVaciar2DMaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVaciar2DMaxActionPerformed
-        ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
-        int decision = JOptionPane.showConfirmDialog(null, "Estás a punto de vaciar la sala Max2D\n¿Deseas continuar?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-        if (decision == 0) {
-            int contador = 1;
-            int asientos = 78;
-            for (int i = 0; i < asientos; i++) {
-                try {
-                    String sqlVaciar = "UPDATE `asiento` SET `IDEstado` = ? WHERE `asiento`.`Numero` = ? AND `asiento`.`IDSalas` = ?";
-                    PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlVaciar);
-                    pst.setString(1, "1");
-                    pst.setString(2, String.valueOf(contador));
-                    pst.setString(3, "3");
-                    pst.execute();
-
-                } catch (Exception e) {
-
-                }
-                contador++;
-            }
-            disponiblesMax2D();
-            reservadosMax2D();
-            btnVaciar2DMax.setSelected(false);
-            ImageIcon jPanelIcono2 = new ImageIcon("src/iconos/iconoCorrecto.png");
-            JOptionPane.showMessageDialog(null, "La sala fue vaciada, todos los asientos ahora están disponibles", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono2);
-        } else {
-            btnVaciar2DMax.setSelected(false);
-        }
-    }//GEN-LAST:event_btnVaciar2DMaxActionPerformed
-
-    private void btnVaciar3DMaxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVaciar3DMaxActionPerformed
-        ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
-        int decision = JOptionPane.showConfirmDialog(null, "Estás a punto de vaciar la sala Max3D\n¿Deseas continuar?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-        if (decision == 0) {
-            int contador = 1;
-            int asientos = 78;
-            for (int i = 0; i < asientos; i++) {
-                try {
-                    String sqlVaciar = "UPDATE `asiento` SET `IDEstado` = ? WHERE `asiento`.`Numero` = ? AND `asiento`.`IDSalas` = ?";
-                    PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlVaciar);
-                    pst.setString(1, "1");
-                    pst.setString(2, String.valueOf(contador));
-                    pst.setString(3, "4");
-                    pst.execute();
-
-                } catch (Exception e) {
-
-                }
-                contador++;
-            }
-            disponiblesMax3D();
-            reservadosMax3D();
-            btnVaciar3DMax.setSelected(false);
-            ImageIcon jPanelIcono2 = new ImageIcon("src/iconos/iconoCorrecto.png");
-            JOptionPane.showMessageDialog(null, "La sala fue vaciada, todos los asientos ahora están disponibles", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono2);
-        } else {
-            btnVaciar3DMax.setSelected(false);
-        }
-    }//GEN-LAST:event_btnVaciar3DMaxActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -504,10 +325,6 @@ public class ControlSalas extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnSalir;
-    private javax.swing.JToggleButton btnVaciar2D;
-    private javax.swing.JToggleButton btnVaciar2DMax;
-    private javax.swing.JToggleButton btnVaciar3D;
-    private javax.swing.JToggleButton btnVaciar3DMax;
     private javax.swing.JLabel lbDisponible2D;
     private javax.swing.JLabel lbDisponible3D;
     private javax.swing.JLabel lbDisponibleMax2D;

@@ -181,6 +181,7 @@ public class panelVendedores extends javax.swing.JPanel {
         txtClave.setText("");
         cbTipoDocu.setSelectedIndex(0);
         cbJornada.setSelectedIndex(0);
+        tablaVendedores.clearSelection();
     }
 
     void cargarTipoDocumento() {
