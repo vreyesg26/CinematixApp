@@ -8,7 +8,6 @@ package JFrames;
 import Datos.Conexion;
 import Paneles.panelInicio;
 import Paneles.panelVendedores;
-import encriptacion.Encode;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -48,7 +47,7 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
         TextPrompt nombre = new TextPrompt("NOMBRE", txtNombre);
         TextPrompt correo = new TextPrompt("CORREO", txtCorreo);
         TextPrompt numDocumento = new TextPrompt("# DOCUMENTO", txtNumDocu);
-        TextPrompt buscar = new TextPrompt("Buscar por ID o Nombre", txtBuscar);
+        TextPrompt buscar = new TextPrompt("Nombre o N° Documento", txtBuscar);
 
         txtIDCliente.setEnabled(false);
         lbNombreX.setVisible(false);
@@ -79,7 +78,7 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
         txtBuscar = new javax.swing.JTextField();
-        cbTipoDocu = new javax.swing.JComboBox<String>();
+        cbTipoDocu = new javax.swing.JComboBox<>();
         txtNumDocu = new javax.swing.JTextField();
         lbX = new javax.swing.JLabel();
         btnNuevo = new rojeru_san.complementos.RSButtonHover();
@@ -174,9 +173,10 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
         });
         getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 220, 40));
 
+        txtBuscar.setFont(new java.awt.Font("Garamond", 1, 14)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        txtBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         txtBuscar.setCaretColor(new java.awt.Color(255, 255, 255));
         txtBuscar.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtBuscar.setOpaque(false);
@@ -194,7 +194,7 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
                 txtBuscarKeyTyped(evt);
             }
         });
-        getContentPane().add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 210, 30));
+        getContentPane().add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, 210, 25));
 
         cbTipoDocu.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         getContentPane().add(cbTipoDocu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 220, 40));
@@ -283,22 +283,33 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
         tablaClientes.setForeground(new java.awt.Color(255, 255, 255));
         tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4", "Title 5", "Title 6"
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
         tablaClientes.setAlignmentY(4.0F);
-        tablaClientes.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         tablaClientes.setComponentPopupMenu(jPopupMenu1);
+        tablaClientes.setDragEnabled(true);
         tablaClientes.setFillsViewportHeight(true);
         tablaClientes.setOpaque(false);
         tablaClientes.setPreferredSize(new java.awt.Dimension(300, 60));
-        tablaClientes.setRowHeight(25);
+        tablaClientes.setRowHeight(30);
         tablaClientes.setSelectionBackground(new java.awt.Color(29, 29, 29));
         tablaClientes.setSelectionForeground(new java.awt.Color(255, 255, 255));
         tablaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -308,7 +319,7 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablaClientes);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 430, 290));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 430, 310));
 
         lbCorreoX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoX.png"))); // NOI18N
         getContentPane().add(lbCorreoX, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 190, 30, 40));
@@ -323,7 +334,7 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
         lbLupa.setForeground(new java.awt.Color(255, 255, 255));
         lbLupa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbLupa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoBuscar.png"))); // NOI18N
-        getContentPane().add(lbLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 97, 40, 40));
+        getContentPane().add(lbLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(755, 90, 25, 25));
 
         lbFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/registroClientes.png"))); // NOI18N
         getContentPane().add(lbFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -529,12 +540,12 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
     }
     
       void buscarData(String valor) {
-        String[] titulos = {"ID", "Nombre", "Correo", "Tipo Documento", "NumeroDocumento", "Estado"};
+        String[] titulos = {"ID", "Nombre", "Correo", "Tipo Documento", "N° Documento", "Estado"};
         String[] registros = new String[6];
         String sql = "SELECT C.IDCliente, C.Nombre, C.Correo, TD.NombreDocumento, C.NumeroDocumento, E.Estado\n"
                 + "FROM cliente AS C INNER JOIN tipodocumento AS TD ON C.IDTipoDocumento = TD.IDTipoDocumento\n"
                 + "INNER JOIN estados AS E ON C.IDEstado = E.IDEstado\n"
-                + "                WHERE CONCAT (IDCliente, ' ', Nombre) LIKE '%" + valor + "%'";
+                + "WHERE CONCAT (C.Nombre, ' ', C.NumeroDocumento) LIKE '%" + valor + "%'";
 
 
         model = new DefaultTableModel(null, titulos);

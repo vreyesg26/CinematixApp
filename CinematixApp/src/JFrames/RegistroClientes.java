@@ -48,7 +48,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         TextPrompt nombre = new TextPrompt("NOMBRE", txtNombre);
         TextPrompt correo = new TextPrompt("CORREO", txtCorreo);
         TextPrompt numDocumento = new TextPrompt("N° DOCUMENTO", txtNumDocu);
-        TextPrompt buscar = new TextPrompt("Buscar por ID o Nombre", txtBuscar);
+        TextPrompt buscar = new TextPrompt("Nombre o N° Documento", txtBuscar);
         
         txtIDCliente.setEnabled(false);
         lbNombreX.setVisible(false);
@@ -78,7 +78,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         txtBuscar = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
-        cbTipoDocu = new javax.swing.JComboBox<String>();
+        cbTipoDocu = new javax.swing.JComboBox<>();
         txtNumDocu = new javax.swing.JTextField();
         lbX = new javax.swing.JLabel();
         btnNuevo = new rojeru_san.complementos.RSButtonHover();
@@ -147,9 +147,10 @@ public class RegistroClientes extends javax.swing.JFrame {
         });
         getContentPane().add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 220, 40));
 
+        txtBuscar.setFont(new java.awt.Font("Garamond", 1, 14)); // NOI18N
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255), 2));
+        txtBuscar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(255, 255, 255)));
         txtBuscar.setCaretColor(new java.awt.Color(255, 255, 255));
         txtBuscar.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtBuscar.setOpaque(false);
@@ -167,7 +168,7 @@ public class RegistroClientes extends javax.swing.JFrame {
                 txtBuscarKeyTyped(evt);
             }
         });
-        getContentPane().add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 210, 30));
+        getContentPane().add(txtBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 90, 210, 25));
 
         txtCorreo.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
         txtCorreo.setForeground(new java.awt.Color(255, 255, 255));
@@ -298,7 +299,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablaClientes);
 
-        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 430, 300));
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 430, 310));
 
         lbCorreoX.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoX.png"))); // NOI18N
         getContentPane().add(lbCorreoX, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 190, 30, 40));
@@ -313,7 +314,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         lbLupa.setForeground(new java.awt.Color(255, 255, 255));
         lbLupa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbLupa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoBuscar.png"))); // NOI18N
-        getContentPane().add(lbLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 97, 40, 40));
+        getContentPane().add(lbLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(755, 90, 25, 25));
 
         lbFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/registroClientes.png"))); // NOI18N
         getContentPane().add(lbFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -519,12 +520,12 @@ public class RegistroClientes extends javax.swing.JFrame {
     }
     
     void buscarData(String valor) {
-        String[] titulos = {"ID", "Nombre", "Correo", "Tipo Documento", "NumeroDocumento", "Estado"};
+        String[] titulos = {"ID", "Nombre", "Correo", "Tipo Documento", "N° Documento", "Estado"};
         String[] registros = new String[6];
         String sql = "SELECT C.IDCliente, C.Nombre, C.Correo, TD.NombreDocumento, C.NumeroDocumento, E.Estado\n"
                 + "FROM cliente AS C INNER JOIN tipodocumento AS TD ON C.IDTipoDocumento = TD.IDTipoDocumento\n"
                 + "INNER JOIN estados AS E ON C.IDEstado = E.IDEstado\n"
-                + "                WHERE CONCAT (IDCliente, ' ', Nombre) LIKE '%" + valor + "%'";
+                + "WHERE CONCAT (C.Nombre, ' ', C.NumeroDocumento) LIKE '%" + valor + "%'";
 
 
         model = new DefaultTableModel(null, titulos);
