@@ -49,7 +49,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         TextPrompt correo = new TextPrompt("CORREO", txtCorreo);
         TextPrompt numDocumento = new TextPrompt("N° DOCUMENTO", txtNumDocu);
         TextPrompt buscar = new TextPrompt("Nombre o N° Documento", txtBuscar);
-        
+
         txtIDCliente.setEnabled(false);
         lbNombreX.setVisible(false);
         lbCorreoX.setVisible(false);
@@ -78,7 +78,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         txtBuscar = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
-        cbTipoDocu = new javax.swing.JComboBox<>();
+        cbTipoDocu = new javax.swing.JComboBox<String>();
         txtNumDocu = new javax.swing.JTextField();
         lbX = new javax.swing.JLabel();
         btnNuevo = new rojeru_san.complementos.RSButtonHover();
@@ -205,6 +205,11 @@ public class RegistroClientes extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNumDocuFocusLost(evt);
+            }
+        });
+        txtNumDocu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumDocuKeyTyped(evt);
             }
         });
         getContentPane().add(txtNumDocu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 220, 40));
@@ -518,7 +523,7 @@ public class RegistroClientes extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     void buscarData(String valor) {
         String[] titulos = {"ID", "Nombre", "Correo", "Tipo Documento", "N° Documento", "Estado"};
         String[] registros = new String[6];
@@ -526,7 +531,6 @@ public class RegistroClientes extends javax.swing.JFrame {
                 + "FROM cliente AS C INNER JOIN tipodocumento AS TD ON C.IDTipoDocumento = TD.IDTipoDocumento\n"
                 + "INNER JOIN estados AS E ON C.IDEstado = E.IDEstado\n"
                 + "WHERE CONCAT (C.Nombre, ' ', C.NumeroDocumento) LIKE '%" + valor + "%'";
-
 
         model = new DefaultTableModel(null, titulos);
 
@@ -819,7 +823,10 @@ public class RegistroClientes extends javax.swing.JFrame {
                 if (i > 0) {
                     ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoCorrecto.png");
                     JOptionPane.showMessageDialog(null, "El registro fue actualizado correctamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-
+                    limpiarCajas();
+                    cargarData();
+                    bloquear();
+                    btnNuevo.setEnabled(true);
                     ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
                     btnDeshabilitar.setIcon(iconobtn);
                     btnDeshabilitar.setText("DESHABILITAR");
@@ -831,10 +838,7 @@ public class RegistroClientes extends javax.swing.JFrame {
                 System.out.println(e.getMessage());
             }
         }
-        limpiarCajas();
-        cargarData();
-        bloquear();
-        btnNuevo.setEnabled(true);
+
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -989,7 +993,7 @@ public class RegistroClientes extends javax.swing.JFrame {
                     }
                 }
             }
-        } else{
+        } else {
             txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
             lbNumDocuX.setVisible(false);
         }
@@ -1006,6 +1010,37 @@ public class RegistroClientes extends javax.swing.JFrame {
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
 
     }//GEN-LAST:event_txtBuscarKeyTyped
+
+    private void txtNumDocuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumDocuKeyTyped
+        if (cbTipoDocu.getSelectedIndex() == 1) {
+            char validar = evt.getKeyChar();
+            if (Character.isLetter(validar)) {
+                getToolkit().beep();
+                evt.consume();
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (txtNumDocu.getText().length() > 12) {
+                evt.consume();
+            }
+        }
+        if (cbTipoDocu.getSelectedIndex() == 2) {
+
+            if (txtNumDocu.getText().length() > 6) {
+                evt.consume();
+            }
+        }
+        if (cbTipoDocu.getSelectedIndex() == 3) {
+            char validar = evt.getKeyChar();
+            if (Character.isLetter(validar)) {
+                getToolkit().beep();
+                evt.consume();
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (txtNumDocu.getText().length() > 13) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtNumDocuKeyTyped
 
     /**
      * @param args the command line arguments

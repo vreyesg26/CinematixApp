@@ -78,7 +78,7 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
         txtBuscar = new javax.swing.JTextField();
-        cbTipoDocu = new javax.swing.JComboBox<>();
+        cbTipoDocu = new javax.swing.JComboBox<String>();
         txtNumDocu = new javax.swing.JTextField();
         lbX = new javax.swing.JLabel();
         btnNuevo = new rojeru_san.complementos.RSButtonHover();
@@ -213,6 +213,11 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtNumDocuFocusLost(evt);
+            }
+        });
+        txtNumDocu.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNumDocuKeyTyped(evt);
             }
         });
         getContentPane().add(txtNumDocu, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 220, 40));
@@ -538,15 +543,14 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
-    
-      void buscarData(String valor) {
+
+    void buscarData(String valor) {
         String[] titulos = {"ID", "Nombre", "Correo", "Tipo Documento", "N° Documento", "Estado"};
         String[] registros = new String[6];
         String sql = "SELECT C.IDCliente, C.Nombre, C.Correo, TD.NombreDocumento, C.NumeroDocumento, E.Estado\n"
                 + "FROM cliente AS C INNER JOIN tipodocumento AS TD ON C.IDTipoDocumento = TD.IDTipoDocumento\n"
                 + "INNER JOIN estados AS E ON C.IDEstado = E.IDEstado\n"
                 + "WHERE CONCAT (C.Nombre, ' ', C.NumeroDocumento) LIKE '%" + valor + "%'";
-
 
         model = new DefaultTableModel(null, titulos);
 
@@ -782,7 +786,7 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
-        } else{
+        } else {
             txtNombre.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
             lbNombreX.setVisible(false);
         }
@@ -1009,7 +1013,7 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
                     }
                 }
             }
-        } else{
+        } else {
             txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
             lbNumDocuX.setVisible(false);
         }
@@ -1039,6 +1043,37 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
     private void txtBuscarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyTyped
 
     }//GEN-LAST:event_txtBuscarKeyTyped
+
+    private void txtNumDocuKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNumDocuKeyTyped
+        if (cbTipoDocu.getSelectedIndex() == 1) {
+            char validar = evt.getKeyChar();
+            if (Character.isLetter(validar)) {
+                getToolkit().beep();
+                evt.consume();
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (txtNumDocu.getText().length() > 12) {
+                evt.consume();
+            }
+        }
+        if (cbTipoDocu.getSelectedIndex() == 2) {
+
+            if (txtNumDocu.getText().length() > 6) {
+                evt.consume();
+            }
+        }
+        if (cbTipoDocu.getSelectedIndex() == 3) {
+            char validar = evt.getKeyChar();
+            if (Character.isLetter(validar)) {
+                getToolkit().beep();
+                evt.consume();
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "Este tipo de documento solo contiene números", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (txtNumDocu.getText().length() > 13) {
+                evt.consume();
+            }
+        }
+    }//GEN-LAST:event_txtNumDocuKeyTyped
 
     /**
      * @param args the command line arguments

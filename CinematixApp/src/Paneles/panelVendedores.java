@@ -186,6 +186,22 @@ public class panelVendedores extends javax.swing.JPanel {
         cbTipoDocu.setSelectedIndex(0);
         cbJornada.setSelectedIndex(0);
         tablaVendedores.clearSelection();
+        txtNombre.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        lbNombre.setForeground(Color.WHITE);
+        txtCelular.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        lbCelular.setForeground(Color.WHITE);
+        txtClave.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        lbClave.setForeground(Color.WHITE);
+        txtCorreo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        lbCorreo.setForeground(Color.WHITE);
+        txtDireccion.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        lbDireccion.setForeground(Color.WHITE);
+        txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        lbNumDocu.setForeground(Color.WHITE);
+        txtSueldo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        lbSueldo.setForeground(Color.WHITE);
+        txtUsuario.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
+        lbUsuario.setForeground(Color.WHITE);
     }
 
     void cargarTipoDocumento() {
@@ -1116,13 +1132,9 @@ public class panelVendedores extends javax.swing.JPanel {
                     ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoCorrecto.png");
                     JOptionPane.showMessageDialog(null, "Se actualizó el registro satisfactoriamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                     limpiarCajas();
-                    btnGuardar.setEnabled(false);
-                    btnNuevo.setEnabled(true);
-                    btnDeshabilitar.setEnabled(false);
-                    btnActualizar.setEnabled(false);
-                    tablaVendedores.setEnabled(false);
+                    cargarData();
                     bloquear();
-
+                    btnNuevo.setEnabled(true);
                     ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
                     btnDeshabilitar.setIcon(iconobtn);
                     btnDeshabilitar.setText("DESHABILITAR");
@@ -1134,7 +1146,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 System.out.println(e.getMessage());
             }
         }
-        cargarData();
+        
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeshabilitarActionPerformed
@@ -1213,6 +1225,7 @@ public class panelVendedores extends javax.swing.JPanel {
     }
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+        limpiarCajas();
         txtIDVendedor.setEnabled(false);
         cbJornada.setEnabled(true);
         txtCelular.setEnabled(true);
@@ -1225,7 +1238,6 @@ public class panelVendedores extends javax.swing.JPanel {
         txtNumDocu.setEnabled(true);
         txtClave.setEnabled(true);
         cbTipoDocu.setEnabled(true);
-        limpiarCajas();
         tablaVendedores.setEnabled(true);
         btnGuardar.setEnabled(true);
         btnNuevo.setEnabled(false);
@@ -1347,7 +1359,7 @@ public class panelVendedores extends javax.swing.JPanel {
                             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
                             JOptionPane.showMessageDialog(null, "Este correo ya existe, intenta con otro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                             txtCorreo.setBorder(BorderFactory.createLineBorder(new Color(176, 3, 3), 1));
-                            lbCorreo.setVisible(true);
+                            lbCorreo.setForeground(new Color(176, 3, 3));
                         } else {
                             txtCorreo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
                             lbCorreo.setForeground(Color.WHITE);
@@ -1361,7 +1373,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "Debes escribir un correo que sea válido\n•Ejemplo: cinematix@gmail.com", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
-        }else {
+        } else {
             txtCorreo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
             lbCorreo.setForeground(Color.WHITE);
         }
@@ -1387,7 +1399,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 txtCelular.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
                 lbCelular.setForeground(Color.WHITE);
             }
-        }else {
+        } else {
             txtCelular.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
             lbCelular.setForeground(Color.WHITE);
         }
@@ -1501,7 +1513,7 @@ public class panelVendedores extends javax.swing.JPanel {
                     }
                 }
             }
-        }else {
+        } else {
             txtNumDocu.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
             lbNumDocu.setForeground(Color.WHITE);
         }
@@ -1566,7 +1578,7 @@ public class panelVendedores extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 }
             }
-        }else {
+        } else {
             txtUsuario.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
             lbUsuario.setForeground(Color.WHITE);
         }
@@ -1661,7 +1673,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 txtSueldo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
                 lbSueldo.setForeground(Color.WHITE);
             }
-        }else {
+        } else {
             txtSueldo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
             lbSueldo.setForeground(Color.WHITE);
         }
@@ -1678,7 +1690,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 txtClave.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
                 lbClave.setForeground(Color.WHITE);
             }
-        }else {
+        } else {
             txtClave.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
             lbClave.setForeground(Color.WHITE);
         }
@@ -1698,7 +1710,7 @@ public class panelVendedores extends javax.swing.JPanel {
                     lbDireccion.setForeground(Color.WHITE);
                 }
             }
-        }else {
+        } else {
             txtDireccion.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
             lbDireccion.setForeground(Color.WHITE);
         }
