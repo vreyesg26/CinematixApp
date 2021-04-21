@@ -37,7 +37,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         lbPunto1.setVisible(false);
         lbPunto2.setVisible(false);
         lbPunto3.setVisible(false);
-        lbUsuarioSesion.setText("       "+LoginAdmin.usuario.toUpperCase());
+        lbUsuarioSesion.setText("       " + LoginAdmin.usuario.toUpperCase());
 
         btnAcerca.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
@@ -225,11 +225,16 @@ public class AdminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void btnVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendedoresActionPerformed
-        new CambiaPanel(panelContenedor, new panelVendedores());
-        lbPunto.setVisible(false);
-        lbPunto1.setVisible(false);
-        lbPunto2.setVisible(true);
-        lbPunto3.setVisible(false);
+        if (Paneles.panelPeliculas.pantallaInfoAdicional != true) {
+            new CambiaPanel(panelContenedor, new panelVendedores());
+            lbPunto.setVisible(false);
+            lbPunto1.setVisible(false);
+            lbPunto2.setVisible(true);
+            lbPunto3.setVisible(false);
+        } else {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debe cerrar la pantalla de información adicional para continuar", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
     }//GEN-LAST:event_btnVendedoresActionPerformed
 
     private void btnPeliculas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliculas1ActionPerformed
@@ -253,11 +258,16 @@ public class AdminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAcercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcercaActionPerformed
-        new CambiaPanel(panelContenedor, new panelAcercaDe());
-        lbPunto.setVisible(false);
-        lbPunto1.setVisible(false);
-        lbPunto2.setVisible(false);
-        lbPunto3.setVisible(true);
+        if (Paneles.panelPeliculas.pantallaInfoAdicional != true) {
+            new CambiaPanel(panelContenedor, new panelAcercaDe());
+            lbPunto.setVisible(false);
+            lbPunto1.setVisible(false);
+            lbPunto2.setVisible(false);
+            lbPunto3.setVisible(true);
+        } else {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debe cerrar la pantalla de información adicional para continuar", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
     }//GEN-LAST:event_btnAcercaActionPerformed
 
     private void btnPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliculasActionPerformed
@@ -269,11 +279,16 @@ public class AdminDashboard extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPeliculasActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
-        new CambiaPanel(panelContenedor, new panelInicio());
-        lbPunto.setVisible(true);
-        lbPunto1.setVisible(false);
-        lbPunto2.setVisible(false);
-        lbPunto3.setVisible(false);
+        if (Paneles.panelPeliculas.pantallaInfoAdicional != true) {
+            new CambiaPanel(panelContenedor, new panelInicio());
+            lbPunto.setVisible(true);
+            lbPunto1.setVisible(false);
+            lbPunto2.setVisible(false);
+            lbPunto3.setVisible(false);
+        } else {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debe cerrar la pantalla de información adicional para continuar", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
     }//GEN-LAST:event_btnInicioActionPerformed
 
     private void lbImagenUsuarioMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbImagenUsuarioMouseEntered

@@ -2,9 +2,6 @@ package cinematixapp;
 
 import Datos.Conexion;
 import JFrames.Inicio;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.UIManager;
 
 /**
  *
