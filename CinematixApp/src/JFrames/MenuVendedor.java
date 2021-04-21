@@ -45,7 +45,6 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb2.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
         lb6.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
         lb7.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
-        lb8.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb9.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb10.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lb11.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 20));
@@ -61,6 +60,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         lbVendedor.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         jComboBoxPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         jComboBoxHora.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        cmbSalas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnContinuar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
         btnSalas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 12));
 
@@ -85,20 +85,23 @@ public class MenuVendedor extends javax.swing.JFrame {
             lb_Encender.setText("APAGAR");
             jComboBoxPeliculas.setEnabled(true);
             jComboBoxHora.setEnabled(true);
+            cmbSalas.setEnabled(true);
             AgregarAComboboxPelicula();
-            Horarios();
+            // Horarios();
         } else {
             lb_Encender.setText("ENCENDER");
             jComboBoxPeliculas.setEnabled(false);
             jComboBoxHora.setEnabled(false);
+            cmbSalas.setEnabled(false);
             limpiar();
             Desactivados();
         }
     }
-    
+
     public static String idPago;
-    void obtenerMetodoPago(){
-        String sql = "SELECT IDPago FROM formaspago WHERE Tipo = '"+lbResultado.getText().substring(16)+"'";
+
+    void obtenerMetodoPago() {
+        String sql = "SELECT IDPago FROM formaspago WHERE Tipo = '" + lbResultado.getText().substring(16) + "'";
 
         try {
             Statement st = cn.createStatement();
@@ -130,7 +133,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             if (rs.next()) {
                 String sala = rs.getString("Sala");
                 System.out.println(sala);
-                lb8.setText(sala);
+                cmbSalas.getSelectedItem();
             }
 
         } catch (Exception e) {
@@ -141,8 +144,8 @@ public class MenuVendedor extends javax.swing.JFrame {
     void consultarPrecios(String numeroSala) {
         String sql = "SELECT  PrecioBoletosAdultos, PrecioBoletosNinos\n"
                 + "FROM preciosalas\n"
-                + "WHERE IDSalas = '" + numeroSala +"'\n"
-                + "ORDER BY FechaInicio DESC LIMIT 1";
+                + "WHERE IDSalas = '" + numeroSala + "'\n"
+                + "ORDER BY FechaInicio DESC";
 
         try {
             Statement st = cn.createStatement();
@@ -162,6 +165,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     public static void Desactivados() {
         jComboBoxPeliculas.setEnabled(false);
         jComboBoxHora.setEnabled(false);
+        cmbSalas.setEnabled(false);
         rbEfectivo.setEnabled(false);
         rbTCredito.setEnabled(false);
         rbMixto.setEnabled(false);
@@ -176,6 +180,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         rbEfectivo.setEnabled(true);
         rbTCredito.setEnabled(true);
         rbMixto.setEnabled(true);
+        cmbSalas.setEnabled(true);
         btnMas.setEnabled(true);
         btnMenos.setEnabled(true);
         btnMas1.setEnabled(true);
@@ -184,10 +189,11 @@ public class MenuVendedor extends javax.swing.JFrame {
         txtBoletosAdultos.setText(String.valueOf(contadorAdultos));
         txtBoletosNiños.setText(String.valueOf(contadorNiños));
     }
+
     public static void AgregarAComboboxPelicula() {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
-        String sql = "SELECT Titulo FROM peliculas WHERE IDEstado = 1";
+        String sql = "SELECT IdPelicula, Titulo FROM peliculas WHERE IDEstado = 1";
 
         try {
             Statement st = cn.createStatement();
@@ -218,14 +224,13 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
     }
 
-    public static void Horarios() {
+    public static void Horarios(String idPelicula) {
         int Combo;
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
-        Combo = jComboBoxHora.getSelectedIndex();
 
-        String sql = "SELECT Hora FROM horarios ORDER BY RAND() LIMIT 3";
-        jComboBoxHora.addItem("Seleccione un horario");
+        String sql = "SELECT H.Hora FROM peliculashorarios AS PH INNER JOIN horarios AS H ON PH.IDHorario = H.IDHorario WHERE PH.IdPelicula = '" + idPelicula + "'";
+        jComboBoxHora.addItem("Seleccione Horario");
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -256,7 +261,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         lbResultado.setText("");
         lb14.setText("");
         lb15.setText("");
-        lb8.setText("");
+        cmbSalas.removeAllItems();
         lb9.setText("");
         lb10.setText("");
         lbImagen.setIcon(null);
@@ -264,7 +269,6 @@ public class MenuVendedor extends javax.swing.JFrame {
     }
 
     void calculo() {
-
         double boletoAdulto = Double.valueOf(lb9.getText().substring(3));
         double boletoNiño = Double.valueOf(lb10.getText().substring(3));
         double cantidadAdultos = 0.0, cantidadNiños = 0.0;
@@ -279,7 +283,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             cantidadNiños = Double.parseDouble(txtBoletosNiños.getText());
             precioNiños = boletoNiño;
             TotalN = (cantidadNiños * precioNiños);
-            ConfirmarVenta.jLabelTotalNiños.setText("L."+TotalN + "0");
+            ConfirmarVenta.jLabelTotalNiños.setText("L." + TotalN + "0");
         }
 
         if ("".equals(txtBoletosAdultos.getText())) {
@@ -289,7 +293,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             cantidadAdultos = Double.parseDouble(txtBoletosAdultos.getText());
             precioAdultos = boletoAdulto;
             TotalA = (cantidadAdultos * precioAdultos);
-            ConfirmarVenta.jLabelTotalAdultos.setText("L."+TotalA + "0");
+            ConfirmarVenta.jLabelTotalAdultos.setText("L." + TotalA + "0");
         }
         Total = TotalA + TotalN;
         ConfirmarVenta.jLabelTotalPago.setText("TOTAL A PAGAR: L." + Total + "0");
@@ -299,9 +303,9 @@ public class MenuVendedor extends javax.swing.JFrame {
     void pasaDatos() {
         ConfirmarVenta.jTextFieldCantidadDeBoletosAdultos.setText(txtBoletosAdultos.getText());
         ConfirmarVenta.jTextFieldCantidadDeBoletosNiños.setText(txtBoletosNiños.getText());
-        ConfirmarVenta.jLabelSala.setText(lb8.getText());
+        ConfirmarVenta.jLabelSala.setText(cmbSalas.getSelectedItem().toString());
     }
-    
+
     void tarjeta() {
         if (rbTCredito.isSelected()) {
             ConfirmarVenta.jTextFieldEfectivoRecibido.setText("Paga con tarjeta");
@@ -365,7 +369,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         rbEfectivo = new javax.swing.JRadioButton();
         rbTCredito = new javax.swing.JRadioButton();
         rbMixto = new javax.swing.JRadioButton();
-        lb8 = new javax.swing.JLabel();
+        cmbSalas = new javax.swing.JComboBox<>();
         txtBoletosNiños = new javax.swing.JTextField();
         lb4 = new javax.swing.JLabel();
         lb12 = new javax.swing.JLabel();
@@ -601,11 +605,18 @@ public class MenuVendedor extends javax.swing.JFrame {
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 375, 450, -1));
 
-        lb8.setFont(new java.awt.Font("Ubuntu Condensed", 0, 16)); // NOI18N
-        lb8.setForeground(new java.awt.Color(255, 255, 255));
-        lb8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lb8.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(lb8, new org.netbeans.lib.awtextra.AbsoluteConstraints(65, 90, 90, 35));
+        cmbSalas.setName(""); // NOI18N
+        cmbSalas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cmbSalasMouseClicked(evt);
+            }
+        });
+        cmbSalas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbSalasActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cmbSalas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 140, 35));
 
         txtBoletosNiños.setEditable(false);
         txtBoletosNiños.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -803,14 +814,29 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    void obtenerSalas(String idPelicula) {
+        String sql = "SELECT S.Sala FROM peliculassalas AS PS INNER JOIN salas AS S ON  PS.IDSalas = S.IDSalas WHERE PS.IdPelicula = '" + idPelicula + "'";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            cmbSalas.addItem("Seleccione Sala");
+            while (rs.next()) {
+                cmbSalas.addItem(rs.getString("S.Sala"));
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    public static String idPelicula;
     private void jComboBoxPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPeliculasActionPerformed
         seleccionPelicula();
 
-        String sql = "SELECT G.Genero, S.Sala, D.Nombre, P.Foto, P.IDSalas\n"
+        String sql = "SELECT P.IdPelicula, G.Genero, D.Nombre, P.Foto\n"
                 + "FROM peliculas AS P\n"
                 + "INNER JOIN generos AS G ON P.IDGenero = G.IDGenero\n"
                 + "INNER JOIN director AS D ON P.IDDirector = D.IDDirector\n"
-                + "INNER JOIN salas AS S ON P.IDSalas = S.IDSalas\n"
                 + "WHERE P.Titulo = '" + jComboBoxPeliculas.getSelectedItem() + "'";
 
         try {
@@ -818,16 +844,19 @@ public class MenuVendedor extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery(sql);
 
             if (rs.next()) {
-                String sala = rs.getString("S.Sala");
+                //String sala = rs.getString("S.Sala");
+                idPelicula = rs.getString("P.idPelicula");
                 String director = rs.getString("D.Nombre");
                 String genero = rs.getString("G.Genero");
-                System.out.println(sala);
-                lb8.setText(sala);
+                //System.out.println(sala);
+                cmbSalas.getSelectedItem();
                 lb14.setText(director);
                 lb15.setText(genero);
-                String numeroSala = rs.getString("P.IDSalas");
-                System.out.println(numeroSala);
-                consultarPrecios(numeroSala);
+                obtenerSalas(idPelicula);
+                Horarios(idPelicula);
+                // String numeroSala = rs.getString("P.IDSalas");
+//                System.out.println(numeroSala);
+//                consultarPrecios(numeroSala);
 
                 Image i = null;
 
@@ -856,8 +885,24 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxPeliculasActionPerformed
 
-    private void jComboBoxHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxHoraActionPerformed
+    public static String idHora;
 
+    void horarios() {
+        String sql = "SELECT IDHorario FROM horarios WHERE Hora = '" + jComboBoxHora.getSelectedItem().toString() + "'";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                idHora = rs.getString("IDHorario");
+            }
+        } catch (Exception e) {
+        }
+    }
+
+    private void jComboBoxHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxHoraActionPerformed
+        horarios();
     }//GEN-LAST:event_jComboBoxHoraActionPerformed
 
     private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
@@ -911,10 +956,10 @@ public class MenuVendedor extends javax.swing.JFrame {
         //HabilitarBoton();
     }//GEN-LAST:event_txtBoletosNiñosActionPerformed
 
-    
+
     private void rbTCreditoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbTCreditoMouseClicked
         String mensaje = "Método de Pago: ";
-        
+
         if (rbTCredito.isSelected()) {
             mensaje += "Tarjeta";
         }
@@ -923,7 +968,7 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     private void rbEfectivoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbEfectivoMouseClicked
         String mensaje = "Método de Pago: ";
-        
+
         if (rbEfectivo.isSelected()) {
             mensaje += "Efectivo";
         }
@@ -940,7 +985,7 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     private void rbMixtoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rbMixtoMouseClicked
         String mensaje = "Método de Pago: ";
-        
+
         if (rbMixto.isSelected()) {
             mensaje += "Mixto";
         }
@@ -955,6 +1000,10 @@ public class MenuVendedor extends javax.swing.JFrame {
         } else if (jComboBoxHora.getSelectedIndex() == 0) {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
             JOptionPane.showMessageDialog(this, "Debe seleccionar un horario", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        } else if (cmbSalas.getSelectedIndex() == 0) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar una sala", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+
         } else if (rbEfectivo.isSelected() == false && rbTCredito.isSelected() == false && rbMixto.isSelected() == false) {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
             JOptionPane.showMessageDialog(null, "Debe seleccionar un método de pago", "Complete datos", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
@@ -1048,6 +1097,27 @@ public class MenuVendedor extends javax.swing.JFrame {
         Encender();
     }//GEN-LAST:event_btnEncendidoActionPerformed
 
+    public static String idSala;
+    private void cmbSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSalasActionPerformed
+        String sql = "SELECT IDSalas FROM salas WHERE Sala = '" + cmbSalas.getSelectedItem().toString() + "'";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                idSala = rs.getString("IDSalas");
+
+                consultarPrecios(idSala);
+            }
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_cmbSalasActionPerformed
+
+    private void cmbSalasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbSalasMouseClicked
+
+    }//GEN-LAST:event_cmbSalasMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1094,6 +1164,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     public static javax.swing.JButton btnMenos1;
     public static rojerusan.RSButtonHover btnSalas;
     public static javax.swing.ButtonGroup buttonGroup1;
+    public static javax.swing.JComboBox<String> cmbSalas;
     private javax.swing.JLabel fondo;
     public static javax.swing.JComboBox<String> jComboBoxHora;
     public static javax.swing.JComboBox<String> jComboBoxPeliculas;
@@ -1117,7 +1188,6 @@ public class MenuVendedor extends javax.swing.JFrame {
     private javax.swing.JLabel lb5;
     private javax.swing.JLabel lb6;
     private javax.swing.JLabel lb7;
-    public static javax.swing.JLabel lb8;
     public static javax.swing.JLabel lb9;
     public static javax.swing.JLabel lbImagen;
     public static javax.swing.JLabel lbMenores;

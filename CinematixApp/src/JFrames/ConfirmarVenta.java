@@ -500,7 +500,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
             double isv;
             efectivoR = Double.parseDouble(jTextFieldEfectivoRecibido.getText());
             totalPago = Double.parseDouble(jLabelTotalPago.getText().substring(17));
-            System.out.println(totalPago);
+            System.out.println("Pago:" + totalPago);
 
             double diferencia = totalPago - efectivoR;
             if (MenuVendedor.rbMixto.isSelected() == true) {

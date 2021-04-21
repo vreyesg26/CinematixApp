@@ -106,11 +106,11 @@ public class Factura extends javax.swing.JFrame {
             pst.setString(1, idEncabezado);
             pst.setString(2, idParametro);
             pst.setString(3, numeroFactura);
-            pst.setString(4, ConfirmarVenta.idPelicula);
-            pst.setString(5, ConfirmarVenta.idSala);
+            pst.setString(4, MenuVendedor.idPelicula);
+            pst.setString(5, MenuVendedor.idSala);
             pst.setString(6, jLabelAsientos.getText());
-            pst.setString(7, ConfirmarVenta.idHorario);
-            pst.setDouble(8, Double.valueOf(jLabeTotal.getText().substring(3)));
+            pst.setString(7, MenuVendedor.idHora);
+            pst.setDouble(8, ConfirmarVenta.totalPago);
 
             int i = pst.executeUpdate();
             if (i > 0) {
@@ -196,12 +196,12 @@ public class Factura extends javax.swing.JFrame {
         ImageIcon i = new ImageIcon("");
         MenuVendedor.txtBoletosAdultos.setText("");
         MenuVendedor.buttonGroup1.clearSelection();
-        MenuVendedor.jComboBoxHora.setSelectedIndex(0);
+        MenuVendedor.jComboBoxHora.removeAllItems();
         MenuVendedor.jComboBoxPeliculas.setSelectedIndex(0);
         MenuVendedor.lbMenores.setText("");
         MenuVendedor.txtBoletosNiños.setVisible(true);
         MenuVendedor.txtBoletosNiños.setText("");
-        MenuVendedor.lb8.setText("");
+        MenuVendedor.cmbSalas.removeAllItems();
         MenuVendedor.lb9.setText("");
         MenuVendedor.lb10.setText("");
         MenuVendedor.lbResultado.setText("");
@@ -543,15 +543,15 @@ public class Factura extends javax.swing.JFrame {
 
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
             JOptionPane.showMessageDialog(null, "Factura generada exitosamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-            facturaEncabezado();
-            idFacturaEncabezado();
-            facturaDetalle();
+//            facturaEncabezado();
+//            idFacturaEncabezado();
+//            facturaDetalle();
             limpiar();
             this.dispose();
         } else if (decision == 1) {
-            facturaEncabezado();
-            idFacturaEncabezado();
-            facturaDetalle();
+//            facturaEncabezado();
+//            idFacturaEncabezado();
+//            facturaDetalle();
             this.dispose();
             limpiar();
         }
