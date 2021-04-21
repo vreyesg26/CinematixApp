@@ -95,6 +95,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             cmbSalas.setEnabled(false);
             limpiar();
             Desactivados();
+            cmbSalas.removeAllItems();
         }
     }
 
@@ -517,7 +518,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         jPanel1.add(lb13, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 240, 120, 30));
 
         txtBoletosAdultos.setEditable(false);
-        txtBoletosAdultos.setForeground(new java.awt.Color(0, 0, 0));
+        txtBoletosAdultos.setForeground(new java.awt.Color(255, 255, 255));
         txtBoletosAdultos.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtBoletosAdultos.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtBoletosAdultos.setOpaque(false);
@@ -619,6 +620,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         jPanel1.add(cmbSalas, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 140, 35));
 
         txtBoletosNiños.setEditable(false);
+        txtBoletosNiños.setForeground(new java.awt.Color(255, 255, 255));
         txtBoletosNiños.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtBoletosNiños.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         txtBoletosNiños.setOpaque(false);
@@ -831,73 +833,81 @@ public class MenuVendedor extends javax.swing.JFrame {
 
     public static String idPelicula;
     private void jComboBoxPeliculasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPeliculasActionPerformed
-        seleccionPelicula();
+        if (jComboBoxPeliculas.getSelectedIndex() != 0) {
+            seleccionPelicula();
+            String sql = "SELECT P.IdPelicula, G.Genero, D.Nombre, P.Foto\n"
+                    + "FROM peliculas AS P\n"
+                    + "INNER JOIN generos AS G ON P.IDGenero = G.IDGenero\n"
+                    + "INNER JOIN director AS D ON P.IDDirector = D.IDDirector\n"
+                    + "WHERE P.Titulo = '" + jComboBoxPeliculas.getSelectedItem() + "'";
 
-        String sql = "SELECT P.IdPelicula, G.Genero, D.Nombre, P.Foto\n"
-                + "FROM peliculas AS P\n"
-                + "INNER JOIN generos AS G ON P.IDGenero = G.IDGenero\n"
-                + "INNER JOIN director AS D ON P.IDDirector = D.IDDirector\n"
-                + "WHERE P.Titulo = '" + jComboBoxPeliculas.getSelectedItem() + "'";
+            try {
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery(sql);
 
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+                if (rs.next()) {
+                    //String sala = rs.getString("S.Sala");
+                    idPelicula = rs.getString("P.idPelicula");
+                    String director = rs.getString("D.Nombre");
+                    String genero = rs.getString("G.Genero");
+                    lb14.setText(director);
+                    lb15.setText(genero);
+                    cmbSalas.getSelectedItem();
+                    obtenerSalas(idPelicula);
+                    Horarios(idPelicula);
+                    //System.out.println(sala);
 
-            if (rs.next()) {
-                //String sala = rs.getString("S.Sala");
-                idPelicula = rs.getString("P.idPelicula");
-                String director = rs.getString("D.Nombre");
-                String genero = rs.getString("G.Genero");
-                //System.out.println(sala);
-                cmbSalas.getSelectedItem();
-                lb14.setText(director);
-                lb15.setText(genero);
-                obtenerSalas(idPelicula);
-                Horarios(idPelicula);
-                // String numeroSala = rs.getString("P.IDSalas");
+                    // String numeroSala = rs.getString("P.IDSalas");
 //                System.out.println(numeroSala);
 //                consultarPrecios(numeroSala);
+                    Image i = null;
 
-                Image i = null;
+                    Blob blob = rs.getBlob("P.Foto");
+                    i = javax.imageio.ImageIO.read(blob.getBinaryStream());
+                    ImageIcon image = new ImageIcon(i.getScaledInstance(lbImagen.getWidth(), lbImagen.getHeight(), Image.SCALE_DEFAULT));
+                    lbImagen.setIcon(image);
+                    this.repaint();
+                    //rsscalelabel.RSScaleLabel.setScaleLabel(lbImagen, image.toString());
 
-                Blob blob = rs.getBlob("P.Foto");
-                i = javax.imageio.ImageIO.read(blob.getBinaryStream());
-                ImageIcon image = new ImageIcon(i.getScaledInstance(lbImagen.getWidth(), lbImagen.getHeight(), Image.SCALE_DEFAULT));
-                lbImagen.setIcon(image);
-                this.repaint();
-                //rsscalelabel.RSScaleLabel.setScaleLabel(lbImagen, image.toString());
-
-                if (genero.equals("Terror") || genero.equals("Suspenso")) {
-                    lbMenores.setText("Esta pelicula no es apta para menores de edad");
-                    btnMas1.setEnabled(false);
-                    btnMenos1.setEnabled(false);
-                    contadorNiños = 0;
-                    txtBoletosNiños.setText(String.valueOf(contadorNiños));
-                } else {
-                    btnMas1.setEnabled(true);
-                    btnMenos1.setEnabled(true);
-                    lbMenores.setText("");
+                    if (genero.equals("Terror") || genero.equals("Suspenso")) {
+                        lbMenores.setText("Esta pelicula no es apta para menores de edad");
+                        btnMas1.setEnabled(false);
+                        btnMenos1.setEnabled(false);
+                        contadorNiños = 0;
+                        txtBoletosNiños.setText(String.valueOf(contadorNiños));
+                    } else {
+                        btnMas1.setEnabled(true);
+                        btnMenos1.setEnabled(true);
+                        lbMenores.setText("");
+                    }
                 }
+
+            } catch (Exception e) {
+
             }
-
-        } catch (Exception e) {
-
+        } else {
+            jComboBoxHora.removeAllItems();
+            cmbSalas.removeAllItems();
         }
     }//GEN-LAST:event_jComboBoxPeliculasActionPerformed
 
     public static String idHora;
 
     void horarios() {
-        String sql = "SELECT IDHorario FROM horarios WHERE Hora = '" + jComboBoxHora.getSelectedItem().toString() + "'";
+        if (jComboBoxPeliculas.getSelectedIndex() != 0) {
+            String sql = "SELECT IDHorario FROM horarios WHERE Hora = '" + jComboBoxHora.getSelectedItem().toString() + "'";
 
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+            try {
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery(sql);
 
-            if (rs.next()) {
-                idHora = rs.getString("IDHorario");
+                if (rs.next()) {
+                    idHora = rs.getString("IDHorario");
+                }
+            } catch (Exception e) {
             }
-        } catch (Exception e) {
+        } else {
+            jComboBoxHora.removeAllItems();
         }
     }
 
@@ -1098,20 +1108,28 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEncendidoActionPerformed
 
     public static String idSala;
-    private void cmbSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSalasActionPerformed
-        String sql = "SELECT IDSalas FROM salas WHERE Sala = '" + cmbSalas.getSelectedItem().toString() + "'";
 
-        try {
-            Statement st = cn.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+    void obtenerSalas() {
+        if (jComboBoxPeliculas.getSelectedIndex() != 0) {
+            String sql = "SELECT IDSalas FROM salas WHERE Sala = '" + cmbSalas.getSelectedItem().toString() + "'";
 
-            if (rs.next()) {
-                idSala = rs.getString("IDSalas");
+            try {
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery(sql);
 
-                consultarPrecios(idSala);
+                if (rs.next()) {
+                    idSala = rs.getString("IDSalas");
+
+                    consultarPrecios(idSala);
+                }
+            } catch (Exception e) {
             }
-        } catch (Exception e) {
+        } else {
+            cmbSalas.removeAllItems();
         }
+    }
+    private void cmbSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSalasActionPerformed
+        obtenerSalas();
     }//GEN-LAST:event_cmbSalasActionPerformed
 
     private void cmbSalasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbSalasMouseClicked
