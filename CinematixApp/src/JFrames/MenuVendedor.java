@@ -983,7 +983,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         if (contadorAdultos < 2) {
             btnMenos.setEnabled(false);
         } else {
-            contadorAdultos--;
+            --contadorAdultos;
             txtBoletosAdultos.setText(String.valueOf(contadorAdultos));
             if (contadorAdultos < 15) {
                 btnMas.setEnabled(true);

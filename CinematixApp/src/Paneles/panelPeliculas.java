@@ -186,7 +186,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         anchoColumnas.getColumn(1).setPreferredWidth(140);
         anchoColumnas.getColumn(2).setPreferredWidth(70);
         anchoColumnas.getColumn(3).setPreferredWidth(130);
-        anchoColumnas.getColumn(4).setPreferredWidth(250);
+        anchoColumnas.getColumn(4).setPreferredWidth(350);
         anchoColumnas.getColumn(5).setPreferredWidth(70);
         anchoColumnas.getColumn(6).setPreferredWidth(500);
         anchoColumnas.getColumn(7).setPreferredWidth(80);

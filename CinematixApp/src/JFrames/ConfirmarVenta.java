@@ -65,7 +65,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         jLabelTotalNiños.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         jLabelTotalPago.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         jLabelImpuesto.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
-        lbAgregarCliente.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        lbAgregarCliente.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
     }
 
     void noEditable() {
