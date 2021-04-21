@@ -497,11 +497,11 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
             int salidaConfirmacion = JOptionPane.showConfirmDialog(null, "Al parecer tienes un proceso pendiente\n ¿Estás seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPaneIcon);
             if (salidaConfirmacion == 0) {
                 this.dispose();
-                panelInicio.pantallaClientes = false;
+                ConfirmarVenta.pantallaCliente = false;
             }
         } else {
             this.dispose();
-            panelInicio.pantallaClientes = false;
+            ConfirmarVenta.pantallaCliente = false;
         }
     }//GEN-LAST:event_btnRegresarMouseClicked
 
@@ -927,17 +927,17 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_txtNumDocuFocusLost
-    
+
     public static String idCliente;
     private void AgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AgregarClienteActionPerformed
         int fila = tablaClientes.getSelectedRow();
-        
-        if (fila >= 0){
-           idCliente = tablaClientes.getValueAt(fila, 0).toString();
-           String nombreCliente = tablaClientes.getValueAt(fila, 1).toString();
-           
-           ConfirmarVenta.lbAgregarCliente.setText(nombreCliente);
-           this.dispose();
+
+        if (fila >= 0) {
+            idCliente = tablaClientes.getValueAt(fila, 0).toString();
+            String nombreCliente = tablaClientes.getValueAt(fila, 1).toString();
+
+            ConfirmarVenta.lbAgregarCliente.setText(nombreCliente);
+            this.dispose();
         }
     }//GEN-LAST:event_AgregarClienteActionPerformed
 

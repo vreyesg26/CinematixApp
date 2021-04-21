@@ -90,7 +90,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
                 + "FROM peliculas AS P\n"
                 + "INNER JOIN salas AS S ON P.IDSalas = S.IDSalas\n"
                 + "INNER JOIN horarios AS H ON P.IDHorario = H.IDHorario\n"
-                + "WHERE P.Titulo = '"+jTextFieldPelicula.getText()+"'";
+                + "WHERE P.Titulo = '" + jTextFieldPelicula.getText() + "'";
 
         try {
             Statement st = cc.createStatement();
@@ -109,8 +109,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
 
         }
     }
-    
-    
+
     void calculo() {
 
         totalPago = Double.parseDouble(jLabelTotalPago.getText().substring(17));
@@ -502,7 +501,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
             efectivoR = Double.parseDouble(jTextFieldEfectivoRecibido.getText());
             totalPago = Double.parseDouble(jLabelTotalPago.getText().substring(17));
             System.out.println(totalPago);
-            
+
             double diferencia = totalPago - efectivoR;
             if (MenuVendedor.rbMixto.isSelected() == true) {
                 if (efectivoR >= totalPago) {
@@ -549,24 +548,26 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnComprarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnComprarActionPerformed
-        datosFactura();
-        this.dispose();
-//        obj.setVisible(true);
-//        MenuVendedor mv = new MenuVendedor();
-//        mv.setVisible(false);
-        MenuVendedor.confirmarVenta = false;
-        if (jLabelSala.getText().equals("2D")) {
-            Sala2D sala = new Sala2D();
-            sala.setVisible(true);
-        } else if (jLabelSala.getText().equals("3D")) {
-            Sala3D sala = new Sala3D();
-            sala.setVisible(true);
-        } else if (jLabelSala.getText().equals("Max2D")) {
-            SalaMax2D sala = new SalaMax2D();
-            sala.setVisible(true);
-        } else if (jLabelSala.getText().equals("Max3D")) {
-            SalaMax3D sala = new SalaMax3D();
-            sala.setVisible(true);
+        if (!lbAgregarCliente.getText().isEmpty()) {
+            datosFactura();
+            this.dispose();
+            MenuVendedor.confirmarVenta = false;
+            if (jLabelSala.getText().equals("2D")) {
+                Sala2D sala = new Sala2D();
+                sala.setVisible(true);
+            } else if (jLabelSala.getText().equals("3D")) {
+                Sala3D sala = new Sala3D();
+                sala.setVisible(true);
+            } else if (jLabelSala.getText().equals("Max2D")) {
+                SalaMax2D sala = new SalaMax2D();
+                sala.setVisible(true);
+            } else if (jLabelSala.getText().equals("Max3D")) {
+                SalaMax3D sala = new SalaMax3D();
+                sala.setVisible(true);
+            }
+        } else {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debe seleccionar un cliente para continuar con la venta", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }//GEN-LAST:event_btnComprarActionPerformed
 
@@ -574,9 +575,17 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldEfectivoRecibidoActionPerformed
 
+    public static boolean pantallaCliente = false;
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
-        RegistroClientesVenta rc = new RegistroClientesVenta();
-        rc.setVisible(true);
+
+        if (pantallaCliente == false) {
+            RegistroClientesVenta rc = new RegistroClientesVenta();
+            rc.setVisible(true);
+            pantallaCliente = true;
+        } else if (pantallaCliente == true) {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "La pantalla Registrar Clientes ya se está ejecutando", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
     }//GEN-LAST:event_btnAgregarClienteActionPerformed
 
     /**
