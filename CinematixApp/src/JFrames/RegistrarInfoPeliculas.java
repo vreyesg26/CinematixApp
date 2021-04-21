@@ -36,6 +36,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
         consultarActores();
         consultarHorarios();
         consultarSalas();
+        obtenerUltimaPelicula();
 
         tipoFuente = new Fuente();
         listaActores.setFont(tipoFuente.fuente(tipoFuente.LUSI, 2, 16));
@@ -44,7 +45,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
         listaHorariosAgregados.setFont(tipoFuente.fuente(tipoFuente.LUSI, 2, 16));
         listaSalas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 2, 16));
         listaSalasAgregadas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 2, 16));
-        lbPelicula.setFont(tipoFuente.fuente(tipoFuente.LUSI, 2, 16));
+        lbPelicula.setFont(tipoFuente.fuente(tipoFuente.LUSI, 2, 30));
 
         listaActores.setModel(modelActores);
         listaActoresAgregados.setModel(modelActoresAgregados);
@@ -265,6 +266,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
 
         lbPelicula.setForeground(new java.awt.Color(255, 255, 255));
         lbPelicula.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lbPelicula.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoPeliculas.png"))); // NOI18N
         getContentPane().add(lbPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(197, 13, 505, 40));
 
         lbFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/registroInfoPeliculas.png"))); // NOI18N
@@ -350,6 +352,24 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
         System.out.println(arregloSalas);
         for (int i = 0; i < arregloSalas.size(); i++) {
             modelSalas.addElement(arregloSalas.get(i));
+        }
+    }
+    
+    String idUltimaPelicula;
+    void obtenerUltimaPelicula(){
+        String sql = "SELECT IdPelicula, Titulo FROM peliculas ORDER BY IdPelicula DESC LIMIT 1";
+        
+        try {
+            Statement st = cc.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            
+            if(rs.next()){
+                idUltimaPelicula = rs.getString("IdPelicula");
+                String titulo = rs.getString("Titulo");
+                lbPelicula.setText(titulo.toUpperCase());
+                System.out.println(idUltimaPelicula);
+            }
+        } catch (Exception e) {
         }
     }
 
@@ -501,7 +521,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                 String sql = "INSERT INTO peliculasactores (IdPelicula, IDActor) VALUES (?,?)";
 
                 PreparedStatement pst = cc.prepareStatement(sql);
-                pst.setString(1, Paneles.panelPeliculas.idUltimaPelicula);
+                pst.setString(1, idUltimaPelicula);
                 pst.setString(2, arregloIDActores.get(i).toString());
                 datosGuardados = pst.executeUpdate();
 
@@ -527,7 +547,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                 String sql = "INSERT INTO peliculashorarios (IdPelicula, IDHorario) VALUES (?,?)";
 
                 PreparedStatement pst = cc.prepareStatement(sql);
-                pst.setString(1, Paneles.panelPeliculas.idUltimaPelicula);
+                pst.setString(1, idUltimaPelicula);
                 pst.setString(2, arregloIDHorarios.get(i).toString());
                 datosGuardados = pst.executeUpdate();
 
@@ -553,7 +573,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                 String sql = "INSERT INTO peliculassalas (IdPelicula, IDSalas) VALUES (?,?)";
 
                 PreparedStatement pst = cc.prepareStatement(sql);
-                pst.setString(1, Paneles.panelPeliculas.idUltimaPelicula);
+                pst.setString(1, idUltimaPelicula);
                 pst.setString(2, arregloIDSalas.get(i).toString());
                 datosGuardados = pst.executeUpdate();
 

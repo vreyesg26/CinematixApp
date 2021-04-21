@@ -210,10 +210,10 @@ public class Factura extends javax.swing.JFrame {
 //        MenuVendedor.lb14.setText("");
 //        MenuVendedor.lb15.setText("");
 //        MenuVendedor.btnSalas.setEnabled(true);
-        MenuVendedor.Desactivados();
+//        MenuVendedor.Desactivados();
         MenuVendedor.jComboBoxPeliculas.setSelectedIndex(0);
-        MenuVendedor.btnEncendido.setSelected(false);
-        MenuVendedor.limpiar();
+//        MenuVendedor.btnEncendido.setSelected(false);
+        MenuVendedor.limpiar2();
     }
 
     @Override
@@ -545,15 +545,15 @@ public class Factura extends javax.swing.JFrame {
 
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
             JOptionPane.showMessageDialog(null, "Factura generada exitosamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-//            facturaEncabezado();
-//            idFacturaEncabezado();
-//            facturaDetalle();
+            facturaEncabezado();
+            idFacturaEncabezado();
+            facturaDetalle();
             limpiar();
             this.dispose();
         } else if (decision == 1) {
-//            facturaEncabezado();
-//            idFacturaEncabezado();
-//            facturaDetalle();
+            facturaEncabezado();
+            idFacturaEncabezado();
+            facturaDetalle();
             this.dispose();
             limpiar();
         }

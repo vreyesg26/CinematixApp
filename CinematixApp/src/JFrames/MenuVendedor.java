@@ -269,6 +269,24 @@ public class MenuVendedor extends javax.swing.JFrame {
         lbMenores.setText("");
     }
 
+    public static void limpiar2() {
+        ImageIcon i = new ImageIcon("");
+        contadorAdultos = 1;
+        contadorNiños = 0;
+        txtBoletosAdultos.setText("");
+        txtBoletosNiños.setText("");
+        buttonGroup1.clearSelection();
+        jComboBoxHora.removeAllItems();
+        lbResultado.setText("");
+        lb14.setText("");
+        lb15.setText("");
+        cmbSalas.removeAllItems();
+        lb9.setText("");
+        lb10.setText("");
+        lbImagen.setIcon(null);
+        lbMenores.setText("");
+    }
+
     void calculo() {
         double boletoAdulto = Double.valueOf(lb9.getText().substring(3));
         double boletoNiño = Double.valueOf(lb10.getText().substring(3));
