@@ -1026,8 +1026,8 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
         if (fila >= 0) {
             idCliente = tablaClientes.getValueAt(fila, 0).toString();
             String nombreCliente = tablaClientes.getValueAt(fila, 1).toString();
-
             ConfirmarVenta.lbAgregarCliente.setText(nombreCliente);
+            ConfirmarVenta.pantallaClienteVenta = false;
             this.dispose();
         }
     }//GEN-LAST:event_AgregarClienteActionPerformed

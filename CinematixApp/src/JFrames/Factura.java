@@ -548,6 +548,8 @@ public class Factura extends javax.swing.JFrame {
             facturaEncabezado();
             idFacturaEncabezado();
             facturaDetalle();
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
+            JOptionPane.showMessageDialog(null, "Factura almacenada exitosamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             this.dispose();
             limpiar();
         }
