@@ -69,10 +69,7 @@ public class Factura extends javax.swing.JFrame {
             pst.setString(5, MenuVendedor.idPago);
 
             int i = pst.executeUpdate();
-            if (i > 0) {
-                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
-                JOptionPane.showMessageDialog(null, "Los datos del encabezado fueron almacenados satisfactoriamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-            }
+
         } catch (Exception e) {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
             JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar el registro", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
@@ -113,10 +110,7 @@ public class Factura extends javax.swing.JFrame {
             pst.setDouble(8, ConfirmarVenta.totalPago);
 
             int i = pst.executeUpdate();
-            if (i > 0) {
-                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
-                JOptionPane.showMessageDialog(null, "Los datos del detalle fueron almacenados satisfactoriamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-            }
+
         } catch (Exception e) {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
             JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar el registro", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
@@ -544,7 +538,7 @@ public class Factura extends javax.swing.JFrame {
             }
 
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
-            JOptionPane.showMessageDialog(null, "Factura generada exitosamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            JOptionPane.showMessageDialog(null, "Factura generada y almacenada exitosamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             facturaEncabezado();
             idFacturaEncabezado();
             facturaDetalle();
