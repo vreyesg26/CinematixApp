@@ -835,7 +835,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     void obtenerSalas(String idPelicula) {
-        String sql = "SELECT S.Sala FROM peliculassalas AS PS INNER JOIN salas AS S ON  PS.IDSalas = S.IDSalas WHERE PS.IdPelicula = '" + idPelicula + "'";
+        String sql = "SELECT S.Sala FROM peliculassalas AS PS INNER JOIN salas AS S ON  PS.IDSalas = S.IDSalas WHERE PS.IdPelicula = '" + idPelicula + "' AND S.IDEstado = 1";
 
         try {
             Statement st = cn.createStatement();
