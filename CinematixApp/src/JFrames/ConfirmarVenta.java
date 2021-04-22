@@ -575,14 +575,14 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldEfectivoRecibidoActionPerformed
 
-    public static boolean pantallaCliente = false;
+    public static boolean pantallaClienteVenta = false;
     private void btnAgregarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClienteActionPerformed
 
-        if (pantallaCliente == false) {
+        if (pantallaClienteVenta == false) {
             RegistroClientesVenta rc = new RegistroClientesVenta();
             rc.setVisible(true);
-            pantallaCliente = true;
-        } else if (pantallaCliente == true) {
+            pantallaClienteVenta = true;
+        } else if (pantallaClienteVenta == true) {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
             JOptionPane.showMessageDialog(null, "La pantalla Registrar Clientes ya se está ejecutando", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }

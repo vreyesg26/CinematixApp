@@ -581,11 +581,11 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
             int salidaConfirmacion = JOptionPane.showConfirmDialog(null, "Al parecer tienes un proceso pendiente\n ¿Estás seguro que deseas salir?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPaneIcon);
             if (salidaConfirmacion == 0) {
                 this.dispose();
-                ConfirmarVenta.pantallaCliente = false;
+                ConfirmarVenta.pantallaClienteVenta = false;
             }
         } else {
             this.dispose();
-            ConfirmarVenta.pantallaCliente = false;
+            ConfirmarVenta.pantallaClienteVenta = false;
         }
     }//GEN-LAST:event_btnRegresarMouseClicked
 

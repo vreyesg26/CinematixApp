@@ -53,6 +53,10 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
         listaHorariosAgregados.setModel(modelHorariosElegidos);
         listaSalas.setModel(modelSalas);
         listaSalasAgregadas.setModel(modelSalasElegidas);
+        
+        habilitarActores();
+        habilitarHorarios();
+        habilitarSalas();
     }
 
     @Override
@@ -354,16 +358,17 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
             modelSalas.addElement(arregloSalas.get(i));
         }
     }
-    
+
     String idUltimaPelicula;
-    void obtenerUltimaPelicula(){
+
+    void obtenerUltimaPelicula() {
         String sql = "SELECT IdPelicula, Titulo FROM peliculas ORDER BY IdPelicula DESC LIMIT 1";
-        
+
         try {
             Statement st = cc.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            
-            if(rs.next()){
+
+            if (rs.next()) {
                 idUltimaPelicula = rs.getString("IdPelicula");
                 String titulo = rs.getString("Titulo");
                 lbPelicula.setText(titulo.toUpperCase());
@@ -592,6 +597,42 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
         }
     }
 
+    void habilitarActores() {
+        btnAgregarActor.setEnabled(true);
+        btnEliminarActor.setEnabled(true);
+        btnActores.setEnabled(true);
+    }
+
+    void deshabilitarActores() {
+        btnAgregarActor.setEnabled(false);
+        btnEliminarActor.setEnabled(false);
+        btnActores.setEnabled(false);
+    }
+    
+    void habilitarHorarios() {
+        btnAgregarHorario.setEnabled(true);
+        btnEliminarHorario.setEnabled(true);
+        btnHorarios.setEnabled(true);
+    }
+
+    void deshabilitarHorarios() {
+        btnAgregarHorario.setEnabled(false);
+        btnEliminarHorario.setEnabled(false);
+        btnHorarios.setEnabled(false);
+    }
+    
+    void habilitarSalas() {
+        btnAgregarSala.setEnabled(true);
+        btnEliminarSala.setEnabled(true);
+        btnSalas.setEnabled(true);
+    }
+
+    void deshabilitarSalas() {
+        btnAgregarSala.setEnabled(false);
+        btnEliminarSala.setEnabled(false);
+        btnSalas.setEnabled(false);
+    }
+
     private void btnActoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActoresActionPerformed
         if (arregloActoresElegidos.isEmpty()) {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
@@ -599,6 +640,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
         } else {
             obtenerIDActores();
             guardarActores();
+            deshabilitarActores();
         }
     }//GEN-LAST:event_btnActoresActionPerformed
 
@@ -609,6 +651,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
         } else {
             obtenerIDHorarios();
             guardarHorarios();
+            deshabilitarHorarios();
         }
     }//GEN-LAST:event_btnHorariosActionPerformed
 
@@ -619,6 +662,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
         } else {
             obtenerIDSalas();
             guardarSalas();
+            deshabilitarSalas();
         }
     }//GEN-LAST:event_btnSalasActionPerformed
 

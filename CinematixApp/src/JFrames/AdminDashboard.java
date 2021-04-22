@@ -6,6 +6,7 @@
 package JFrames;
 
 import Paneles.panelAcercaDe;
+import Paneles.panelHistorial;
 import Paneles.panelInicio;
 import Paneles.panelPeliculas;
 import Paneles.panelVendedores;
@@ -37,6 +38,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         lbPunto1.setVisible(false);
         lbPunto2.setVisible(false);
         lbPunto3.setVisible(false);
+        lbPunto4.setVisible(false);
         lbUsuarioSesion.setText("       " + LoginAdmin.usuario.toUpperCase());
 
         btnAcerca.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
@@ -44,6 +46,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         btnSalir.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnVendedores.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnInicio.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnHistorial.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         lbUsuarioSesion.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 11));
     }
 
@@ -67,10 +70,12 @@ public class AdminDashboard extends javax.swing.JFrame {
         btnVendedores = new rojerusan.RSButtonMetro();
         btnAcerca = new rojerusan.RSButtonMetro();
         btnSalir = new rojerusan.RSButtonMetro();
+        btnHistorial = new rojerusan.RSButtonMetro();
         lbPunto = new javax.swing.JLabel();
         lbPunto1 = new javax.swing.JLabel();
         lbPunto2 = new javax.swing.JLabel();
         lbPunto3 = new javax.swing.JLabel();
+        lbPunto4 = new javax.swing.JLabel();
         panelContenedor = new javax.swing.JPanel();
         lbImagenUsuario = new javax.swing.JLabel();
         lbUsuarioSesion = new javax.swing.JLabel();
@@ -113,7 +118,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 btnPeliculasActionPerformed(evt);
             }
         });
-        getContentPane().add(btnPeliculas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 309, 190, 26));
+        getContentPane().add(btnPeliculas, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 304, 190, 26));
 
         btnVendedores.setBackground(new java.awt.Color(61, 61, 61));
         btnVendedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoVendedores.png"))); // NOI18N
@@ -127,7 +132,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 btnVendedoresActionPerformed(evt);
             }
         });
-        getContentPane().add(btnVendedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 369, 190, 26));
+        getContentPane().add(btnVendedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 359, 190, 26));
 
         btnAcerca.setBackground(new java.awt.Color(61, 61, 61));
         btnAcerca.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoAcerca.png"))); // NOI18N
@@ -141,7 +146,7 @@ public class AdminDashboard extends javax.swing.JFrame {
                 btnAcercaActionPerformed(evt);
             }
         });
-        getContentPane().add(btnAcerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 429, 190, 26));
+        getContentPane().add(btnAcerca, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 472, 190, 26));
 
         btnSalir.setBackground(new java.awt.Color(61, 61, 61));
         btnSalir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/iconoSalir.png"))); // NOI18N
@@ -155,7 +160,21 @@ public class AdminDashboard extends javax.swing.JFrame {
                 btnSalirActionPerformed(evt);
             }
         });
-        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 489, 190, 26));
+        getContentPane().add(btnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 527, 190, 26));
+
+        btnHistorial.setBackground(new java.awt.Color(61, 61, 61));
+        btnHistorial.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoHistorial.png"))); // NOI18N
+        btnHistorial.setText("   HISTORIAL");
+        btnHistorial.setBorderPainted(false);
+        btnHistorial.setFocusPainted(false);
+        btnHistorial.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnHistorial.setSelected(true);
+        btnHistorial.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistorialActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnHistorial, new org.netbeans.lib.awtextra.AbsoluteConstraints(28, 414, 190, 26));
 
         lbPunto.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lbPunto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoPunto.png"))); // NOI18N
@@ -163,15 +182,19 @@ public class AdminDashboard extends javax.swing.JFrame {
 
         lbPunto1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lbPunto1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoPunto.png"))); // NOI18N
-        getContentPane().add(lbPunto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 318, -1, -1));
+        getContentPane().add(lbPunto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 313, -1, -1));
 
         lbPunto2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lbPunto2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoPunto.png"))); // NOI18N
-        getContentPane().add(lbPunto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 378, -1, -1));
+        getContentPane().add(lbPunto2, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 369, -1, -1));
 
         lbPunto3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         lbPunto3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoPunto.png"))); // NOI18N
-        getContentPane().add(lbPunto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 438, -1, -1));
+        getContentPane().add(lbPunto3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 423, -1, -1));
+
+        lbPunto4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        lbPunto4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoPunto.png"))); // NOI18N
+        getContentPane().add(lbPunto4, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 480, -1, -1));
 
         panelContenedor.setBackground(new java.awt.Color(61, 61, 61));
         panelContenedor.setForeground(new java.awt.Color(61, 61, 61));
@@ -255,6 +278,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         lbPunto1.setVisible(false);
         lbPunto2.setVisible(false);
         lbPunto3.setVisible(false);
+        lbPunto4.setVisible(false);
     }//GEN-LAST:event_btnSalirActionPerformed
 
     private void btnAcercaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcercaActionPerformed
@@ -263,7 +287,8 @@ public class AdminDashboard extends javax.swing.JFrame {
             lbPunto.setVisible(false);
             lbPunto1.setVisible(false);
             lbPunto2.setVisible(false);
-            lbPunto3.setVisible(true);
+            lbPunto3.setVisible(false);
+            lbPunto4.setVisible(true);
         } else {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
             JOptionPane.showMessageDialog(null, "Debe cerrar la pantalla de información adicional para continuar", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
@@ -276,6 +301,7 @@ public class AdminDashboard extends javax.swing.JFrame {
         lbPunto1.setVisible(true);
         lbPunto2.setVisible(false);
         lbPunto3.setVisible(false);
+        lbPunto4.setVisible(false);
     }//GEN-LAST:event_btnPeliculasActionPerformed
 
     private void btnInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioActionPerformed
@@ -285,6 +311,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             lbPunto1.setVisible(false);
             lbPunto2.setVisible(false);
             lbPunto3.setVisible(false);
+            lbPunto4.setVisible(false);
         } else {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
             JOptionPane.showMessageDialog(null, "Debe cerrar la pantalla de información adicional para continuar", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
@@ -298,6 +325,20 @@ public class AdminDashboard extends javax.swing.JFrame {
     private void lbImagenUsuarioMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbImagenUsuarioMouseExited
         //lbUsuarioSesion.setBounds(31, 655, 15, 24);
     }//GEN-LAST:event_lbImagenUsuarioMouseExited
+
+    private void btnHistorialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistorialActionPerformed
+        if (Paneles.panelPeliculas.pantallaInfoAdicional != true) {
+            new CambiaPanel(panelContenedor, new panelHistorial());
+            lbPunto.setVisible(false);
+            lbPunto1.setVisible(false);
+            lbPunto2.setVisible(false);
+            lbPunto3.setVisible(true);
+            lbPunto4.setVisible(false);
+        } else {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debe cerrar la pantalla de información adicional para continuar", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
+    }//GEN-LAST:event_btnHistorialActionPerformed
 
     /**
      * @param args the command line arguments
@@ -337,6 +378,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel back;
     private rojerusan.RSButtonMetro btnAcerca;
+    private rojerusan.RSButtonMetro btnHistorial;
     private rojerusan.RSButtonMetro btnInicio;
     private rojerusan.RSButtonMetro btnPeliculas;
     private rojerusan.RSButtonMetro btnSalir;
@@ -346,6 +388,7 @@ public class AdminDashboard extends javax.swing.JFrame {
     private javax.swing.JLabel lbPunto1;
     private javax.swing.JLabel lbPunto2;
     private javax.swing.JLabel lbPunto3;
+    private javax.swing.JLabel lbPunto4;
     private javax.swing.JLabel lbUsuarioSesion;
     private javax.swing.JPanel panelContenedor;
     // End of variables declaration//GEN-END:variables
