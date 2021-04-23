@@ -6,6 +6,7 @@
 package Paneles;
 
 import Datos.Conexion;
+import JFrames.FacturaReporte;
 import JFrames.TextPrompt;
 import Tipografia.Fuente;
 import java.awt.Graphics;
@@ -36,15 +37,15 @@ public class panelHistorial extends javax.swing.JPanel {
      * Creates new form panelHistorial
      */
     Fuente tipoFuente;
+
     public panelHistorial() {
         initComponents();
         cargarData("");
-//        anchoColumnas();
-        
+
         tipoFuente = new Fuente();
         tablaFacturas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 2, 14));
         jtextFIltroFactura.setFont(tipoFuente.fuente(tipoFuente.LUSI, 2, 14));
-        
+
         TextPrompt filtro = new TextPrompt("Buscar por Fecha o Vendedor", jtextFIltroFactura);
         filtro.setFont(tipoFuente.fuente(tipoFuente.LUSI, 2, 14));
     }
@@ -58,12 +59,22 @@ public class panelHistorial extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        visualizarFactura = new javax.swing.JMenuItem();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablaFacturas = new javax.swing.JTable();
         btnGenerarReporte = new javax.swing.JButton();
         jtextFIltroFactura = new javax.swing.JTextField();
         lbBuscarFactura = new javax.swing.JLabel();
+
+        visualizarFactura.setText("Visualizar Factura");
+        visualizarFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                visualizarFacturaActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(visualizarFactura);
 
         setOpaque(false);
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -84,7 +95,8 @@ public class panelHistorial extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tablaFacturas.setAutoscrolls(false);
+        tablaFacturas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
+        tablaFacturas.setComponentPopupMenu(jPopupMenu1);
         tablaFacturas.setOpaque(false);
         tablaFacturas.setRowHeight(25);
         tablaFacturas.setSelectionBackground(new java.awt.Color(29, 29, 29));
@@ -100,8 +112,6 @@ public class panelHistorial extends javax.swing.JPanel {
         btnGenerarReporte.setContentAreaFilled(false);
         btnGenerarReporte.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGenerarReporte.setFocusPainted(false);
-        btnGenerarReporte.setLabel("");
-        btnGenerarReporte.setOpaque(false);
         btnGenerarReporte.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/btngGenerarReporte2.png"))); // NOI18N
         btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,7 +146,7 @@ public class panelHistorial extends javax.swing.JPanel {
         anchoColumnas.getColumn(6).setPreferredWidth(70);
         anchoColumnas.getColumn(7).setPreferredWidth(135);
     }
-    
+
     ResultSet rs;
     PreparedStatement Pst;
     DefaultTableModel model;
@@ -144,7 +154,7 @@ public class panelHistorial extends javax.swing.JPanel {
     Connection cn = cc.GetConexion();
 
     void cargarData(String valor) {
-        String[] titulos = {"IDFactura", "N° Factura", "Pelicula", "Fecha Emision", "Hora Emisión", 
+        String[] titulos = {"IDFactura", "N° Factura", "Pelicula", "Fecha Emision", "Hora Emisión",
             "Forma Pago", "Total", "Vendedor"};
         String[] registros = new String[8];
 
@@ -183,9 +193,9 @@ public class panelHistorial extends javax.swing.JPanel {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     void buscarData(String valor) {
-        String[] titulos = {"IDFactura", "N° Factura", "Pelicula", "Fecha Emision", "Hora Emisión", 
+        String[] titulos = {"IDFactura", "N° Factura", "Pelicula", "Fecha Emision", "Hora Emisión",
             "Forma Pago", "Total", "Vendedor"};
         String[] registros = new String[8];
         String sql = "SELECT FD.IDFacturaDetalle, FD.NumeroFactura, P.Titulo,\n"
@@ -224,7 +234,7 @@ public class panelHistorial extends javax.swing.JPanel {
             Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
         ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
         int decision = JOptionPane.showConfirmDialog(null, "¿Desea imprimir el reporte de ventas?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
@@ -263,14 +273,69 @@ public class panelHistorial extends javax.swing.JPanel {
         buscarData(jtextFIltroFactura.getText());
     }//GEN-LAST:event_jtextFIltroFacturaKeyTyped
 
+    public static String horaEmision, fechaEmision, nombreVendedor, numeroFactura, cai, fechaFinalCAI,
+            pelicula, sala, hora, total, asientos, nombreCliente;
+    public static boolean facturaHistorial = false;
+    private void visualizarFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_visualizarFacturaActionPerformed
+        int fila = tablaFacturas.getSelectedRow();
+
+        if (fila >= 0) {
+            String numFactura = tablaFacturas.getValueAt(fila, 1).toString();
+
+            String sql = "SELECT FE.HoraEmision, FE.FechaEmision, V.Nombre, FD.NumeroFactura, PAR.Valor, \n"
+                    + "PAR.FechaFinal, P.Titulo, S.Sala, H.Hora, FD.Total, FD.Asientos, C.Nombre\n"
+                    + "FROM facturadetalle AS FD\n"
+                    + "INNER JOIN peliculas AS P ON FD.IdPelicula = P.IdPelicula\n"
+                    + "INNER JOIN salas AS S ON FD.IDSalas = S.IDSalas\n"
+                    + "INNER JOIN horarios AS H ON FD.IDHorario = H.IDHorario\n"
+                    + "INNER JOIN facturaencabezado AS FE ON FD.IDFacturaEncabezado = FE.IDFacturaEncabezado\n"
+                    + "INNER JOIN formaspago AS FP ON FE.IDPago = FP.IDPago\n"
+                    + "INNER JOIN vendedor AS V ON FE.IDVendedor = V.IDVendedor\n"
+                    + "INNER JOIN parametros AS PAR ON FD.IDParametro = PAR.IDParametro\n"
+                    + "INNER JOIN cliente AS C ON FE.IDCliente = C.IDCliente\n"
+                    + "WHERE FD.NumeroFactura = '" + numFactura + "'";
+
+            try {
+                Statement st = cn.createStatement();
+                ResultSet rs = st.executeQuery(sql);
+
+                if (rs.next()) {
+                    horaEmision = rs.getString("FE.HoraEmision");
+                    fechaEmision = rs.getString("FE.FechaEmision");
+                    nombreVendedor = rs.getString("V.Nombre");
+                    numeroFactura = rs.getString("FD.NumeroFactura");
+                    cai = rs.getString("PAR.Valor");
+                    fechaFinalCAI = rs.getString("PAR.FechaFinal");
+                    pelicula = rs.getString("P.Titulo");
+                    sala = rs.getString("S.Sala");
+                    hora = rs.getString("H.Hora");
+                    total = rs.getString("FD.Total");
+                    asientos = rs.getString("FD.Asientos");
+                    nombreCliente = rs.getString("C.Nombre");
+                    if (facturaHistorial == false) {
+                        FacturaReporte fr = new FacturaReporte();
+                        fr.setVisible(true);
+                        facturaHistorial = true;
+                    } else if (facturaHistorial == true) {
+                        ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                        JOptionPane.showMessageDialog(null, "Ya hay una factura mostrándose", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                    }
+                }
+            } catch (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_visualizarFacturaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGenerarReporte;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jtextFIltroFactura;
     private javax.swing.JLabel lbBuscarFactura;
-    private javax.swing.JTable tablaFacturas;
+    public static javax.swing.JTable tablaFacturas;
+    private javax.swing.JMenuItem visualizarFactura;
     // End of variables declaration//GEN-END:variables
 
 }
