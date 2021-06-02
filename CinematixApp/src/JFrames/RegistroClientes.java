@@ -78,7 +78,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         txtNombre = new javax.swing.JTextField();
         txtBuscar = new javax.swing.JTextField();
         txtCorreo = new javax.swing.JTextField();
-        cbTipoDocu = new javax.swing.JComboBox<String>();
+        cbTipoDocu = new javax.swing.JComboBox<>();
         txtNumDocu = new javax.swing.JTextField();
         lbX = new javax.swing.JLabel();
         btnNuevo = new rojeru_san.complementos.RSButtonHover();
@@ -86,7 +86,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         btnDeshabilitar = new rojeru_san.complementos.RSButtonHover();
         btnGuardar = new rojeru_san.complementos.RSButtonHover();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaClientes = new javax.swing.JTable();
+        tablaClientes1 = new javax.swing.JTable();
         lbCorreoX = new javax.swing.JLabel();
         lbNumDocuX = new javax.swing.JLabel();
         lbNombreX = new javax.swing.JLabel();
@@ -275,10 +275,10 @@ public class RegistroClientes extends javax.swing.JFrame {
         });
         getContentPane().add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 345, 140, 40));
 
-        tablaClientes.setBackground(new java.awt.Color(61, 61, 61));
-        tablaClientes.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
-        tablaClientes.setForeground(new java.awt.Color(255, 255, 255));
-        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
+        tablaClientes1.setBackground(new java.awt.Color(61, 61, 61));
+        tablaClientes1.setFont(new java.awt.Font("Garamond", 1, 16)); // NOI18N
+        tablaClientes1.setForeground(new java.awt.Color(255, 255, 255));
+        tablaClientes1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -288,21 +288,21 @@ public class RegistroClientes extends javax.swing.JFrame {
 
             }
         ));
-        tablaClientes.setAlignmentY(4.0F);
-        tablaClientes.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        tablaClientes.setComponentPopupMenu(jPopupMenu1);
-        tablaClientes.setFillsViewportHeight(true);
-        tablaClientes.setOpaque(false);
-        tablaClientes.setPreferredSize(new java.awt.Dimension(300, 60));
-        tablaClientes.setRowHeight(25);
-        tablaClientes.setSelectionBackground(new java.awt.Color(29, 29, 29));
-        tablaClientes.setSelectionForeground(new java.awt.Color(255, 255, 255));
-        tablaClientes.addMouseListener(new java.awt.event.MouseAdapter() {
+        tablaClientes1.setAlignmentY(4.0F);
+        tablaClientes1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_LAST_COLUMN);
+        tablaClientes1.setComponentPopupMenu(jPopupMenu1);
+        tablaClientes1.setFillsViewportHeight(true);
+        tablaClientes1.setOpaque(false);
+        tablaClientes1.setPreferredSize(new java.awt.Dimension(300, 60));
+        tablaClientes1.setRowHeight(25);
+        tablaClientes1.setSelectionBackground(new java.awt.Color(29, 29, 29));
+        tablaClientes1.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tablaClientes1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablaClientesMouseClicked(evt);
+                tablaClientes1MouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tablaClientes);
+        jScrollPane1.setViewportView(tablaClientes1);
 
         getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 120, 430, 310));
 
@@ -424,7 +424,7 @@ public class RegistroClientes extends javax.swing.JFrame {
     }
 
     void anchoColumnas() {
-        TableColumnModel anchoColumnas = tablaClientes.getColumnModel();
+        TableColumnModel anchoColumnas = tablaClientes1.getColumnModel();
         anchoColumnas.getColumn(0).setPreferredWidth(30);
         anchoColumnas.getColumn(1).setPreferredWidth(130);
         anchoColumnas.getColumn(2).setPreferredWidth(130);
@@ -439,7 +439,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         txtCorreo.setText("");
         cbTipoDocu.setSelectedIndex(0);
         txtNumDocu.setText("");
-        tablaClientes.clearSelection();
+        tablaClientes1.clearSelection();
         txtNombre.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
         lbNombreX.setVisible(false);
         txtCorreo.setBorder(BorderFactory.createLineBorder(Color.WHITE, 1));
@@ -456,7 +456,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         btnGuardar.setEnabled(false);
         btnActualizar.setEnabled(false);
         btnDeshabilitar.setEnabled(false);
-        tablaClientes.setEnabled(false);
+        tablaClientes1.setEnabled(false);
     }
 
     void desbloquear() {
@@ -466,7 +466,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         txtNumDocu.setEnabled(true);
         btnGuardar.setEnabled(true);
         btnDeshabilitar.setEnabled(true);
-        tablaClientes.setEnabled(true);
+        tablaClientes1.setEnabled(true);
     }
 
     void cargarTipoDocumento() {
@@ -516,7 +516,7 @@ public class RegistroClientes extends javax.swing.JFrame {
                 model.addRow(registros);
             }
 
-            tablaClientes.setModel(model);
+            tablaClientes1.setModel(model);
             anchoColumnas();
         } catch (SQLException ex) {
             Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
@@ -548,7 +548,7 @@ public class RegistroClientes extends javax.swing.JFrame {
                 model.addRow(registros);
             }
 
-            tablaClientes.setModel(model);
+            tablaClientes1.setModel(model);
             anchoColumnas();
         } catch (SQLException ex) {
             Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
@@ -569,11 +569,11 @@ public class RegistroClientes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRegresarMouseClicked
 
-    private void tablaClientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClientesMouseClicked
-        int fila = tablaClientes.getSelectedRow();
+    private void tablaClientes1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaClientes1MouseClicked
+        int fila = tablaClientes1.getSelectedRow();
         if (fila >= 0) {
             btnDeshabilitar.setEnabled(true);
-            String estado = tablaClientes.getValueAt(fila, 5).toString();
+            String estado = tablaClientes1.getValueAt(fila, 5).toString();
 
             if ("3".equals(estado)) {
                 ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
@@ -585,16 +585,16 @@ public class RegistroClientes extends javax.swing.JFrame {
                 btnDeshabilitar.setText("HABILITAR");
             }
         }
-    }//GEN-LAST:event_tablaClientesMouseClicked
+    }//GEN-LAST:event_tablaClientes1MouseClicked
 
     private void btnDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeshabilitarActionPerformed
-        int fila = tablaClientes.getSelectedRow();
+        int fila = tablaClientes1.getSelectedRow();
         String habilitado = "1";
         String deshabilitado = "2";
 
         if (fila >= 0) {
-            String id = tablaClientes.getValueAt(fila, 0).toString();
-            String cliente = tablaClientes.getValueAt(fila, 1).toString();
+            String id = tablaClientes1.getValueAt(fila, 0).toString();
+            String cliente = tablaClientes1.getValueAt(fila, 1).toString();
 
             if (btnDeshabilitar.getText().equals("CANCELAR")) {
                 limpiarCajas();
@@ -650,7 +650,7 @@ public class RegistroClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeshabilitarActionPerformed
 
     void modificarRegistro() {
-        int fila = tablaClientes.getSelectedRow();
+        int fila = tablaClientes1.getSelectedRow();
 
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
         btnDeshabilitar.setIcon(iconobtn);
@@ -664,11 +664,11 @@ public class RegistroClientes extends javax.swing.JFrame {
             txtCorreo.setEnabled(true);
             btnGuardar.setEnabled(false);
 
-            String id = tablaClientes.getValueAt(fila, 0).toString();
-            String nombre = tablaClientes.getValueAt(fila, 1).toString();
-            String correo = tablaClientes.getValueAt(fila, 2).toString();
-            String idTipoDocumento = tablaClientes.getValueAt(fila, 3).toString();
-            String numDocumento = tablaClientes.getValueAt(fila, 4).toString();
+            String id = tablaClientes1.getValueAt(fila, 0).toString();
+            String nombre = tablaClientes1.getValueAt(fila, 1).toString();
+            String correo = tablaClientes1.getValueAt(fila, 2).toString();
+            String idTipoDocumento = tablaClientes1.getValueAt(fila, 3).toString();
+            String numDocumento = tablaClientes1.getValueAt(fila, 4).toString();
 
             txtIDCliente.setText(id);
             txtNombre.setText(nombre);
@@ -1102,7 +1102,7 @@ public class RegistroClientes extends javax.swing.JFrame {
     private javax.swing.JLabel lbNumDocuX;
     private javax.swing.JLabel lbX;
     private javax.swing.JMenuItem modificarCliente;
-    private javax.swing.JTable tablaClientes;
+    private javax.swing.JTable tablaClientes1;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtIDCliente;

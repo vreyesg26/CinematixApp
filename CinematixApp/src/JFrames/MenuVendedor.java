@@ -95,7 +95,6 @@ public class MenuVendedor extends javax.swing.JFrame {
             cmbSalas.setEnabled(false);
             limpiar();
             Desactivados();
-            cmbSalas.removeAllItems();
         }
     }
 
@@ -226,7 +225,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     }
 
     public static void Horarios(String idPelicula) {
-        int Combo;
+        jComboBoxHora.removeAllItems();
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
 
@@ -257,12 +256,15 @@ public class MenuVendedor extends javax.swing.JFrame {
         txtBoletosAdultos.setText("");
         txtBoletosNiños.setText("");
         buttonGroup1.clearSelection();
-        jComboBoxPeliculas.removeAllItems();
-        jComboBoxHora.removeAllItems();
+        jComboBoxPeliculas.setSelectedIndex(0);
+        if (jComboBoxPeliculas.getSelectedIndex() == 0) {
+            jComboBoxPeliculas.removeAllItems();
+            jComboBoxHora.removeAllItems();
+            cmbSalas.removeAllItems();
+        }
         lbResultado.setText("");
         lb14.setText("");
         lb15.setText("");
-        cmbSalas.removeAllItems();
         lb9.setText("");
         lb10.setText("");
         lbImagen.setIcon(null);
@@ -835,6 +837,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     void obtenerSalas(String idPelicula) {
+        cmbSalas.removeAllItems();
         String sql = "SELECT S.Sala FROM peliculassalas AS PS INNER JOIN salas AS S ON  PS.IDSalas = S.IDSalas WHERE PS.IdPelicula = '" + idPelicula + "' AND S.IDEstado = 1";
 
         try {
@@ -873,11 +876,6 @@ public class MenuVendedor extends javax.swing.JFrame {
                     cmbSalas.getSelectedItem();
                     obtenerSalas(idPelicula);
                     Horarios(idPelicula);
-                    //System.out.println(sala);
-
-                    // String numeroSala = rs.getString("P.IDSalas");
-//                System.out.println(numeroSala);
-//                consultarPrecios(numeroSala);
                     Image i = null;
 
                     Blob blob = rs.getBlob("P.Foto");
@@ -885,7 +883,6 @@ public class MenuVendedor extends javax.swing.JFrame {
                     ImageIcon image = new ImageIcon(i.getScaledInstance(lbImagen.getWidth(), lbImagen.getHeight(), Image.SCALE_DEFAULT));
                     lbImagen.setIcon(image);
                     this.repaint();
-                    //rsscalelabel.RSScaleLabel.setScaleLabel(lbImagen, image.toString());
 
                     if (genero.equals("Terror") || genero.equals("Suspenso")) {
                         lbMenores.setText("Esta pelicula no es apta para menores de edad");
@@ -1137,7 +1134,6 @@ public class MenuVendedor extends javax.swing.JFrame {
 
                 if (rs.next()) {
                     idSala = rs.getString("IDSalas");
-
                     consultarPrecios(idSala);
                 }
             } catch (Exception e) {
@@ -1148,6 +1144,7 @@ public class MenuVendedor extends javax.swing.JFrame {
     }
     private void cmbSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbSalasActionPerformed
         obtenerSalas();
+        consultarPrecios(idSala);
     }//GEN-LAST:event_cmbSalasActionPerformed
 
     private void cmbSalasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cmbSalasMouseClicked
