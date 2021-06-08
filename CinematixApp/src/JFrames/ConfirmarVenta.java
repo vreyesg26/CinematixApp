@@ -12,6 +12,8 @@ import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -66,7 +68,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         jLabelTotalPago.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         jLabelImpuesto.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 18));
         lbAgregarCliente.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
-        
+
         RegistroClientesVenta.idCliente = "1";
         lbAgregarCliente.setText("Consumidor Final");
     }
@@ -438,6 +440,11 @@ public class ConfirmarVenta extends javax.swing.JFrame {
                 jTextFieldEfectivoRecibidoActionPerformed(evt);
             }
         });
+        jTextFieldEfectivoRecibido.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldEfectivoRecibidoKeyTyped(evt);
+            }
+        });
         jPanel2.add(jTextFieldEfectivoRecibido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 145, 30));
 
         lb17.setFont(new java.awt.Font("Ubuntu Condensed", 0, 18)); // NOI18N
@@ -590,6 +597,24 @@ public class ConfirmarVenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "La pantalla Registrar Clientes ya se está ejecutando", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }//GEN-LAST:event_btnAgregarClienteActionPerformed
+
+    public void validarNumeros(java.awt.event.KeyEvent e) {
+        if (e.getKeyChar() >= 33 && e.getKeyChar() <= 47
+                || e.getKeyChar() >= 58 && e.getKeyChar() <= 238) {
+
+            e.consume();
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "Este campo solo admite números", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
+    }
+    
+    private void jTextFieldEfectivoRecibidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldEfectivoRecibidoKeyTyped
+        validarNumeros(evt);
+        if(jTextFieldEfectivoRecibido.getText().startsWith(String.valueOf(0))){
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+            JOptionPane.showMessageDialog(null, "Asegurate de escribir una cantidad correcta", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
+    }//GEN-LAST:event_jTextFieldEfectivoRecibidoKeyTyped
 
     /**
      * @param args the command line arguments

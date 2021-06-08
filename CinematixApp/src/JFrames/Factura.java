@@ -188,25 +188,7 @@ public class Factura extends javax.swing.JFrame {
     }
 
     void limpiar() {
-//        ImageIcon i = new ImageIcon("");
-//        MenuVendedor.txtBoletosAdultos.setText("");
-//        MenuVendedor.buttonGroup1.clearSelection();
-//        MenuVendedor.jComboBoxHora.removeAllItems();
-//        MenuVendedor.jComboBoxPeliculas.setSelectedIndex(0);
-//        MenuVendedor.lbMenores.setText("");
-//        MenuVendedor.txtBoletosNiños.setVisible(true);
-//        MenuVendedor.txtBoletosNiños.setText("");
-//        MenuVendedor.cmbSalas.removeAllItems();
-//        MenuVendedor.lb9.setText("");
-//        MenuVendedor.lb10.setText("");
-//        MenuVendedor.lbResultado.setText("");
-//        MenuVendedor.lbImagen.setIcon(null);
-//        MenuVendedor.lb14.setText("");
-//        MenuVendedor.lb15.setText("");
-//        MenuVendedor.btnSalas.setEnabled(true);
-//        MenuVendedor.Desactivados();
         MenuVendedor.jComboBoxPeliculas.setSelectedIndex(0);
-//        MenuVendedor.btnEncendido.setSelected(false);
         MenuVendedor.limpiar2();
     }
 

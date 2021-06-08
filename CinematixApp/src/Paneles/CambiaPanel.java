@@ -7,19 +7,16 @@ package paneles;
 
 /**
  *
- * @author RojeruSan
+ * @author Los Pibes
  */
 import javax.swing.JPanel;
 
 public class CambiaPanel {
-    //
+    
     private JPanel container;
     private JPanel content;
-
-
-    /**
-     * Constructor de clase
-     */
+    
+    
     public CambiaPanel(JPanel container, JPanel content) {
         this.container = container;
         this.content = content;
@@ -31,5 +28,4 @@ public class CambiaPanel {
         this.container.revalidate();
         this.container.repaint();
     }
-
-}//--> fin clase
+}

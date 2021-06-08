@@ -287,6 +287,8 @@ public class MenuVendedor extends javax.swing.JFrame {
         lb10.setText("");
         lbImagen.setIcon(null);
         lbMenores.setText("");
+        btnContinuar.setEnabled(false);
+        btnSalas.setEnabled(true);
     }
 
     void calculo() {
@@ -339,21 +341,8 @@ public class MenuVendedor extends javax.swing.JFrame {
             ConfirmarVenta.jTextFieldNombreVendedor.setText(lbVendedor.getText().substring(12, lbVendedor.getText().length() - 1));
         }
     }
-
-    /*void buscarData(){
-            String sql = "SELECT Titulo FROM Peliculas";
-             DefaultComboBoxModel ListaModelo = new DefaultComboBoxModel();
-             ListaModelo.addElement("Seleccione");
-             try{
-            Statement st = cn.createStatement();
-        try (ResultSet rs = st.executeQuery(sql)) {
-            while(rs.next()){
-                ListaModelo.addElement(rs.getString("Titulo"));
-            }
-        }
-             }catch (SQLException ex){
-                 System.out.println(ex.getMessage());
-             }*/
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -876,6 +865,8 @@ public class MenuVendedor extends javax.swing.JFrame {
                     cmbSalas.getSelectedItem();
                     obtenerSalas(idPelicula);
                     Horarios(idPelicula);
+                    lb9.setText("");
+                    lb10.setText("");
                     Image i = null;
 
                     Blob blob = rs.getBlob("P.Foto");

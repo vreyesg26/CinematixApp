@@ -595,11 +595,11 @@ public class RegistroClientesVenta extends javax.swing.JFrame {
             btnDeshabilitar.setEnabled(true);
             String estado = tablaClientes.getValueAt(fila, 5).toString();
 
-            if ("3".equals(estado)) {
+            if ("Habilitado".equals(estado)) {
                 ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
                 btnDeshabilitar.setIcon(iconobtn);
                 btnDeshabilitar.setText("DESHABILITAR");
-            } else if ("0".equals(estado)) {
+            } else if ("Deshabilitado".equals(estado)) {
                 ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoHabilitar.png");
                 btnDeshabilitar.setIcon(iconobtn);
                 btnDeshabilitar.setText("HABILITAR");
