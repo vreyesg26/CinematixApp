@@ -39,8 +39,9 @@ public class Sala3DTest {
         Sala3D instance = new Sala3D();
         Image expResult = null;
         Image result = instance.getIconImage();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        if (result == null) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test

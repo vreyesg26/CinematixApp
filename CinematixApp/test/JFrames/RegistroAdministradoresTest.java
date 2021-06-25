@@ -39,8 +39,9 @@ public class RegistroAdministradoresTest {
         RegistroAdministradores instance = new RegistroAdministradores();
         Image expResult = null;
         Image result = instance.getIconImage();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        if (result == null) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test

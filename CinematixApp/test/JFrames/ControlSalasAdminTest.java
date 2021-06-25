@@ -51,7 +51,7 @@ public class ControlSalasAdminTest {
         ControlSalasAdmin instance = new ControlSalasAdmin();
         try {
             instance.disponibles2D();
-        } catch{
+        } catch(Exception e){
             fail("The test case is a prototype.");
         }
     }
@@ -62,7 +62,7 @@ public class ControlSalasAdminTest {
         ControlSalasAdmin instance = new ControlSalasAdmin();
         try {
             instance.reservados2D();
-        } catch{
+        } catch(Exception e){
             fail("The test case is a prototype.");
         }
     }
@@ -73,7 +73,7 @@ public class ControlSalasAdminTest {
         ControlSalasAdmin instance = new ControlSalasAdmin();
         try {
             instance.disponibles3D();
-        } catch{
+        } catch (Exception e){
             fail("The test case is a prototype.");
         }
     }
@@ -85,7 +85,7 @@ public class ControlSalasAdminTest {
         instance.reservados3D();
           try {
             instance.reservados3D();
-        } catch{
+        } catch(Exception e){
             fail("The test case is a prototype.");
         }
         
@@ -97,7 +97,7 @@ public class ControlSalasAdminTest {
         ControlSalasAdmin instance = new ControlSalasAdmin();
           try {
             instance.disponiblesMax2D();
-        } catch{
+        } catch(Exception e){
             fail("The test case is a prototype.");
         }
     }
@@ -108,7 +108,7 @@ public class ControlSalasAdminTest {
         ControlSalasAdmin instance = new ControlSalasAdmin();
          try {
             instance.reservadosMax2D();
-        } catch{
+        } catch(Exception e){
             fail("The test case is a prototype.");
         }
     }
@@ -119,7 +119,7 @@ public class ControlSalasAdminTest {
         ControlSalasAdmin instance = new ControlSalasAdmin();
         try {
             instance.disponiblesMax3D();
-        } catch{
+        } catch(Exception e){
             fail("The test case is a prototype.");
         }
     }
@@ -130,7 +130,7 @@ public class ControlSalasAdminTest {
         ControlSalasAdmin instance = new ControlSalasAdmin();
         try {
             instance.reservadosMax3D();
-        } catch{
+        } catch(Exception e){
             fail("The test case is a prototype.");
         }
     }
@@ -141,7 +141,7 @@ public class ControlSalasAdminTest {
         ControlSalasAdmin instance = new ControlSalasAdmin();
          try {
             instance.estadoSala2D();
-        } catch{
+        } catch(Exception e){
             fail("The test case is a prototype.");
         }
         
@@ -154,7 +154,7 @@ public class ControlSalasAdminTest {
         instance.estadoSala3D();
          try {
             instance.estadoSala3D();
-        } catch{
+        } catch(Exception e){
             fail("The test case is a prototype.");
         }
     }
@@ -165,7 +165,7 @@ public class ControlSalasAdminTest {
         ControlSalasAdmin instance = new ControlSalasAdmin();
          try {
             instance.estadoSalaMax2D();
-        } catch{
+        } catch(Exception e){
             fail("The test case is a prototype.");
         }
     }
@@ -176,7 +176,7 @@ public class ControlSalasAdminTest {
         ControlSalasAdmin instance = new ControlSalasAdmin();
          try {
             instance.estadoSalaMax3D();
-        } catch{
+        } catch(Exception e){
             fail("The test case is a prototype.");
         }
     }
@@ -187,7 +187,7 @@ public class ControlSalasAdminTest {
         String[] args = null;
          try {
             ControlSalasAdmin.main(args);
-        } catch{
+        } catch(Exception e){
             fail("The test case is a prototype.");
         }
     }   
