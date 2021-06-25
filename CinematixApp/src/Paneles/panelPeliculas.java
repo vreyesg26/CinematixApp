@@ -696,7 +696,7 @@ public class panelPeliculas extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
 
-    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+    public void guardarPeliculas(){
         Conexion cn = new Conexion();
         Connection cc = cn.GetConexion();
         validarCamposVacios();
@@ -741,6 +741,10 @@ public class panelPeliculas extends javax.swing.JPanel {
                 System.out.println(e.getMessage());
             }
         }
+    }
+    
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        guardarPeliculas();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -1179,7 +1183,7 @@ public class panelPeliculas extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojerusan.RSButtonHover btnActualizar;
     private rojerusan.RSButtonHover btnDeshabilitar;
-    private rojerusan.RSButtonHover btnGuardar;
+    public static rojerusan.RSButtonHover btnGuardar;
     private rojerusan.RSButtonHover btnImagen;
     private rojerusan.RSButtonHover btnInfoAdicional;
     private rojerusan.RSButtonHover btnNuevo;
@@ -1202,7 +1206,7 @@ public class panelPeliculas extends javax.swing.JPanel {
     private javax.swing.JTextField txtIDPelicula;
     private javax.swing.JLabel txtLetras;
     private javax.swing.JTextField txtSinopsis;
-    private javax.swing.JTextField txtTitulo;
+    public javax.swing.JTextField txtTitulo;
     private javax.swing.JTextField txtUrl;
     // End of variables declaration//GEN-END:variables
 }

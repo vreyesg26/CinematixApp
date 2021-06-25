@@ -141,8 +141,8 @@ public class LoginAdmin extends javax.swing.JFrame {
     }
 
     public static String usuario;
-
-    public void validarAdministradores() {
+    public boolean resultado = false;
+    public boolean validarAdministradores() {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
         Encode encode = new Encode();
@@ -169,6 +169,7 @@ public class LoginAdmin extends javax.swing.JFrame {
                         txtpassword.setText("");
 
                     } else if (encode.deecnode(secretKey, rs.getString("Contrasena")).equals(pass)) {
+                        resultado = true;
                         AdminDashboard ad = new AdminDashboard();
                         ad.setVisible(true);
                         this.dispose();
@@ -233,6 +234,7 @@ public class LoginAdmin extends javax.swing.JFrame {
                 txtpassword.setText("");
             }
         }
+        return resultado;
     }
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -305,8 +307,8 @@ public class LoginAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel btnCerrar;
     private javax.swing.JLabel btninicio;
     private javax.swing.JButton btninicioa;
-    private javax.swing.JPasswordField txtpassword;
-    private javax.swing.JTextField txtusuario;
+    public javax.swing.JPasswordField txtpassword;
+    public javax.swing.JTextField txtusuario;
     // End of variables declaration//GEN-END:variables
 
 }
