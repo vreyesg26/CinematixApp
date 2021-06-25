@@ -45,58 +45,47 @@ public class MenuVendedorTest {
     }
 
     @Test
-    public void testEncender() {
-        System.out.println("Encender");
-        MenuVendedor instance = new MenuVendedor();
-        instance.Encender();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
     public void testObtenerMetodoPago() {
         System.out.println("obtenerMetodoPago");
         MenuVendedor instance = new MenuVendedor();
-        instance.obtenerMetodoPago();
-        fail("The test case is a prototype.");
+        try {
+            instance.obtenerMetodoPago();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testConsultarSala() {
         System.out.println("consultarSala");
         MenuVendedor instance = new MenuVendedor();
-        instance.consultarSala();
-        fail("The test case is a prototype.");
+        try {
+            instance.consultarSala();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testConsultarPrecios() {
         System.out.println("consultarPrecios");
-        String numeroSala = "";
+        String numeroSala = "4";
         MenuVendedor instance = new MenuVendedor();
-        instance.consultarPrecios(numeroSala);
-        fail("The test case is a prototype.");
+        try {
+            instance.consultarPrecios(numeroSala);
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
-
-    @Test
-    public void testDesactivados() {
-        System.out.println("Desactivados");
-        MenuVendedor.Desactivados();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testActivar() {
-        System.out.println("Activar");
-        MenuVendedor instance = new MenuVendedor();
-        instance.Activar();
-        fail("The test case is a prototype.");
-    }
-
+    
     @Test
     public void testAgregarAComboboxPelicula() {
         System.out.println("AgregarAComboboxPelicula");
-        MenuVendedor.AgregarAComboboxPelicula();
-        fail("The test case is a prototype.");
+        try {
+            MenuVendedor.AgregarAComboboxPelicula();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
@@ -110,31 +99,12 @@ public class MenuVendedorTest {
     @Test
     public void testHorarios_String() {
         System.out.println("Horarios");
-        String idPelicula = "";
-        MenuVendedor.Horarios(idPelicula);
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testLimCantidad() {
-        System.out.println("LimCantidad");
-        MenuVendedor instance = new MenuVendedor();
-        instance.LimCantidad();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testLimpiar() {
-        System.out.println("limpiar");
-        MenuVendedor.limpiar();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testLimpiar2() {
-        System.out.println("limpiar2");
-        MenuVendedor.limpiar2();
-        fail("The test case is a prototype.");
+        String idPelicula = "2";
+        try {
+            MenuVendedor.Horarios(idPelicula);
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
@@ -157,49 +127,22 @@ public class MenuVendedorTest {
     public void testTarjeta() {
         System.out.println("tarjeta");
         MenuVendedor instance = new MenuVendedor();
-        instance.tarjeta();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testTransparenciaButton() {
-        System.out.println("transparenciaButton");
-        MenuVendedor instance = new MenuVendedor();
-        instance.transparenciaButton();
-        fail("The test case is a prototype.");
+        try {
+            instance.tarjeta();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testObtenerSalas_String() {
         System.out.println("obtenerSalas");
-        String idPelicula = "";
+        String idPelicula = "2";
         MenuVendedor instance = new MenuVendedor();
-        instance.obtenerSalas(idPelicula);
-        fail("The test case is a prototype.");
+        try {
+            instance.obtenerSalas(idPelicula);
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
-
-    @Test
-    public void testHorarios_0args() {
-        System.out.println("horarios");
-        MenuVendedor instance = new MenuVendedor();
-        instance.horarios();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testObtenerSalas_0args() {
-        System.out.println("obtenerSalas");
-        MenuVendedor instance = new MenuVendedor();
-        instance.obtenerSalas();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        MenuVendedor.main(args);
-        fail("The test case is a prototype.");
-    }
-    
 }

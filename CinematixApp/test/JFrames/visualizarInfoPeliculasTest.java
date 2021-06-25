@@ -47,28 +47,37 @@ public class visualizarInfoPeliculasTest {
     @Test
     public void testVisualizarActores() {
         System.out.println("visualizarActores");
-        String pelicula = "";
+        String pelicula = "2";
         visualizarInfoPeliculas instance = new visualizarInfoPeliculas();
-        instance.visualizarActores(pelicula);
-        fail("The test case is a prototype.");
+        try {
+            instance.visualizarActores(pelicula);
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testVisualizarHorarios() {
         System.out.println("visualizarHorarios");
-        String pelicula = "";
+        String pelicula = "1";
         visualizarInfoPeliculas instance = new visualizarInfoPeliculas();
-        instance.visualizarHorarios(pelicula);
-        fail("The test case is a prototype.");
+        try {
+            instance.visualizarHorarios(pelicula);
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testVisualizarSalas() {
         System.out.println("visualizarSalas");
-        String pelicula = "";
+        String pelicula = "3";
         visualizarInfoPeliculas instance = new visualizarInfoPeliculas();
-        instance.visualizarSalas(pelicula);
-        fail("The test case is a prototype.");
+        try {
+            instance.visualizarSalas(pelicula);
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
@@ -94,13 +103,4 @@ public class visualizarInfoPeliculasTest {
         instance.obtenerIDSalas();
         fail("The test case is a prototype.");
     }
-
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        visualizarInfoPeliculas.main(args);
-        fail("The test case is a prototype.");
-    }
-    
 }

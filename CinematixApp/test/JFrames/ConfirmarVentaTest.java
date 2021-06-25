@@ -35,35 +35,47 @@ public class ConfirmarVentaTest {
     }
 
     @Test
-    public void testNoEditable() {
-        System.out.println("noEditable");
-        ConfirmarVenta instance = new ConfirmarVenta();
-        instance.noEditable();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
     public void testDatosFactura() {
         System.out.println("datosFactura");
         ConfirmarVenta instance = new ConfirmarVenta();
-        instance.datosFactura();
-        fail("The test case is a prototype.");
+        try {
+            instance.datosFactura();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testCalculo() {
         System.out.println("calculo");
         ConfirmarVenta instance = new ConfirmarVenta();
-        instance.calculo();
-        fail("The test case is a prototype.");
+        try {
+            instance.calculo();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testPasaDatos() {
         System.out.println("pasaDatos");
         ConfirmarVenta instance = new ConfirmarVenta();
-        instance.pasaDatos();
-        fail("The test case is a prototype.");
+        instance.jTextFieldPelicula.setText("Los Vengadores");
+        instance.jLabelSala.setText("Max2D");
+        instance.jTextFieldHora.setText("02:00pm");
+        instance.jTextFieldCantidadDeBoletosNiños.setText("3");
+        instance.jLabelTotalNiños.setText("100");
+        instance.jTextFieldCantidadDeBoletosAdultos.setText("4");
+        instance.jLabelTotalAdultos.setText("350");
+        instance.jLabelTotalPago.setText("450");
+        instance.jTextFieldEfectivoRecibido.setText("500");
+        instance.jLabelCambio.setText("50");
+        instance.jLabelImpuesto.setText("150");
+        try {
+            instance.pasaDatos();
+        } catch (Exception e) {
+            fail("Ni verga");
+        }
     }
 
     @Test
@@ -72,16 +84,8 @@ public class ConfirmarVentaTest {
         ConfirmarVenta instance = new ConfirmarVenta();
         Image expResult = null;
         Image result = instance.getIconImage();
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testValidarNumeros() {
-        System.out.println("validarNumeros");
-        KeyEvent e = null;
-        ConfirmarVenta instance = new ConfirmarVenta();
-        instance.validarNumeros(e);
-        fail("The test case is a prototype.");
+        if (result == null) {
+            fail("The test case is a prototype.");
+        }
     }
 }

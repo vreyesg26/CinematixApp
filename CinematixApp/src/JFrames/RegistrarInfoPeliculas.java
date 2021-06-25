@@ -465,7 +465,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(null, "Se quitó la sala " + salaSeleccionada + " de la lista", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
     }//GEN-LAST:event_btnEliminarSalaActionPerformed
 
-    ArrayList arregloIDActores = new ArrayList();
+    public ArrayList arregloIDActores = new ArrayList();
 
     void obtenerIDActores() {
         for (int i = 0; i < arregloActoresElegidos.size(); i++) {
@@ -483,7 +483,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
         }
     }
 
-    ArrayList arregloIDHorarios = new ArrayList();
+    public ArrayList arregloIDHorarios = new ArrayList();
 
     void obtenerIDHorarios() {
         for (int i = 0; i < arregloHorariosElegidos.size(); i++) {
@@ -501,7 +501,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
         }
     }
 
-    ArrayList arregloIDSalas = new ArrayList();
+    public ArrayList arregloIDSalas = new ArrayList();
 
     void obtenerIDSalas() {
         for (int i = 0; i < arregloSalasElegidas.size(); i++) {

@@ -81,14 +81,14 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     double cambio;
 
     //Variables que almacenarán todos los datos para enviar a la factura.
-    public static String idPelicula;
-    public static String idSala;
-    public static String idHorario;
+    public String idPelicula;
+    public String idSala;
+    public String idHorario;
 
     Conexion cn = new Conexion();
     Connection cc = cn.GetConexion();
 
-    void datosFactura() {
+    public void datosFactura() {
         String sql = "SELECT P.IdPelicula, S.IDSalas, H.IDHorario\n"
                 + "FROM peliculas AS P\n"
                 + "INNER JOIN salas AS S ON P.IDSalas = S.IDSalas\n"
@@ -127,8 +127,8 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         }
     }
 
-    void pasaDatos() {
-
+    public boolean pasaDatos = false;
+    public void pasaDatos() {
         Factura.jLabelPelicula.setText(jTextFieldPelicula.getText());
         Factura.jLabelSala.setText(jLabelSala.getText());
         Factura.jLabelTanda.setText(jTextFieldHora.getText());
@@ -599,7 +599,6 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     public void validarNumeros(java.awt.event.KeyEvent e) {
         if (e.getKeyChar() >= 33 && e.getKeyChar() <= 47
                 || e.getKeyChar() >= 58 && e.getKeyChar() <= 238) {
-
             e.consume();
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
             JOptionPane.showMessageDialog(null, "Este campo solo admite números", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);

@@ -298,10 +298,10 @@ public class RegistroActores extends javax.swing.JFrame {
         tablaActores.setEnabled(true);
     }
 
-    void validarNombreCorrecto(String hora) {
+    void validarNombreCorrecto(String nombre) {
         String patron = "^[A-ZÁÉÍÓÚÑ]{1}[a-záéíóúñ]+([ ][A-ZÁÉÍÓÚÑ]{1}[a-záéíóúñ]+)+$";
         Pattern patt = Pattern.compile(patron);
-        Matcher comparador = patt.matcher(hora);
+        Matcher comparador = patt.matcher(nombre);
         if (!comparador.matches()) {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
             JOptionPane.showMessageDialog(null, "Los nombres de los actores deben comenzar con mayúsculas y tener al menos un apellido", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
@@ -603,6 +603,6 @@ public class RegistroActores extends javax.swing.JFrame {
     private javax.swing.JMenuItem modificarActores;
     private javax.swing.JTable tablaActores;
     private javax.swing.JTextField txtIDActor;
-    private javax.swing.JTextField txtNombre;
+    public javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }

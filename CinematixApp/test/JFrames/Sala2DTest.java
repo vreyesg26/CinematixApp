@@ -55,35 +55,35 @@ public class Sala2DTest {
     @Test
     public void testReservaAsiento() {
         System.out.println("reservaAsiento");
-        int numeroasiento = 0;
+        int numeroasiento = 4;
         Sala2D instance = new Sala2D();
-        instance.reservaAsiento(numeroasiento);
-        fail("The test case is a prototype.");
+        try {
+            instance.reservaAsiento(numeroasiento);
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testQuitarReservaAsiento() {
         System.out.println("QuitarReservaAsiento");
-        int numeroasiento = 0;
+        int numeroasiento = 2;
         Sala2D instance = new Sala2D();
-        instance.QuitarReservaAsiento(numeroasiento);
-        fail("The test case is a prototype.");
+        try {
+            instance.QuitarReservaAsiento(numeroasiento);
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testBuscarAsientosReservados() {
         System.out.println("buscarAsientosReservados");
         Sala2D instance = new Sala2D();
-        instance.buscarAsientosReservados();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        Sala2D.main(args);
-        fail("The test case is a prototype.");
-    }
-    
+        try {
+            instance.buscarAsientosReservados();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
+    } 
 }

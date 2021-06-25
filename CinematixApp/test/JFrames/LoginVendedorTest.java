@@ -37,13 +37,12 @@ public class LoginVendedorTest {
     @Test
     public void testGetIconImage() {
         System.out.println("getIconImage");
-        LoginVendedor instance = new LoginVendedor();
-        String expResult = "sun.awt.image.ToolkitImage@43a25848";
-        Image result = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
-        assertEquals(expResult, result.toString());
+        LoginAdmin instance = new LoginAdmin();
+        Image expResult = null;
+        Image result = instance.getIconImage();
         System.out.println(result);
         if (result == null) {
-            fail("The test case is a prototype.");
+            fail("Fallo imagen administrador");
         }
     }
 
@@ -51,10 +50,10 @@ public class LoginVendedorTest {
     public void testValidarVendedores() {
         System.out.println("validarVendedores");
         LoginVendedor instance = new LoginVendedor();
-        try {
-            instance.validarVendedores();
-        } catch (Exception e) {
-            fail("The test case is a prototype.");
+        instance.txtCorreo.setText("cesar@gmail.com ");
+        instance.txtClave.setText("firulais");
+        if (instance.validarVendedores() == false) {
+            fail("No existe este vendedor");
         }
     }    
 }

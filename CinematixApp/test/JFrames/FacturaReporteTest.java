@@ -47,15 +47,10 @@ public class FacturaReporteTest {
     public void testRecuperarInformacion() {
         System.out.println("recuperarInformacion");
         FacturaReporte instance = new FacturaReporte();
-        instance.recuperarInformacion();
-        fail("The test case is a prototype.");
+        try {
+            instance.recuperarInformacion();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        FacturaReporte.main(args);
-        fail("The test case is a prototype.");
-    }
-    
 }

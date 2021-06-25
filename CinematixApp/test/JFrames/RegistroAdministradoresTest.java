@@ -13,22 +13,22 @@ import static org.junit.Assert.*;
  * @author Los Pibes
  */
 public class RegistroAdministradoresTest {
-    
+
     public RegistroAdministradoresTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -48,80 +48,60 @@ public class RegistroAdministradoresTest {
     public void testValidarCamposVacios() {
         System.out.println("validarCamposVacios");
         RegistroAdministradores instance = new RegistroAdministradores();
-        instance.validarCamposVacios();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testAnchoColumnas() {
-        System.out.println("anchoColumnas");
-        RegistroAdministradores instance = new RegistroAdministradores();
-        instance.anchoColumnas();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testLimpiarCajas() {
-        System.out.println("limpiarCajas");
-        RegistroAdministradores instance = new RegistroAdministradores();
-        instance.limpiarCajas();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testBloquear() {
-        System.out.println("bloquear");
-        RegistroAdministradores instance = new RegistroAdministradores();
-        instance.bloquear();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testDesbloquear() {
-        System.out.println("desbloquear");
-        RegistroAdministradores instance = new RegistroAdministradores();
-        instance.desbloquear();
-        fail("The test case is a prototype.");
+        instance.txtUsuario.setText("Victor");
+        instance.txtContraseña.setText("firulais");
+        if (instance.txtUsuario.getText().isEmpty()) {
+            fail("The test case is a prototype.");
+        } else if (instance.txtContraseña.getText().isEmpty()) {
+            fail("Rellene el campo");
+        } else {
+            instance.validarCamposVacios();
+        }
     }
 
     @Test
     public void testCargarData() {
         System.out.println("cargarData");
         RegistroAdministradores instance = new RegistroAdministradores();
-        instance.cargarData();
-        fail("The test case is a prototype.");
+        try {
+            instance.cargarData();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testModificarRegistro() {
         System.out.println("modificarRegistro");
         RegistroAdministradores instance = new RegistroAdministradores();
-        instance.modificarRegistro();
-        fail("The test case is a prototype.");
+        instance.fila = 4;
+        if (instance.fila < 0) {
+            instance.modificarRegistro();
+            fail("No se seleccionó ningún elemento de la tabla");
+        }
     }
 
     @Test
     public void testContraseña() {
         System.out.println("contrase\u00f1a");
         RegistroAdministradores instance = new RegistroAdministradores();
-        instance.contraseña();
-        fail("The test case is a prototype.");
+        instance.txtContraseña.setText("firulais");
+        if (instance.txtContraseña.getText().length() < 6) {
+            fail("La contraseña debe contener al menos 6 caracteres");
+        } else {
+            instance.contraseña();
+        }
     }
 
     @Test
     public void testUsuarios() {
         System.out.println("usuarios");
         RegistroAdministradores instance = new RegistroAdministradores();
-        instance.usuarios();
-        fail("The test case is a prototype.");
+        instance.txtUsuario.setText("adminsuplente");
+        if (instance.usuarios() == true) {
+            instance.usuarios();
+        } else {
+            fail("El usuario ya existe");
+        }
     }
-
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        RegistroAdministradores.main(args);
-        fail("The test case is a prototype.");
-    }
-    
 }

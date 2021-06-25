@@ -133,7 +133,9 @@ public class LoginVendedor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public static String idVendedor;
-    public void validarVendedores() {
+    public boolean resultado = false;
+    
+    public boolean validarVendedores() {
         String secretKey = "lospibes";
         Encode encode = new Encode();
         Conexion cc = new Conexion();
@@ -158,6 +160,7 @@ public class LoginVendedor extends javax.swing.JFrame {
                         JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                         txtClave.setText("");
                     } else if (encode.deecnode(secretKey, rs.getString("Clave")).equals(pass)) {
+                        resultado = true;
                         MenuVendedor mv = new MenuVendedor();
                         mv.setVisible(true);
                         mv.lbVendedor.setText("¡Bienvenido " + rs.getString("Nombre") + "!");
@@ -225,6 +228,7 @@ public class LoginVendedor extends javax.swing.JFrame {
                 txtClave.setText("");
             }
         }
+        return resultado;
     }
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -309,7 +313,7 @@ public class LoginVendedor extends javax.swing.JFrame {
     private javax.swing.JLabel btnCerrar;
     private javax.swing.JButton btninicioa;
     private javax.swing.JLabel labelFondo;
-    private javax.swing.JPasswordField txtClave;
-    private javax.swing.JTextField txtCorreo;
+    public javax.swing.JPasswordField txtClave;
+    public javax.swing.JTextField txtCorreo;
     // End of variables declaration//GEN-END:variables
 }

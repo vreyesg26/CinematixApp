@@ -455,9 +455,9 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeshabilitarActionPerformed
 
     public String usuario;
-
+    public int fila;
     void modificarRegistro() {
-        int fila = tablaUsuarios.getSelectedRow();
+        fila = tablaUsuarios.getSelectedRow();
 
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
         btnDeshabilitar.setIcon(iconobtn);
@@ -516,7 +516,8 @@ public class RegistroAdministradores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_modificarUsuarioActionPerformed
 
-    void usuarios() {
+    public boolean validarUsuarios = false;
+    public boolean usuarios() {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
         String user = txtUsuario.getText();
@@ -535,11 +536,14 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 }
             } else {
                 guardar = true;
+                validarUsuarios = true;
+                
             }
         } catch (Exception e) {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
             JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
+        return validarUsuarios;
     }
 
     private void txtUsuarioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtUsuarioFocusLost
@@ -749,8 +753,8 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     private javax.swing.JLabel lbX;
     private javax.swing.JMenuItem modificarUsuario;
     private javax.swing.JTable tablaUsuarios;
-    private javax.swing.JTextField txtContraseña;
+    public javax.swing.JTextField txtContraseña;
     private javax.swing.JTextField txtIDUsuario;
-    private javax.swing.JTextField txtUsuario;
+    public javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }

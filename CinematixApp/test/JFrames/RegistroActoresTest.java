@@ -48,80 +48,56 @@ public class RegistroActoresTest {
     public void testValidarCamposVacios() {
         System.out.println("validarCamposVacios");
         RegistroActores instance = new RegistroActores();
-        instance.validarCamposVacios();
-        fail("The test case is a prototype.");
+        instance.txtNombre.setText("Victor");
+        if (!instance.txtNombre.getText().isEmpty()) {
+            instance.validarCamposVacios();
+        } else {
+            fail("Debe escribir un nombre.");
+        }
     }
 
     @Test
     public void testCargarData() {
         System.out.println("cargarData");
         RegistroActores instance = new RegistroActores();
-        instance.cargarData();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testAnchoColumnas() {
-        System.out.println("anchoColumnas");
-        RegistroActores instance = new RegistroActores();
-        instance.anchoColumnas();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testLimpiarCajas() {
-        System.out.println("limpiarCajas");
-        RegistroActores instance = new RegistroActores();
-        instance.limpiarCajas();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testBloquear() {
-        System.out.println("bloquear");
-        RegistroActores instance = new RegistroActores();
-        instance.bloquear();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testDesbloquear() {
-        System.out.println("desbloquear");
-        RegistroActores instance = new RegistroActores();
-        instance.desbloquear();
-        fail("The test case is a prototype.");
+        try {
+            instance.cargarData();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testValidarNombreCorrecto() {
         System.out.println("validarNombreCorrecto");
-        String hora = "";
+        String nombre = "Victor Reyes";
         RegistroActores instance = new RegistroActores();
-        instance.validarNombreCorrecto(hora);
-        fail("The test case is a prototype.");
+        if (nombre.matches("^[A-ZÁÉÍÓÚÑ]{1}[a-záéíóúñ]+([ ][A-ZÁÉÍÓÚÑ]{1}[a-záéíóúñ]+)+$")) {
+            instance.validarNombreCorrecto(nombre);
+        } else {
+            fail("Debes escribir un nombre correcto");
+        }
     }
 
     @Test
     public void testVerificarNombre() {
         System.out.println("verificarNombre");
         RegistroActores instance = new RegistroActores();
-        instance.verificarNombre();
-        fail("The test case is a prototype.");
+        try {
+            instance.verificarNombre();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testModificarRegistro() {
         System.out.println("modificarRegistro");
         RegistroActores instance = new RegistroActores();
-        instance.modificarRegistro();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        RegistroActores.main(args);
-        fail("The test case is a prototype.");
+        try {
+            instance.modificarRegistro();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 }
