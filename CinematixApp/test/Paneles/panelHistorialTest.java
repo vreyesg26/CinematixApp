@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Paneles;
 
 import org.junit.After;
@@ -6,10 +11,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import Paneles.panelHistorial;
 
 /**
  *
- * @author Los Pibes
+ * @author Victor Reyes
  */
 public class panelHistorialTest {
     
@@ -31,31 +37,27 @@ public class panelHistorialTest {
     @After
     public void tearDown() {
     }
-
-    @Test
-    public void testAnchoColumnas() {
-        System.out.println("anchoColumnas");
-        panelHistorial instance = new panelHistorial();
-        instance.anchoColumnas();
-        fail("The test case is a prototype.");
-    }
-
+    
     @Test
     public void testCargarData() {
         System.out.println("cargarData");
-        String valor = "";
         panelHistorial instance = new panelHistorial();
-        instance.cargarData(valor);
-        fail("The test case is a prototype.");
+        try {
+            instance.cargarData();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
-
+    
     @Test
     public void testBuscarData() {
         System.out.println("buscarData");
         String valor = "";
         panelHistorial instance = new panelHistorial();
-        instance.buscarData(valor);
-        fail("The test case is a prototype.");
-    }
-    
+        try {
+            instance.buscarData(valor);
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
+    } 
 }

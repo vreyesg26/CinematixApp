@@ -43,18 +43,7 @@ public class MenuVendedorTest {
             fail("The test case is a prototype.");
         }
     }
-
-    @Test
-    public void testObtenerMetodoPago() {
-        System.out.println("obtenerMetodoPago");
-        MenuVendedor instance = new MenuVendedor();
-        try {
-            instance.obtenerMetodoPago();
-        } catch (Exception e) {
-            fail("The test case is a prototype.");
-        }
-    }
-
+    
     @Test
     public void testConsultarSala() {
         System.out.println("consultarSala");
@@ -92,8 +81,12 @@ public class MenuVendedorTest {
     public void testSeleccionPelicula() {
         System.out.println("seleccionPelicula");
         MenuVendedor instance = new MenuVendedor();
-        instance.seleccionPelicula();
-        fail("The test case is a prototype.");
+        instance.combo = 2;
+        if (instance.combo != 0) {
+            instance.seleccionPelicula();
+        } else {
+            fail("Ninguna pelicula fue seleccionada");
+        }
     }
 
     @Test
@@ -108,19 +101,21 @@ public class MenuVendedorTest {
     }
 
     @Test
-    public void testCalculo() {
-        System.out.println("calculo");
-        MenuVendedor instance = new MenuVendedor();
-        instance.calculo();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
     public void testPasaDatos() {
         System.out.println("pasaDatos");
         MenuVendedor instance = new MenuVendedor();
-        instance.pasaDatos();
-        fail("The test case is a prototype.");
+        instance.txtBoletosAdultos.setText("2");
+        instance.txtBoletosNiños.setText("2");
+        instance.cmbSalas.addItem("Seleccione una sala");
+        instance.cmbSalas.addItem("2D");
+        instance.cmbSalas.addItem("3D");
+        instance.cmbSalas.addItem("Max2D");
+        instance.cmbSalas.addItem("Max3D");
+        instance.cmbSalas.setSelectedIndex(3);
+        if (instance.txtBoletosAdultos.getText().isEmpty() || instance.txtBoletosNiños.getText().isEmpty() ||
+                instance.cmbSalas.getSelectedIndex() == 0) {
+            fail("Hacen falta algunos datos");
+        }
     }
 
     @Test

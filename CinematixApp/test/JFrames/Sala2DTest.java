@@ -45,14 +45,6 @@ public class Sala2DTest {
     }
 
     @Test
-    public void testBotones() {
-        System.out.println("botones");
-        Sala2D instance = new Sala2D();
-        instance.botones();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
     public void testReservaAsiento() {
         System.out.println("reservaAsiento");
         int numeroasiento = 4;

@@ -46,7 +46,7 @@ public class visualizarInfoPeliculas extends javax.swing.JFrame {
         listaActores.setEnabled(false);
         listaHorarios.setEnabled(false);
         listaSalas.setEnabled(false);
-        
+
         lbPelicula.setText(Paneles.panelPeliculas.titulo);
     }
 
@@ -123,11 +123,11 @@ public class visualizarInfoPeliculas extends javax.swing.JFrame {
     Connection cc = cn.GetConexion();
 
     ArrayList arregloActores = new ArrayList();
-    ArrayList arregloActoresElegidos = new ArrayList();
+    public ArrayList arregloActoresElegidos = new ArrayList();
     ArrayList arregloHorarios = new ArrayList();
-    ArrayList arregloHorariosElegidos = new ArrayList();
+    public ArrayList arregloHorariosElegidos = new ArrayList();
     ArrayList arregloSalas = new ArrayList();
-    ArrayList arregloSalasElegidas = new ArrayList();
+    public ArrayList arregloSalasElegidas = new ArrayList();
     DefaultListModel modelActores = new DefaultListModel();
     DefaultListModel modelActoresAgregados = new DefaultListModel();
     DefaultListModel modelHorarios = new DefaultListModel();
@@ -138,7 +138,7 @@ public class visualizarInfoPeliculas extends javax.swing.JFrame {
     void visualizarActores(String pelicula) {
         String sql = "SELECT A.Nombre FROM peliculasactores AS PA\n"
                 + "INNER JOIN actores AS A ON PA.IDActor = A.IDActor\n"
-                + "WHERE PA.IdPelicula = '"+pelicula+"'";
+                + "WHERE PA.IdPelicula = '" + pelicula + "'";
 
         try {
             Statement st = cc.createStatement();
@@ -161,7 +161,7 @@ public class visualizarInfoPeliculas extends javax.swing.JFrame {
     void visualizarHorarios(String pelicula) {
         String sql = "SELECT H.Hora FROM peliculashorarios AS PH\n"
                 + "INNER JOIN horarios AS H ON PH.IDHorario = H.IDHorario\n"
-                + "WHERE PH.IdPelicula = '"+pelicula+"'";
+                + "WHERE PH.IdPelicula = '" + pelicula + "'";
 
         try {
             Statement st = cc.createStatement();
@@ -184,7 +184,7 @@ public class visualizarInfoPeliculas extends javax.swing.JFrame {
     void visualizarSalas(String pelicula) {
         String sql = "SELECT S.Sala FROM peliculassalas AS PS\n"
                 + "INNER JOIN salas AS S ON PS.IDSalas = S.IDSalas\n"
-                + "WHERE PS.IdPelicula = '"+pelicula+"'";
+                + "WHERE PS.IdPelicula = '" + pelicula + "'";
 
         try {
             Statement st = cc.createStatement();
@@ -222,7 +222,7 @@ public class visualizarInfoPeliculas extends javax.swing.JFrame {
         Paneles.panelPeliculas.pantallaVerInfo = false;
     }//GEN-LAST:event_btnSalirMouseClicked
 
-    ArrayList arregloIDActores = new ArrayList();
+    public ArrayList arregloIDActores = new ArrayList();
 
     void obtenerIDActores() {
         for (int i = 0; i < arregloActoresElegidos.size(); i++) {
@@ -240,7 +240,7 @@ public class visualizarInfoPeliculas extends javax.swing.JFrame {
         }
     }
 
-    ArrayList arregloIDHorarios = new ArrayList();
+    public ArrayList arregloIDHorarios = new ArrayList();
 
     void obtenerIDHorarios() {
         for (int i = 0; i < arregloHorariosElegidos.size(); i++) {
@@ -258,7 +258,7 @@ public class visualizarInfoPeliculas extends javax.swing.JFrame {
         }
     }
 
-    ArrayList arregloIDSalas = new ArrayList();
+    public ArrayList arregloIDSalas = new ArrayList();
 
     void obtenerIDSalas() {
         for (int i = 0; i < arregloSalasElegidas.size(); i++) {

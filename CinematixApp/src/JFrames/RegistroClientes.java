@@ -342,7 +342,7 @@ public class RegistroClientes extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowOpened
 
     boolean guardar;
-    boolean aprobado;
+    boolean aprobado = false;
     boolean probar;
 
     void validarCamposVacios() {
@@ -362,7 +362,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         }
     }
 
-    public void verificarCaracteresRepetidos(String cadena) {
+    public boolean verificarCaracteresRepetidos(String cadena) {
         String patron = "^(\\d|(([A-Za-zñÑáéíóúÁÉÍÓÚ\\s])\\3?(?!\\3)))+$";
         Pattern patt = Pattern.compile(patron);
         Matcher comparador = patt.matcher(cadena);
@@ -373,9 +373,10 @@ public class RegistroClientes extends javax.swing.JFrame {
         } else {
             aprobado = true;
         }
+        return aprobado;
     }
 
-    void validarCorreo(String cadena) {
+    public boolean validarCorreo(String cadena) {
         String patron = "^.+[@]{1}[a-z]+([.][a-z]+)+$";
         Pattern patt = Pattern.compile(patron);
         Matcher comparador = patt.matcher(cadena);
@@ -384,9 +385,10 @@ public class RegistroClientes extends javax.swing.JFrame {
         } else {
             aprobado = true;
         }
+        return aprobado;
     }
 
-    void ValidarNombre(String nombre) {
+    public boolean ValidarNombre(String nombre) {
         String patron = "^([A-Z-ÁÉÍÓÚÑ]{1}[a-z-áéíóúñ]+[ ]*){2,4}$";
         Pattern patt = Pattern.compile(patron);
         Matcher comparador = patt.matcher(nombre);
@@ -395,32 +397,29 @@ public class RegistroClientes extends javax.swing.JFrame {
         } else {
             probar = true;
         }
+        return probar;
     }
 
     public boolean pasaporte(String pasaporte) {
-        Pattern p = null;
-        Matcher m = null;
-        p = Pattern.compile("[A-Z-ÁÉÍÓÚÑ]{1}[0-9]{6}");
-        m = p.matcher(pasaporte);
-
-        if (m.find()) {
-            return true;
-        } else {
-            return false;
+        String patron = "^[A-Z-ÁÉÍÓÚÑ]{1}[0-9]{6}$";
+        Pattern patt = Pattern.compile(patron);
+        Matcher comparador = patt.matcher(pasaporte);
+        if (comparador.matches()) {
+            aprobado = true;
         }
+        return aprobado;
     }
 
     public boolean identidad(String identidad) {
-        Pattern p = null;
-        Matcher m = null;
-        p = Pattern.compile("^[0-1]{1}[1-8]{1}[0-9]{2}[19|20]{2}[0-9]{7}");
-        m = p.matcher(identidad);
-
-        if (m.find()) {
-            return true;
-        } else {
-            return false;
+        String patron = "^[0-1]{1}[1-8]{1}[0-9]{2}[19|20]{2}[0-9]{7}$";
+        Pattern patt = Pattern.compile(patron);
+        Matcher comparador = patt.matcher(identidad);
+        if (!comparador.matches()) {
+            aprobado = false;
+        } else{
+            aprobado = true;
         }
+        return aprobado;
     }
 
     void anchoColumnas() {
@@ -649,8 +648,9 @@ public class RegistroClientes extends javax.swing.JFrame {
         btnNuevo.setEnabled(true);
     }//GEN-LAST:event_btnDeshabilitarActionPerformed
 
+    public int fila;
     void modificarRegistro() {
-        int fila = tablaClientes1.getSelectedRow();
+        fila = tablaClientes1.getSelectedRow();
 
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
         btnDeshabilitar.setIcon(iconobtn);
@@ -1092,7 +1092,7 @@ public class RegistroClientes extends javax.swing.JFrame {
     private rojeru_san.complementos.RSButtonHover btnGuardar;
     private rojeru_san.complementos.RSButtonHover btnNuevo;
     public static javax.swing.JLabel btnRegresar;
-    private javax.swing.JComboBox<String> cbTipoDocu;
+    public javax.swing.JComboBox<String> cbTipoDocu;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbCorreoX;
@@ -1104,9 +1104,9 @@ public class RegistroClientes extends javax.swing.JFrame {
     private javax.swing.JMenuItem modificarCliente;
     private javax.swing.JTable tablaClientes1;
     private javax.swing.JTextField txtBuscar;
-    private javax.swing.JTextField txtCorreo;
+    public javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtIDCliente;
-    private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtNumDocu;
+    public javax.swing.JTextField txtNombre;
+    public javax.swing.JTextField txtNumDocu;
     // End of variables declaration//GEN-END:variables
 }

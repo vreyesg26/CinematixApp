@@ -1,7 +1,6 @@
 package JFrames;
 
 import java.awt.Image;
-import java.awt.Toolkit;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;

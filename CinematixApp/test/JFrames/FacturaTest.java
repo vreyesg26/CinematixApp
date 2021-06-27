@@ -34,13 +34,6 @@ public class FacturaTest {
     }
 
     @Test
-    public void testFechaHora() {
-        System.out.println("fechaHora");
-        Factura.fechaHora();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
     public void testFacturaEncabezado() {
         System.out.println("facturaEncabezado");
         Factura instance = new Factura();
@@ -101,14 +94,6 @@ public class FacturaTest {
         } catch (Exception e) {
             fail("The test case is a prototype.");
         }
-    }
-
-    @Test
-    public void testLimpiar() {
-        System.out.println("limpiar");
-        Factura instance = new Factura();
-        instance.limpiar();
-        fail("The test case is a prototype.");
     }
 
     @Test

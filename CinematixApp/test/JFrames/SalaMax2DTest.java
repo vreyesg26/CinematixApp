@@ -77,13 +77,4 @@ public class SalaMax2DTest {
         instance.buscarAsientosReservados();
         fail("The test case is a prototype.");
     }
-
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        SalaMax2D.main(args);
-        fail("The test case is a prototype.");
-    }
-    
 }

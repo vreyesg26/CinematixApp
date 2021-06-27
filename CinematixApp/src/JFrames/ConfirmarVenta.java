@@ -76,7 +76,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
         jTextFieldHora.setEditable(false);
     }
 
-    double efectivoR;
+    public double efectivoR;
     public static double totalPago;
     double cambio;
 
@@ -115,7 +115,8 @@ public class ConfirmarVenta extends javax.swing.JFrame {
 
     void calculo() {
 
-        totalPago = Double.parseDouble(jLabelTotalPago.getText().substring(17));
+        double totalPagoTexto = Double.parseDouble(jLabelTotalPago.getText().substring(17));
+        totalPago = totalPagoTexto;
         efectivoR = Double.parseDouble(jTextFieldEfectivoRecibido.getText());
         if (efectivoR < totalPago) {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");

@@ -298,7 +298,7 @@ public class RegistroHorarios extends javax.swing.JFrame {
         tablaHorarios.setEnabled(true);
     }
 
-    void verificarFormatoHora(String hora) {
+    public boolean verificarFormatoHora(String hora) {
         String patron = "^(?:0?[1-9]|1[0-2]):[0-5][0-9]\\s?[ap][m]$";
         Pattern patt = Pattern.compile(patron);
         Matcher comparador = patt.matcher(hora);
@@ -309,6 +309,7 @@ public class RegistroHorarios extends javax.swing.JFrame {
         } else {
             guardar = true;
         }
+        return guardar;
     }
 
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
@@ -351,7 +352,7 @@ public class RegistroHorarios extends javax.swing.JFrame {
         btnNuevo.setEnabled(false);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
-    void verificarHorario() {
+    public boolean verificarHorario() {
         if (!txtHorarios.getText().isEmpty()) {
             Conexion cc = new Conexion();
             Connection cn = cc.GetConexion();
@@ -377,6 +378,7 @@ public class RegistroHorarios extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
         }
+        return guardar;
     }
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -513,8 +515,9 @@ public class RegistroHorarios extends javax.swing.JFrame {
         btnDeshabilitar.setText("CANCELAR");
     }//GEN-LAST:event_txtHorariosFocusGained
 
+    public int fila;
     void modificarRegistro() {
-        int fila = tablaHorarios.getSelectedRow();
+        fila = tablaHorarios.getSelectedRow();
 
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
         btnDeshabilitar.setIcon(iconobtn);
@@ -600,7 +603,7 @@ public class RegistroHorarios extends javax.swing.JFrame {
     private javax.swing.JLabel lbFondo;
     private javax.swing.JMenuItem modificarHorarios;
     private javax.swing.JTable tablaHorarios;
-    private javax.swing.JTextField txtHorarios;
+    public javax.swing.JTextField txtHorarios;
     private javax.swing.JTextField txtIDHorario;
     // End of variables declaration//GEN-END:variables
 }

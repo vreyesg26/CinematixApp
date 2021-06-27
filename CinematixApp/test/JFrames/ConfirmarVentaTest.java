@@ -1,7 +1,6 @@
 package JFrames;
 
 import java.awt.Image;
-import java.awt.event.KeyEvent;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -46,23 +45,12 @@ public class ConfirmarVentaTest {
     }
 
     @Test
-    public void testCalculo() {
-        System.out.println("calculo");
-        ConfirmarVenta instance = new ConfirmarVenta();
-        try {
-            instance.calculo();
-        } catch (Exception e) {
-            fail("The test case is a prototype.");
-        }
-    }
-
-    @Test
     public void testPasaDatos() {
         System.out.println("pasaDatos");
         ConfirmarVenta instance = new ConfirmarVenta();
         instance.jTextFieldPelicula.setText("Los Vengadores");
         instance.jLabelSala.setText("Max2D");
-        instance.jTextFieldHora.setText("02:00pm");
+        instance.jTextFieldHora.setText("");
         instance.jTextFieldCantidadDeBoletosNiños.setText("3");
         instance.jLabelTotalNiños.setText("100");
         instance.jTextFieldCantidadDeBoletosAdultos.setText("4");
@@ -71,11 +59,14 @@ public class ConfirmarVentaTest {
         instance.jTextFieldEfectivoRecibido.setText("500");
         instance.jLabelCambio.setText("50");
         instance.jLabelImpuesto.setText("150");
-        try {
-            instance.pasaDatos();
-        } catch (Exception e) {
-            fail("Ni verga");
-        }
+        if (instance.jTextFieldPelicula.getText().isEmpty() || instance.jLabelSala.getText().isEmpty() ||
+                instance.jTextFieldHora.getText().isEmpty() || instance.jTextFieldCantidadDeBoletosNiños.getText().isEmpty() ||
+                instance.jLabelTotalNiños.getText().isEmpty() || instance.jTextFieldCantidadDeBoletosAdultos.getText().isEmpty() ||
+                instance.jLabelTotalAdultos.getText().isEmpty() || instance.jLabelTotalPago.getText().isEmpty() ||
+                instance.jTextFieldEfectivoRecibido.getText().isEmpty() || instance.jLabelCambio.getText().isEmpty() ||
+                instance.jLabelImpuesto.getText().isEmpty()) {
+            fail("Faltaron algunos datos");
+        } 
     }
 
     @Test

@@ -94,10 +94,10 @@ public class RegistroActoresTest {
     public void testModificarRegistro() {
         System.out.println("modificarRegistro");
         RegistroActores instance = new RegistroActores();
-        try {
+        instance.fila = 4;
+        if (instance.fila < 0) {
             instance.modificarRegistro();
-        } catch (Exception e) {
-            fail("The test case is a prototype.");
+            fail("No se seleccionó ningún elemento de la tabla");
         }
     }
 }

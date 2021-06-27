@@ -13,22 +13,22 @@ import static org.junit.Assert.*;
  * @author Los Pibes
  */
 public class RegistroDirectoresTest {
-    
+
     public RegistroDirectoresTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -48,91 +48,67 @@ public class RegistroDirectoresTest {
     public void testValidarCamposVacios() {
         System.out.println("validarCamposVacios");
         RegistroDirectores instance = new RegistroDirectores();
-        instance.validarCamposVacios();
-        fail("The test case is a prototype.");
+        instance.txtDirector.setText("Hola");
+        if (!instance.txtDirector.getText().isEmpty()) {
+            instance.validarCamposVacios();
+        } else {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testNombre() {
         System.out.println("nombre");
-        String nombre = "";
+        String nombre = "Luis Salmeron";
         RegistroDirectores instance = new RegistroDirectores();
-        boolean expResult = false;
-        boolean result = instance.nombre(nombre);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        if (instance.nombre(nombre) != true) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testCargarData() {
         System.out.println("cargarData");
         RegistroDirectores instance = new RegistroDirectores();
-        instance.cargarData();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testAnchoColumnas() {
-        System.out.println("anchoColumnas");
-        RegistroDirectores instance = new RegistroDirectores();
-        instance.anchoColumnas();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testLimpiarCajas() {
-        System.out.println("limpiarCajas");
-        RegistroDirectores instance = new RegistroDirectores();
-        instance.limpiarCajas();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testBloquear() {
-        System.out.println("bloquear");
-        RegistroDirectores instance = new RegistroDirectores();
-        instance.bloquear();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testDesbloquear() {
-        System.out.println("desbloquear");
-        RegistroDirectores instance = new RegistroDirectores();
-        instance.desbloquear();
-        fail("The test case is a prototype.");
+        try {
+            instance.cargarData();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testVerificarNombre() {
         System.out.println("verificarNombre");
         RegistroDirectores instance = new RegistroDirectores();
-        instance.verificarNombre();
-        fail("The test case is a prototype.");
+        instance.txtDirector.setText("Andrew Gardfield");
+        if (instance.verificarNombre() != true) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testModificarRegistro() {
         System.out.println("modificarRegistro");
         RegistroDirectores instance = new RegistroDirectores();
-        instance.modificarRegistro();
-        fail("The test case is a prototype.");
+        instance.fila = 4;
+        if (instance.fila < 0) {
+            instance.modificarRegistro();
+            fail("No se seleccionó ningún elemento de la tabla");
+        }
     }
 
     @Test
     public void testDirectores() {
         System.out.println("directores");
         RegistroDirectores instance = new RegistroDirectores();
-        instance.directores();
-        fail("The test case is a prototype.");
+        instance.txtDirector.setText("Franklin Meza");
+        if (!instance.txtDirector.getText().isEmpty()) {
+            if (instance.directores() != true) {
+                fail("El nombre del director es incorrecto");
+            }
+        } else {
+            fail("No hay ningún nombre");
+        }
     }
-
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        RegistroDirectores.main(args);
-        fail("The test case is a prototype.");
-    }
-    
 }

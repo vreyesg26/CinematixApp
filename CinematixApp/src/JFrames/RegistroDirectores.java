@@ -463,7 +463,7 @@ public class RegistroDirectores extends javax.swing.JFrame {
         btnNuevo.setEnabled(true);
     }//GEN-LAST:event_btnDeshabilitarActionPerformed
 
-    void verificarNombre() {
+    public boolean verificarNombre() {
         if (!txtDirector.getText().isEmpty()) {
             Conexion cc = new Conexion();
             Connection cn = cc.GetConexion();
@@ -489,6 +489,7 @@ public class RegistroDirectores extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
         }
+        return guardar;
     }
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
@@ -505,8 +506,9 @@ public class RegistroDirectores extends javax.swing.JFrame {
         btnDeshabilitar.setText("CANCELAR");
     }//GEN-LAST:event_txtDirectorFocusGained
 
+    public int fila;
     void modificarRegistro() {
-        int fila = tablaDirectores.getSelectedRow();
+        fila = tablaDirectores.getSelectedRow();
 
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
         btnDeshabilitar.setIcon(iconobtn);
@@ -563,7 +565,7 @@ public class RegistroDirectores extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_tablaDirectoresMouseClicked
 
-    void directores() {
+    public boolean directores() {
         if (!nombre(txtDirector.getText())) {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
             JOptionPane.showMessageDialog(null, "Los nombes deben comenzar con letra mayúscula y tener al menos 1 apellido", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
@@ -571,6 +573,7 @@ public class RegistroDirectores extends javax.swing.JFrame {
         } else {
             guardar = true;
         }
+        return guardar;
     }
     private void txtDirectorFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDirectorFocusLost
 
@@ -631,7 +634,7 @@ public class RegistroDirectores extends javax.swing.JFrame {
     private javax.swing.JLabel lbFondo;
     private javax.swing.JMenuItem modificarDirector;
     private javax.swing.JTable tablaDirectores;
-    private javax.swing.JTextField txtDirector;
+    public javax.swing.JTextField txtDirector;
     private javax.swing.JTextField txtIDDirector;
     // End of variables declaration//GEN-END:variables
 }

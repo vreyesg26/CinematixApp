@@ -40,7 +40,7 @@ public class panelHistorial extends javax.swing.JPanel {
 
     public panelHistorial() {
         initComponents();
-        cargarData("");
+        cargarData();
 
         tipoFuente = new Fuente();
         tablaFacturas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 2, 14));
@@ -153,7 +153,7 @@ public class panelHistorial extends javax.swing.JPanel {
     Conexion cc = new Conexion();
     Connection cn = cc.GetConexion();
 
-    void cargarData(String valor) {
+    void cargarData() {
         String[] titulos = {"IDFactura", "N° Factura", "Pelicula", "Fecha Emision", "Hora Emisión",
             "Forma Pago", "Total", "Vendedor"};
         String[] registros = new String[8];

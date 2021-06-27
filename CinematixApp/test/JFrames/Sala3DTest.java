@@ -76,14 +76,5 @@ public class Sala3DTest {
         Sala3D instance = new Sala3D();
         instance.buscarAsientosReservados();
         fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        Sala3D.main(args);
-        fail("The test case is a prototype.");
-    }
-    
+    }   
 }

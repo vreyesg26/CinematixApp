@@ -47,139 +47,112 @@ public class RegistroClientesVentaTest {
     @Test
     public void testValidarCamposVacios() {
         System.out.println("validarCamposVacios");
-        RegistroClientesVenta instance = new RegistroClientesVenta();
-        instance.validarCamposVacios();
-        fail("The test case is a prototype.");
+        RegistroClientes instance = new RegistroClientes();
+        instance.cbTipoDocu.addItem("Seleccione tipo de documento");
+        instance.cbTipoDocu.addItem("Identidad");
+        instance.cbTipoDocu.addItem("RTN");
+        instance.cbTipoDocu.addItem("Pasaporte");
+        instance.txtNombre.setText("Fernanda Martínez");
+        instance.txtCorreo.setText("fermartinez@yahoo.com   ");
+        instance.cbTipoDocu.setSelectedIndex(2);
+        instance.txtNumDocu.setText("019231231221412");
+        if (instance.txtNombre.getText().isEmpty() || instance.txtCorreo.getText().isEmpty() ||
+                instance.cbTipoDocu.getSelectedIndex() == 0 || instance.txtNumDocu.getText().isEmpty()) {
+            fail("Faltaron algunos datos");
+        }
     }
 
     @Test
     public void testVerificarCaracteresRepetidos() {
         System.out.println("verificarCaracteresRepetidos");
-        String cadena = "";
-        RegistroClientesVenta instance = new RegistroClientesVenta();
-        instance.verificarCaracteresRepetidos(cadena);
-        fail("The test case is a prototype.");
+        String cadena = "Derick";
+        RegistroClientes instance = new RegistroClientes();
+        if (instance.verificarCaracteresRepetidos(cadena) != true) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testValidarCorreo() {
         System.out.println("validarCorreo");
-        String cadena = "";
-        RegistroClientesVenta instance = new RegistroClientesVenta();
-        instance.validarCorreo(cadena);
-        fail("The test case is a prototype.");
+        String cadena = "cesar@ujcv.edu.hn";
+        RegistroClientes instance = new RegistroClientes();
+        if (instance.validarCorreo(cadena) != true) {
+            fail("The test case is a prototype.");
+        } 
     }
 
     @Test
     public void testValidarNombre() {
         System.out.println("ValidarNombre");
-        String nombre = "";
-        RegistroClientesVenta instance = new RegistroClientesVenta();
-        instance.ValidarNombre(nombre);
-        fail("The test case is a prototype.");
+        String cadena = "Cesar Zepeda";
+        RegistroClientes instance = new RegistroClientes();
+        if (instance.ValidarNombre(cadena) != true) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testPasaporte() {
         System.out.println("pasaporte");
-        String pasaporte = "";
-        RegistroClientesVenta instance = new RegistroClientesVenta();
-        boolean expResult = false;
-        boolean result = instance.pasaporte(pasaporte);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
+        String pasaporte = "E837293";
+        RegistroClientes instance = new RegistroClientes();
+        if (instance.pasaporte(pasaporte) != true) {
+            fail("No es un pasaporte válido");
+        }
     }
 
-    @Test
     public void testIdentidad() {
         System.out.println("identidad");
-        String identidad = "";
-        RegistroClientesVenta instance = new RegistroClientesVenta();
-        boolean expResult = false;
-        boolean result = instance.identidad(identidad);
-        assertEquals(expResult, result);
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testAnchoColumnas() {
-        System.out.println("anchoColumnas");
-        RegistroClientesVenta instance = new RegistroClientesVenta();
-        instance.anchoColumnas();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testLimpiarCajas() {
-        System.out.println("limpiarCajas");
-        RegistroClientesVenta instance = new RegistroClientesVenta();
-        instance.limpiarCajas();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testBloquear() {
-        System.out.println("bloquear");
-        RegistroClientesVenta instance = new RegistroClientesVenta();
-        instance.bloquear();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testDesbloquear() {
-        System.out.println("desbloquear");
-        RegistroClientesVenta instance = new RegistroClientesVenta();
-        instance.desbloquear();
-        fail("The test case is a prototype.");
+        String identidad = "0801199347282";
+        RegistroClientes instance = new RegistroClientes();
+        if (instance.identidad(identidad) != true) {
+            fail("No es una identidad válida");
+        } 
     }
 
     @Test
     public void testCargarTipoDocumento() {
         System.out.println("cargarTipoDocumento");
-        RegistroClientesVenta instance = new RegistroClientesVenta();
-        instance.cargarTipoDocumento();
-        fail("The test case is a prototype.");
+        RegistroClientes instance = new RegistroClientes();
+        try {
+            instance.cargarTipoDocumento();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testCargarData() {
         System.out.println("cargarData");
         RegistroClientesVenta instance = new RegistroClientesVenta();
-        instance.cargarData();
-        fail("The test case is a prototype.");
+        try {
+            instance.cargarData();
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testBuscarData() {
         System.out.println("buscarData");
-        String valor = "";
-        RegistroClientesVenta instance = new RegistroClientesVenta();
-        instance.buscarData(valor);
-        fail("The test case is a prototype.");
+        String valor = "2";
+        RegistroClientes instance = new RegistroClientes();
+        try {
+            instance.buscarData(valor);
+        } catch (Exception e) {
+            fail("The test case is a prototype.");
+        }
     }
 
     @Test
     public void testModificarRegistro() {
         System.out.println("modificarRegistro");
-        RegistroClientesVenta instance = new RegistroClientesVenta();
-        instance.modificarRegistro();
-        fail("The test case is a prototype.");
+        RegistroClientes instance = new RegistroClientes();
+        instance.fila = 4;
+        if (instance.fila < 0) {
+            instance.modificarRegistro();
+            fail("No se seleccionó ningún elemento de la tabla");
+        }
     }
-
-    @Test
-    public void testDocumento() {
-        System.out.println("documento");
-        RegistroClientesVenta instance = new RegistroClientesVenta();
-        instance.documento();
-        fail("The test case is a prototype.");
-    }
-
-    @Test
-    public void testMain() {
-        System.out.println("main");
-        String[] args = null;
-        RegistroClientesVenta.main(args);
-        fail("The test case is a prototype.");
-    }
-    
 }

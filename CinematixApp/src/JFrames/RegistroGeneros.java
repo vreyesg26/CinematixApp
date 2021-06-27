@@ -246,7 +246,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
         }
     }
     
-    public void verificarCaracteres(String cadena) {
+    public boolean verificarCaracteres(String cadena) {
         String patron = "^[A-Z]((([A-Za-zñÑáéíóúÁÉÍÓÚ ,.\\s])\\3?(?!\\3)))+$";
         Pattern patt = Pattern.compile(patron);
         Matcher comparador = patt.matcher(cadena);
@@ -257,6 +257,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
         } else {
             guardar = true;
         }
+        return guardar;
     }
 
     void cargarData() {
@@ -353,7 +354,8 @@ public class RegistroGeneros extends javax.swing.JFrame {
         btnNuevo.setEnabled(false);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
-    void verificarGenero() {
+    public boolean verificaGenero = false;
+    public boolean verificarGenero() {
         if (!txtGeneros.getText().isEmpty()) {
             Conexion cc = new Conexion();
             Connection cn = cc.GetConexion();
@@ -373,12 +375,14 @@ public class RegistroGeneros extends javax.swing.JFrame {
                     }
                 } else {
                     guardar = true;
+                    verificaGenero = true;
                 }
             } catch (Exception e) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
         }
+        return verificaGenero;
     }
     
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
@@ -515,8 +519,9 @@ public class RegistroGeneros extends javax.swing.JFrame {
         btnDeshabilitar.setText("CANCELAR");
     }//GEN-LAST:event_txtGenerosFocusGained
 
+    public int fila;
     void modificarRegistro() {
-        int fila = tablaGeneros.getSelectedRow();
+        fila = tablaGeneros.getSelectedRow();
 
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
         btnDeshabilitar.setIcon(iconobtn);
@@ -602,7 +607,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
     private javax.swing.JLabel lbFondo;
     private javax.swing.JMenuItem modificarGeneros;
     private javax.swing.JTable tablaGeneros;
-    private javax.swing.JTextField txtGeneros;
+    public javax.swing.JTextField txtGeneros;
     private javax.swing.JTextField txtIDGenero;
     // End of variables declaration//GEN-END:variables
 }

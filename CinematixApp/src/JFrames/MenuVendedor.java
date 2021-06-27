@@ -210,6 +210,7 @@ public class MenuVendedor extends javax.swing.JFrame {
         }
     }
 
+    public int combo;
     void seleccionPelicula() {
         int combo;
         combo = jComboBoxPeliculas.getSelectedIndex();

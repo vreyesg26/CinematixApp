@@ -513,8 +513,9 @@ public class RegistroActores extends javax.swing.JFrame {
         btnDeshabilitar.setText("CANCELAR");
     }//GEN-LAST:event_txtNombreFocusGained
 
+    public int fila;
     void modificarRegistro() {
-        int fila = tablaActores.getSelectedRow();
+        fila = tablaActores.getSelectedRow();
 
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
         btnDeshabilitar.setIcon(iconobtn);

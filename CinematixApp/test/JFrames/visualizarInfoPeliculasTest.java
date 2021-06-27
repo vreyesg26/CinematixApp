@@ -84,23 +84,41 @@ public class visualizarInfoPeliculasTest {
     public void testObtenerIDActores() {
         System.out.println("obtenerIDActores");
         visualizarInfoPeliculas instance = new visualizarInfoPeliculas();
-        instance.obtenerIDActores();
-        fail("The test case is a prototype.");
+        instance.arregloIDActores.add(2);
+        instance.arregloIDActores.add(4);
+        instance.arregloIDActores.add(7);
+        if (!instance.arregloIDActores.isEmpty()) {
+            instance.obtenerIDActores();
+        } else {
+            fail("No se pudieron obtener los actores");
+        }
     }
 
     @Test
     public void testObtenerIDHorarios() {
         System.out.println("obtenerIDHorarios");
         visualizarInfoPeliculas instance = new visualizarInfoPeliculas();
-        instance.obtenerIDHorarios();
-        fail("The test case is a prototype.");
+        instance.arregloIDHorarios.add(2);
+        instance.arregloIDHorarios.add(4);
+        instance.arregloIDHorarios.add(7);
+        if (!instance.arregloIDHorarios.isEmpty()) {
+            instance.obtenerIDHorarios();
+        } else {
+            fail("No se pudieron obtener los horarios");
+        }
     }
 
     @Test
     public void testObtenerIDSalas() {
         System.out.println("obtenerIDSalas");
         visualizarInfoPeliculas instance = new visualizarInfoPeliculas();
-        instance.obtenerIDSalas();
-        fail("The test case is a prototype.");
+        instance.arregloIDSalas.add(2);
+        instance.arregloIDSalas.add(4);
+        instance.arregloIDSalas.add(7);
+        if (!instance.arregloIDSalas.isEmpty()) {
+            instance.obtenerIDSalas();
+        } else {
+            fail("No se pudieron obtener las salas");
+        }
     }
 }
