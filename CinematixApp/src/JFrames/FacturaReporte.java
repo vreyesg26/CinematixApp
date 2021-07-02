@@ -14,6 +14,11 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -22,6 +27,10 @@ import javax.swing.JOptionPane;
  * @author Los Pibes
  */
 public class FacturaReporte extends javax.swing.JFrame {
+
+    final Calendar calendar = Calendar.getInstance();
+    final java.util.Date date = calendar.getTime();
+    String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
 
     /**
      * Creates new form Factura
@@ -247,12 +256,18 @@ public class FacturaReporte extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-
+                try {
+                    log myLog = new log("Source Packages\\Logs\\FacturaReporte " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(FacturaReporte.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_formWindowOpened
 
-    void recuperarInformacion(){
+    void recuperarInformacion() {
         jLabelHora.setText(Paneles.panelHistorial.horaEmision);
         jLabelFecha.setText(Paneles.panelHistorial.fechaEmision);
         jLabelVendedor.setText(Paneles.panelHistorial.nombreVendedor);
@@ -262,11 +277,11 @@ public class FacturaReporte extends javax.swing.JFrame {
         jLabelPelicula.setText(Paneles.panelHistorial.pelicula);
         jLabelSala.setText(Paneles.panelHistorial.sala);
         jLabelTanda.setText(Paneles.panelHistorial.hora);
-        jLabeTotal.setText("L."+Paneles.panelHistorial.total+"0");
+        jLabeTotal.setText("L." + Paneles.panelHistorial.total + "0");
         jLabelAsientos.setText(Paneles.panelHistorial.asientos);
         jLabelCliente.setText(Paneles.panelHistorial.nombreCliente);
     }
-    
+
     private void jButton_ImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ImprimirActionPerformed
         ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
         int decision = JOptionPane.showConfirmDialog(null, "¿Desea imprimir la factura?", "Imprimir", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);

@@ -10,11 +10,16 @@ import Tipografia.Fuente;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -29,6 +34,10 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
      * Creates new form registrarInfoPeliculas
      */
     Fuente tipoFuente;
+
+    final Calendar calendar = Calendar.getInstance();
+    final java.util.Date date = calendar.getTime();
+    String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
 
     public RegistrarInfoPeliculas() {
         initComponents();
@@ -53,7 +62,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
         listaHorariosAgregados.setModel(modelHorariosElegidos);
         listaSalas.setModel(modelSalas);
         listaSalasAgregadas.setModel(modelSalasElegidas);
-        
+
         habilitarActores();
         habilitarHorarios();
         habilitarSalas();
@@ -308,7 +317,13 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                 System.out.println(arregloActores);
             }
         } catch (Exception e) {
-
+            try {
+                log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         System.out.println(arregloActores);
@@ -329,7 +344,13 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                 System.out.println(arregloHorarios);
             }
         } catch (Exception e) {
-
+            try {
+                log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         System.out.println(arregloHorarios);
@@ -375,6 +396,13 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                 System.out.println(idUltimaPelicula);
             }
         } catch (Exception e) {
+            try {
+                log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -386,7 +414,13 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-
+                try {
+                    log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_formWindowOpened
@@ -479,6 +513,13 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                     System.out.println(arregloIDActores);
                 }
             } catch (Exception e) {
+                try {
+                    log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
@@ -497,6 +538,13 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                     System.out.println(arregloIDHorarios);
                 }
             } catch (Exception e) {
+                try {
+                    log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
@@ -515,6 +563,13 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                     System.out.println(arregloIDSalas);
                 }
             } catch (Exception e) {
+                try {
+                    log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }
@@ -531,6 +586,13 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                 datosGuardados = pst.executeUpdate();
 
             } catch (Exception e) {
+                try {
+                    log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         if (datosGuardados > 0) {
@@ -557,6 +619,13 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                 datosGuardados = pst.executeUpdate();
 
             } catch (Exception e) {
+                try {
+                    log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         if (datosGuardados > 0) {
@@ -583,6 +652,13 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                 datosGuardados = pst.executeUpdate();
 
             } catch (Exception e) {
+                try {
+                    log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         if (datosGuardados > 0) {
@@ -608,7 +684,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
         btnEliminarActor.setEnabled(false);
         btnActores.setEnabled(false);
     }
-    
+
     void habilitarHorarios() {
         btnAgregarHorario.setEnabled(true);
         btnEliminarHorario.setEnabled(true);
@@ -620,7 +696,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
         btnEliminarHorario.setEnabled(false);
         btnHorarios.setEnabled(false);
     }
-    
+
     void habilitarSalas() {
         btnAgregarSala.setEnabled(true);
         btnEliminarSala.setEnabled(true);

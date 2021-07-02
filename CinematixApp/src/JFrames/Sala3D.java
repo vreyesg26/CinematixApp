@@ -20,8 +20,11 @@ import Tipografia.Fuente;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -36,6 +39,10 @@ public class Sala3D extends javax.swing.JFrame {
      * Creates new form Sala2D
      */
     Fuente tipoFuente;
+
+    final Calendar calendar = Calendar.getInstance();
+    final java.util.Date date = calendar.getTime();
+    String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
 
     public Sala3D() {
         initComponents();
@@ -141,6 +148,13 @@ public class Sala3D extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
+            try {
+                log myLog = new log("Source Packages\\Logs\\Sala3D " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(Sala3D.class.getName()).log(Level.SEVERE, null, ex);
+            }
             JOptionPane.showMessageDialog(null, "Hubo un error con la conexión" + e);
         }
     }
@@ -166,6 +180,13 @@ public class Sala3D extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
+            try {
+                log myLog = new log("Source Packages\\Logs\\Sala3D " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(Sala3D.class.getName()).log(Level.SEVERE, null, ex);
+            }
             JOptionPane.showMessageDialog(null, "Hubo un error con la conexión" + e);
         }
     }
@@ -347,7 +368,13 @@ public class Sala3D extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-
+                try {
+                    log myLog = new log("Source Packages\\Logs\\Sala3D " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(Sala3D.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_formWindowOpened

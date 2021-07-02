@@ -537,6 +537,11 @@ public class panelVendedores extends javax.swing.JPanel {
                 cbTipoDocuFocusGained(evt);
             }
         });
+        cbTipoDocu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbTipoDocuActionPerformed(evt);
+            }
+        });
 
         txtBuscar.setForeground(new java.awt.Color(255, 255, 255));
         txtBuscar.setHorizontalAlignment(javax.swing.JTextField.CENTER);
@@ -1715,6 +1720,10 @@ public class panelVendedores extends javax.swing.JPanel {
             lbDireccion.setForeground(Color.WHITE);
         }
     }//GEN-LAST:event_txtDireccionFocusLost
+
+    private void cbTipoDocuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbTipoDocuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbTipoDocuActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -22,8 +22,11 @@ import java.awt.Cursor;
 import static java.awt.Frame.HAND_CURSOR;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -38,6 +41,10 @@ public class SalaMax2D extends javax.swing.JFrame {
      * Creates new form FrmReservaciones
      */
     Fuente tipoFuente;
+
+    final Calendar calendar = Calendar.getInstance();
+    final java.util.Date date = calendar.getTime();
+    String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
 
     public SalaMax2D() {
         initComponents();
@@ -176,6 +183,13 @@ public class SalaMax2D extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
+            try {
+                log myLog = new log("Source Packages\\Logs\\SalaMax2D " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(SalaMax2D.class.getName()).log(Level.SEVERE, null, ex);
+            }
             JOptionPane.showMessageDialog(null, "Hubo un error con la conexión" + e);
         }
     }
@@ -440,7 +454,13 @@ public class SalaMax2D extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-
+                try {
+                    log myLog = new log("Source Packages\\Logs\\SalaMax2D " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(SalaMax2D.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_formWindowOpened

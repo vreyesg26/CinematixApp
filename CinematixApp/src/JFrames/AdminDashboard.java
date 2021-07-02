@@ -14,6 +14,11 @@ import Tipografia.Fuente;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import paneles.CambiaPanel;
@@ -28,6 +33,10 @@ public class AdminDashboard extends javax.swing.JFrame {
      * Creates new form AdminDashboard
      */
     Fuente tipoFuente;
+
+    final Calendar calendar = Calendar.getInstance();
+    final java.util.Date date = calendar.getTime();
+    String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
 
     public AdminDashboard() {
         initComponents();
@@ -236,7 +245,13 @@ public class AdminDashboard extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-
+                try {
+                    log myLog = new log("Source Packages\\Logs\\AdminDashboard " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_formWindowOpened

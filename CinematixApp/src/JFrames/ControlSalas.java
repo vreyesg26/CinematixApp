@@ -10,9 +10,14 @@ import Tipografia.Fuente;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,6 +29,10 @@ public class ControlSalas extends javax.swing.JFrame {
      * Creates new form ControlSalas
      */
     Fuente tipoFuente;
+
+    final Calendar calendar = Calendar.getInstance();
+    final java.util.Date date = calendar.getTime();
+    String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
 
     public ControlSalas() {
         initComponents();
@@ -155,7 +164,13 @@ public class ControlSalas extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-
+                try {
+                    log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_formWindowOpened
@@ -176,7 +191,13 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-
+            try {
+                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -193,7 +214,13 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-
+            try {
+                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -210,7 +237,13 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-
+            try {
+                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -227,7 +260,13 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-
+            try {
+                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -244,7 +283,13 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-
+            try {
+                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -261,7 +306,13 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-
+            try {
+                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -278,7 +329,13 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-
+            try {
+                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -295,11 +352,17 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-
+            try {
+                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
-    
-    void estadoSala2D(){
+
+    void estadoSala2D() {
         String deshabilitado = "2";
         String sql = "SELECT IDEstado FROM salas WHERE IDSalas = 1";
 
@@ -309,7 +372,7 @@ public class ControlSalas extends javax.swing.JFrame {
 
             if (rs.next()) {
                 String estado = rs.getString("IDEstado");
-                if(estado.equals(deshabilitado)){
+                if (estado.equals(deshabilitado)) {
                     lbFS2D.setVisible(true);
                 } else {
                     disponibles2D();
@@ -318,11 +381,17 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            
+            try {
+                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
-    
-    void estadoSala3D(){
+
+    void estadoSala3D() {
         String deshabilitado = "2";
         String sql = "SELECT IDEstado FROM salas WHERE IDSalas = 2";
 
@@ -332,7 +401,7 @@ public class ControlSalas extends javax.swing.JFrame {
 
             if (rs.next()) {
                 String estado = rs.getString("IDEstado");
-                if(estado.equals(deshabilitado)){
+                if (estado.equals(deshabilitado)) {
                     lbFS3D.setVisible(true);
                 } else {
                     disponibles3D();
@@ -341,11 +410,17 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            
+            try {
+                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
-    
-    void estadoSalaMax2D(){
+
+    void estadoSalaMax2D() {
         String deshabilitado = "2";
         String sql = "SELECT IDEstado FROM salas WHERE IDSalas = 3";
 
@@ -355,7 +430,7 @@ public class ControlSalas extends javax.swing.JFrame {
 
             if (rs.next()) {
                 String estado = rs.getString("IDEstado");
-                if(estado.equals(deshabilitado)){
+                if (estado.equals(deshabilitado)) {
                     lbFSMax2D.setVisible(true);
                 } else {
                     disponiblesMax2D();
@@ -364,11 +439,17 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            
+            try {
+                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
-    
-    void estadoSalaMax3D(){
+
+    void estadoSalaMax3D() {
         String deshabilitado = "2";
         String sql = "SELECT IDEstado FROM salas WHERE IDSalas = 4";
 
@@ -378,7 +459,7 @@ public class ControlSalas extends javax.swing.JFrame {
 
             if (rs.next()) {
                 String estado = rs.getString("IDEstado");
-                if(estado.equals(deshabilitado)){
+                if (estado.equals(deshabilitado)) {
                     lbFSMax3D.setVisible(true);
                 } else {
                     disponiblesMax3D();
@@ -387,7 +468,13 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            
+            try {
+                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

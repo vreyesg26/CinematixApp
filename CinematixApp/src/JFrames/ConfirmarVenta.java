@@ -9,9 +9,14 @@ import Datos.Conexion;
 import Tipografia.Fuente;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -25,6 +30,10 @@ public class ConfirmarVenta extends javax.swing.JFrame {
      * Creates new form ConfirmarVenta
      */
     Fuente tipoFuente;
+
+    final Calendar calendar = Calendar.getInstance();
+    final java.util.Date date = calendar.getTime();
+    String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
 
     public ConfirmarVenta() {
         //setBackground(new Color(0, 0, 0, 0));
@@ -109,7 +118,13 @@ public class ConfirmarVenta extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-
+            try {
+                log myLog = new log("Source Packages\\Logs\\ConfirmarVenta " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(ConfirmarVenta.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -129,6 +144,7 @@ public class ConfirmarVenta extends javax.swing.JFrame {
     }
 
     public boolean pasaDatos = false;
+
     public void pasaDatos() {
         Factura.jLabelPelicula.setText(jTextFieldPelicula.getText());
         Factura.jLabelSala.setText(jLabelSala.getText());
@@ -487,7 +503,13 @@ public class ConfirmarVenta extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-
+                try {
+                    log myLog = new log("Source Packages\\Logs\\ConfirmarVenta " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(ConfirmarVenta.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_formWindowOpened
@@ -605,10 +627,10 @@ public class ConfirmarVenta extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Este campo solo admite números", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }
-    
+
     private void jTextFieldEfectivoRecibidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldEfectivoRecibidoKeyTyped
         validarNumeros(evt);
-        if(jTextFieldEfectivoRecibido.getText().startsWith(String.valueOf(0))){
+        if (jTextFieldEfectivoRecibido.getText().startsWith(String.valueOf(0))) {
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
             JOptionPane.showMessageDialog(null, "Asegurate de escribir una cantidad correcta", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }

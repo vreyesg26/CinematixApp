@@ -11,11 +11,14 @@ import Paneles.panelVendedores;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -30,6 +33,10 @@ import javax.swing.table.TableColumnModel;
  * @author Los Pibes
  */
 public class RegistroHorarios extends javax.swing.JFrame {
+
+    final Calendar calendar = Calendar.getInstance();
+    final java.util.Date date = calendar.getTime();
+    String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
 
     /**
      * Creates new form RegistroAdministradores
@@ -51,7 +58,7 @@ public class RegistroHorarios extends javax.swing.JFrame {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
         return retValue;
     }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -222,7 +229,13 @@ public class RegistroHorarios extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-
+                try {
+                    log myLog = new log("Source Packages\\Logs\\RegistroHorarios " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistroHorarios.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_formWindowOpened
@@ -374,6 +387,13 @@ public class RegistroHorarios extends javax.swing.JFrame {
                     guardar = true;
                 }
             } catch (Exception e) {
+                try {
+                    log myLog = new log("Source Packages\\Logs\\RegistroHorarios " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistroHorarios.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
@@ -405,6 +425,13 @@ public class RegistroHorarios extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
+                try {
+                    log myLog = new log("Source Packages\\Logs\\RegistroHorarios " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistroHorarios.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());
@@ -436,6 +463,13 @@ public class RegistroHorarios extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
+                try {
+                    log myLog = new log("Source Packages\\Logs\\RegistroHorarios " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistroHorarios.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoCorrecto.png");
                 JOptionPane.showMessageDialog(null, "Hubo un error al intentar actualizar", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());
@@ -481,7 +515,13 @@ public class RegistroHorarios extends javax.swing.JFrame {
                         ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
                         JOptionPane.showMessageDialog(null, "El horario de las " + genero + " ha sido deshabilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                     } catch (Exception e) {
-
+                        try {
+                            log myLog = new log("Source Packages\\Logs\\RegistroHorarios " + fecha + ".txt");
+                            myLog.logger.setLevel(Level.SEVERE);
+                            myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                        } catch (IOException ex) {
+                            Logger.getLogger(RegistroHorarios.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             } else if (btnDeshabilitar.getText().equals("HABILITAR")) {
@@ -498,7 +538,13 @@ public class RegistroHorarios extends javax.swing.JFrame {
                         ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
                         JOptionPane.showMessageDialog(null, "El horario de las " + genero + " ahora está habilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                     } catch (Exception e) {
-
+                        try {
+                            log myLog = new log("Source Packages\\Logs\\RegistroHorarios " + fecha + ".txt");
+                            myLog.logger.setLevel(Level.SEVERE);
+                            myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                        } catch (IOException ex) {
+                            Logger.getLogger(RegistroHorarios.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             }
@@ -516,6 +562,7 @@ public class RegistroHorarios extends javax.swing.JFrame {
     }//GEN-LAST:event_txtHorariosFocusGained
 
     public int fila;
+
     void modificarRegistro() {
         fila = tablaHorarios.getSelectedRow();
 
@@ -541,7 +588,7 @@ public class RegistroHorarios extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }
-    
+
     private void modificarHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarHorariosActionPerformed
         if (!txtHorarios.getText().isEmpty()) {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");

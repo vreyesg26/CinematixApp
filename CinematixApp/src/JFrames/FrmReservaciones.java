@@ -19,7 +19,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JToggleButton;
 import Datos.Conexion;
+import java.io.IOException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  *
@@ -27,73 +30,85 @@ import java.sql.Statement;
  */
 public class FrmReservaciones extends javax.swing.JFrame {
 
+    final Calendar calendar = Calendar.getInstance();
+    final java.util.Date date = calendar.getTime();
+    String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
+
     /**
      * Creates new form FrmReservaciones
      */
     public FrmReservaciones() {
         initComponents();
-        setLocationRelativeTo(null);  
+        setLocationRelativeTo(null);
         botones();
         buscarAsientosReservados();
     }
     int filas = 7;
     int columnas = 10;
-    int largoBoton = 60; 
+    int largoBoton = 60;
     int AnchoBoton = 60;
     int ejex = 20;
     int ejey = 20;
     public static Connection Conexion;
     public static PreparedStatement sentenciapreparada;
     public static ResultSet resultado;
-    
-    public JToggleButton [][] JTBotones = new JToggleButton[filas][columnas];
-    
-    public void botones(){
-    Font fuenteletra = new Font("Arial",Font.BOLD,12);
-    int contadorasientos = 1;
+
+    public JToggleButton[][] JTBotones = new JToggleButton[filas][columnas];
+
+    public void botones() {
+        Font fuenteletra = new Font("Arial", Font.BOLD, 12);
+        int contadorasientos = 1;
         JTBotones = new JToggleButton[filas][columnas];
-        
-        for (int i=0; i< filas; i++){
-            for(int j=0; j<columnas; j++){
-                
-                JTBotones [i][j] = new JToggleButton ();
-                JTBotones [i][j].setBounds(ejex, ejey, largoBoton, AnchoBoton);
-                
+
+        for (int i = 0; i < filas; i++) {
+            for (int j = 0; j < columnas; j++) {
+
+                JTBotones[i][j] = new JToggleButton();
+                JTBotones[i][j].setBounds(ejex, ejey, largoBoton, AnchoBoton);
+
                 AccionBotones accion = new AccionBotones();
-                JTBotones [i][j].addActionListener(accion);
-                
+                JTBotones[i][j].addActionListener(accion);
+
                 jPanel1.add(JTBotones[i][j]);
                 JTBotones[i][j].setText("A " + contadorasientos);
                 JTBotones[i][j].setFont(fuenteletra);
                 JTBotones[i][j].setBackground(Color.GREEN);
-                
+
                 contadorasientos++;
                 ejex += 70;
             }
-            ejex =20;
+            ejex = 20;
             ejey += 70;
         }
     }
-    public void reservaAsiento(int numeroasiento){
+
+    public void reservaAsiento(int numeroasiento) {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
         String consulta = "UPDATE asiento SET Estado = 'reservado' WHERE IDAsiento = " + numeroasiento;
-        try{
-           Statement st = cn.createStatement();
-           ResultSet rs = st.executeQuery(consulta);
-           
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(consulta);
+
             sentenciapreparada = Conexion.prepareStatement(consulta);
             int mensaje = sentenciapreparada.executeUpdate();
-            
-            if (mensaje>0){
+
+            if (mensaje > 0) {
                 JOptionPane.showMessageDialog(null, "Asiento Reservado");
-            
-            }else{
+
+            } else {
                 JOptionPane.showMessageDialog(null, "Error al actualizar el estado de los asientos ");
             }
-        }catch(HeadlessException | SQLException e){
-            System.out.println("Error: " + e);  
-        }finally{
+        } catch (HeadlessException | SQLException e) {
+            try {
+                log myLog = new log("Source Packages\\Logs\\FrmReservaciones " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(FrmReservaciones.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("Error: " + e);
+        } finally {
             try {
                 Conexion.close();
             } catch (SQLException ex) {
@@ -102,25 +117,33 @@ public class FrmReservaciones extends javax.swing.JFrame {
             }
         }
     }
-    public void QuitarReservaAsiento(int numeroasiento){
+
+    public void QuitarReservaAsiento(int numeroasiento) {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
         String consulta = "UPDATE asiento SET Estado = 'no reservado' WHERE IDAsiento = " + numeroasiento;
-        try{
-           Statement st = cn.createStatement();
-           ResultSet rs = st.executeQuery(consulta);
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(consulta);
             sentenciapreparada = Conexion.prepareStatement(consulta);
             int mensaje = sentenciapreparada.executeUpdate();
-            
-            if (mensaje>0){
+
+            if (mensaje > 0) {
                 JOptionPane.showMessageDialog(null, "Se ha quitado la reservacion para este asiento");
-            
-            }else{
+
+            } else {
                 JOptionPane.showMessageDialog(null, "Error al actualizar el estado de los asientos ");
             }
-        }catch(HeadlessException | SQLException e){
-            System.out.println("Error: " + e);  
-        }finally{
+        } catch (HeadlessException | SQLException e) {
+            try {
+                log myLog = new log("Source Packages\\Logs\\FrmReservaciones " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(FrmReservaciones.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("Error: " + e);
+        } finally {
             try {
                 Conexion.close();
             } catch (SQLException ex) {
@@ -129,94 +152,101 @@ public class FrmReservaciones extends javax.swing.JFrame {
             }
         }
     }
-    public class AccionBotones implements ActionListener{
+
+    public class AccionBotones implements ActionListener {
 
         @Override
         public void actionPerformed(ActionEvent ae) {
-            
-            for(int i = 0; i<filas; i++){
-                for(int j = 0; j<columnas; j++){
-                    if (ae.getSource().equals(JTBotones[i][j])){
-                        if (JTBotones [i][j].isSelected()){
-                            JTBotones [i][j].setBackground(Color.RED);
-                            
-                            if(JTBotones[i][j].getText().length() == 3){
-                                String numeroLetra = JTBotones[i][j].getText().charAt(2)+" ";
+
+            for (int i = 0; i < filas; i++) {
+                for (int j = 0; j < columnas; j++) {
+                    if (ae.getSource().equals(JTBotones[i][j])) {
+                        if (JTBotones[i][j].isSelected()) {
+                            JTBotones[i][j].setBackground(Color.RED);
+
+                            if (JTBotones[i][j].getText().length() == 3) {
+                                String numeroLetra = JTBotones[i][j].getText().charAt(2) + " ";
                                 int numero = Integer.parseInt(numeroLetra);
                                 reservaAsiento(numero);
-                            }else if(JTBotones[i][j].getText().length() == 4){
-                                String numeroLetra = JTBotones[i][j].getText().charAt(2)+" "+ JTBotones[i][j].getText().charAt(3);
+                            } else if (JTBotones[i][j].getText().length() == 4) {
+                                String numeroLetra = JTBotones[i][j].getText().charAt(2) + " " + JTBotones[i][j].getText().charAt(3);
                                 int numero = Integer.parseInt(numeroLetra);
-                                
+
                             }
-                        }else{
-                            JTBotones [i][j].setBackground(Color.GREEN);
-                             if(JTBotones[i][j].getText().length() == 3){
-                                String numeroLetra = JTBotones[i][j].getText().charAt(2)+" ";
+                        } else {
+                            JTBotones[i][j].setBackground(Color.GREEN);
+                            if (JTBotones[i][j].getText().length() == 3) {
+                                String numeroLetra = JTBotones[i][j].getText().charAt(2) + " ";
                                 int numero = Integer.parseInt(numeroLetra);
                                 QuitarReservaAsiento(numero);
-                            }else if(JTBotones[i][j].getText().length() == 4){
-                                String numeroLetra = JTBotones[i][j].getText().charAt(2)+" "+ JTBotones[i][j].getText().charAt(3);
+                            } else if (JTBotones[i][j].getText().length() == 4) {
+                                String numeroLetra = JTBotones[i][j].getText().charAt(2) + " " + JTBotones[i][j].getText().charAt(3);
                                 int numero = Integer.parseInt(numeroLetra);
-                                 QuitarReservaAsiento(numero);
+                                QuitarReservaAsiento(numero);
                             }
                         }
                     }
-                    
+
                 }
             }
         }
-        
+
     }
-    
-    public void buscarAsientosReservados(){
+
+    public void buscarAsientosReservados() {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
         String consulta = "SELECT IDAsiento, Estado FROM asientos";
-        
-        try{
-             Statement st = cn.createStatement();
-           ResultSet rs = st.executeQuery(consulta);
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(consulta);
             sentenciapreparada = Conexion.prepareStatement(consulta);
             resultado = sentenciapreparada.executeQuery();
             int numero;
             String Estado;
-            
-            while (resultado.next()){
+
+            while (resultado.next()) {
                 numero = resultado.getInt("IDAsiento");
                 Estado = resultado.getString("Estado");
-                
-                for (int i = 0; i < filas; i++){
-                    for(int j = 0; j < columnas; j++){
-                        if (JTBotones[i][j].getText().length() == 3){
+
+                for (int i = 0; i < filas; i++) {
+                    for (int j = 0; j < columnas; j++) {
+                        if (JTBotones[i][j].getText().length() == 3) {
                             String numeroLetra = JTBotones[i][j].getText().charAt(2) + "";
                             int numeroN = Integer.parseInt(numeroLetra);
-                            if((numero == numeroN ) && (Estado.equals("reservado"))){
+                            if ((numero == numeroN) && (Estado.equals("reservado"))) {
                                 JTBotones[i][j].setBackground(Color.RED);
                                 JTBotones[i][j].setSelected(true);
                             }
-                        }else if(JTBotones[i][j].getText().length() == 4){
-                            
-                            String numeroLetra = JTBotones[i][j].getText().charAt(2) + "" +JTBotones[i][j].getText().charAt(3);
+                        } else if (JTBotones[i][j].getText().length() == 4) {
+
+                            String numeroLetra = JTBotones[i][j].getText().charAt(2) + "" + JTBotones[i][j].getText().charAt(3);
                             int numeroN = Integer.parseInt(numeroLetra);
-                            if((numero == numeroN ) && (Estado.equals("reservado"))){
+                            if ((numero == numeroN) && (Estado.equals("reservado"))) {
                                 JTBotones[i][j].setBackground(Color.RED);
                                 JTBotones[i][j].setSelected(true);
                             }
-                            
+
                         }
                     }
                 }
             }
-        }catch(SQLException e){
-            
+        } catch (SQLException e) {
+            try {
+                log myLog = new log("Source Packages\\Logs\\FrmReservaciones " + fecha + ".txt");
+                myLog.logger.setLevel(Level.SEVERE);
+                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+            } catch (IOException ex) {
+                Logger.getLogger(FrmReservaciones.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     /**
-     * This metho d is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
+     * This metho d is called from within the constructor to initialize the
+     * form. WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -345,7 +375,7 @@ public class FrmReservaciones extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        FrmMenu vista = new FrmMenu ();
+        FrmMenu vista = new FrmMenu();
         vista.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton3ActionPerformed

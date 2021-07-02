@@ -12,10 +12,15 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -29,6 +34,9 @@ public class LoginAdmin extends javax.swing.JFrame {
      * Creates new form LoginAdmin
      */
     Fuente tipoFuente;
+    final Calendar calendar = Calendar.getInstance();
+    final java.util.Date date = calendar.getTime();
+    String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
 
     public LoginAdmin() {
         initComponents();
@@ -142,6 +150,7 @@ public class LoginAdmin extends javax.swing.JFrame {
 
     public static String usuario;
     public boolean resultado = false;
+
     public boolean validarAdministradores() {
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
@@ -175,8 +184,7 @@ public class LoginAdmin extends javax.swing.JFrame {
                         this.dispose();
                         try {
                             String sqlRestar = "UPDATE `usuarios` SET `Intentos` = ? WHERE `usuarios`.`Usuario` = ? ";
-                            PreparedStatement pst = (PreparedStatement)
-                            cn.prepareStatement(sqlRestar);
+                            PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlRestar);
                             pst.setString(1, String.valueOf("3"));
                             pst.setString(2, user);
                             pst.execute();
@@ -203,7 +211,13 @@ public class LoginAdmin extends javax.swing.JFrame {
                                 pst.execute();
 
                             } catch (Exception e) {
-
+                                try {
+                                    log myLog = new log("Source Packages\\Logs\\LoginAdmin " + fecha + ".txt");
+                                    myLog.logger.setLevel(Level.SEVERE);
+                                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                                } catch (IOException ex) {
+                                    Logger.getLogger(LoginAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
                         } else {
                             try {
@@ -214,7 +228,13 @@ public class LoginAdmin extends javax.swing.JFrame {
                                 pst.execute();
 
                             } catch (Exception e) {
-
+                                try {
+                                    log myLog = new log("Source Packages\\Logs\\LoginAdmin " + fecha + ".txt");
+                                    myLog.logger.setLevel(Level.SEVERE);
+                                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                                } catch (IOException ex) {
+                                    Logger.getLogger(LoginAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                             }
                             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
                             JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Adveretencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
@@ -227,6 +247,13 @@ public class LoginAdmin extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
+                try {
+                    log myLog = new log("Source Packages\\Logs\\LoginAdmin " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoSalida.png");
                 JOptionPane.showMessageDialog(null, "No se pudo establecer la conexión", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());
@@ -245,7 +272,13 @@ public class LoginAdmin extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-
+                try {
+                    log myLog = new log("Source Packages\\Logs\\LoginAdmin " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginAdmin.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_formWindowOpened

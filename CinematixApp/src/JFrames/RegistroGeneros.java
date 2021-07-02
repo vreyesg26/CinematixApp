@@ -11,11 +11,14 @@ import Paneles.panelVendedores;
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -31,23 +34,26 @@ import javax.swing.table.TableColumnModel;
  */
 public class RegistroGeneros extends javax.swing.JFrame {
 
+    final Calendar calendar = Calendar.getInstance();
+    final java.util.Date date = calendar.getTime();
+    String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
+
     /**
      * Creates new form RegistroAdministradores
      */
-    
     public RegistroGeneros() {
         initComponents();
         setBackground(new Color(0, 0, 0, 0));
         anchoColumnas();
         cargarData();
         bloquear();
-        
+
         txtIDGenero.setEnabled(false);
         TextPrompt idGenero = new TextPrompt("ID", txtIDGenero);
         TextPrompt genero = new TextPrompt("GÉNERO", txtGeneros);
-        
+
     }
-    
+
     @Override
     public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
@@ -224,7 +230,13 @@ public class RegistroGeneros extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-
+                try {
+                    log myLog = new log("Source Packages\\Logs\\RegistroGeneros " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistroGeneros.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_formWindowOpened
@@ -245,7 +257,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
             guardar = true;
         }
     }
-    
+
     public boolean verificarCaracteres(String cadena) {
         String patron = "^[A-Z]((([A-Za-zñÑáéíóúÁÉÍÓÚ ,.\\s])\\3?(?!\\3)))+$";
         Pattern patt = Pattern.compile(patron);
@@ -285,7 +297,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
-    
+
     void anchoColumnas() {
         TableColumnModel anchoColumnas = tablaGeneros.getColumnModel();
         anchoColumnas.getColumn(0).setPreferredWidth(30);
@@ -313,7 +325,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
         btnDeshabilitar.setEnabled(true);
         tablaGeneros.setEnabled(true);
     }
-    
+
     private void btnRegresarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegresarMouseClicked
         if (!txtIDGenero.getText().isEmpty() || !txtGeneros.getText().isEmpty()) {
             ImageIcon jPaneIcon = new ImageIcon("src/Iconos/iconoSalida.png");
@@ -355,6 +367,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     public boolean verificaGenero = false;
+
     public boolean verificarGenero() {
         if (!txtGeneros.getText().isEmpty()) {
             Conexion cc = new Conexion();
@@ -378,13 +391,20 @@ public class RegistroGeneros extends javax.swing.JFrame {
                     verificaGenero = true;
                 }
             } catch (Exception e) {
+                try {
+                    log myLog = new log("Source Packages\\Logs\\RegistroGeneros " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistroGeneros.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
         }
         return verificaGenero;
     }
-    
+
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         Conexion cn = new Conexion();
         Connection cc = cn.GetConexion();
@@ -409,6 +429,13 @@ public class RegistroGeneros extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
+                try {
+                    log myLog = new log("Source Packages\\Logs\\RegistroGeneros " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistroGeneros.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());
@@ -440,11 +467,18 @@ public class RegistroGeneros extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
+                try {
+                    log myLog = new log("Source Packages\\Logs\\RegistroGeneros " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(RegistroGeneros.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoCorrecto.png");
                 JOptionPane.showMessageDialog(null, "Hubo un error al intentar actualizar", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());
             }
-        } 
+        }
         cargarData();
         bloquear();
         limpiarCajas();
@@ -485,7 +519,13 @@ public class RegistroGeneros extends javax.swing.JFrame {
                         ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
                         JOptionPane.showMessageDialog(null, "El género " + genero + " ha sido deshabilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                     } catch (Exception e) {
-
+                        try {
+                            log myLog = new log("Source Packages\\Logs\\RegistroGeneros " + fecha + ".txt");
+                            myLog.logger.setLevel(Level.SEVERE);
+                            myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                        } catch (IOException ex) {
+                            Logger.getLogger(RegistroGeneros.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             } else if (btnDeshabilitar.getText().equals("HABILITAR")) {
@@ -502,7 +542,13 @@ public class RegistroGeneros extends javax.swing.JFrame {
                         ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
                         JOptionPane.showMessageDialog(null, "El género " + genero + " ahora está habilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                     } catch (Exception e) {
-
+                        try {
+                            log myLog = new log("Source Packages\\Logs\\RegistroGeneros " + fecha + ".txt");
+                            myLog.logger.setLevel(Level.SEVERE);
+                            myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                        } catch (IOException ex) {
+                            Logger.getLogger(RegistroGeneros.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }
                 }
             }
@@ -520,6 +566,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
     }//GEN-LAST:event_txtGenerosFocusGained
 
     public int fila;
+
     void modificarRegistro() {
         fila = tablaGeneros.getSelectedRow();
 
@@ -545,7 +592,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }
-    
+
     private void modificarGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modificarGenerosActionPerformed
         if (!txtGeneros.getText().isEmpty()) {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");

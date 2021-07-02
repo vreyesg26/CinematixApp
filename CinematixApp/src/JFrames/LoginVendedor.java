@@ -7,10 +7,15 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -24,6 +29,10 @@ public class LoginVendedor extends javax.swing.JFrame {
      * Creates new form LoginVendedor
      */
     Fuente tipoFuente;
+
+    final Calendar calendar = Calendar.getInstance();
+    final java.util.Date date = calendar.getTime();
+    String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
 
     public LoginVendedor() {
         initComponents();
@@ -134,7 +143,7 @@ public class LoginVendedor extends javax.swing.JFrame {
 
     public static String idVendedor;
     public boolean resultado = false;
-    
+
     public boolean validarVendedores() {
         String secretKey = "lospibes";
         Encode encode = new Encode();
@@ -175,6 +184,13 @@ public class LoginVendedor extends javax.swing.JFrame {
                             pst.execute();
 
                         } catch (Exception e) {
+                            try {
+                                log myLog = new log("Source Packages\\Logs\\LoginVendedor " + fecha + ".txt");
+                                myLog.logger.setLevel(Level.SEVERE);
+                                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                            } catch (IOException ex) {
+                                Logger.getLogger(LoginVendedor.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                             JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                         }
@@ -193,6 +209,13 @@ public class LoginVendedor extends javax.swing.JFrame {
                                 pst.execute();
 
                             } catch (Exception e) {
+                                try {
+                                    log myLog = new log("Source Packages\\Logs\\FrmReservaciones " + fecha + ".txt");
+                                    myLog.logger.setLevel(Level.SEVERE);
+                                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                                } catch (IOException ex) {
+                                    Logger.getLogger(FrmReservaciones.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoError.png");
                                 JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                             }
@@ -208,6 +231,13 @@ public class LoginVendedor extends javax.swing.JFrame {
                                 pst.execute();
 
                             } catch (Exception e) {
+                                try {
+                                    log myLog = new log("Source Packages\\Logs\\LoginVendedor " + fecha + ".txt");
+                                    myLog.logger.setLevel(Level.SEVERE);
+                                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                                } catch (IOException ex) {
+                                    Logger.getLogger(LoginVendedor.class.getName()).log(Level.SEVERE, null, ex);
+                                }
                                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                                 JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                             }
@@ -223,6 +253,13 @@ public class LoginVendedor extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
+                try {
+                    log myLog = new log("Source Packages\\Logs\\LoginVendedor " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginVendedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "Error de conexión " + e.getMessage(), "Aviso", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 txtClave.setText("");
@@ -239,7 +276,13 @@ public class LoginVendedor extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-
+                try {
+                    log myLog = new log("Source Packages\\Logs\\LoginVendedor " + fecha + ".txt");
+                    myLog.logger.setLevel(Level.SEVERE);
+                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
+                } catch (IOException ex) {
+                    Logger.getLogger(LoginVendedor.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
     }//GEN-LAST:event_formWindowOpened
