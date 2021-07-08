@@ -1,6 +1,7 @@
 package Paneles;
 
 import Datos.Conexion;
+import static JFrames.LoginAdmin.txtusuario;
 import JFrames.RegistrarInfoPeliculas;
 import JFrames.TextPrompt;
 import JFrames.visualizarInfoPeliculas;
@@ -42,6 +43,10 @@ public class panelPeliculas extends javax.swing.JPanel {
 
     public panelPeliculas() {
         initComponents();
+        if ("adminlectura".equals(txtusuario.getText())) {
+            btnNuevo.setEnabled(false);
+            tablaPeliculas.setEnabled(false);
+        }
         cargarData("");
         bloquearCampos();
         anchoColumnas();
@@ -695,8 +700,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         add(txtIDPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 31, 25, 25));
     }// </editor-fold>//GEN-END:initComponents
 
-
-    public void guardarPeliculas(){
+    public void guardarPeliculas() {
         Conexion cn = new Conexion();
         Connection cc = cn.GetConexion();
         validarCamposVacios();
@@ -742,7 +746,7 @@ public class panelPeliculas extends javax.swing.JPanel {
             }
         }
     }
-    
+
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         guardarPeliculas();
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -909,8 +913,12 @@ public class panelPeliculas extends javax.swing.JPanel {
         } catch (Exception e) {
         }
     }
-    
+
     void modificarRegistro() {
+        if ("adminlectura".equals(txtusuario.getText())) {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No tienes permisos para realizar esta accion", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
         btnGuardar.setEnabled(false);
         btnActualizar.setEnabled(true);
         btnDeshabilitar.setEnabled(true);
@@ -1164,11 +1172,11 @@ public class panelPeliculas extends javax.swing.JPanel {
 
     public static boolean pantallaVerInfo = false;
     private void btnVerInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerInfoActionPerformed
-        if(pantallaVerInfo == false){
+        if (pantallaVerInfo == false) {
             visualizarInfoPeliculas vip = new visualizarInfoPeliculas();
             vip.setVisible(true);
             pantallaVerInfo = true;
-        } else if (pantallaVerInfo == true){
+        } else if (pantallaVerInfo == true) {
             ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoAdvertencia.png");
             JOptionPane.showMessageDialog(null, "La pantalla de ver información ya se está ejecutando", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         }

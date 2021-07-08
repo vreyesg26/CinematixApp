@@ -1,0 +1,10 @@
+2021-07-06 05:04:56 -- No se pudo establecer la conexión  java.sql.SQLException: No database selected
+2021-07-06 05:05:57 -- No se pudo establecer la conexión  java.sql.SQLException: No database selected
+2021-07-06 05:06:04 -- No se pudo establecer la conexión  java.sql.SQLException: No database selected
+2021-07-06 05:08:12 -- No se pudo establecer la conexión  java.sql.SQLException: No database selected
+2021-07-06 05:12:04 -- No se pudo establecer la conexión  java.sql.SQLException: No database selected
+2021-07-06 05:21:44 -- Error porque el usuario no existe java.sql.SQLException: No database selected
+2021-07-06 05:23:55 -- Error de conexion  java.sql.SQLException: No database selected
+2021-07-06 05:39:41 -- Error porque el usuario no existe java.sql.SQLException: No database selected
+2021-07-06 05:47:50 -- Error porque el usuario no existe java.sql.SQLException: No database selected
+2021-07-06 05:49:03 -- Error no se pudo establecer la conexion java.sql.SQLException: No database selected

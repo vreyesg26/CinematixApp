@@ -63,7 +63,7 @@
                   </Group>
                   <Group type="102" attributes="0">
                       <EmptySpace min="-2" pref="110" max="-2" attributes="0"/>
-                      <Component id="btnNuevo" min="-2" pref="140" max="-2" attributes="0"/>
+                      <Component id="btnNuevoVen" min="-2" pref="140" max="-2" attributes="0"/>
                       <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
                       <Component id="btnGuardar" min="-2" pref="140" max="-2" attributes="0"/>
                       <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
@@ -207,7 +207,7 @@
               </Group>
               <EmptySpace min="24" pref="24" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="btnNuevo" min="-2" pref="35" max="-2" attributes="0"/>
+                  <Component id="btnNuevoVen" min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="btnGuardar" min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="btnActualizar" min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="btnDeshabilitar" min="-2" pref="35" max="-2" attributes="0"/>
@@ -658,7 +658,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeshabilitarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="rojerusan.RSButtonHover" name="btnNuevo">
+    <Component class="rojerusan.RSButtonHover" name="btnNuevoVen">
       <Properties>
         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="51" green="51" red="51" type="rgb"/>
@@ -677,7 +677,7 @@
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnNuevoVenActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="txtDireccion">

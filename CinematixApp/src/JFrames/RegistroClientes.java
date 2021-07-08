@@ -6,6 +6,7 @@
 package JFrames;
 
 import Datos.Conexion;
+import static JFrames.LoginAdmin.txtusuario;
 import JFrames.TextPrompt;
 import Paneles.panelInicio;
 import Paneles.panelVendedores;
@@ -35,7 +36,7 @@ import javax.swing.table.TableColumnModel;
  * @author Los Pibes
  */
 public class RegistroClientes extends javax.swing.JFrame {
-
+    log lo = new log();
     final Calendar calendar = Calendar.getInstance();
     final java.util.Date date = calendar.getTime();
     String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
@@ -45,6 +46,10 @@ public class RegistroClientes extends javax.swing.JFrame {
      */
     public RegistroClientes() {
         initComponents();
+        if ("adminlectura".equals(txtusuario.getText())) {
+            btnNuevo.setEnabled(false);
+            tablaClientes1.setEnabled(false);
+        }
         setBackground(new Color(0, 0, 0, 0));
         cargarData();
         anchoColumnas();
@@ -343,13 +348,7 @@ public class RegistroClientes extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistroClientes " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistroClientes.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                 lo.LogBitacora("Error al intentar abrir la ventana " + e);
             }
         }
     }//GEN-LAST:event_formWindowOpened
@@ -494,13 +493,7 @@ public class RegistroClientes extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\RegistroClientes " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(RegistroClientes.class.getName()).log(Level.SEVERE, null, ex);
-            }
+             lo.LogBitacora("Error al cargar el tipo de documento " + e);
         }
     }
 
@@ -639,13 +632,7 @@ public class RegistroClientes extends javax.swing.JFrame {
                         ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
                         JOptionPane.showMessageDialog(null, "El cliente " + cliente + " ha sido deshabilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                     } catch (Exception e) {
-                        try {
-                            log myLog = new log("Source Packages\\Logs\\RegistroClientes " + fecha + ".txt");
-                            myLog.logger.setLevel(Level.SEVERE);
-                            myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                        } catch (IOException ex) {
-                            Logger.getLogger(RegistroClientes.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        lo.LogBitacora("Error al deshabiliar al cliente " + e);
                     }
                 }
             } else if (btnDeshabilitar.getText().equals("HABILITAR")) {
@@ -662,13 +649,7 @@ public class RegistroClientes extends javax.swing.JFrame {
                         ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
                         JOptionPane.showMessageDialog(null, "El cliente " + cliente + " ahora está habilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                     } catch (Exception e) {
-                        try {
-                            log myLog = new log("Source Packages\\Logs\\RegistroClientes " + fecha + ".txt");
-                            myLog.logger.setLevel(Level.SEVERE);
-                            myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                        } catch (IOException ex) {
-                            Logger.getLogger(RegistroClientes.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        lo.LogBitacora("Error al habilitar al cliente" + e);
                     }
                 }
             }
@@ -682,6 +663,10 @@ public class RegistroClientes extends javax.swing.JFrame {
     public int fila;
 
     void modificarRegistro() {
+        if ("adminlectura".equals(txtusuario.getText())) {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No tienes permisos para realizar esta accion", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
         fila = tablaClientes1.getSelectedRow();
 
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
@@ -755,13 +740,7 @@ public class RegistroClientes extends javax.swing.JFrame {
                 guardar = true;
             }
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\RegistroClientes " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(RegistroClientes.class.getName()).log(Level.SEVERE, null, ex);
-            }
+             lo.LogBitacora("No se pudo verificar " + e);
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
             JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
@@ -836,13 +815,7 @@ public class RegistroClientes extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistroClientes " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistroClientes.class.getName()).log(Level.SEVERE, null, ex);
-                }
+              lo.LogBitacora("Hubo un error al intentar guadar " + e);
                 ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());
@@ -879,13 +852,7 @@ public class RegistroClientes extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistroClientes " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistroClientes.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                lo.LogBitacora("Hubo un error al intentar actualizar" + e);
                 ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoCorrecto.png");
                 JOptionPane.showMessageDialog(null, "Hubo un error al intentar actualizar", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());
@@ -976,13 +943,7 @@ public class RegistroClientes extends javax.swing.JFrame {
 
                         }
                     } catch (Exception e) {
-                        try {
-                            log myLog = new log("Source Packages\\Logs\\RegistroClientes " + fecha + ".txt");
-                            myLog.logger.setLevel(Level.SEVERE);
-                            myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                        } catch (IOException ex) {
-                            Logger.getLogger(RegistroClientes.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        lo.LogBitacora("No se pudo verificar " + e);
                         ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                         JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                     }
@@ -1018,13 +979,7 @@ public class RegistroClientes extends javax.swing.JFrame {
                             }
                         }
                     } catch (Exception e) {
-                        try {
-                            log myLog = new log("Source Packages\\Logs\\RegistroClientes " + fecha + ".txt");
-                            myLog.logger.setLevel(Level.SEVERE);
-                            myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                        } catch (IOException ex) {
-                            Logger.getLogger(RegistroClientes.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        lo.LogBitacora("No se pudo verificar " + e);
                         ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                         JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                     }
@@ -1055,13 +1010,7 @@ public class RegistroClientes extends javax.swing.JFrame {
                             }
                         }
                     } catch (Exception e) {
-                        try {
-                            log myLog = new log("Source Packages\\Logs\\RegistroClientes " + fecha + ".txt");
-                            myLog.logger.setLevel(Level.SEVERE);
-                            myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                        } catch (IOException ex) {
-                            Logger.getLogger(RegistroClientes.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                         lo.LogBitacora("No se pudo verificar " + e);
                         ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                         JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                     }

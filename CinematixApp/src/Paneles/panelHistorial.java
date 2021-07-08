@@ -7,7 +7,9 @@ package Paneles;
 
 import Datos.Conexion;
 import JFrames.FacturaReporte;
+import static JFrames.LoginAdmin.txtusuario;
 import JFrames.TextPrompt;
+import JFrames.log;
 import Tipografia.Fuente;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -37,9 +39,14 @@ public class panelHistorial extends javax.swing.JPanel {
      * Creates new form panelHistorial
      */
     Fuente tipoFuente;
-
+    log lo = new log();
     public panelHistorial() {
         initComponents();
+         if ("adminlectura".equals(txtusuario.getText())) {
+     
+            btnGenerarReporte.setEnabled(false);
+            tablaFacturas.setEnabled(false);
+        }
         cargarData();
 
         tipoFuente = new Fuente();
@@ -322,6 +329,7 @@ public class panelHistorial extends javax.swing.JPanel {
                     }
                 }
             } catch (Exception e) {
+                 lo.LogBitacora("Ya hay una factura mostrandose" + e);
             }
         }
     }//GEN-LAST:event_visualizarFacturaActionPerformed

@@ -6,6 +6,7 @@
 package Paneles;
 
 import Datos.Conexion;
+import static JFrames.LoginAdmin.txtusuario;
 import JFrames.TextPrompt;
 import Tipografia.Fuente;
 import encriptacion.Encode;
@@ -168,7 +169,7 @@ public class panelVendedores extends javax.swing.JPanel {
         btnActualizar.setEnabled(false);
         btnDeshabilitar.setEnabled(false);
         btnGuardar.setEnabled(false);
-        btnNuevo.setEnabled(true);
+        btnNuevoVen.setEnabled(true);
         cbTipoDocu.setEnabled(false);
         tablaVendedores.setEnabled(false);
     }
@@ -264,6 +265,10 @@ public class panelVendedores extends javax.swing.JPanel {
 
     public panelVendedores() {
         initComponents();
+        if ("adminlectura".equals(txtusuario.getText())) {
+            btnNuevoVen.setEnabled(false);
+            tablaVendedores.setEnabled(false);
+        }
         bloquear();
         cargarData();
         anchoColumnas();
@@ -299,7 +304,7 @@ public class panelVendedores extends javax.swing.JPanel {
         btnGuardar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnActualizar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnDeshabilitar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
-        btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        btnNuevoVen.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
 
         TextPrompt buscar = new TextPrompt("Buscar por ID o Nombre", txtBuscar);
         buscar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
@@ -441,7 +446,7 @@ public class panelVendedores extends javax.swing.JPanel {
         btnGuardar = new rojerusan.RSButtonHover();
         btnActualizar = new rojerusan.RSButtonHover();
         btnDeshabilitar = new rojerusan.RSButtonHover();
-        btnNuevo = new rojerusan.RSButtonHover();
+        btnNuevoVen = new rojerusan.RSButtonHover();
         txtDireccion = new javax.swing.JTextField();
         lbLupa = new javax.swing.JLabel();
         txtSueldo = new javax.swing.JTextField();
@@ -708,16 +713,16 @@ public class panelVendedores extends javax.swing.JPanel {
             }
         });
 
-        btnNuevo.setBackground(new java.awt.Color(81, 81, 81));
-        btnNuevo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoNuevo.png"))); // NOI18N
-        btnNuevo.setText("NUEVO");
-        btnNuevo.setBorderPainted(false);
-        btnNuevo.setColorHover(new java.awt.Color(61, 61, 61));
-        btnNuevo.setFocusable(false);
-        btnNuevo.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
-        btnNuevo.addActionListener(new java.awt.event.ActionListener() {
+        btnNuevoVen.setBackground(new java.awt.Color(81, 81, 81));
+        btnNuevoVen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoNuevo.png"))); // NOI18N
+        btnNuevoVen.setText("NUEVO");
+        btnNuevoVen.setBorderPainted(false);
+        btnNuevoVen.setColorHover(new java.awt.Color(61, 61, 61));
+        btnNuevoVen.setFocusable(false);
+        btnNuevoVen.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnNuevoVen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNuevoActionPerformed(evt);
+                btnNuevoVenActionPerformed(evt);
             }
         });
 
@@ -854,7 +859,7 @@ public class panelVendedores extends javax.swing.JPanel {
                         .addComponent(jLabel10))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(110, 110, 110)
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnNuevoVen, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
@@ -963,7 +968,7 @@ public class panelVendedores extends javax.swing.JPanel {
                     .addComponent(lb11))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNuevoVen, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnDeshabilitar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -981,6 +986,10 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_cbJornadaActionPerformed
 
     void modificarRegistro() {
+        if ("adminlectura".equals(txtusuario.getText())) {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No tienes permisos para realizar esta accion", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
         int fila = tablaVendedores.getSelectedRow();
 
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
@@ -990,7 +999,7 @@ public class panelVendedores extends javax.swing.JPanel {
         if (fila >= 0) {
             btnActualizar.setEnabled(true);
             btnDeshabilitar.setEnabled(true);
-            btnNuevo.setEnabled(false);
+            btnNuevoVen.setEnabled(false);
             txtIDVendedor.setEnabled(false);
             cbJornada.setEnabled(true);
             txtClave.setEnabled(true);
@@ -1139,7 +1148,7 @@ public class panelVendedores extends javax.swing.JPanel {
                     limpiarCajas();
                     cargarData();
                     bloquear();
-                    btnNuevo.setEnabled(true);
+                    btnNuevoVen.setEnabled(true);
                     ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
                     btnDeshabilitar.setIcon(iconobtn);
                     btnDeshabilitar.setText("DESHABILITAR");
@@ -1151,7 +1160,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 System.out.println(e.getMessage());
             }
         }
-        
+
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeshabilitarActionPerformed
@@ -1166,7 +1175,7 @@ public class panelVendedores extends javax.swing.JPanel {
             if (btnDeshabilitar.getText().equals("CANCELAR")) {
                 limpiarCajas();
                 btnActualizar.setEnabled(false);
-                btnNuevo.setEnabled(false);
+                btnNuevoVen.setEnabled(false);
                 btnDeshabilitar.setEnabled(false);
                 btnGuardar.setEnabled(true);
 
@@ -1213,7 +1222,7 @@ public class panelVendedores extends javax.swing.JPanel {
         cargarData();
         bloquear();
         limpiarCajas();
-        btnNuevo.setEnabled(true);
+        btnNuevoVen.setEnabled(true);
     }//GEN-LAST:event_btnDeshabilitarActionPerformed
 
     public void limite(TextField txtnombre, TextField txtdireccion1) {
@@ -1229,7 +1238,7 @@ public class panelVendedores extends javax.swing.JPanel {
         }
     }
 
-    private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
+    private void btnNuevoVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoVenActionPerformed
         limpiarCajas();
         txtIDVendedor.setEnabled(false);
         cbJornada.setEnabled(true);
@@ -1245,12 +1254,12 @@ public class panelVendedores extends javax.swing.JPanel {
         cbTipoDocu.setEnabled(true);
         tablaVendedores.setEnabled(true);
         btnGuardar.setEnabled(true);
-        btnNuevo.setEnabled(false);
+        btnNuevoVen.setEnabled(false);
         btnDeshabilitar.setEnabled(true);
         ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
         btnDeshabilitar.setIcon(iconoBoton);
         btnDeshabilitar.setText("CANCELAR");
-    }//GEN-LAST:event_btnNuevoActionPerformed
+    }//GEN-LAST:event_btnNuevoVenActionPerformed
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
         buscarData(txtBuscar.getText());
@@ -1730,7 +1739,7 @@ public class panelVendedores extends javax.swing.JPanel {
     private rojerusan.RSButtonHover btnActualizar;
     private rojerusan.RSButtonHover btnDeshabilitar;
     private rojerusan.RSButtonHover btnGuardar;
-    private rojerusan.RSButtonHover btnNuevo;
+    private rojerusan.RSButtonHover btnNuevoVen;
     private javax.swing.JComboBox cbJornada;
     private javax.swing.JComboBox cbTipoDocu;
     private javax.swing.JLabel jLabel10;

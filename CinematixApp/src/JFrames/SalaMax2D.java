@@ -41,7 +41,7 @@ public class SalaMax2D extends javax.swing.JFrame {
      * Creates new form FrmReservaciones
      */
     Fuente tipoFuente;
-
+    log lo = new log();
     final Calendar calendar = Calendar.getInstance();
     final java.util.Date date = calendar.getTime();
     String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
@@ -183,13 +183,7 @@ public class SalaMax2D extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\SalaMax2D " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(SalaMax2D.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("No se pudo conectar " + e);
             JOptionPane.showMessageDialog(null, "Hubo un error con la conexión" + e);
         }
     }
@@ -454,13 +448,7 @@ public class SalaMax2D extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\SalaMax2D " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(SalaMax2D.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                lo.LogBitacora("No se pudo abrir la ventana " + e);
             }
         }
     }//GEN-LAST:event_formWindowOpened

@@ -5,6 +5,7 @@
  */
 package JFrames;
 
+import static JFrames.LoginAdmin.txtusuario;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -27,7 +28,7 @@ import javax.swing.JOptionPane;
  * @author Los Pibes
  */
 public class FacturaReporte extends javax.swing.JFrame {
-
+    log lo = new log();
     final Calendar calendar = Calendar.getInstance();
     final java.util.Date date = calendar.getTime();
     String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
@@ -38,6 +39,11 @@ public class FacturaReporte extends javax.swing.JFrame {
     public FacturaReporte() {
         super.setUndecorated(true);
         initComponents();
+
+        if ("adminlectura".equals(txtusuario.getText())) {
+            jButton_Imprimir.setEnabled(false);
+        }
+
         setBackground(new Color(0, 0, 0, 0));
         this.setTitle("CineMatix * Factura");
         super.setLocationRelativeTo(this);
@@ -256,13 +262,7 @@ public class FacturaReporte extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\FacturaReporte " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(FacturaReporte.class.getName()).log(Level.SEVERE, null, ex);
-                }
+           lo.LogBitacora("Hubo un error al intentar abrir la ventana" + e);
             }
         }
     }//GEN-LAST:event_formWindowOpened

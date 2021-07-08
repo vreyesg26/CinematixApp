@@ -22,6 +22,8 @@ import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import paneles.CambiaPanel;
+import JFrames.LoginAdmin;
+import static JFrames.LoginAdmin.txtusuario;
 
 /**
  *
@@ -33,13 +35,14 @@ public class AdminDashboard extends javax.swing.JFrame {
      * Creates new form AdminDashboard
      */
     Fuente tipoFuente;
-
+    log lo = new log();
     final Calendar calendar = Calendar.getInstance();
     final java.util.Date date = calendar.getTime();
     String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
 
     public AdminDashboard() {
         initComponents();
+        
         setBackground(new Color(0, 0, 0, 0));
         new CambiaPanel(panelContenedor, new panelInicio());
         tipoFuente = new Fuente();
@@ -49,7 +52,14 @@ public class AdminDashboard extends javax.swing.JFrame {
         lbPunto3.setVisible(false);
         lbPunto4.setVisible(false);
         lbUsuarioSesion.setText("       " + LoginAdmin.usuario.toUpperCase());
-
+        
+         if("adminpeliculas".equals(txtusuario.getText())){
+           
+           btnVendedores.setEnabled(false);
+           btnHistorial.setEnabled(false);
+           
+       }
+         
         btnAcerca.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnPeliculas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
         btnSalir.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
@@ -245,13 +255,7 @@ public class AdminDashboard extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\AdminDashboard " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(AdminDashboard.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                lo.LogBitacora("Error abrir ventana " + e);
             }
         }
     }//GEN-LAST:event_formWindowOpened

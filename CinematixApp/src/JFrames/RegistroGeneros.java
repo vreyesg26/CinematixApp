@@ -6,6 +6,7 @@
 package JFrames;
 
 import Datos.Conexion;
+import static JFrames.LoginAdmin.txtusuario;
 import Paneles.panelInicio;
 import Paneles.panelVendedores;
 import java.awt.Color;
@@ -33,7 +34,7 @@ import javax.swing.table.TableColumnModel;
  * @author Los Pibes
  */
 public class RegistroGeneros extends javax.swing.JFrame {
-
+    log lo = new log();
     final Calendar calendar = Calendar.getInstance();
     final java.util.Date date = calendar.getTime();
     String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
@@ -43,6 +44,10 @@ public class RegistroGeneros extends javax.swing.JFrame {
      */
     public RegistroGeneros() {
         initComponents();
+        if ("adminlectura".equals(txtusuario.getText())) {
+            btnNuevo.setEnabled(false);
+            tablaGeneros.setEnabled(false);
+        }
         setBackground(new Color(0, 0, 0, 0));
         anchoColumnas();
         cargarData();
@@ -230,13 +235,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistroGeneros " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistroGeneros.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                lo.LogBitacora("No se pudo abrir la ventana " + e);
             }
         }
     }//GEN-LAST:event_formWindowOpened
@@ -391,13 +390,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
                     verificaGenero = true;
                 }
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistroGeneros " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistroGeneros.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                 lo.LogBitacora("No se pudo verificar " + e);
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
@@ -429,13 +422,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistroGeneros " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistroGeneros.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                lo.LogBitacora("No se pudo guardar el genero " + e);
                 ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());
@@ -467,13 +454,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistroGeneros " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistroGeneros.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                lo.LogBitacora("No se pudo actualizar el genero " + e);
                 ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoCorrecto.png");
                 JOptionPane.showMessageDialog(null, "Hubo un error al intentar actualizar", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());
@@ -519,13 +500,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
                         ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
                         JOptionPane.showMessageDialog(null, "El género " + genero + " ha sido deshabilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                     } catch (Exception e) {
-                        try {
-                            log myLog = new log("Source Packages\\Logs\\RegistroGeneros " + fecha + ".txt");
-                            myLog.logger.setLevel(Level.SEVERE);
-                            myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                        } catch (IOException ex) {
-                            Logger.getLogger(RegistroGeneros.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                         lo.LogBitacora("No se pudo deshabilitar " + e);
                     }
                 }
             } else if (btnDeshabilitar.getText().equals("HABILITAR")) {
@@ -542,13 +517,7 @@ public class RegistroGeneros extends javax.swing.JFrame {
                         ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
                         JOptionPane.showMessageDialog(null, "El género " + genero + " ahora está habilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                     } catch (Exception e) {
-                        try {
-                            log myLog = new log("Source Packages\\Logs\\RegistroGeneros " + fecha + ".txt");
-                            myLog.logger.setLevel(Level.SEVERE);
-                            myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                        } catch (IOException ex) {
-                            Logger.getLogger(RegistroGeneros.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        lo.LogBitacora("No se pudo habilitar el genero " + e);
                     }
                 }
             }
@@ -568,6 +537,10 @@ public class RegistroGeneros extends javax.swing.JFrame {
     public int fila;
 
     void modificarRegistro() {
+        if ("adminlectura".equals(txtusuario.getText())) {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No tienes permisos para realizar esta accion", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
         fila = tablaGeneros.getSelectedRow();
 
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");

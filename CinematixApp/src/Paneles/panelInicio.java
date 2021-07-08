@@ -6,6 +6,7 @@
 package Paneles;
 
 import JFrames.ControlSalasAdmin;
+import static JFrames.LoginAdmin.txtusuario;
 import JFrames.RegistroActores;
 import JFrames.RegistroAdministradores;
 import JFrames.RegistroClientes;
@@ -26,6 +27,12 @@ public class panelInicio extends javax.swing.JPanel {
      */
     public panelInicio() {
         initComponents();
+        if("adminpeliculas".equals(txtusuario.getText())){
+             btnAdminClientes.setEnabled(false);
+             btnAdminUsuarios.setEnabled(false);
+             btnAdminSalas.setEnabled(false);
+             btnAdminHorarios.setEnabled(false);
+         }  
     }
 
     /**

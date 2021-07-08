@@ -31,7 +31,7 @@ public class visualizarInfoPeliculas extends javax.swing.JFrame {
      * Creates new form registrarInfoPeliculas
      */
     Fuente tipoFuente;
-
+    log lo = new log();
     final Calendar calendar = Calendar.getInstance();
     final java.util.Date date = calendar.getTime();
     String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
@@ -158,13 +158,7 @@ public class visualizarInfoPeliculas extends javax.swing.JFrame {
                 System.out.println(arregloActores);
             }
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\visualizarInfoPeliculas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(visualizarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("No se pudo conectar " + e);
         }
 
         System.out.println(arregloActores);
@@ -187,13 +181,7 @@ public class visualizarInfoPeliculas extends javax.swing.JFrame {
                 System.out.println(arregloHorarios);
             }
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\visualizarInfoPeliculas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(visualizarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+             lo.LogBitacora("No se pudo conectar " + e);
         }
 
         System.out.println(arregloHorarios);
@@ -216,13 +204,7 @@ public class visualizarInfoPeliculas extends javax.swing.JFrame {
                 System.out.println(arregloSalas);
             }
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\visualizarInfoPeliculas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(visualizarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+             lo.LogBitacora("No se pudo conectar " + e);
         }
 
         System.out.println(arregloSalas);
@@ -239,13 +221,7 @@ public class visualizarInfoPeliculas extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\visualizarInfoPeliculas " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(visualizarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                 lo.LogBitacora("No se pudo conectar " + e);
             }
         }
     }//GEN-LAST:event_formWindowOpened
@@ -287,13 +263,7 @@ public class visualizarInfoPeliculas extends javax.swing.JFrame {
                     System.out.println(arregloIDHorarios);
                 }
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\visualizarInfoPeliculas " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(visualizarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                 lo.LogBitacora("No se pudo conectar " + e);
             }
         }
     }
@@ -312,13 +282,7 @@ public class visualizarInfoPeliculas extends javax.swing.JFrame {
                     System.out.println(arregloIDSalas);
                 }
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\visualizarInfoPeliculas " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(visualizarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                lo.LogBitacora("No se pudo conectar " + e);
             }
         }
     }

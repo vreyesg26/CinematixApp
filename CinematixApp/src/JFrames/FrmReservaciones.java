@@ -33,7 +33,7 @@ public class FrmReservaciones extends javax.swing.JFrame {
     final Calendar calendar = Calendar.getInstance();
     final java.util.Date date = calendar.getTime();
     String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
-
+    log lo = new log();
     /**
      * Creates new form FrmReservaciones
      */
@@ -100,19 +100,13 @@ public class FrmReservaciones extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Error al actualizar el estado de los asientos ");
             }
         } catch (HeadlessException | SQLException e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\FrmReservaciones " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(FrmReservaciones.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("Error al actualizar el estado de los asientos " + e);
             System.out.println("Error: " + e);
         } finally {
             try {
                 Conexion.close();
             } catch (SQLException ex) {
-                Logger.getLogger(FrmReservaciones.class.getName()).log(Level.SEVERE, null, ex);
+           
                 System.out.println("Error: " + ex);
             }
         }
@@ -135,19 +129,13 @@ public class FrmReservaciones extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Error al actualizar el estado de los asientos ");
             }
         } catch (HeadlessException | SQLException e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\FrmReservaciones " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(FrmReservaciones.class.getName()).log(Level.SEVERE, null, ex);
-            }
+          lo.LogBitacora("Error al actualizar el estado de los asientos " + e);
             System.out.println("Error: " + e);
         } finally {
             try {
                 Conexion.close();
             } catch (SQLException ex) {
-                Logger.getLogger(FrmReservaciones.class.getName()).log(Level.SEVERE, null, ex);
+                
                 System.out.println("Error: " + ex);
             }
         }
@@ -233,13 +221,7 @@ public class FrmReservaciones extends javax.swing.JFrame {
                 }
             }
         } catch (SQLException e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\FrmReservaciones " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(FrmReservaciones.class.getName()).log(Level.SEVERE, null, ex);
-            }
+           
         }
     }
 

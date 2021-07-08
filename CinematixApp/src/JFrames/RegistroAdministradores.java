@@ -6,6 +6,7 @@
 package JFrames;
 
 import Datos.Conexion;
+import static JFrames.LoginAdmin.txtusuario;
 import Paneles.panelInicio;
 import Paneles.panelVendedores;
 import encriptacion.Encode;
@@ -34,6 +35,7 @@ import javax.swing.table.TableColumnModel;
  */
 public class RegistroAdministradores extends javax.swing.JFrame {
 
+    log lo = new log();
     final Calendar calendar = Calendar.getInstance();
     final java.util.Date date = calendar.getTime();
     String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
@@ -43,6 +45,10 @@ public class RegistroAdministradores extends javax.swing.JFrame {
      */
     public RegistroAdministradores() {
         initComponents();
+        if ("adminlectura".equals(txtusuario.getText())) {
+            btnNuevo.setEnabled(false);
+            tablaUsuarios.setEnabled(false);
+        }
         setBackground(new Color(0, 0, 0, 0));
         cargarData();
         anchoColumnas();
@@ -274,13 +280,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistroAdministradores " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistroAdministradores.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                lo.LogBitacora("Hubo un error al abrir la ventana" + e);
             }
         }
     }//GEN-LAST:event_formWindowOpened
@@ -345,7 +345,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     void cargarData() {
         String[] titulos = {"ID", "Usuario", "Contraseña", "Intentos"};
         String[] registros = new String[4];
-            String sql = "SELECT IDUsuario, Usuario, Contrasena, Intentos FROM usuarios WHERE IDUsuario != 0 ORDER BY IDUsuario";
+        String sql = "SELECT IDUsuario, Usuario, Contrasena, Intentos FROM usuarios WHERE IDUsuario != 0 ORDER BY IDUsuario";
 
         model = new DefaultTableModel(null, titulos);
 
@@ -439,13 +439,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                         bloquear();
                         btnNuevo.setEnabled(true);
                     } catch (Exception e) {
-                        try {
-                            log myLog = new log("Source Packages\\Logs\\RegistroAdministradores " + fecha + ".txt");
-                            myLog.logger.setLevel(Level.SEVERE);
-                            myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                        } catch (IOException ex) {
-                            Logger.getLogger(RegistroAdministradores.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        lo.LogBitacora("Hubo un error al intentar deshabilitar" + e);
                     }
                 }
             } else if (btnDeshabilitar.getText().equals("HABILITAR")) {
@@ -466,13 +460,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                         bloquear();
                         btnNuevo.setEnabled(true);
                     } catch (Exception e) {
-                        try {
-                            log myLog = new log("Source Packages\\Logs\\RegistroAdministradores " + fecha + ".txt");
-                            myLog.logger.setLevel(Level.SEVERE);
-                            myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                        } catch (IOException ex) {
-                            Logger.getLogger(RegistroAdministradores.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        lo.LogBitacora("Hubo un error al intentar habilitarlo" + e);
                     }
                 }
             }
@@ -483,6 +471,10 @@ public class RegistroAdministradores extends javax.swing.JFrame {
     public int fila;
 
     void modificarRegistro() {
+        if ("adminlectura".equals(txtusuario.getText())) {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No tienes permisos para realizar esta accion", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        }
         fila = tablaUsuarios.getSelectedRow();
 
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
@@ -567,13 +559,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
 
             }
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\RegistroAdministradores " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(RegistroAdministradores.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("No se pudo verificar" + e);
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
             JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
@@ -602,13 +588,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                         lbUsuarioX.setVisible(false);
                     }
                 } catch (Exception e) {
-                    try {
-                        log myLog = new log("Source Packages\\Logs\\RegistroAdministradores " + fecha + ".txt");
-                        myLog.logger.setLevel(Level.SEVERE);
-                        myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                    } catch (IOException ex) {
-                        Logger.getLogger(RegistroAdministradores.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    lo.LogBitacora("No se pudo verificar" + e);
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                     JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 }
@@ -632,13 +612,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                         lbUsuarioX.setVisible(false);
                     }
                 } catch (Exception e) {
-                    try {
-                        log myLog = new log("Source Packages\\Logs\\RegistroAdministradores " + fecha + ".txt");
-                        myLog.logger.setLevel(Level.SEVERE);
-                        myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                    } catch (IOException ex) {
-                        Logger.getLogger(RegistroAdministradores.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    lo.LogBitacora("No se pudo verificar" + e);
                     ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                     JOptionPane.showMessageDialog(null, "No se pudo verificar\n" + e.getMessage(), "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                 }
@@ -679,13 +653,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistroAdministradores " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistroAdministradores.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                 lo.LogBitacora("Hubo un error al intentar guardar" + e);
                 ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
                 JOptionPane.showMessageDialog(null, "Hubo un error al intentar guardar", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());
@@ -720,13 +688,7 @@ public class RegistroAdministradores extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistroAdministradores " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistroAdministradores.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                 lo.LogBitacora("Hubo un error al intentar actualizar" + e);
                 ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoCorrecto.png");
                 JOptionPane.showMessageDialog(null, "Hubo un error al intentar actualizar", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());

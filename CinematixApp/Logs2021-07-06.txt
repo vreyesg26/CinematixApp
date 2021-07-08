@@ -1,0 +1,1 @@
+2021-07-06 05:13:30 -- No se pudo establecer la conexión  java.sql.SQLException: No database selected

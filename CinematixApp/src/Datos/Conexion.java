@@ -5,6 +5,7 @@ package Datos;
  * @author Los Pibes
  */
 
+import JFrames.log;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ public class Conexion {
     
     public Connection GetConexion(){
         Connection cn=null;
-        
+        log lo = new log();
         try{
             Class.forName(driver);
             cn = (Connection) DriverManager.getConnection(this.url, this.usuario, this.clave);
@@ -29,6 +30,7 @@ public class Conexion {
                 System.out.println("Conexion exitosa");
             }
         }catch(ClassNotFoundException | SQLException e){
+             lo.LogBitacora("No se pudo conectar " + e);
             JOptionPane.showConfirmDialog(null, e);
             System.out.println("Error al conectarse" + e.getMessage());
         }

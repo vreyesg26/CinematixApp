@@ -33,7 +33,7 @@ public class MenuVendedor extends javax.swing.JFrame {
      * Creates new form MenuVendedor
      */
     Fuente tipoFuente;
-
+    log lo = new log();
     final Calendar calendar = Calendar.getInstance();
     final java.util.Date date = calendar.getTime();
     String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
@@ -122,13 +122,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\MenuVendedor " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(MenuVendedor.class.getName()).log(Level.SEVERE, null, ex);
-            }
+           lo.LogBitacora("Error al obtener el metodo de pago " + e);
         }
     }
 
@@ -152,13 +146,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\MenuVendedor " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(MenuVendedor.class.getName()).log(Level.SEVERE, null, ex);
-            }
+             lo.LogBitacora("Error al consultar la sala " + e);
         }
     }
 
@@ -179,13 +167,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\MenuVendedor " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(MenuVendedor.class.getName()).log(Level.SEVERE, null, ex);
-            }
+              lo.LogBitacora("Error al consultar precios " + e);
         }
     }
 
@@ -846,13 +828,7 @@ public class MenuVendedor extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\MenuVendedor " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(MenuVendedor.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                lo.LogBitacora("Error al abrir la ventana " + e);
             }
         }
     }//GEN-LAST:event_formWindowOpened
@@ -870,13 +846,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                 cmbSalas.addItem(rs.getString("S.Sala"));
             }
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\MenuVendedor " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(MenuVendedor.class.getName()).log(Level.SEVERE, null, ex);
-            }
+              lo.LogBitacora("Error al consultar la sala " + e);
         }
     }
 
@@ -928,13 +898,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\MenuVendedor " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(MenuVendedor.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                  lo.LogBitacora("Error " + e);
             }
         } else {
             jComboBoxHora.removeAllItems();
@@ -956,13 +920,7 @@ public class MenuVendedor extends javax.swing.JFrame {
                     idHora = rs.getString("IDHorario");
                 }
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\MenuVendedor " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(MenuVendedor.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                lo.LogBitacora("Error al consultar los horarios " + e);
             }
         } else {
             jComboBoxHora.removeAllItems();

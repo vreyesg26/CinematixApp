@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -23,6 +23,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import JFrames.log;
 
 /**
  *
@@ -33,6 +34,7 @@ public class LoginAdmin extends javax.swing.JFrame {
     /**
      * Creates new form LoginAdmin
      */
+    log lo = new log();
     Fuente tipoFuente;
     final Calendar calendar = Calendar.getInstance();
     final java.util.Date date = calendar.getTime();
@@ -43,7 +45,8 @@ public class LoginAdmin extends javax.swing.JFrame {
         transparenciaButton();
         TextPrompt prueba = new TextPrompt("INGRESAR USUARIO", txtusuario);
         TextPrompt pru = new TextPrompt("INGRESAR CLAVE", txtpassword);
-        setBackground(new Color(0, 0, 0, 0));
+        setBackground(new Color(0, 0, 0, 0)); 
+        
 
         tipoFuente = new Fuente();
         txtusuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
@@ -116,6 +119,11 @@ public class LoginAdmin extends javax.swing.JFrame {
         txtusuario.setDisabledTextColor(new java.awt.Color(255, 255, 255));
         txtusuario.setOpaque(false);
         txtusuario.setSelectedTextColor(new java.awt.Color(255, 255, 255));
+        txtusuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtusuarioActionPerformed(evt);
+            }
+        });
         getContentPane().add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(72, 210, 240, 45));
         txtusuario.getAccessibleContext().setAccessibleName("");
 
@@ -190,6 +198,7 @@ public class LoginAdmin extends javax.swing.JFrame {
                             pst.execute();
 
                         } catch (Exception e) {
+                            lo.LogBitacora("No ha sido posible restar los intentos " + e);
                             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                             JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                         }
@@ -211,13 +220,8 @@ public class LoginAdmin extends javax.swing.JFrame {
                                 pst.execute();
 
                             } catch (Exception e) {
-                                try {
-                                    log myLog = new log("Source Packages\\Logs\\LoginAdmin " + fecha + ".txt");
-                                    myLog.logger.setLevel(Level.SEVERE);
-                                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                                } catch (IOException ex) {
-                                    Logger.getLogger(LoginAdmin.class.getName()).log(Level.SEVERE, null, ex);
-                                }
+                                lo.LogBitacora("Ha excedido el número de intentos para ingresar  " + e);
+                                
                             }
                         } else {
                             try {
@@ -228,13 +232,7 @@ public class LoginAdmin extends javax.swing.JFrame {
                                 pst.execute();
 
                             } catch (Exception e) {
-                                try {
-                                    log myLog = new log("Source Packages\\Logs\\LoginAdmin " + fecha + ".txt");
-                                    myLog.logger.setLevel(Level.SEVERE);
-                                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                                } catch (IOException ex) {
-                                    Logger.getLogger(LoginAdmin.class.getName()).log(Level.SEVERE, null, ex);
-                                }
+                               lo.LogBitacora("Usuario o clave incorrecta  " + e);
                             }
                             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
                             JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Adveretencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
@@ -247,13 +245,7 @@ public class LoginAdmin extends javax.swing.JFrame {
                 }
 
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\LoginAdmin " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(LoginAdmin.class.getName()).log(Level.SEVERE, null, ex);
-                }
+              lo.LogBitacora("Asegurate de usar un usuario y una contraseña correctos" + e);
                 ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoSalida.png");
                 JOptionPane.showMessageDialog(null, "No se pudo establecer la conexión", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 System.out.println(e.getMessage());
@@ -272,13 +264,7 @@ public class LoginAdmin extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\LoginAdmin " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(LoginAdmin.class.getName()).log(Level.SEVERE, null, ex);
-                }
+               lo.LogBitacora("No se abrir la pantalla  " + e);
             }
         }
     }//GEN-LAST:event_formWindowOpened
@@ -300,6 +286,10 @@ public class LoginAdmin extends javax.swing.JFrame {
             validarAdministradores();
         }
     }//GEN-LAST:event_txtpasswordKeyReleased
+
+    private void txtusuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtusuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtusuarioActionPerformed
 
     /**
      * @param args the command line arguments
@@ -341,7 +331,7 @@ public class LoginAdmin extends javax.swing.JFrame {
     private javax.swing.JLabel btninicio;
     private javax.swing.JButton btninicioa;
     public javax.swing.JPasswordField txtpassword;
-    public javax.swing.JTextField txtusuario;
+    public static javax.swing.JTextField txtusuario;
     // End of variables declaration//GEN-END:variables
 
 }

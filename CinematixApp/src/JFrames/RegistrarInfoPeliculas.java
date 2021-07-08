@@ -6,6 +6,7 @@
 package JFrames;
 
 import Datos.Conexion;
+import static JFrames.LoginAdmin.txtusuario;
 import Tipografia.Fuente;
 import java.awt.Color;
 import java.awt.Image;
@@ -34,13 +35,23 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
      * Creates new form registrarInfoPeliculas
      */
     Fuente tipoFuente;
-
+    log lo = new log();
     final Calendar calendar = Calendar.getInstance();
     final java.util.Date date = calendar.getTime();
     String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
 
     public RegistrarInfoPeliculas() {
         initComponents();
+         if("adminlectura".equals(txtusuario.getText())){
+             btnActores.setEnabled(false);
+             btnAgregarActor.setEnabled(false);
+             btnAgregarHorario.setEnabled(false);
+             btnAgregarSala.setEnabled(false);
+             btnEliminarActor.setEnabled(false);
+             btnEliminarHorario.setEnabled(false);
+             btnHorarios.setEnabled(false);
+             btnSalas.setEnabled(false);
+         }
         setBackground(new Color(0, 0, 0, 0));
         consultarActores();
         consultarHorarios();
@@ -317,13 +328,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                 System.out.println(arregloActores);
             }
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+           lo.LogBitacora("Error al consultar actores " + e);
         }
 
         System.out.println(arregloActores);
@@ -344,13 +349,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                 System.out.println(arregloHorarios);
             }
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("Error al consultar horarios " + e);
         }
 
         System.out.println(arregloHorarios);
@@ -396,13 +395,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                 System.out.println(idUltimaPelicula);
             }
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+          lo.LogBitacora("Error al consultar la pelicula " + e);
         }
     }
 
@@ -414,13 +407,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-                }
+              lo.LogBitacora("Error al abrir la ventana " + e);
             }
         }
     }//GEN-LAST:event_formWindowOpened
@@ -513,13 +500,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                     System.out.println(arregloIDActores);
                 }
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                lo.LogBitacora("Error al consultar actores " + e);
             }
         }
     }
@@ -538,13 +519,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                     System.out.println(arregloIDHorarios);
                 }
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-                }
+              lo.LogBitacora("Error al consultar horarios" + e);
             }
         }
     }
@@ -563,13 +538,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                     System.out.println(arregloIDSalas);
                 }
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            lo.LogBitacora("Error al consultar la sala" + e);
             }
         }
     }
@@ -586,13 +555,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                 datosGuardados = pst.executeUpdate();
 
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-                }
+           lo.LogBitacora("Error al guardar actores " + e);
             }
         }
         if (datosGuardados > 0) {
@@ -619,13 +582,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                 datosGuardados = pst.executeUpdate();
 
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            lo.LogBitacora("Error al guardar horarios" + e);
             }
         }
         if (datosGuardados > 0) {
@@ -652,13 +609,7 @@ public class RegistrarInfoPeliculas extends javax.swing.JFrame {
                 datosGuardados = pst.executeUpdate();
 
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\RegistrarInfoPeliculas " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(RegistrarInfoPeliculas.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                 lo.LogBitacora("Error al guardar salas" + e);
             }
         }
         if (datosGuardados > 0) {

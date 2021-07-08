@@ -29,7 +29,7 @@ public class ControlSalas extends javax.swing.JFrame {
      * Creates new form ControlSalas
      */
     Fuente tipoFuente;
-
+    log lo = new log();
     final Calendar calendar = Calendar.getInstance();
     final java.util.Date date = calendar.getTime();
     String fecha = new SimpleDateFormat("yyyyMMdd-hh.mm.ss").format(date);
@@ -164,13 +164,7 @@ public class ControlSalas extends javax.swing.JFrame {
             try {
                 Thread.sleep(50);
             } catch (Exception e) {
-                try {
-                    log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
-                    myLog.logger.setLevel(Level.SEVERE);
-                    myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-                } catch (IOException ex) {
-                    Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                lo.LogBitacora("Error al abrir ventana " + e);
             }
         }
     }//GEN-LAST:event_formWindowOpened
@@ -191,13 +185,7 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("Error al obtener asientos disponibles " + e);
         }
     }
 
@@ -214,13 +202,7 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("Error al obtener asientos reservados" + e);
         }
     }
 
@@ -237,13 +219,7 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("Error al obtener asientos disponibles " + e);
         }
     }
 
@@ -260,13 +236,7 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("Error al obtener asientos reservados" + e);
         }
     }
 
@@ -283,13 +253,7 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("Error al obtener asientos disponibles " + e);
         }
     }
 
@@ -306,13 +270,7 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("Error al obtener asientos reservados " + e);
         }
     }
 
@@ -329,13 +287,7 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("Error al obtener asientos disponibles " + e);
         }
     }
 
@@ -352,13 +304,7 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("Error al obtener asientos reservados " + e);
         }
     }
 
@@ -381,13 +327,7 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("Error al obtener el estado de los asientos " + e);
         }
     }
 
@@ -410,13 +350,7 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("Error al obtener el estado de los asientos " + e);
         }
     }
 
@@ -439,13 +373,7 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("Error al obtener el estado de los asientos " + e);
         }
     }
 
@@ -468,13 +396,7 @@ public class ControlSalas extends javax.swing.JFrame {
             }
 
         } catch (Exception e) {
-            try {
-                log myLog = new log("Source Packages\\Logs\\ControlSalas " + fecha + ".txt");
-                myLog.logger.setLevel(Level.SEVERE);
-                myLog.logger.severe(e.getMessage() + " La causa fue: " + e.getCause());
-            } catch (IOException ex) {
-                Logger.getLogger(ControlSalas.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            lo.LogBitacora("Error al obtener el estado de los asientos " + e);
         }
     }
 
