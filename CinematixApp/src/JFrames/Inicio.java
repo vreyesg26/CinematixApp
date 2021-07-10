@@ -1,4 +1,5 @@
 package JFrames;
+
 import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
@@ -14,13 +15,12 @@ public class Inicio extends javax.swing.JFrame {
      */
     public Inicio() {
         initComponents();
-        setBackground( new Color (0,0,0,0));
+        setBackground(new Color(0, 0, 0, 0));
         transparenciaButton();
     }
-    
-    
+
     @Override
-    public Image getIconImage(){
+    public Image getIconImage() {
         Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("imagenes/cinematixLogo.png"));
         return retValue;
     }
@@ -37,6 +37,7 @@ public class Inicio extends javax.swing.JFrame {
         btnAdmin = new javax.swing.JButton();
         btnVendedor = new javax.swing.JButton();
         btnCerrar = new javax.swing.JLabel();
+        btnPermisos = new javax.swing.JLabel();
         labelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -87,6 +88,14 @@ public class Inicio extends javax.swing.JFrame {
         getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(519, 98, 35, 35));
         btnCerrar.getAccessibleContext().setAccessibleName("btnCerrar");
 
+        btnPermisos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnPermisos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPermisosMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnPermisos, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 150, 130));
+
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/Primera Pantalla.png"))); // NOI18N
         getContentPane().add(labelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 470));
 
@@ -95,15 +104,14 @@ public class Inicio extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        for (double i=0.0; i<=1.0; i=i+0.1){
-            String val = i+"";
-            float f=Float.valueOf(val);
+        for (double i = 0.0; i <= 1.0; i = i + 0.1) {
+            String val = i + "";
+            float f = Float.valueOf(val);
             this.setOpacity(f);
             try {
                 Thread.sleep(50);
-            }
-            catch(Exception e){
-                
+            } catch (Exception e) {
+
             }
         }
     }//GEN-LAST:event_formWindowOpened
@@ -112,16 +120,16 @@ public class Inicio extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_btnCerrarMouseClicked
 
-    public void transparenciaButton(){
-       btnAdmin.setOpaque(false);
-       btnAdmin.setContentAreaFilled(false);
-       btnAdmin.setBorderPainted(false);
-       
-       btnVendedor.setOpaque(false);
-       btnVendedor.setContentAreaFilled(false);
-       btnVendedor.setBorderPainted(false);
-   }
-    
+    public void transparenciaButton() {
+        btnAdmin.setOpaque(false);
+        btnAdmin.setContentAreaFilled(false);
+        btnAdmin.setBorderPainted(false);
+
+        btnVendedor.setOpaque(false);
+        btnVendedor.setContentAreaFilled(false);
+        btnVendedor.setBorderPainted(false);
+    }
+
     private void btnAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActionPerformed
         LoginAdmin logA = new LoginAdmin();
         logA.setVisible(true);
@@ -133,6 +141,12 @@ public class Inicio extends javax.swing.JFrame {
         logV.setVisible(true);
         dispose();
     }//GEN-LAST:event_btnVendedorActionPerformed
+
+    private void btnPermisosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPermisosMouseClicked
+        LoginPermisos logP = new LoginPermisos();
+        logP.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_btnPermisosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -172,6 +186,7 @@ public class Inicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdmin;
     private javax.swing.JLabel btnCerrar;
+    private javax.swing.JLabel btnPermisos;
     private javax.swing.JButton btnVendedor;
     private javax.swing.JLabel labelFondo;
     // End of variables declaration//GEN-END:variables
