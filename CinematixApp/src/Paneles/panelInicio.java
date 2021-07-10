@@ -434,13 +434,13 @@ public class panelInicio extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAdminSalasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAdminActores;
-    private javax.swing.JButton btnAdminClientes;
-    private javax.swing.JButton btnAdminDirectores;
-    private javax.swing.JButton btnAdminGeneros;
-    private javax.swing.JButton btnAdminHorarios;
-    private javax.swing.JButton btnAdminSalas;
-    private javax.swing.JButton btnAdminUsuarios;
+    public javax.swing.JButton btnAdminActores;
+    public javax.swing.JButton btnAdminClientes;
+    public javax.swing.JButton btnAdminDirectores;
+    public javax.swing.JButton btnAdminGeneros;
+    public javax.swing.JButton btnAdminHorarios;
+    public javax.swing.JButton btnAdminSalas;
+    public javax.swing.JButton btnAdminUsuarios;
     private javax.swing.JLabel lbTitulo;
     // End of variables declaration//GEN-END:variables
 }

@@ -279,10 +279,6 @@ public class AdminDashboard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnVendedoresActionPerformed
 
-    private void btnPeliculas1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPeliculas1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnPeliculas1ActionPerformed
-
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
         int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas salir?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
