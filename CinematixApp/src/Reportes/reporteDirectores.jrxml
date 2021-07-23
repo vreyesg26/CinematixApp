@@ -42,6 +42,9 @@ WHERE IDDirector != 0 ORDER BY IDDirector]]>
 				</textElement>
 				<text><![CDATA[REPORTE DE DIRECTORES]]></text>
 			</staticText>
+			<line>
+				<reportElement x="31" y="78" width="504" height="1" uuid="27833d62-3727-4529-b464-f35a640474ac"/>
+			</line>
 		</band>
 	</title>
 	<pageHeader>
@@ -98,20 +101,39 @@ WHERE IDDirector != 0 ORDER BY IDDirector]]>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="6" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="22" splitType="Stretch">
+		<band height="26" splitType="Stretch">
+			<line>
+				<reportElement x="31" y="0" width="504" height="1" uuid="46ad8fba-25b0-4db6-8794-77b8daca7944"/>
+			</line>
 			<staticText>
-				<reportElement x="342" y="0" width="61" height="20" uuid="7331caae-1fdf-4d54-95e7-c0cece2f3e8d"/>
+				<reportElement x="203" y="6" width="64" height="20" uuid="477a327a-e8bd-4325-9224-60ad5a60c421"/>
 				<textElement>
 					<font fontName="Georgia"/>
 				</textElement>
-				<text><![CDATA[USUARIO:]]></text>
+				<text><![CDATA[Impreso por:]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="267" y="6" width="86" height="20" uuid="b07cbf60-ac24-4bf1-ae0d-44c6a91422e0"/>
+				<textElement>
+					<font fontName="Georgia"/>
+				</textElement>
+				<text><![CDATA[adminprincipal]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="28" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="290" y="8" width="33" height="20" uuid="2f24e490-92ed-4eea-9fcc-9c2e90092347"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="230" y="8" width="60" height="20" uuid="91486812-5a92-4415-b0ff-5c021c17ed3d"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="3" splitType="Stretch"/>
+		<band height="2" splitType="Stretch"/>
 	</summary>
 </jasperReport>

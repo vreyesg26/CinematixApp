@@ -23,21 +23,28 @@
 	</background>
 	<title>
 		<band height="79" splitType="Stretch">
-			<image>
-				<reportElement x="127" y="0" width="88" height="79" uuid="032ba8f3-8b2a-4fea-94c9-cc8bc14ab95a"/>
-				<imageExpression><![CDATA["C:\\Users\\Victor Reyes\\Downloads\\cinematix logo.jpg"]]></imageExpression>
-			</image>
-			<staticText>
-				<reportElement x="215" y="0" width="342" height="79" forecolor="#666666" uuid="270d1072-20e9-4640-89d5-2318605e89f5"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Georgia" size="24" isBold="true"/>
-				</textElement>
-				<text><![CDATA[REPORTE DE ADMINISTRADORES]]></text>
-			</staticText>
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="16" y="0" width="100" height="20" uuid="aa5cbf0f-187f-4173-acaf-48a8808be706"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
 			</textField>
+			<textField pattern="K:mm a, z">
+				<reportElement x="483" y="0" width="100" height="20" uuid="5a9453d9-1898-42aa-bec8-db4d2acaa5a7"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="167" y="20" width="57" height="53" uuid="a94592fb-086f-42c7-a0bb-0644da6763bc"/>
+				<imageExpression><![CDATA["C:\\Users\\Victor Reyes\\Downloads\\cinematix logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="224" y="0" width="209" height="79" forecolor="#666666" uuid="b9ed2788-6224-4bef-98be-f23f22d30305"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Georgia" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE ADMINISTRADOR]]></text>
+			</staticText>
+			<line>
+				<reportElement x="89" y="78" width="504" height="1" uuid="bae9b7a7-06c7-435b-9866-763a64994a00"/>
+			</line>
 		</band>
 	</title>
 	<pageHeader>
@@ -88,22 +95,36 @@
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="3" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="26" splitType="Stretch">
+		<band height="61" splitType="Stretch">
 			<staticText>
-				<reportElement x="379" y="0" width="61" height="20" uuid="fb72cf00-21a7-4269-9396-3047eb81d105"/>
+				<reportElement x="264" y="21" width="64" height="20" uuid="28ace8b4-af67-4979-88cf-b79833bb8454"/>
 				<textElement>
 					<font fontName="Georgia"/>
 				</textElement>
-				<text><![CDATA[USUARIO:]]></text>
+				<text><![CDATA[Impreso por:]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="354" y="41" width="33" height="20" uuid="f8ec9373-aa6a-47a9-acbe-6e33e868f6a1"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="328" y="21" width="86" height="20" uuid="70a3b19b-5e0f-4b38-8048-386b1f6f4571"/>
+				<textElement>
+					<font fontName="Georgia"/>
+				</textElement>
+				<text><![CDATA[adminprincipal]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="440" y="0" width="100" height="20" uuid="b93af26e-ac3f-439a-b15c-a08307acc096"/>
-				<textFieldExpression><![CDATA[$F{Usuario}]]></textFieldExpression>
+				<reportElement x="294" y="41" width="60" height="20" uuid="dda5822a-ea2e-4096-ba41-7be9f5f2772c"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
 			</textField>
+			<line>
+				<reportElement x="89" y="0" width="504" height="1" uuid="102c3a1a-5585-4289-a33e-a4cec1b9780a"/>
+			</line>
 		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="26" splitType="Stretch"/>
 	</pageFooter>
 	<summary>
 		<band splitType="Stretch"/>

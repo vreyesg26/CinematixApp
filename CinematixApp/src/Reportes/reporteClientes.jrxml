@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportClientes" language="groovy" pageWidth="685" pageHeight="792" columnWidth="645" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d743f01f-7e49-4fc6-8912-de4dc8af7a2e">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.2100000000000009"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
@@ -31,7 +31,7 @@ WHERE C.IDCliente != 0 ORDER BY C.IDCliente]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="83" splitType="Stretch">
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="13" y="20" width="100" height="20" uuid="b7a745b7-6bcd-40ca-ad9f-eb244cc4c15a"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
@@ -51,6 +51,9 @@ WHERE C.IDCliente != 0 ORDER BY C.IDCliente]]>
 				</textElement>
 				<text><![CDATA[REPORTE DE CLIENTES]]></text>
 			</staticText>
+			<line>
+				<reportElement x="26" y="78" width="560" height="1" uuid="e4f26be3-595f-40f6-a7f9-4103d3e4911a"/>
+			</line>
 		</band>
 	</title>
 	<pageHeader>
@@ -149,20 +152,39 @@ WHERE C.IDCliente != 0 ORDER BY C.IDCliente]]>
 		</band>
 	</detail>
 	<columnFooter>
-		<band height="3" splitType="Stretch"/>
-	</columnFooter>
-	<pageFooter>
-		<band height="24" splitType="Stretch">
+		<band height="27" splitType="Stretch">
+			<line>
+				<reportElement x="26" y="0" width="560" height="1" uuid="262758bf-82d0-407d-864e-7b4a54bce3da"/>
+			</line>
 			<staticText>
-				<reportElement x="470" y="0" width="61" height="20" uuid="693d3d08-57a2-47a5-8013-76ac3291c221"/>
+				<reportElement x="264" y="7" width="64" height="20" uuid="773231e2-338e-411e-ac24-58979c6ee786"/>
 				<textElement>
 					<font fontName="Georgia"/>
 				</textElement>
-				<text><![CDATA[USUARIO:]]></text>
+				<text><![CDATA[Impreso por:]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="331" y="7" width="86" height="20" uuid="a26147cc-b5a2-45a7-940a-aef5d101f143"/>
+				<textElement>
+					<font fontName="Georgia"/>
+				</textElement>
+				<text><![CDATA[adminprincipal]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField evaluationTime="Report">
+				<reportElement x="353" y="0" width="33" height="20" uuid="f8ed5366-5e8a-42f4-b53c-f74619cb887d"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="289" y="0" width="60" height="20" uuid="bcc02c90-42fc-433b-94dd-a4625a6f0255"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="5" splitType="Stretch"/>
+		<band height="2" splitType="Stretch"/>
 	</summary>
 </jasperReport>

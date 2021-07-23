@@ -283,6 +283,7 @@ public class FacturaReporte extends javax.swing.JFrame {
     }
 
     private void jButton_ImprimirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ImprimirActionPerformed
+        jButton_Imprimir.setEnabled(false);
         ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
         int decision = JOptionPane.showConfirmDialog(null, "¿Desea imprimir la factura?", "Imprimir", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         if (decision == 0) {
@@ -312,7 +313,7 @@ public class FacturaReporte extends javax.swing.JFrame {
 
                 }
             }
-
+            
             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
             JOptionPane.showMessageDialog(null, "Factura generada exitosamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             this.dispose();

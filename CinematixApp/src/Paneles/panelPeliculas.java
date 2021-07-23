@@ -1,7 +1,6 @@
 package Paneles;
 
 import Datos.Conexion;
-import static JFrames.LoginAdmin.txtusuario;
 import JFrames.RegistrarInfoPeliculas;
 import JFrames.TextPrompt;
 import JFrames.visualizarInfoPeliculas;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePeliculas" language="groovy" pageWidth="820" pageHeight="792" columnWidth="780" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="de74e18b-95a8-493d-9393-f72e90ff2308">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.2100000000000009"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
@@ -60,7 +60,11 @@ ORDER BY P.IdPelicula]]>
 		</band>
 	</title>
 	<pageHeader>
-		<band height="35" splitType="Stretch"/>
+		<band height="35" splitType="Stretch">
+			<line>
+				<reportElement x="34" y="0" width="710" height="1" uuid="ae7b9e8c-abcf-4913-9fe5-35a504ad4295"/>
+			</line>
+		</band>
 	</pageHeader>
 	<columnHeader>
 		<band height="22" splitType="Stretch">
@@ -134,14 +138,32 @@ ORDER BY P.IdPelicula]]>
 		<band height="1" splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="31" splitType="Stretch">
+		<band height="53" splitType="Stretch">
 			<staticText>
-				<reportElement x="565" y="0" width="61" height="20" uuid="f46ea917-1733-488b-9b2f-4cdfcc1dce0f"/>
+				<reportElement x="360" y="8" width="64" height="20" uuid="06d32149-eef6-4918-b096-6e38e35933a7"/>
 				<textElement>
 					<font fontName="Georgia"/>
 				</textElement>
-				<text><![CDATA[USUARIO:]]></text>
+				<text><![CDATA[Impreso por:]]></text>
 			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="453" y="33" width="33" height="20" uuid="ec28abfb-9777-4ea9-a9a2-8bbe90f1d7b8"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="3" width="780" height="1" uuid="b4baf06e-1419-4eee-8512-bf55c27d632e"/>
+			</line>
+			<staticText>
+				<reportElement x="424" y="8" width="86" height="20" uuid="e99c00e4-d0ce-4658-bb98-0a0b886ef4d2"/>
+				<textElement>
+					<font fontName="Georgia"/>
+				</textElement>
+				<text><![CDATA[adminprincipal]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="393" y="33" width="60" height="20" uuid="3f590dd5-953b-4d38-9fbf-f6778f1761d4"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
 		</band>
 	</pageFooter>
 	<summary>

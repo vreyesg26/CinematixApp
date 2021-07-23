@@ -10,12 +10,6 @@ import JFrames.FacturaReporte;
 import JFrames.TextPrompt;
 import JFrames.log;
 import Tipografia.Fuente;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.print.PageFormat;
-import java.awt.print.Printable;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,8 +19,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -262,36 +263,20 @@ public class panelHistorial extends javax.swing.JPanel {
 
     private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
         if (historial.contains("R")) {
-            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
-            int decision = JOptionPane.showConfirmDialog(null, "¿Desea imprimir el reporte de ventas?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-            if (decision == 0) {
-                PrinterJob job = PrinterJob.getPrinterJob();
-                job.setJobName("Reporte");
+            try {
+                Conexion cc = new Conexion();
+                Connection cn = cc.GetConexion();
 
-                job.setPrintable(new Printable() {
-                    public int print(Graphics pg, PageFormat pf, int pageNum) {
+                JasperReport reporte = null;
+                String path = "src\\Reportes\\reporteFactura.jasper";
+                reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+                JasperPrint jprint = JasperFillManager.fillReport(reporte, null, cn);
+                JasperViewer view = new JasperViewer(jprint, false);
+                view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                view.setVisible(true);
 
-                        if (pageNum > 0) {
-                            return Printable.NO_SUCH_PAGE;
-                        }
-
-                        Graphics2D g2 = (Graphics2D) pg;
-                        g2.translate(pf.getImageableX(), pf.getImageableY());
-                        g2.scale(0.70, 0.70);
-
-                        jScrollPane1.paint(g2);
-                        return Printable.PAGE_EXISTS;
-                    }
-                });
-                boolean ok = job.printDialog();
-                if (ok) {
-                    try {
-                        job.print();
-                    } catch (PrinterException ex) {
-                    }
-                }
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
-                JOptionPane.showMessageDialog(null, "Reporte generado exitosamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } catch (JRException ex) {
+                Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");

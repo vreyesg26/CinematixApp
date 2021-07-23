@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteGeneros" language="groovy" pageWidth="600" pageHeight="792" columnWidth="560" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="156268b6-7510-4425-b55b-09c8c3c433be">
-	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.zoom" value="1.2100000000000006"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="0"/>
 	<queryString>
@@ -21,7 +21,7 @@ WHERE IDGenero != 0 ORDER BY IDGenero]]>
 		<band splitType="Stretch"/>
 	</background>
 	<title>
-		<band height="79" splitType="Stretch">
+		<band height="88" splitType="Stretch">
 			<textField pattern="EEEEE dd MMMMM yyyy">
 				<reportElement x="11" y="20" width="100" height="20" uuid="09e7594e-e940-438b-b4b7-8c3750ce203d"/>
 				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
@@ -41,13 +41,13 @@ WHERE IDGenero != 0 ORDER BY IDGenero]]>
 				</textElement>
 				<text><![CDATA[REPORTE DE GÉNEROS]]></text>
 			</staticText>
+			<line>
+				<reportElement x="0" y="80" width="560" height="1" uuid="1b578f63-6e65-430b-a572-89444677831c"/>
+			</line>
 		</band>
 	</title>
-	<pageHeader>
-		<band height="5" splitType="Stretch"/>
-	</pageHeader>
 	<columnHeader>
-		<band height="22" splitType="Stretch">
+		<band height="24" splitType="Stretch">
 			<staticText>
 				<reportElement x="63" y="0" width="100" height="20" uuid="134baa59-f27b-4095-87a3-ab65b3b2a56a"/>
 				<textElement textAlignment="Center">
@@ -72,7 +72,7 @@ WHERE IDGenero != 0 ORDER BY IDGenero]]>
 		</band>
 	</columnHeader>
 	<detail>
-		<band height="43" splitType="Stretch">
+		<band height="64" splitType="Stretch">
 			<textField>
 				<reportElement x="63" y="0" width="100" height="20" uuid="058184f9-1053-48a0-9a6f-1b5450bc8a3b"/>
 				<textElement textAlignment="Center">
@@ -100,17 +100,35 @@ WHERE IDGenero != 0 ORDER BY IDGenero]]>
 		<band splitType="Stretch"/>
 	</columnFooter>
 	<pageFooter>
-		<band height="22" splitType="Stretch">
+		<band height="62" splitType="Stretch">
+			<textField>
+				<reportElement x="234" y="41" width="60" height="20" uuid="3920b0d6-c576-40ea-8032-ef6fc34dcb8e"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
 			<staticText>
-				<reportElement x="344" y="0" width="61" height="20" uuid="4ce5bea9-8892-445f-8776-4f4c655a1c5b"/>
+				<reportElement x="211" y="21" width="64" height="20" uuid="564b260a-9cca-40d6-9797-b6538ffb1951"/>
 				<textElement>
 					<font fontName="Georgia"/>
 				</textElement>
-				<text><![CDATA[USUARIO:]]></text>
+				<text><![CDATA[Impreso por:]]></text>
 			</staticText>
+			<staticText>
+				<reportElement x="275" y="21" width="86" height="20" uuid="e01104de-a74e-4e2a-8ccf-e63e702a92a6"/>
+				<textElement>
+					<font fontName="Georgia"/>
+				</textElement>
+				<text><![CDATA[adminprincipal]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="294" y="41" width="33" height="20" uuid="51aaafa3-f149-45db-8bbf-b2c3dc483f13"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="9" width="556" height="1" uuid="73faef01-2253-40ab-8643-00dfb6bb5ba0"/>
+			</line>
 		</band>
 	</pageFooter>
 	<summary>
-		<band height="5" splitType="Stretch"/>
+		<band height="7" splitType="Stretch"/>
 	</summary>
 </jasperReport>
