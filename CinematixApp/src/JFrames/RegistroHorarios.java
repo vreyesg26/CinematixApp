@@ -26,8 +26,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -84,6 +91,7 @@ public class RegistroHorarios extends javax.swing.JFrame {
         btnGuardar = new rojerusan.RSButtonHover();
         btnActualizar = new rojerusan.RSButtonHover();
         btnDeshabilitar = new rojerusan.RSButtonHover();
+        btnReporte2 = new rojerusan.RSButtonHover();
         lbFondo = new javax.swing.JLabel();
 
         modificarHorarios.setText("Modificar");
@@ -218,6 +226,19 @@ public class RegistroHorarios extends javax.swing.JFrame {
             }
         });
         getContentPane().add(btnDeshabilitar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 140, 40));
+
+        btnReporte2.setBackground(new java.awt.Color(81, 81, 81));
+        btnReporte2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoReporte.png"))); // NOI18N
+        btnReporte2.setBorderPainted(false);
+        btnReporte2.setColorHover(new java.awt.Color(61, 61, 61));
+        btnReporte2.setFocusable(false);
+        btnReporte2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnReporte2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporte2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnReporte2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 30, 40, 35));
 
         lbFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/registroHorarios.png"))); // NOI18N
         getContentPane().add(lbFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -576,6 +597,24 @@ public class RegistroHorarios extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_modificarHorariosActionPerformed
 
+    private void btnReporte2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporte2ActionPerformed
+        try {
+            Conexion cc = new Conexion();
+            Connection cn = cc.GetConexion();
+
+            JasperReport reporte = null;
+            String path = "src\\Reportes\\reporteHorarios.jasper";
+            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, cn);
+            JasperViewer view = new JasperViewer(jprint, false);
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            view.setVisible(true);
+
+        } catch (JRException ex) {
+            Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporte2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -618,6 +657,7 @@ public class RegistroHorarios extends javax.swing.JFrame {
     private rojerusan.RSButtonHover btnGuardar;
     private rojerusan.RSButtonHover btnNuevo;
     private javax.swing.JLabel btnRegresar;
+    private rojerusan.RSButtonHover btnReporte2;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbFondo;

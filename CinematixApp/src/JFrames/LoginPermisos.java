@@ -7,15 +7,12 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -38,14 +35,16 @@ public class LoginPermisos extends javax.swing.JFrame {
         initComponents();
         transparenciaButton();
         setBackground(new Color(0, 0, 0, 0));
-        TextPrompt prueba = new TextPrompt("INGRESAR CORREO", txtCorreo);
-        TextPrompt pru = new TextPrompt("INGRESAR CLAVE", txtClave);
+//        TextPrompt prueba = new TextPrompt("INGRESAR USUARIO", txtCorreo);
+        TextPrompt pru = new TextPrompt("INGRESAR CLAVE", txtpassword);
+        txtusuario.setText("adminprincipal");
+        txtusuario.setEditable(false);
         setBackground(new Color(0, 0, 0, 0));
 
         tipoFuente = new Fuente();
-        txtClave.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
-        txtCorreo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
-        prueba.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
+        txtpassword.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
+        txtusuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
+//        prueba.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
         pru.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
     }
 
@@ -65,9 +64,9 @@ public class LoginPermisos extends javax.swing.JFrame {
     private void initComponents() {
 
         btninicioa = new javax.swing.JButton();
-        txtCorreo = new javax.swing.JTextField();
+        txtusuario = new javax.swing.JTextField();
         btnCerrar = new javax.swing.JLabel();
-        txtClave = new javax.swing.JPasswordField();
+        txtpassword = new javax.swing.JPasswordField();
         labelFondo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -96,13 +95,13 @@ public class LoginPermisos extends javax.swing.JFrame {
         });
         getContentPane().add(btninicioa, new org.netbeans.lib.awtextra.AbsoluteConstraints(95, 404, 150, 40));
 
-        txtCorreo.setBackground(new java.awt.Color(0, 0, 0));
-        txtCorreo.setForeground(new java.awt.Color(255, 255, 255));
-        txtCorreo.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtCorreo.setBorder(null);
-        txtCorreo.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtCorreo.setOpaque(false);
-        getContentPane().add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 224, 240, 45));
+        txtusuario.setBackground(new java.awt.Color(0, 0, 0));
+        txtusuario.setForeground(new java.awt.Color(255, 255, 255));
+        txtusuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtusuario.setBorder(null);
+        txtusuario.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtusuario.setOpaque(false);
+        getContentPane().add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 225, 240, 45));
 
         btnCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnCerrar.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -117,22 +116,22 @@ public class LoginPermisos extends javax.swing.JFrame {
         });
         getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 90, 30, 30));
 
-        txtClave.setForeground(new java.awt.Color(255, 255, 255));
-        txtClave.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        txtClave.setBorder(null);
-        txtClave.setCaretColor(new java.awt.Color(255, 255, 255));
-        txtClave.setOpaque(false);
-        txtClave.addActionListener(new java.awt.event.ActionListener() {
+        txtpassword.setForeground(new java.awt.Color(255, 255, 255));
+        txtpassword.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtpassword.setBorder(null);
+        txtpassword.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtpassword.setOpaque(false);
+        txtpassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtClaveActionPerformed(evt);
+                txtpasswordActionPerformed(evt);
             }
         });
-        txtClave.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtpassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtClaveKeyReleased(evt);
+                txtpasswordKeyReleased(evt);
             }
         });
-        getContentPane().add(txtClave, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 314, 240, 45));
+        getContentPane().add(txtpassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 314, 240, 45));
 
         labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LoginPermisos.png"))); // NOI18N
         getContentPane().add(labelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 360, 508));
@@ -141,21 +140,21 @@ public class LoginPermisos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    public static String idVendedor;
+    public static String usuario;
     public boolean resultado = false;
 
-    public boolean validarVendedores() {
+    public boolean validarUsuario() {
         String secretKey = "lospibes";
         Encode encode = new Encode();
         Conexion cc = new Conexion();
         Connection cn = cc.GetConexion();
-        String user = txtCorreo.getText();
-        String pass = String.valueOf(txtClave.getPassword());
-        String sql = "SELECT * FROM vendedor WHERE Correo = '" + user + "'";
+        String user = txtusuario.getText();
+        String pass = String.valueOf(txtpassword.getPassword());
+        String sql = "SELECT * FROM usuarios WHERE Usuario = '" + user + "'";
 
-        if (txtCorreo.getText().isEmpty() && txtClave.getText().isEmpty() || txtCorreo.getText().isEmpty() || txtClave.getText().isEmpty()) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "Debes llenar los campos", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        if (txtusuario.getText().isEmpty() && txtpassword.getText().isEmpty() || txtusuario.getText().isEmpty() || txtpassword.getText().isEmpty()) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Debes llenar los campos", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
 
         } else {
             try {
@@ -163,82 +162,79 @@ public class LoginPermisos extends javax.swing.JFrame {
                 ResultSet rs = st.executeQuery(sql);
 
                 if (rs.next()) {
+                    usuario = rs.getString("Usuario");
                     int intentos = Integer.parseInt(rs.getString("Intentos"));
                     if (rs.getString("Intentos").equals("0")) {
-                        ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoSalida.png");
-                        JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                        txtClave.setText("");
-                    } else if (encode.deecnode(secretKey, rs.getString("Clave")).equals(pass)) {
+                        ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoSalida.png");
+                        JOptionPane.showMessageDialog(null, "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su usuario", "Acceso denegado", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                        txtpassword.setText("");
+
+                    } else if (encode.deecnode(secretKey, rs.getString("Contrasena")).equals(pass)) {
                         resultado = true;
-                        MenuVendedor mv = new MenuVendedor();
-                        mv.setVisible(true);
-                        mv.lbVendedor.setText("¡Bienvenido " + rs.getString("Nombre") + "!");
-                        idVendedor = rs.getString("IDVendedor");
-                        System.out.println("IDVendedor: " + idVendedor);
+                        Permisos p = new Permisos();
+                        p.setVisible(true);
                         this.dispose();
                         try {
-                            String sqlRestar = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`Correo` = ? ";
+                            String sqlRestar = "UPDATE `usuarios` SET `Intentos` = ? WHERE `usuarios`.`Usuario` = ? ";
                             PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlRestar);
                             pst.setString(1, String.valueOf("3"));
                             pst.setString(2, user);
                             pst.execute();
 
                         } catch (Exception e) {
-                           lo.LogBitacora("No ha sido posible restar los intentos " + e);
+                            lo.LogBitacora("No ha sido posible restar los intentos " + e);
                             ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
                             JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
                         }
                     } else {
                         --intentos;
                         if (intentos == 0) {
-                            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoSalida.png");
-                            JOptionPane.showMessageDialog(null, "Ha excedido el número de intentos para ingresar \n" + "Usuario inactivo, comuniquese con el administrador del sistema para restablecer su cuenta", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                            txtCorreo.setText("");
-                            txtClave.setText("");
-                            try {
-                                String sqlRestar = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`Correo` = ? ";
-                                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlRestar);
-                                pst.setString(1, String.valueOf(intentos));
-                                pst.setString(2, user);
-                                pst.execute();
-
-                            } catch (Exception e) {
-                        lo.LogBitacora("No ha sido posible restar los intentos " + e);
-                                ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoError.png");
-                                JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
-                            }
+                            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+                            JOptionPane.showMessageDialog(null, "Ha excedido el número de intentos para ingresar \n" + "Su usuario ha sido deshabilitado", "Acceso denegado", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                            txtusuario.setText("");
+                            txtpassword.setText("");
                             Inicio inicio = new Inicio();
                             inicio.setVisible(true);
                             this.dispose();
-                        } else {
                             try {
-                                String sqlRestar = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`Correo` = ? ";
-                                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlRestar);
+                                String sqlEstado = "UPDATE `usuarios` SET `Intentos` = ? WHERE `usuarios`.`Usuario` = ? ";
+                                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
                                 pst.setString(1, String.valueOf(intentos));
                                 pst.setString(2, user);
                                 pst.execute();
 
                             } catch (Exception e) {
-                                 lo.LogBitacora("No ha sido posible restar los intentos " + e);
-                                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                                JOptionPane.showMessageDialog(null, "No ha sido posible restar los intentos" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                                lo.LogBitacora("Ha excedido el número de intentos para ingresar  " + e);
+                                
                             }
-                            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                            JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                            txtClave.setText("");
+                        } else {
+                            try {
+                                String sqlEstado = "UPDATE `usuarios` SET `Intentos` = ? WHERE `usuarios`.`Usuario` = ? ";
+                                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
+                                pst.setString(1, String.valueOf(intentos));
+                                pst.setString(2, user);
+                                pst.execute();
+
+                            } catch (Exception e) {
+                               lo.LogBitacora("Usuario o clave incorrecta  " + e);
+                            }
+                            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                            JOptionPane.showMessageDialog(null, "Usuario o clave incorrecta, te quedan " + intentos + " intentos", "Adveretencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                            txtpassword.setText("");
                         }
                     }
                 } else {
-                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                    JOptionPane.showMessageDialog(null, "Asegurate de utilizar un usuario y contraseña correctos", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                    txtClave.setText("");
+                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                    JOptionPane.showMessageDialog(null, "Asegurate de usar un usuario y una contraseña correctos", "Adveretencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
                 }
 
             } catch (Exception e) {
-               lo.LogBitacora("Error de conexion  " + e);
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "Error de conexión " + e.getMessage(), "Aviso", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                txtClave.setText("");
+              lo.LogBitacora("Asegurate de usar un usuario y una contraseña correctos" + e);
+                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoSalida.png");
+                JOptionPane.showMessageDialog(null, "No se pudo establecer la conexión", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                System.out.println(e.getMessage());
+                txtusuario.setText("");
+                txtpassword.setText("");
             }
         }
         return resultado;
@@ -274,18 +270,18 @@ public class LoginPermisos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarFocusGained
 
     private void btninicioaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btninicioaActionPerformed
-        validarVendedores();
+        validarUsuario();
     }//GEN-LAST:event_btninicioaActionPerformed
 
-    private void txtClaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClaveActionPerformed
+    private void txtpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpasswordActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtClaveActionPerformed
+    }//GEN-LAST:event_txtpasswordActionPerformed
 
-    private void txtClaveKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtClaveKeyReleased
+    private void txtpasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtpasswordKeyReleased
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            validarVendedores();
+            validarUsuario();
         }
-    }//GEN-LAST:event_txtClaveKeyReleased
+    }//GEN-LAST:event_txtpasswordKeyReleased
 
     /**
      * @param args the command line arguments
@@ -327,7 +323,7 @@ public class LoginPermisos extends javax.swing.JFrame {
     private javax.swing.JLabel btnCerrar;
     private javax.swing.JButton btninicioa;
     private javax.swing.JLabel labelFondo;
-    public javax.swing.JPasswordField txtClave;
-    public javax.swing.JTextField txtCorreo;
+    public javax.swing.JPasswordField txtpassword;
+    public javax.swing.JTextField txtusuario;
     // End of variables declaration//GEN-END:variables
 }

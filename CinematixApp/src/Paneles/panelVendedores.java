@@ -6,7 +6,6 @@
 package Paneles;
 
 import Datos.Conexion;
-import static JFrames.LoginAdmin.txtusuario;
 import JFrames.TextPrompt;
 import Tipografia.Fuente;
 import encriptacion.Encode;
@@ -16,6 +15,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -25,8 +26,15 @@ import javafx.scene.control.TextField;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -171,7 +179,6 @@ public class panelVendedores extends javax.swing.JPanel {
         btnGuardar.setEnabled(false);
         btnNuevoVen.setEnabled(true);
         cbTipoDocu.setEnabled(false);
-        tablaVendedores.setEnabled(false);
     }
 
     void limpiarCajas() {
@@ -265,10 +272,8 @@ public class panelVendedores extends javax.swing.JPanel {
 
     public panelVendedores() {
         initComponents();
-        if ("adminlectura".equals(txtusuario.getText())) {
-            btnNuevoVen.setEnabled(false);
-            tablaVendedores.setEnabled(false);
-        }
+        verificarPermisos(JFrames.LoginAdmin.usuario);
+
         bloquear();
         cargarData();
         anchoColumnas();
@@ -310,6 +315,23 @@ public class panelVendedores extends javax.swing.JPanel {
         buscar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
     }
 
+    public String vendedores;
+
+    public void verificarPermisos(String usuario) {
+        String sql = "SELECT * FROM permisos WHERE Usuario = '" + usuario + "'";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                vendedores = rs.getString("Vendedores");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     void anchoColumnas() {
         TableColumnModel anchoColumnas = tablaVendedores.getColumnModel();
         anchoColumnas.getColumn(0).setPreferredWidth(30);
@@ -340,7 +362,7 @@ public class panelVendedores extends javax.swing.JPanel {
                 + "TD.NombreDocumento, V.NumeroDocumento, V.Correo, V.Usuario, V.Clave, V.Intentos\n"
                 + "FROM vendedor AS V\n"
                 + "INNER JOIN jornadas AS J ON J.IDJornada = V.IDJornada\n"
-                + "INNER JOIN tipodocumento as TD ON TD.IDTipoDocumento = V.IDTipoDocumento\n"
+                + "INNER JOIN tipodocumento AS TD ON TD.IDTipoDocumento = V.IDTipoDocumento\n"
                 + "ORDER BY V.IDVendedor";
 
         model = new DefaultTableModel(null, titulos);
@@ -446,6 +468,7 @@ public class panelVendedores extends javax.swing.JPanel {
         btnGuardar = new rojerusan.RSButtonHover();
         btnActualizar = new rojerusan.RSButtonHover();
         btnDeshabilitar = new rojerusan.RSButtonHover();
+        btnReporte = new rojerusan.RSButtonHover();
         btnNuevoVen = new rojerusan.RSButtonHover();
         txtDireccion = new javax.swing.JTextField();
         lbLupa = new javax.swing.JLabel();
@@ -701,8 +724,8 @@ public class panelVendedores extends javax.swing.JPanel {
         });
 
         btnDeshabilitar.setBackground(new java.awt.Color(81, 81, 81));
-        btnDeshabilitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoDeshabilitar.png"))); // NOI18N
-        btnDeshabilitar.setText("DESHABILITAR");
+        btnDeshabilitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoCancelar.png"))); // NOI18N
+        btnDeshabilitar.setText("CANCELAR");
         btnDeshabilitar.setBorderPainted(false);
         btnDeshabilitar.setColorHover(new java.awt.Color(61, 61, 61));
         btnDeshabilitar.setFocusable(false);
@@ -710,6 +733,18 @@ public class panelVendedores extends javax.swing.JPanel {
         btnDeshabilitar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeshabilitarActionPerformed(evt);
+            }
+        });
+
+        btnReporte.setBackground(new java.awt.Color(81, 81, 81));
+        btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoReporte.png"))); // NOI18N
+        btnReporte.setBorderPainted(false);
+        btnReporte.setColorHover(new java.awt.Color(61, 61, 61));
+        btnReporte.setFocusable(false);
+        btnReporte.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteActionPerformed(evt);
             }
         });
 
@@ -851,13 +886,6 @@ public class panelVendedores extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(14, 14, 14)
-                        .addComponent(lb1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtIDVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(122, 122, 122)
-                        .addComponent(jLabel10))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(110, 110, 110)
                         .addComponent(btnNuevoVen, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)
@@ -872,6 +900,15 @@ public class panelVendedores extends javax.swing.JPanel {
                         .addGap(6, 6, 6)
                         .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(14, 14, 14)
+                            .addComponent(lb1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtIDVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(122, 122, 122)
+                            .addComponent(jLabel10)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(layout.createSequentialGroup()
                             .addGap(494, 494, 494)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -930,7 +967,8 @@ public class panelVendedores extends javax.swing.JPanel {
                     .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtIDVendedor, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(lb1)))
+                        .addComponent(lb1))
+                    .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -986,10 +1024,6 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_cbJornadaActionPerformed
 
     void modificarRegistro() {
-        if ("adminlectura".equals(txtusuario.getText())) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "No tienes permisos para realizar esta accion", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        }
         int fila = tablaVendedores.getSelectedRow();
 
         ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
@@ -1119,48 +1153,52 @@ public class panelVendedores extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        Conexion cn = new Conexion();
-        Connection cc = cn.GetConexion();
-        validarCamposVacios();
-        if (!guardar == false) {
-            String sql = "UPDATE vendedor SET Nombre = ?, Direccion = ?, Sueldo = ?, "
-                    + "IDJornada = ?, NumeroCelular = ?, IDTipoDocumento = ?, NumeroDocumento = ?, "
-                    + "Correo = ?, Usuario = ?, Clave = ? "
-                    + "WHERE IDVendedor = '" + txtIDVendedor.getText() + "'";
+        if (vendedores.contains("A")) {
+            Conexion cn = new Conexion();
+            Connection cc = cn.GetConexion();
+            validarCamposVacios();
+            if (!guardar == false) {
+                String sql = "UPDATE vendedor SET Nombre = ?, Direccion = ?, Sueldo = ?, "
+                        + "IDJornada = ?, NumeroCelular = ?, IDTipoDocumento = ?, NumeroDocumento = ?, "
+                        + "Correo = ?, Usuario = ?, Clave = ? "
+                        + "WHERE IDVendedor = '" + txtIDVendedor.getText() + "'";
 
-            try {
-                PreparedStatement pst = cc.prepareStatement(sql);
-                pst.setString(1, txtNombre.getText());
-                pst.setString(2, txtDireccion.getText());
-                pst.setString(3, txtSueldo.getText());
-                pst.setInt(4, cbJornada.getSelectedIndex());
-                pst.setInt(5, Integer.parseInt(txtCelular.getText()));
-                pst.setInt(6, cbTipoDocu.getSelectedIndex());
-                pst.setString(7, txtNumDocu.getText());
-                pst.setString(8, txtCorreo.getText());
-                pst.setString(9, txtUsuario.getText());
-                pst.setString(10, enconde.ecnode(secretKey, txtClave.getText()));
+                try {
+                    PreparedStatement pst = cc.prepareStatement(sql);
+                    pst.setString(1, txtNombre.getText());
+                    pst.setString(2, txtDireccion.getText());
+                    pst.setString(3, txtSueldo.getText());
+                    pst.setInt(4, cbJornada.getSelectedIndex());
+                    pst.setInt(5, Integer.parseInt(txtCelular.getText()));
+                    pst.setInt(6, cbTipoDocu.getSelectedIndex());
+                    pst.setString(7, txtNumDocu.getText());
+                    pst.setString(8, txtCorreo.getText());
+                    pst.setString(9, txtUsuario.getText());
+                    pst.setString(10, enconde.ecnode(secretKey, txtClave.getText()));
 
-                int i = pst.executeUpdate();
-                if (i > 0) {
-                    ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoCorrecto.png");
-                    JOptionPane.showMessageDialog(null, "Se actualizó el registro satisfactoriamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-                    limpiarCajas();
-                    cargarData();
-                    bloquear();
-                    btnNuevoVen.setEnabled(true);
-                    ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
-                    btnDeshabilitar.setIcon(iconobtn);
-                    btnDeshabilitar.setText("DESHABILITAR");
+                    int i = pst.executeUpdate();
+                    if (i > 0) {
+                        ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoCorrecto.png");
+                        JOptionPane.showMessageDialog(null, "Se actualizó el registro satisfactoriamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                        limpiarCajas();
+                        cargarData();
+                        bloquear();
+                        btnNuevoVen.setEnabled(true);
+                        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
+                        btnDeshabilitar.setIcon(iconobtn);
+                        btnDeshabilitar.setText("DESHABILITAR");
+                    }
+
+                } catch (Exception e) {
+                    ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "Hubo un error al intentar actualizar", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                    System.out.println(e.getMessage());
                 }
-
-            } catch (Exception e) {
-                ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "Hubo un error al intentar actualizar", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-                System.out.println(e.getMessage());
             }
+        } else {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No cuentas con los permisos para poder actualizar registros", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         }
-
     }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnDeshabilitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeshabilitarActionPerformed
@@ -1184,38 +1222,48 @@ public class panelVendedores extends javax.swing.JPanel {
                 btnDeshabilitar.setText("DESHABILITAR");
 
             } else if (btnDeshabilitar.getText().equals("DESHABILITAR")) {
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
-                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar este vendedor?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                if (ventanaConfirmacion == 0) {
-                    try {
-                        String sqlEstado = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`IDVendedor` = ? ";
-                        PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
-                        pst.setString(1, deshabilitado);
-                        pst.setString(2, id);
-                        pst.execute();
+                if (vendedores.contains("D")) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
+                    int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar este vendedor?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    if (ventanaConfirmacion == 0) {
+                        try {
+                            String sqlEstado = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`IDVendedor` = ? ";
+                            PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
+                            pst.setString(1, deshabilitado);
+                            pst.setString(2, id);
+                            pst.execute();
 
-                        ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
-                        JOptionPane.showMessageDialog(null, "El vendedor " + nombre + " ha sido deshabilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
-                    } catch (Exception e) {
+                            ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
+                            JOptionPane.showMessageDialog(null, "El vendedor " + nombre + " ha sido deshabilitado", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
+                        } catch (Exception e) {
 
+                        }
                     }
+                } else {
+                    ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                    JOptionPane.showMessageDialog(null, "No cuenta con los permisos para deshabilitar vendedores", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                 }
             } else if (btnDeshabilitar.getText().equals("HABILITAR")) {
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
-                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar este vendedor?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                if (ventanaConfirmacion == 0) {
-                    try {
-                        String sqlEstado = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`IDVendedor` = ? ";
-                        PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
-                        pst.setString(1, habilitado);
-                        pst.setString(2, id);
-                        pst.execute();
+                if (vendedores.contains("D")) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
+                    int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar este vendedor?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    if (ventanaConfirmacion == 0) {
+                        try {
+                            String sqlEstado = "UPDATE `vendedor` SET `Intentos` = ? WHERE `vendedor`.`IDVendedor` = ? ";
+                            PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
+                            pst.setString(1, habilitado);
+                            pst.setString(2, id);
+                            pst.execute();
 
-                        ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
-                        JOptionPane.showMessageDialog(null, "El vendedor " + nombre + " ahora está habilitado", "Confirmación", JOptionPane.WARNING_MESSAGE, jPanelIcon2);
-                    } catch (Exception e) {
+                            ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
+                            JOptionPane.showMessageDialog(null, "El vendedor " + nombre + " ahora está habilitado", "Confirmación", JOptionPane.WARNING_MESSAGE, jPanelIcon2);
+                        } catch (Exception e) {
 
+                        }
                     }
+                } else {
+                    ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                    JOptionPane.showMessageDialog(null, "No cuenta con los permisos para habilitar vendedores", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                 }
             }
         }
@@ -1239,26 +1287,31 @@ public class panelVendedores extends javax.swing.JPanel {
     }
 
     private void btnNuevoVenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoVenActionPerformed
-        limpiarCajas();
-        txtIDVendedor.setEnabled(false);
-        cbJornada.setEnabled(true);
-        txtCelular.setEnabled(true);
-        txtCorreo.setEnabled(true);
-        txtNombre.setEnabled(true);
-        txtSueldo.setEnabled(true);
-        txtCorreo.setEnabled(true);
-        txtUsuario.setEnabled(true);
-        txtDireccion.setEnabled(true);
-        txtNumDocu.setEnabled(true);
-        txtClave.setEnabled(true);
-        cbTipoDocu.setEnabled(true);
-        tablaVendedores.setEnabled(true);
-        btnGuardar.setEnabled(true);
-        btnNuevoVen.setEnabled(false);
-        btnDeshabilitar.setEnabled(true);
-        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
-        btnDeshabilitar.setIcon(iconoBoton);
-        btnDeshabilitar.setText("CANCELAR");
+        if (vendedores.contains("G")) {
+            limpiarCajas();
+            txtIDVendedor.setEnabled(false);
+            cbJornada.setEnabled(true);
+            txtCelular.setEnabled(true);
+            txtCorreo.setEnabled(true);
+            txtNombre.setEnabled(true);
+            txtSueldo.setEnabled(true);
+            txtCorreo.setEnabled(true);
+            txtUsuario.setEnabled(true);
+            txtDireccion.setEnabled(true);
+            txtNumDocu.setEnabled(true);
+            txtClave.setEnabled(true);
+            cbTipoDocu.setEnabled(true);
+            tablaVendedores.setEnabled(true);
+            btnGuardar.setEnabled(true);
+            btnNuevoVen.setEnabled(false);
+            btnDeshabilitar.setEnabled(true);
+            ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+            btnDeshabilitar.setIcon(iconoBoton);
+            btnDeshabilitar.setText("CANCELAR");
+        } else {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No cuenta con los permisos para guardar un nuevo registro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        }
     }//GEN-LAST:event_btnNuevoVenActionPerformed
 
     private void txtBuscarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyReleased
@@ -1734,12 +1787,31 @@ public class panelVendedores extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbTipoDocuActionPerformed
 
+    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
+        try {
+            Conexion cc = new Conexion();
+            Connection cn = cc.GetConexion();
+
+            JasperReport reporte = null;
+            String path = "src\\Reportes\\reporteVendedores.jasper";
+            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, cn);
+            JasperViewer view = new JasperViewer(jprint, false);
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            view.setVisible(true);
+
+        } catch (JRException ex) {
+            Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private rojerusan.RSButtonHover btnActualizar;
     private rojerusan.RSButtonHover btnDeshabilitar;
     private rojerusan.RSButtonHover btnGuardar;
     private rojerusan.RSButtonHover btnNuevoVen;
+    private rojerusan.RSButtonHover btnReporte;
     private javax.swing.JComboBox cbJornada;
     private javax.swing.JComboBox cbTipoDocu;
     private javax.swing.JLabel jLabel10;

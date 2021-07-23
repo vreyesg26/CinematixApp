@@ -1,0 +1,8 @@
+2021-07-13 11:02:03 -- No se pudo conectar java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+2021-07-13 11:02:07 -- Asegurate de usar un usuario y una contraseña correctosjava.lang.NullPointerException
+2021-07-13 11:02:40 -- No se pudo conectar java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+2021-07-13 11:02:43 -- Asegurate de usar un usuario y una contraseña correctosjava.lang.NullPointerException
+2021-07-13 02:19:50 -- No se pudo conectar java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+2021-07-13 02:19:58 -- Asegurate de usar un usuario y una contraseña correctosjava.lang.NullPointerException
+2021-07-13 06:02:57 -- No se pudo conectar java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+2021-07-13 06:03:08 -- Asegurate de usar un usuario y una contraseña correctosjava.lang.NullPointerException

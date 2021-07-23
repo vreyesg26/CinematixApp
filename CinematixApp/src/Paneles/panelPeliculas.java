@@ -26,9 +26,16 @@ import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -43,10 +50,8 @@ public class panelPeliculas extends javax.swing.JPanel {
 
     public panelPeliculas() {
         initComponents();
-        if ("adminlectura".equals(txtusuario.getText())) {
-            btnNuevo.setEnabled(false);
-            tablaPeliculas.setEnabled(false);
-        }
+        verificarPermisos(JFrames.LoginAdmin.usuario);
+
         cargarData("");
         bloquearCampos();
         anchoColumnas();
@@ -75,12 +80,33 @@ public class panelPeliculas extends javax.swing.JPanel {
         btnImagen.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnGuardar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnActualizar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
-        btnDeshabilitar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
+        btnDeshabilitar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 9));
         btnNuevo.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
         btnInfoAdicional.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 10));
 
         TextPrompt buscar = new TextPrompt("Buscar por ID o Título", txtBuscar);
         buscar.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+    }
+
+    public String peliculas;
+
+    public void verificarPermisos(String usuario) {
+        String sql = "SELECT * FROM permisos WHERE Usuario = '" + usuario + "'";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                peliculas = rs.getString("Peliculas");
+                
+                if (!peliculas.contains("A")) {
+                    menuModificar.setVisible(false);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     void cargarIdiomas() {
@@ -177,7 +203,6 @@ public class panelPeliculas extends javax.swing.JPanel {
         btnImagen.setEnabled(false);
         btnVerInfo.setEnabled(false);
         btnInfoAdicional.setEnabled(false);
-        tablaPeliculas.setEnabled(false);
     }
 
     boolean guardar = false;
@@ -339,7 +364,8 @@ public class panelPeliculas extends javax.swing.JPanel {
                 || e.getKeyChar() >= 164 && e.getKeyChar() <= 238) {
 
             e.consume();
-            JOptionPane.showMessageDialog(null, "Este campo no acepta caracteres especiales");
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "Este campo no acepta caracteres especiales", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         }
     }
 
@@ -392,6 +418,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         txtUrl = new javax.swing.JTextField();
         lbUrl = new javax.swing.JLabel();
         txtIDPelicula = new javax.swing.JTextField();
+        btnReporte = new rojerusan.RSButtonHover();
 
         menuModificar.setText("Modificar");
         menuModificar.addActionListener(new java.awt.event.ActionListener() {
@@ -451,7 +478,7 @@ public class panelPeliculas extends javax.swing.JPanel {
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 445, 800, 240));
 
         txtLetras.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PeliculasLT.png"))); // NOI18N
-        add(txtLetras, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 6, 515, -1));
+        add(txtLetras, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 6, 250, -1));
 
         labelFoto.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         add(labelFoto, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 74, 192, 274));
@@ -590,8 +617,8 @@ public class panelPeliculas extends javax.swing.JPanel {
         add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(502, 365, 132, 35));
 
         btnDeshabilitar.setBackground(new java.awt.Color(81, 81, 81));
-        btnDeshabilitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoDeshabilitar.png"))); // NOI18N
-        btnDeshabilitar.setText("DESHABILITAR");
+        btnDeshabilitar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoCancelar.png"))); // NOI18N
+        btnDeshabilitar.setText("CANCELAR");
         btnDeshabilitar.setBorderPainted(false);
         btnDeshabilitar.setColorHover(new java.awt.Color(61, 61, 61));
         btnDeshabilitar.setFocusable(false);
@@ -698,6 +725,19 @@ public class panelPeliculas extends javax.swing.JPanel {
         txtIDPelicula.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtIDPelicula.setOpaque(false);
         add(txtIDPelicula, new org.netbeans.lib.awtextra.AbsoluteConstraints(22, 31, 25, 25));
+
+        btnReporte.setBackground(new java.awt.Color(81, 81, 81));
+        btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoReporte.png"))); // NOI18N
+        btnReporte.setBorderPainted(false);
+        btnReporte.setColorHover(new java.awt.Color(61, 61, 61));
+        btnReporte.setFocusable(false);
+        btnReporte.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteActionPerformed(evt);
+            }
+        });
+        add(btnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 20, 40, 35));
     }// </editor-fold>//GEN-END:initComponents
 
     public void guardarPeliculas() {
@@ -752,52 +792,56 @@ public class panelPeliculas extends javax.swing.JPanel {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        Conexion cn = new Conexion();
-        Connection cc = cn.GetConexion();
-        validarCamposVacios();
-        if (guardar != false) {
-            String sql = "UPDATE peliculas SET Titulo = ?, Duracion = ?, IDDirector = ?, "
-                    + "IDIdioma = ?, Sinopsis = ?, "
-                    + "IDGenero = ?, Foto = ?, urlFoto = ?"
-                    + "WHERE IdPelicula = '" + txtIDPelicula.getText() + "'";
+        if (peliculas.contains("A")) {
+            Conexion cn = new Conexion();
+            Connection cc = cn.GetConexion();
+            validarCamposVacios();
+            if (guardar != false) {
+                String sql = "UPDATE peliculas SET Titulo = ?, Duracion = ?, IDDirector = ?, "
+                        + "IDIdioma = ?, Sinopsis = ?, "
+                        + "IDGenero = ?, Foto = ?, urlFoto = ?"
+                        + "WHERE IdPelicula = '" + txtIDPelicula.getText() + "'";
 
-            try {
-                FileInputStream archivoImagen;
-                PreparedStatement pst = cc.prepareStatement(sql);
-                pst.setString(1, txtTitulo.getText());
-                pst.setInt(2, Integer.parseInt(txtDuracion.getText()));
-                pst.setInt(3, cbDirector.getSelectedIndex());
-                pst.setInt(4, cbIdiomas.getSelectedIndex());
-                pst.setString(5, txtSinopsis.getText());
-                pst.setInt(6, cbGeneros.getSelectedIndex());
-                archivoImagen = new FileInputStream(txtUrl.getText());
-                pst.setBinaryStream(7, archivoImagen);
-                pst.setString(8, txtUrl.getText());
+                try {
+                    FileInputStream archivoImagen;
+                    PreparedStatement pst = cc.prepareStatement(sql);
+                    pst.setString(1, txtTitulo.getText());
+                    pst.setInt(2, Integer.parseInt(txtDuracion.getText()));
+                    pst.setInt(3, cbDirector.getSelectedIndex());
+                    pst.setInt(4, cbIdiomas.getSelectedIndex());
+                    pst.setString(5, txtSinopsis.getText());
+                    pst.setInt(6, cbGeneros.getSelectedIndex());
+                    archivoImagen = new FileInputStream(txtUrl.getText());
+                    pst.setBinaryStream(7, archivoImagen);
+                    pst.setString(8, txtUrl.getText());
 
-                int i = pst.executeUpdate();
-                if (i > 0) {
-                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
-                    JOptionPane.showMessageDialog(null, "El registro se actualizó satisfactoriamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-                    limpiarCajas();
-                    btnGuardar.setEnabled(false);
-                    btnNuevo.setEnabled(true);
-                    btnImagen.setEnabled(false);
-                    btnDeshabilitar.setEnabled(false);
-                    btnActualizar.setEnabled(false);
-                    tablaPeliculas.setEnabled(false);
-                    bloquearCampos();
-                    cargarData("");
+                    int i = pst.executeUpdate();
+                    if (i > 0) {
+                        ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoCorrecto.png");
+                        JOptionPane.showMessageDialog(null, "El registro se actualizó satisfactoriamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                        limpiarCajas();
+                        btnGuardar.setEnabled(false);
+                        btnNuevo.setEnabled(true);
+                        btnImagen.setEnabled(false);
+                        btnDeshabilitar.setEnabled(false);
+                        btnActualizar.setEnabled(false);
+                        bloquearCampos();
+                        cargarData("");
 
-                    ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
-                    btnDeshabilitar.setIcon(iconobtn);
-                    btnDeshabilitar.setText("DESHABILITAR");
+                        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
+                        btnDeshabilitar.setIcon(iconobtn);
+                        btnDeshabilitar.setText("DESHABILITAR");
+                    }
+
+                } catch (Exception e) {
+                    ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
+                    JOptionPane.showMessageDialog(null, "Hubo un error al intentar actualizar el registro", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+                    System.out.println(e.getMessage());
                 }
-
-            } catch (Exception e) {
-                ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoError.png");
-                JOptionPane.showMessageDialog(null, "Hubo un error al intentar actualizar el registro", "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-                System.out.println(e.getMessage());
             }
+        } else {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No cuentas con los permisos para poder actualizar registros", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
 
@@ -823,42 +867,51 @@ public class panelPeliculas extends javax.swing.JPanel {
                 ImageIcon iconobtn2 = new ImageIcon("src/Iconos/iconoDeshabilitar.png");
                 btnDeshabilitar.setIcon(iconobtn2);
                 btnDeshabilitar.setText("DESHABILITAR");
-
             } else if (btnDeshabilitar.getText().equals("DESHABILITAR")) {
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
-                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar esta pelicula?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                if (ventanaConfirmacion == 0) {
-                    try {
-                        String sqlEstado = "UPDATE `peliculas` SET `IDEstado` = ? WHERE `peliculas`.`IdPelicula` = ? ";
-                        PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
-                        pst.setString(1, deshabilitado);
-                        pst.setString(2, id);
-                        pst.execute();
+                if (peliculas.contains("D")) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
+                    int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas deshabilitar esta pelicula?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    if (ventanaConfirmacion == 0) {
+                        try {
+                            String sqlEstado = "UPDATE `peliculas` SET `IDEstado` = ? WHERE `peliculas`.`IdPelicula` = ? ";
+                            PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
+                            pst.setString(1, deshabilitado);
+                            pst.setString(2, id);
+                            pst.execute();
 
-                        ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
-                        JOptionPane.showMessageDialog(null, "La pelicula " + pelicula + " ha sido deshabilitada", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
-                        cargarData("");
-                    } catch (Exception e) {
+                            ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
+                            JOptionPane.showMessageDialog(null, "La pelicula " + pelicula + " ha sido deshabilitada", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
+                            cargarData("");
+                        } catch (Exception e) {
 
+                        }
                     }
+                } else {
+                    ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                    JOptionPane.showMessageDialog(null, "No cuenta con los permisos para deshabilitar peliculas", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                 }
             } else if (btnDeshabilitar.getText().equals("HABILITAR")) {
-                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
-                int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar esta pelicula?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-                if (ventanaConfirmacion == 0) {
-                    try {
-                        String sqlEstado = "UPDATE `peliculas` SET `IDEstado` = ? WHERE `peliculas`.`IdPelicula` = ? ";
-                        PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
-                        pst.setString(1, habilitado);
-                        pst.setString(2, id);
-                        pst.execute();
+                if (peliculas.contains("D")) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoPregunta.png");
+                    int ventanaConfirmacion = JOptionPane.showConfirmDialog(null, "¿Seguro que deseas habilitar esta pelicula?", "Confirmación", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                    if (ventanaConfirmacion == 0) {
+                        try {
+                            String sqlEstado = "UPDATE `peliculas` SET `IDEstado` = ? WHERE `peliculas`.`IdPelicula` = ? ";
+                            PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sqlEstado);
+                            pst.setString(1, habilitado);
+                            pst.setString(2, id);
+                            pst.execute();
 
-                        ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
-                        JOptionPane.showMessageDialog(null, "La pelicula " + pelicula + " ahora está habilitada", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
-                        cargarData("");
-                    } catch (Exception e) {
+                            ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoCorrecto.png");
+                            JOptionPane.showMessageDialog(null, "La pelicula " + pelicula + " ahora está habilitada", "Confirmación", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
+                            cargarData("");
+                        } catch (Exception e) {
 
+                        }
                     }
+                } else {
+                    ImageIcon jPanelIcon2 = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                    JOptionPane.showMessageDialog(null, "No cuenta con los permisos para habilitar peliculas", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon2);
                 }
             }
         }
@@ -915,17 +968,14 @@ public class panelPeliculas extends javax.swing.JPanel {
     }
 
     void modificarRegistro() {
-        if ("adminlectura".equals(txtusuario.getText())) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "No tienes permisos para realizar esta accion", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        }
-        btnGuardar.setEnabled(false);
-        btnActualizar.setEnabled(true);
-        btnDeshabilitar.setEnabled(true);
-
-        ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
-        btnDeshabilitar.setIcon(iconobtn);
-        btnDeshabilitar.setText("CANCELAR");
+        txtIDPelicula.setEnabled(true);
+        txtTitulo.setEnabled(true);
+        txtDuracion.setEnabled(true);
+        txtSinopsis.setEnabled(true);
+        cbDirector.setEnabled(true);
+        cbIdiomas.setEnabled(true);
+        cbGeneros.setEnabled(true);
+        btnImagen.setEnabled(true);
         int fila = tablaPeliculas.getSelectedRow();
 
         if (fila >= 0) {
@@ -937,6 +987,14 @@ public class panelPeliculas extends javax.swing.JPanel {
             String sinopsis = tablaPeliculas.getValueAt(fila, 5).toString();
             String genero = tablaPeliculas.getValueAt(fila, 6).toString();
             String url = tablaPeliculas.getValueAt(fila, 8).toString();
+
+            btnGuardar.setEnabled(false);
+            btnActualizar.setEnabled(true);
+            btnDeshabilitar.setEnabled(true);
+
+            ImageIcon iconobtn = new ImageIcon("src/Iconos/iconoCancelar.png");
+            btnDeshabilitar.setIcon(iconobtn);
+            btnDeshabilitar.setText("CANCELAR");
 
             txtIDPelicula.setText(id);
             txtTitulo.setText(titulo);
@@ -993,23 +1051,28 @@ public class panelPeliculas extends javax.swing.JPanel {
     }//GEN-LAST:event_txtBuscarKeyReleased
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        limpiarCajas();
-        txtIDPelicula.setEnabled(true);
-        txtTitulo.setEnabled(true);
-        txtDuracion.setEnabled(true);
-        txtSinopsis.setEnabled(true);
-        cbDirector.setEnabled(true);
-        cbIdiomas.setEnabled(true);
-        cbGeneros.setEnabled(true);
-        btnNuevo.setEnabled(false);
-        btnGuardar.setEnabled(true);
-        btnDeshabilitar.setEnabled(true);
-        btnActualizar.setEnabled(false);
-        btnImagen.setEnabled(true);
-        tablaPeliculas.setEnabled(true);
-        ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
-        btnDeshabilitar.setIcon(iconoBoton);
-        btnDeshabilitar.setText("CANCELAR");
+        if (peliculas.contains("G")) {
+            limpiarCajas();
+            txtIDPelicula.setEnabled(true);
+            txtTitulo.setEnabled(true);
+            txtDuracion.setEnabled(true);
+            txtSinopsis.setEnabled(true);
+            cbDirector.setEnabled(true);
+            cbIdiomas.setEnabled(true);
+            cbGeneros.setEnabled(true);
+            btnNuevo.setEnabled(false);
+            btnGuardar.setEnabled(true);
+            btnDeshabilitar.setEnabled(true);
+            btnActualizar.setEnabled(false);
+            btnImagen.setEnabled(true);
+            tablaPeliculas.setEnabled(true);
+            ImageIcon iconoBoton = new ImageIcon("src/iconos/iconoCancelar.png");
+            btnDeshabilitar.setIcon(iconoBoton);
+            btnDeshabilitar.setText("CANCELAR");
+        } else {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No cuenta con los permisos para guardar un nuevo registro", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+        }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void txtSinopsisKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSinopsisKeyTyped
@@ -1101,8 +1164,9 @@ public class panelPeliculas extends javax.swing.JPanel {
 
     public static String id;
     public static String titulo;
+    public int fila;
     private void tablaPeliculasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaPeliculasMouseClicked
-        int fila = tablaPeliculas.getSelectedRow();
+        fila = tablaPeliculas.getSelectedRow();
         if (fila >= 0) {
             btnVerInfo.setEnabled(true);
             btnDeshabilitar.setEnabled(true);
@@ -1172,19 +1236,42 @@ public class panelPeliculas extends javax.swing.JPanel {
 
     public static boolean pantallaVerInfo = false;
     private void btnVerInfoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerInfoActionPerformed
-        if (pantallaVerInfo == false) {
-            visualizarInfoPeliculas vip = new visualizarInfoPeliculas();
-            vip.setVisible(true);
-            pantallaVerInfo = true;
-        } else if (pantallaVerInfo == true) {
+        if (peliculas.contains("I")) {
+            if (pantallaVerInfo == false) {
+                visualizarInfoPeliculas vip = new visualizarInfoPeliculas();
+                vip.setVisible(true);
+                pantallaVerInfo = true;
+            } else if (pantallaVerInfo == true) {
+                ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La pantalla de ver información ya se está ejecutando", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            }
+        } else {
             ImageIcon jPanelIcono = new ImageIcon("src/Iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La pantalla de ver información ya se está ejecutando", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            JOptionPane.showMessageDialog(null, "No tiene los permisos para ver la información de las peliculas", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         }
     }//GEN-LAST:event_btnVerInfoActionPerformed
 
     private void tablaPeliculasFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tablaPeliculasFocusLost
         btnVerInfo.setEnabled(false);
     }//GEN-LAST:event_tablaPeliculasFocusLost
+
+    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
+        try {
+            Conexion cc = new Conexion();
+            Connection cn = cc.GetConexion();
+
+            JasperReport reporte = null;
+            String path = "src\\Reportes\\reportePeliculas.jasper";
+            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, cn);
+            JasperViewer view = new JasperViewer(jprint, false);
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            view.setVisible(true);
+
+        } catch (JRException ex) {
+            Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporteActionPerformed
 
     datosPeliculas dataPeli = new datosPeliculas();
 
@@ -1195,6 +1282,7 @@ public class panelPeliculas extends javax.swing.JPanel {
     private rojerusan.RSButtonHover btnImagen;
     private rojerusan.RSButtonHover btnInfoAdicional;
     private rojerusan.RSButtonHover btnNuevo;
+    private rojerusan.RSButtonHover btnReporte;
     private rojerusan.RSButtonHover btnVerInfo;
     private javax.swing.JComboBox<String> cbDirector;
     private javax.swing.JComboBox<String> cbGeneros;

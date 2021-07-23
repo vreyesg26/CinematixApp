@@ -7,7 +7,6 @@ package Paneles;
 
 import Datos.Conexion;
 import JFrames.FacturaReporte;
-import static JFrames.LoginAdmin.txtusuario;
 import JFrames.TextPrompt;
 import JFrames.log;
 import Tipografia.Fuente;
@@ -40,13 +39,10 @@ public class panelHistorial extends javax.swing.JPanel {
      */
     Fuente tipoFuente;
     log lo = new log();
+
     public panelHistorial() {
         initComponents();
-         if ("adminlectura".equals(txtusuario.getText())) {
-     
-            btnGenerarReporte.setEnabled(false);
-            tablaFacturas.setEnabled(false);
-        }
+        verificarPermisos(JFrames.LoginAdmin.usuario);
         cargarData();
 
         tipoFuente = new Fuente();
@@ -141,6 +137,28 @@ public class panelHistorial extends javax.swing.JPanel {
         lbBuscarFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoBuscar.png"))); // NOI18N
         add(lbBuscarFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 110, 35, 35));
     }// </editor-fold>//GEN-END:initComponents
+
+    public String historial;
+
+    public void verificarPermisos(String usuario) {
+        String sql = "SELECT * FROM permisos WHERE Usuario = '" + usuario + "'";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                historial = rs.getString("Historial");
+
+                if (!historial.contains("F")) {
+                    tablaFacturas.setEnabled(false);
+                    visualizarFactura.setVisible(false);
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     void anchoColumnas() {
         TableColumnModel anchoColumnas = tablaFacturas.getColumnModel();
@@ -243,36 +261,41 @@ public class panelHistorial extends javax.swing.JPanel {
     }
 
     private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
-        ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
-        int decision = JOptionPane.showConfirmDialog(null, "¿Desea imprimir el reporte de ventas?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
-        if (decision == 0) {
-            PrinterJob job = PrinterJob.getPrinterJob();
-            job.setJobName("Reporte");
+        if (historial.contains("R")) {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoPregunta.png");
+            int decision = JOptionPane.showConfirmDialog(null, "¿Desea imprimir el reporte de ventas?", "Pregunta", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE, jPanelIcono);
+            if (decision == 0) {
+                PrinterJob job = PrinterJob.getPrinterJob();
+                job.setJobName("Reporte");
 
-            job.setPrintable(new Printable() {
-                public int print(Graphics pg, PageFormat pf, int pageNum) {
+                job.setPrintable(new Printable() {
+                    public int print(Graphics pg, PageFormat pf, int pageNum) {
 
-                    if (pageNum > 0) {
-                        return Printable.NO_SUCH_PAGE;
+                        if (pageNum > 0) {
+                            return Printable.NO_SUCH_PAGE;
+                        }
+
+                        Graphics2D g2 = (Graphics2D) pg;
+                        g2.translate(pf.getImageableX(), pf.getImageableY());
+                        g2.scale(0.70, 0.70);
+
+                        jScrollPane1.paint(g2);
+                        return Printable.PAGE_EXISTS;
                     }
-
-                    Graphics2D g2 = (Graphics2D) pg;
-                    g2.translate(pf.getImageableX(), pf.getImageableY());
-                    g2.scale(0.70, 0.70);
-
-                    jScrollPane1.paint(g2);
-                    return Printable.PAGE_EXISTS;
+                });
+                boolean ok = job.printDialog();
+                if (ok) {
+                    try {
+                        job.print();
+                    } catch (PrinterException ex) {
+                    }
                 }
-            });
-            boolean ok = job.printDialog();
-            if (ok) {
-                try {
-                    job.print();
-                } catch (PrinterException ex) {
-                }
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
+                JOptionPane.showMessageDialog(null, "Reporte generado exitosamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoCorrecto.png");
-            JOptionPane.showMessageDialog(null, "Reporte generado exitosamente", "Notificación", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+        } else {
+            ImageIcon jPanelIcono = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No cuenta con permisos para generar reportes", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcono);
         }
     }//GEN-LAST:event_btnGenerarReporteActionPerformed
 
@@ -329,7 +352,7 @@ public class panelHistorial extends javax.swing.JPanel {
                     }
                 }
             } catch (Exception e) {
-                 lo.LogBitacora("Ya hay una factura mostrandose" + e);
+                lo.LogBitacora("Ya hay una factura mostrandose" + e);
             }
         }
     }//GEN-LAST:event_visualizarFacturaActionPerformed

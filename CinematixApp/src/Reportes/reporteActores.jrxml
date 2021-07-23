@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteActores2" language="groovy" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d11640aa-656b-43dd-b4b7-920b100ca1b4">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT A.IDActor, A.Nombre, E.Estado FROM actores AS A
+INNER JOIN estados AS E USING (IDEstado)]]>
+	</queryString>
+	<field name="IDActor" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="184" y="0" width="235" height="79" forecolor="#666666" uuid="4ad0d6e9-d91f-4ba3-b99f-452920bd7a07"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Georgia" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE ACTORES]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="10" y="30" width="100" height="20" uuid="1dc1a937-e0b1-44e5-bf4f-603f31b2a388"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="127" y="26" width="57" height="53" uuid="a0151dc5-2a8f-4034-b73e-8a8468eccb0e"/>
+				<imageExpression><![CDATA["C:\\Users\\Victor Reyes\\Downloads\\cinematix logo.jpg"]]></imageExpression>
+			</image>
+			<textField pattern="K:mm a, z">
+				<reportElement x="452" y="30" width="100" height="20" uuid="877b024b-9439-414c-8952-9c7aa5ea5cd6"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="59" y="2" width="100" height="20" uuid="4e6f86fd-bfc8-4f12-8f34-4b331d11423d"/>
+				<textElement>
+					<font fontName="Georgia"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="226" y="2" width="100" height="20" uuid="7a977d02-3212-4c22-82eb-edff64cf773d"/>
+				<textElement>
+					<font fontName="Georgia"/>
+				</textElement>
+				<text><![CDATA[NOMBRE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="416" y="2" width="100" height="20" uuid="edca2758-c04b-42b6-b678-b60c4456ac55"/>
+				<textElement>
+					<font fontName="Georgia"/>
+				</textElement>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="46" splitType="Stretch">
+			<textField>
+				<reportElement x="59" y="15" width="100" height="20" uuid="745f7ded-e2e1-46bf-9cbd-341d6a8c2efa"/>
+				<textElement>
+					<font fontName="Georgia"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IDActor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="226" y="8" width="100" height="20" uuid="018948bd-8ed6-4632-8251-94351cb13f77"/>
+				<textElement>
+					<font fontName="Georgia"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="416" y="17" width="100" height="20" uuid="5b68e30b-88f0-405c-b392-28011f8c7199"/>
+				<textElement>
+					<font fontName="Georgia"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Estado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="344" y="0" width="61" height="20" uuid="ea310073-98b9-4985-aab7-a8634d076cbc"/>
+				<textElement>
+					<font fontName="Georgia"/>
+				</textElement>
+				<text><![CDATA[USUARIO:]]></text>
+			</staticText>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="5" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

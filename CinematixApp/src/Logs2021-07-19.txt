@@ -1,0 +1,9 @@
+2021-07-19 01:21:54 -- No se pudo conectar java.sql.SQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.
+2021-07-19 01:21:57 -- Asegurate de usar un usuario y una contraseña correctosjava.lang.NullPointerException
+2021-07-19 03:11:37 -- Error java.lang.NullPointerException
+2021-07-19 03:11:38 -- Error java.lang.NullPointerException
+2021-07-19 03:45:10 -- Error al obtener datos de la factura  java.sql.SQLSyntaxErrorException: Unknown column 'P.IDSalas' in 'on clause'
+2021-07-19 03:15:29 -- Error de conexion  java.sql.SQLException: Column 'Clave' not found.
+2021-07-19 03:19:19 -- Asegurate de usar un usuario y una contraseña correctosjava.lang.NullPointerException
+2021-07-19 09:51:28 -- Error java.lang.NullPointerException
+2021-07-19 09:51:30 -- Error java.lang.NullPointerException

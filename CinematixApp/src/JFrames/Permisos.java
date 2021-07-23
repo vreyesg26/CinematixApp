@@ -1,21 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package JFrames;
 
 import Datos.Conexion;
-import static JFrames.LoginAdmin.txtusuario;
-import static JFrames.MenuVendedor.lb10;
-import static JFrames.MenuVendedor.lb9;
-import  Paneles.panelInicio;
 import Paneles.panelVendedores;
+import Tipografia.Fuente;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,32 +14,75 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 /**
  *
- * @author Jeymerd Canales
+ * @author Los Pibes
  */
 public class Permisos extends javax.swing.JFrame {
 
     /**
-     * Creates new form Permisos
+     * Creates new form Inicio
      */
+    Fuente tipoFuente;
+
     public Permisos() {
         initComponents();
-        setLocationRelativeTo(null);
-        //setBackground(new Color(0, 0, 0, 0));
+        setBackground(new Color(0, 0, 0, 0));
         cargarData();
+        tipoFuente = new Fuente();
         anchoColumnas();
 
-        txtusuario.setVisible(true);
-        txtID.setVisible(true);
-        TextPrompt ID = new TextPrompt("ID", txtID);
-        TextPrompt usuario = new TextPrompt("USUARIO", txtusuario);
-        txtID.setEnabled(false);
+
+        txtID.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
+        txtusuario.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 15));
+        tablausuarios.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel6.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel7.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel8.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel9.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel10.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel11.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel12.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel5.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        jLabel14.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel15.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel16.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel17.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel18.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel19.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel20.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel24.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel25.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        jLabel13.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        jLabel22.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        jLabel23.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 16));
+        jTabbedPane1.setBackgroundAt(0, new Color(44, 44, 44));
+
+        btnAdminUsuarios.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnAdminGeneros.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnAdminDirectores.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnAdminHorarios.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnAdminActores.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnAdminClientes.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnAdminSalas.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+
+        btnGuardarPeli.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnActualizarPeli.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnDeshabilitarPeli.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnInformacionPeli.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+
+        btnGuardarVendedor.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnActualizarVendedores.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnDeshabilitarVendedor.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+
+        btnReporte.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+        btnFactura.setFont(tipoFuente.fuente(tipoFuente.LUSI, 1, 14));
+
     }
 
     @Override
@@ -58,6 +91,452 @@ public class Permisos extends javax.swing.JFrame {
         return retValue;
     }
 
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        btnCerrar = new javax.swing.JLabel();
+        txtID = new javax.swing.JTextField();
+        txtusuario = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablausuarios = new javax.swing.JTable();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        pn_inicio = new javax.swing.JPanel();
+        jLabel5 = new javax.swing.JLabel();
+        btnAdminUsuarios = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        btnAdminGeneros = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        btnAdminDirectores = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        btnAdminHorarios = new javax.swing.JButton();
+        btnAdminActores = new javax.swing.JButton();
+        btnAdminClientes = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        btnAdminSalas = new javax.swing.JButton();
+        pn_peliculas = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        btnGuardarPeli = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        btnActualizarPeli = new javax.swing.JButton();
+        btnInformacionPeli = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        btnDeshabilitarPeli = new javax.swing.JButton();
+        pn_vendedores = new javax.swing.JPanel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        btnGuardarVendedor = new javax.swing.JButton();
+        btnActualizarVendedores = new javax.swing.JButton();
+        btnDeshabilitarVendedor = new javax.swing.JButton();
+        jLabel22 = new javax.swing.JLabel();
+        pn_historial = new javax.swing.JPanel();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        btnReporte = new javax.swing.JButton();
+        btnFactura = new javax.swing.JButton();
+        jLabel25 = new javax.swing.JLabel();
+        labelFondo = new javax.swing.JLabel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 0, 0));
+        setIconImage(getIconImage());
+        setUndecorated(true);
+        setOpacity(0.0F);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnCerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCerrarMouseClicked(evt);
+            }
+        });
+        getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 25, 24, 24));
+
+        txtID.setBackground(new java.awt.Color(0, 0, 0));
+        txtID.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        txtID.setForeground(new java.awt.Color(255, 255, 255));
+        txtID.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtID.setAutoscrolls(false);
+        txtID.setBorder(null);
+        txtID.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtID.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtID.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtID.setOpaque(false);
+        txtID.setSelectedTextColor(new java.awt.Color(255, 255, 255));
+        getContentPane().add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 175, 70, 45));
+
+        txtusuario.setBackground(new java.awt.Color(0, 0, 0));
+        txtusuario.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        txtusuario.setForeground(new java.awt.Color(255, 255, 255));
+        txtusuario.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtusuario.setAutoscrolls(false);
+        txtusuario.setBorder(null);
+        txtusuario.setCaretColor(new java.awt.Color(255, 255, 255));
+        txtusuario.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        txtusuario.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        txtusuario.setOpaque(false);
+        txtusuario.setSelectedTextColor(new java.awt.Color(255, 255, 255));
+        getContentPane().add(txtusuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 255, 240, 45));
+
+        tablausuarios.setBackground(new java.awt.Color(61, 61, 61));
+        tablausuarios.setForeground(new java.awt.Color(255, 255, 255));
+        tablausuarios.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null},
+                {null, null},
+                {null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2"
+            }
+        ));
+        tablausuarios.setAutoscrolls(false);
+        tablausuarios.setRowHeight(30);
+        tablausuarios.setSelectionBackground(new java.awt.Color(29, 29, 29));
+        tablausuarios.setSelectionForeground(new java.awt.Color(255, 255, 255));
+        tablausuarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tablausuariosMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tablausuarios);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 340, 280, 110));
+
+        jTabbedPane1.setBackground(new java.awt.Color(110, 107, 107));
+        jTabbedPane1.setForeground(new java.awt.Color(255, 255, 255));
+
+        pn_inicio.setBackground(new java.awt.Color(29, 29, 29));
+        pn_inicio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("PERMISOS PANTALLA INICIO");
+        pn_inicio.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 15, 293, -1));
+
+        btnAdminUsuarios.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdminUsuarios.setText("Activo");
+        btnAdminUsuarios.setRequestFocusEnabled(false);
+        btnAdminUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminUsuariosActionPerformed(evt);
+            }
+        });
+        pn_inicio.add(btnAdminUsuarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 85, -1));
+
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("Administrar Usuarios");
+        pn_inicio.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 57, -1, -1));
+
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel7.setText("Administrar Generos");
+        pn_inicio.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 57, -1, -1));
+
+        btnAdminGeneros.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdminGeneros.setText("Activo");
+        btnAdminGeneros.setRequestFocusEnabled(false);
+        btnAdminGeneros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminGenerosActionPerformed(evt);
+            }
+        });
+        pn_inicio.add(btnAdminGeneros, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 85, -1));
+
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel8.setText("Administrar Directores");
+        pn_inicio.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 57, -1, -1));
+
+        btnAdminDirectores.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdminDirectores.setText("Activo");
+        btnAdminDirectores.setRequestFocusEnabled(false);
+        btnAdminDirectores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminDirectoresActionPerformed(evt);
+            }
+        });
+        pn_inicio.add(btnAdminDirectores, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 80, 85, -1));
+
+        jLabel9.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel9.setText("Administrar Horarios");
+        pn_inicio.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 171, -1, -1));
+
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Administrar Actores");
+        pn_inicio.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(215, 170, -1, -1));
+
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Administrar Clientes");
+        pn_inicio.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 171, -1, -1));
+
+        btnAdminHorarios.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdminHorarios.setText("Activo");
+        btnAdminHorarios.setRequestFocusEnabled(false);
+        btnAdminHorarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminHorariosActionPerformed(evt);
+            }
+        });
+        pn_inicio.add(btnAdminHorarios, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, 85, -1));
+
+        btnAdminActores.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdminActores.setText("Activo");
+        btnAdminActores.setRequestFocusEnabled(false);
+        btnAdminActores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminActoresActionPerformed(evt);
+            }
+        });
+        pn_inicio.add(btnAdminActores, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, 85, -1));
+
+        btnAdminClientes.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdminClientes.setText("Activo");
+        btnAdminClientes.setRequestFocusEnabled(false);
+        btnAdminClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminClientesActionPerformed(evt);
+            }
+        });
+        pn_inicio.add(btnAdminClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 190, 85, -1));
+
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel12.setText("Control y administración de salas");
+        pn_inicio.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, -1, -1));
+
+        btnAdminSalas.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdminSalas.setText("Activo");
+        btnAdminSalas.setRequestFocusEnabled(false);
+        btnAdminSalas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdminSalasActionPerformed(evt);
+            }
+        });
+        pn_inicio.add(btnAdminSalas, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 280, 85, -1));
+
+        jTabbedPane1.addTab("Inicio", pn_inicio);
+
+        pn_peliculas.setBackground(new java.awt.Color(29, 29, 29));
+        pn_peliculas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel13.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel13.setText("PERMISOS PANTALLA PELICULAS");
+        pn_peliculas.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(145, 30, -1, -1));
+
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel14.setText("Guardar");
+        pn_peliculas.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 80, 85, -1));
+
+        btnGuardarPeli.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardarPeli.setText("Activo");
+        btnGuardarPeli.setBorderPainted(false);
+        btnGuardarPeli.setRequestFocusEnabled(false);
+        btnGuardarPeli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarPeliActionPerformed(evt);
+            }
+        });
+        pn_peliculas.add(btnGuardarPeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 100, 85, -1));
+
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel15.setText("Actualizar");
+        pn_peliculas.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 85, -1));
+
+        btnActualizarPeli.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizarPeli.setText("Activo");
+        btnActualizarPeli.setBorderPainted(false);
+        btnActualizarPeli.setRequestFocusEnabled(false);
+        btnActualizarPeli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarPeliActionPerformed(evt);
+            }
+        });
+        pn_peliculas.add(btnActualizarPeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 85, -1));
+
+        btnInformacionPeli.setForeground(new java.awt.Color(255, 255, 255));
+        btnInformacionPeli.setText("Activo");
+        btnInformacionPeli.setBorderPainted(false);
+        btnInformacionPeli.setRequestFocusEnabled(false);
+        btnInformacionPeli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInformacionPeliActionPerformed(evt);
+            }
+        });
+        pn_peliculas.add(btnInformacionPeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 100, 85, -1));
+
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel17.setText("Información");
+        pn_peliculas.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 80, 85, -1));
+
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel16.setText("Deshabilitar");
+        pn_peliculas.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 80, 85, -1));
+
+        btnDeshabilitarPeli.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeshabilitarPeli.setText("Activo");
+        btnDeshabilitarPeli.setBorderPainted(false);
+        btnDeshabilitarPeli.setRequestFocusEnabled(false);
+        btnDeshabilitarPeli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeshabilitarPeliActionPerformed(evt);
+            }
+        });
+        pn_peliculas.add(btnDeshabilitarPeli, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 100, 85, -1));
+
+        jTabbedPane1.addTab("Peliculas", pn_peliculas);
+
+        pn_vendedores.setBackground(new java.awt.Color(29, 29, 29));
+        pn_vendedores.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel18.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel18.setText("Guardar");
+        pn_vendedores.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(31, 80, 85, -1));
+
+        jLabel19.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel19.setText("Actualizar");
+        pn_vendedores.add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 80, 86, -1));
+
+        jLabel20.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel20.setText("Deshabilitar");
+        pn_vendedores.add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 80, 85, -1));
+
+        btnGuardarVendedor.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardarVendedor.setText("Activo");
+        btnGuardarVendedor.setBorderPainted(false);
+        btnGuardarVendedor.setRequestFocusEnabled(false);
+        btnGuardarVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarVendedorActionPerformed(evt);
+            }
+        });
+        pn_vendedores.add(btnGuardarVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(35, 100, 85, -1));
+
+        btnActualizarVendedores.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizarVendedores.setText("Activo");
+        btnActualizarVendedores.setBorderPainted(false);
+        btnActualizarVendedores.setRequestFocusEnabled(false);
+        btnActualizarVendedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarVendedoresActionPerformed(evt);
+            }
+        });
+        pn_vendedores.add(btnActualizarVendedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 100, 85, -1));
+
+        btnDeshabilitarVendedor.setForeground(new java.awt.Color(255, 255, 255));
+        btnDeshabilitarVendedor.setText("Activo");
+        btnDeshabilitarVendedor.setBorderPainted(false);
+        btnDeshabilitarVendedor.setRequestFocusEnabled(false);
+        btnDeshabilitarVendedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeshabilitarVendedorActionPerformed(evt);
+            }
+        });
+        pn_vendedores.add(btnDeshabilitarVendedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 85, -1));
+
+        jLabel22.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel22.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel22.setText("PERMISOS PANTALLA VENDEDORES");
+        pn_vendedores.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(135, 30, -1, -1));
+
+        jTabbedPane1.addTab("Vendedores", pn_vendedores);
+
+        pn_historial.setBackground(new java.awt.Color(29, 29, 29));
+        pn_historial.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel23.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel23.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel23.setText("PERMISOS PANTALLA HISTORIAL");
+        pn_historial.add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 30, -1, -1));
+
+        jLabel24.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel24.setText("Generar Reportes");
+        pn_historial.add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 100, 130, -1));
+
+        btnReporte.setForeground(new java.awt.Color(255, 255, 255));
+        btnReporte.setText("Activo");
+        btnReporte.setBorderPainted(false);
+        btnReporte.setRequestFocusEnabled(false);
+        btnReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporteActionPerformed(evt);
+            }
+        });
+        pn_historial.add(btnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 120, 85, -1));
+
+        btnFactura.setForeground(new java.awt.Color(255, 255, 255));
+        btnFactura.setText("Activo");
+        btnFactura.setBorderPainted(false);
+        btnFactura.setRequestFocusEnabled(false);
+        btnFactura.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFacturaActionPerformed(evt);
+            }
+        });
+        pn_historial.add(btnFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(245, 262, 85, -1));
+
+        jLabel25.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel25.setText("Visualizar Facturas");
+        pn_historial.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 240, 130, -1));
+
+        jTabbedPane1.addTab("Historial", pn_historial);
+
+        getContentPane().add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 110, 565, 418));
+
+        labelFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/PantallaPermisos.png"))); // NOI18N
+        getContentPane().add(labelFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 550));
+
+        pack();
+        setLocationRelativeTo(null);
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        for (double i = 0.0; i <= 1.0; i = i + 0.1) {
+            String val = i + "";
+            float f = Float.valueOf(val);
+            this.setOpacity(f);
+            try {
+                Thread.sleep(50);
+            } catch (Exception e) {
+
+            }
+        }
+    }//GEN-LAST:event_formWindowOpened
+
     ResultSet rs;
     PreparedStatement Pst;
     DefaultTableModel model;
@@ -65,9 +544,9 @@ public class Permisos extends javax.swing.JFrame {
     Connection cn = cc.GetConexion();
 
     void cargarData() {
-        String[] titulos = {"ID", "Usuario", "Contraseña", "Intentos"};
-        String[] registros = new String[4];
-        String sql = "SELECT IDUsuario, Usuario, Contrasena, Intentos FROM usuarios WHERE IDUsuario != 0 ORDER BY IDUsuario";
+        String[] titulos = {"ID", "Usuario"};
+        String[] registros = new String[2];
+        String sql = "SELECT IDUsuario, Usuario FROM usuarios WHERE IDUsuario != 0 ORDER BY IDUsuario";
 
         model = new DefaultTableModel(null, titulos);
 
@@ -78,8 +557,6 @@ public class Permisos extends javax.swing.JFrame {
             while (rs.next()) {
                 registros[0] = rs.getString("IDUsuario");
                 registros[1] = rs.getString("Usuario");
-                registros[2] = rs.getString("Contrasena");
-                registros[3] = rs.getString("Intentos");
                 model.addRow(registros);
             }
 
@@ -94,675 +571,659 @@ public class Permisos extends javax.swing.JFrame {
     void anchoColumnas() {
         TableColumnModel anchoColumnas = tablausuarios.getColumnModel();
         anchoColumnas.getColumn(0).setPreferredWidth(30);
-        anchoColumnas.getColumn(1).setPreferredWidth(120);
-        anchoColumnas.getColumn(2).setPreferredWidth(160);
-        anchoColumnas.getColumn(3).setPreferredWidth(40);
+        anchoColumnas.getColumn(1).setPreferredWidth(145);
     }
 
-    public String usuario;
-    public int fila;
+    private void btnCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarMouseClicked
+        this.dispose();
+        Inicio inicio = new Inicio();
+        inicio.setVisible(true);
+    }//GEN-LAST:event_btnCerrarMouseClicked
 
-    void modificarRegistro() {
-        fila = tablausuarios.getSelectedRow();
+    public String historial;
+    public String vendedores;
+    public String peliculas;
+    public String inicio;
 
-        if (fila >= 0) {
-            txtusuario.setEnabled(true);
+    public void estadoBotones(int usuario) {
+        String sql = "SELECT * FROM permisos WHERE IDUsuario = '" + usuario + "'";
 
-            String id = tablausuarios.getValueAt(fila, 0).toString();
-            usuario = tablausuarios.getValueAt(fila, 1).toString();
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
 
-            txtID.setText(id);
-            txtusuario.setText(usuario);
+            if (rs.next()) {
+                historial = rs.getString("Historial");
 
-        } else {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "Debe seleccionar una fila", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                if (historial.contains("R")) {
+                    btnReporte.setText("Activo");
+                    btnReporte.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnReporte.setText("Inactivo");
+                    btnReporte.setBackground(new Color(187, 0, 0));
+                }
+
+                if (historial.contains("F")) {
+                    btnFactura.setText("Activo");
+                    btnFactura.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnFactura.setText("Inactivo");
+                    btnFactura.setBackground(new Color(187, 0, 0));
+                }
+
+                vendedores = rs.getString("Vendedores");
+
+                if (vendedores.contains("G")) {
+                    btnGuardarVendedor.setText("Activo");
+                    btnGuardarVendedor.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnGuardarVendedor.setText("Inactivo");
+                    btnGuardarVendedor.setBackground(new Color(187, 0, 0));
+                }
+
+                if (vendedores.contains("A")) {
+                    btnActualizarVendedores.setText("Activo");
+                    btnActualizarVendedores.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnActualizarVendedores.setText("Inactivo");
+                    btnActualizarVendedores.setBackground(new Color(187, 0, 0));
+                }
+
+                if (vendedores.contains("D")) {
+                    btnDeshabilitarVendedor.setText("Activo");
+                    btnDeshabilitarVendedor.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnDeshabilitarVendedor.setText("Inactivo");
+                    btnDeshabilitarVendedor.setBackground(new Color(187, 0, 0));
+                }
+
+                peliculas = rs.getString("Peliculas");
+
+                if (peliculas.contains("G")) {
+                    btnGuardarPeli.setText("Activo");
+                    btnGuardarPeli.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnGuardarPeli.setText("Inactivo");
+                    btnGuardarPeli.setBackground(new Color(187, 0, 0));
+                }
+
+                if (peliculas.contains("A")) {
+                    btnActualizarPeli.setText("Activo");
+                    btnActualizarPeli.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnActualizarPeli.setText("Inactivo");
+                    btnActualizarPeli.setBackground(new Color(187, 0, 0));
+                }
+
+                if (peliculas.contains("D")) {
+                    btnDeshabilitarPeli.setText("Activo");
+                    btnDeshabilitarPeli.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnDeshabilitarPeli.setText("Inactivo");
+                    btnDeshabilitarPeli.setBackground(new Color(187, 0, 0));
+                }
+                
+                if (peliculas.contains("I")) {
+                    btnInformacionPeli.setText("Activo");
+                    btnInformacionPeli.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnInformacionPeli.setText("Inactivo");
+                    btnInformacionPeli.setBackground(new Color(187, 0, 0));
+                }
+
+                inicio = rs.getString("Inicio");
+
+                if (inicio.contains("U")) {
+                    btnAdminUsuarios.setText("Activo");
+                    btnAdminUsuarios.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnAdminUsuarios.setText("Inactivo");
+                    btnAdminUsuarios.setBackground(new Color(187, 0, 0));
+                }
+
+                if (inicio.contains("G")) {
+                    btnAdminGeneros.setText("Activo");
+                    btnAdminGeneros.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnAdminGeneros.setText("Inactivo");
+                    btnAdminGeneros.setBackground(new Color(187, 0, 0));
+                }
+
+                if (inicio.contains("D")) {
+                    btnAdminDirectores.setText("Activo");
+                    btnAdminDirectores.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnAdminDirectores.setText("Inactivo");
+                    btnAdminDirectores.setBackground(new Color(187, 0, 0));
+                }
+
+                if (inicio.contains("H")) {
+                    btnAdminHorarios.setText("Activo");
+                    btnAdminHorarios.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnAdminHorarios.setText("Inactivo");
+                    btnAdminHorarios.setBackground(new Color(187, 0, 0));
+                }
+
+                if (inicio.contains("A")) {
+                    btnAdminActores.setText("Activo");
+                    btnAdminActores.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnAdminActores.setText("Inactivo");
+                    btnAdminActores.setBackground(new Color(187, 0, 0));
+                }
+
+                if (inicio.contains("C")) {
+                    btnAdminClientes.setText("Activo");
+                    btnAdminClientes.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnAdminClientes.setText("Inactivo");
+                    btnAdminClientes.setBackground(new Color(187, 0, 0));
+                }
+
+                if (inicio.contains("S")) {
+                    btnAdminSalas.setText("Activo");
+                    btnAdminSalas.setBackground(new Color(78, 174, 2));
+                } else {
+                    btnAdminSalas.setText("Inactivo");
+                    btnAdminSalas.setBackground(new Color(187, 0, 0));
+                }
+            }
+
+        } catch (Exception e) {
+
         }
     }
 
-    void bloquear() {
-        txtusuario.setEnabled(true);
-        txtID.setEnabled(true);
-        tablausuarios.setEnabled(true);
-    }
+    private void btnAdminUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminUsuariosActionPerformed
+        if (btnAdminUsuarios.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Inicio` = CONCAT(`Inicio`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("U"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
 
-    void desbloquear() {
-        txtusuario.setEnabled(true);
-        txtID.setEnabled(true);
-        tablausuarios.setEnabled(true);
-    }
-
-    void ActivarUsuarios() {
-        
-}
-    
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
-
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
-        pn_inicio = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        btn_Activo_Usuario = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        btn_Activo_Genero = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        btn_Activo_Directores = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        btn_Activo_Horarios = new javax.swing.JButton();
-        btn_Activo_Actores = new javax.swing.JButton();
-        btn_Activo_Clientes = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        btn_Activo_Salas = new javax.swing.JButton();
-        btn_Inactivo_Usuario = new javax.swing.JButton();
-        btn_Inactivo_Genero = new javax.swing.JButton();
-        btn_Inactivo_Directores = new javax.swing.JButton();
-        btn_Inactivo_Horarios = new javax.swing.JButton();
-        btn_Inactivo_Actores = new javax.swing.JButton();
-        btn_Inactivo_Clientes = new javax.swing.JButton();
-        btn_Inactivo_Salas = new javax.swing.JButton();
-        pn_peliculas = new javax.swing.JPanel();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        btn_Activo_Agregar = new javax.swing.JButton();
-        jLabel15 = new javax.swing.JLabel();
-        btn_Activo_Eliminar = new javax.swing.JButton();
-        jLabel16 = new javax.swing.JLabel();
-        btn_Activo_Actualizar = new javax.swing.JButton();
-        jLabel17 = new javax.swing.JLabel();
-        btn_Activo_Des_y_Habi = new javax.swing.JButton();
-        btn_Inactivo_Agregar = new javax.swing.JButton();
-        btn_Inactivo_Eliminar = new javax.swing.JButton();
-        btn_Inactivo_Actualizar = new javax.swing.JButton();
-        btn_Inactivo_Des_y_Habi = new javax.swing.JButton();
-        pn_vendedores = new javax.swing.JPanel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        btn_Activo_Agregar_Vend = new javax.swing.JButton();
-        btn_Activo_Eliminar_Vend = new javax.swing.JButton();
-        btn_Activo_Actualizar_Vend = new javax.swing.JButton();
-        btn_Activo_Des_y_Habi_Vend = new javax.swing.JButton();
-        jLabel22 = new javax.swing.JLabel();
-        btn_Inactivo_Agregar_Vend = new javax.swing.JButton();
-        btn_Inactivo_Eliminar_Vend = new javax.swing.JButton();
-        btn_Inactivo_Actualizar_Vend = new javax.swing.JButton();
-        btn_Inactivo_Des_y_Habi_Vend = new javax.swing.JButton();
-        pn_historial = new javax.swing.JPanel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        btn_Activo_Reporte = new javax.swing.JButton();
-        btn_Inactivo_Reporte = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tablausuarios = new javax.swing.JTable();
-        txtID = new javax.swing.JTextField();
-        txtusuario = new javax.swing.JTextField();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel3.setFont(new java.awt.Font("Dialog", 0, 48)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel3.setText("SEGURIDAD");
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(315, 315, 315)
-                .addComponent(jLabel3)
-                .addContainerGap(406, Short.MAX_VALUE))
-        );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addContainerGap(32, Short.MAX_VALUE))
-        );
-
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel1.setText("INFORMACIÓN DEL USUARIO");
-
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Nombre de Usuario: ");
-
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel4.setText("ID Usuario:");
-
-        jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel5.setText("Asignar permisos para pantalla de inicio");
-
-        btn_Activo_Usuario.setText("Activo");
-        btn_Activo_Usuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_Activo_UsuarioActionPerformed(evt);
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
-        });
+        } else if (btnAdminUsuarios.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Inicio` = REPLACE(`Inicio`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("U"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
 
-        jLabel6.setText("Administrar Usuarios");
-
-        jLabel7.setText("Administrar Generos");
-
-        btn_Activo_Genero.setText("Activo");
-
-        jLabel8.setText("Administrar Directores");
-
-        btn_Activo_Directores.setText("Activo");
-
-        jLabel9.setText("Administrar Horarios");
-
-        jLabel10.setText("Administrar Actores");
-
-        jLabel11.setText("Administrar Clientes");
-
-        btn_Activo_Horarios.setText("Activo");
-
-        btn_Activo_Actores.setText("Activo");
-
-        btn_Activo_Clientes.setText("Activo");
-
-        jLabel12.setText("Control y administración de salas");
-
-        btn_Activo_Salas.setText("Activo");
-
-        btn_Inactivo_Usuario.setText("Inactivo");
-
-        btn_Inactivo_Genero.setText("Inactivo");
-
-        btn_Inactivo_Directores.setText("Inactivo");
-
-        btn_Inactivo_Horarios.setText("Inactivo");
-
-        btn_Inactivo_Actores.setText("Inactivo");
-
-        btn_Inactivo_Clientes.setText("Inactivo");
-
-        btn_Inactivo_Salas.setText("Inactivo");
-
-        javax.swing.GroupLayout pn_inicioLayout = new javax.swing.GroupLayout(pn_inicio);
-        pn_inicio.setLayout(pn_inicioLayout);
-        pn_inicioLayout.setHorizontalGroup(
-            pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pn_inicioLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel9)
-                    .addGroup(pn_inicioLayout.createSequentialGroup()
-                        .addGap(13, 13, 13)
-                        .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_Inactivo_Usuario)
-                            .addComponent(btn_Activo_Usuario)))
-                    .addGroup(pn_inicioLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_Inactivo_Horarios)
-                            .addComponent(btn_Activo_Horarios))))
-                .addGap(109, 109, 109)
-                .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel10)
-                    .addGroup(pn_inicioLayout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_Activo_Genero)
-                            .addComponent(btn_Activo_Actores)
-                            .addComponent(btn_Inactivo_Genero)
-                            .addComponent(btn_Inactivo_Actores))))
-                .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pn_inicioLayout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel8)
-                            .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel11)
-                                .addGroup(pn_inicioLayout.createSequentialGroup()
-                                    .addGap(12, 12, 12)
-                                    .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(btn_Inactivo_Directores)
-                                        .addComponent(btn_Activo_Directores)))))
-                        .addGap(0, 42, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_inicioLayout.createSequentialGroup()
-                        .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_Inactivo_Clientes)
-                            .addComponent(btn_Activo_Clientes))
-                        .addGap(49, 49, 49))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_inicioLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(114, 114, 114))
-            .addGroup(pn_inicioLayout.createSequentialGroup()
-                .addGap(215, 215, 215)
-                .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(pn_inicioLayout.createSequentialGroup()
-                        .addComponent(btn_Activo_Salas)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btn_Inactivo_Salas))
-                    .addComponent(jLabel12))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        pn_inicioLayout.setVerticalGroup(
-            pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pn_inicioLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel5)
-                .addGap(32, 32, 32)
-                .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel8))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_Activo_Usuario)
-                    .addComponent(btn_Activo_Genero)
-                    .addComponent(btn_Activo_Directores))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pn_inicioLayout.createSequentialGroup()
-                        .addComponent(btn_Inactivo_Usuario)
-                        .addGap(22, 22, 22))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_inicioLayout.createSequentialGroup()
-                        .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btn_Inactivo_Genero)
-                            .addComponent(btn_Inactivo_Directores))
-                        .addGap(18, 18, 18)))
-                .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabel10)
-                    .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_Activo_Horarios)
-                    .addComponent(btn_Activo_Actores)
-                    .addComponent(btn_Activo_Clientes))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_Inactivo_Horarios)
-                    .addComponent(btn_Inactivo_Actores)
-                    .addComponent(btn_Inactivo_Clientes))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
-                .addComponent(jLabel12)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pn_inicioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_Activo_Salas)
-                    .addComponent(btn_Inactivo_Salas))
-                .addGap(26, 26, 26))
-        );
-
-        jTabbedPane1.addTab("Inicio", pn_inicio);
-
-        jLabel13.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel13.setText("Asignar permisos para pantalla de Peliculas");
-
-        jLabel14.setText("Agregar ");
-
-        btn_Activo_Agregar.setText("Activo");
-
-        jLabel15.setText("Eliminar");
-
-        btn_Activo_Eliminar.setText("Activo");
-
-        jLabel16.setText("Actualizar");
-
-        btn_Activo_Actualizar.setText("Activo");
-
-        jLabel17.setText("Habilitar y Deshabilitar");
-
-        btn_Activo_Des_y_Habi.setText("Activo");
-        btn_Activo_Des_y_Habi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_Activo_Des_y_HabiActionPerformed(evt);
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
-        });
+        }
+    }//GEN-LAST:event_btnAdminUsuariosActionPerformed
 
-        btn_Inactivo_Agregar.setText("Inactivo");
+    private void btnAdminGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminGenerosActionPerformed
+        if (btnAdminGeneros.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Inicio` = CONCAT(`Inicio`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("G"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
 
-        btn_Inactivo_Eliminar.setText("Inactivo");
-
-        btn_Inactivo_Actualizar.setText("Inactivo");
-
-        btn_Inactivo_Des_y_Habi.setText("Inactivo");
-
-        javax.swing.GroupLayout pn_peliculasLayout = new javax.swing.GroupLayout(pn_peliculas);
-        pn_peliculas.setLayout(pn_peliculasLayout);
-        pn_peliculasLayout.setHorizontalGroup(
-            pn_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pn_peliculasLayout.createSequentialGroup()
-                .addGroup(pn_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pn_peliculasLayout.createSequentialGroup()
-                        .addGap(52, 52, 52)
-                        .addComponent(jLabel14)
-                        .addGap(92, 92, 92)
-                        .addComponent(jLabel15))
-                    .addGroup(pn_peliculasLayout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(pn_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_Activo_Agregar)
-                            .addComponent(btn_Inactivo_Agregar))
-                        .addGap(59, 59, 59)
-                        .addGroup(pn_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_Inactivo_Eliminar)
-                            .addComponent(btn_Activo_Eliminar))))
-                .addGap(55, 55, 55)
-                .addGroup(pn_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pn_peliculasLayout.createSequentialGroup()
-                        .addGroup(pn_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_Activo_Actualizar)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_peliculasLayout.createSequentialGroup()
-                                .addComponent(jLabel16)
-                                .addGap(8, 8, 8)))
-                        .addGroup(pn_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_peliculasLayout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel17)
-                                .addGap(32, 32, 32))
-                            .addGroup(pn_peliculasLayout.createSequentialGroup()
-                                .addGap(68, 68, 68)
-                                .addGroup(pn_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btn_Inactivo_Des_y_Habi)
-                                    .addComponent(btn_Activo_Des_y_Habi))
-                                .addContainerGap(45, Short.MAX_VALUE))))
-                    .addGroup(pn_peliculasLayout.createSequentialGroup()
-                        .addComponent(btn_Inactivo_Actualizar)
-                        .addGap(0, 0, Short.MAX_VALUE))))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pn_peliculasLayout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel13)
-                .addGap(80, 80, 80))
-        );
-        pn_peliculasLayout.setVerticalGroup(
-            pn_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pn_peliculasLayout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(jLabel13)
-                .addGap(52, 52, 52)
-                .addGroup(pn_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel15)
-                    .addComponent(jLabel16)
-                    .addComponent(jLabel17))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pn_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_Activo_Agregar)
-                    .addComponent(btn_Activo_Eliminar)
-                    .addComponent(btn_Activo_Actualizar)
-                    .addComponent(btn_Activo_Des_y_Habi))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pn_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_Inactivo_Agregar)
-                    .addComponent(btn_Inactivo_Eliminar)
-                    .addComponent(btn_Inactivo_Actualizar)
-                    .addComponent(btn_Inactivo_Des_y_Habi))
-                .addContainerGap(150, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Peliculas", pn_peliculas);
-
-        jLabel18.setText("Agregar");
-
-        jLabel19.setText("Eliminar");
-
-        jLabel20.setText("Actualizar");
-
-        jLabel21.setText("Habilitar o Deshabilitar");
-
-        btn_Activo_Agregar_Vend.setText("Activo");
-
-        btn_Activo_Eliminar_Vend.setText("Activo");
-
-        btn_Activo_Actualizar_Vend.setText("Activo");
-
-        btn_Activo_Des_y_Habi_Vend.setText("Activo");
-
-        jLabel22.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-        jLabel22.setText("Asignar permisos para pantalla de Vendedores");
-
-        btn_Inactivo_Agregar_Vend.setText("Inactivo");
-
-        btn_Inactivo_Eliminar_Vend.setText("Inactivo");
-
-        btn_Inactivo_Actualizar_Vend.setText("Inactivo");
-
-        btn_Inactivo_Des_y_Habi_Vend.setText("Inactivo");
-
-        javax.swing.GroupLayout pn_vendedoresLayout = new javax.swing.GroupLayout(pn_vendedores);
-        pn_vendedores.setLayout(pn_vendedoresLayout);
-        pn_vendedoresLayout.setHorizontalGroup(
-            pn_vendedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pn_vendedoresLayout.createSequentialGroup()
-                .addGap(148, 148, 148)
-                .addComponent(jLabel22)
-                .addContainerGap(24, Short.MAX_VALUE))
-            .addGroup(pn_vendedoresLayout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(pn_vendedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pn_vendedoresLayout.createSequentialGroup()
-                        .addComponent(btn_Inactivo_Agregar_Vend)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(pn_vendedoresLayout.createSequentialGroup()
-                        .addGroup(pn_vendedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btn_Activo_Agregar_Vend)
-                            .addComponent(jLabel18))
-                        .addGroup(pn_vendedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pn_vendedoresLayout.createSequentialGroup()
-                                .addGap(51, 51, 51)
-                                .addComponent(jLabel19))
-                            .addGroup(pn_vendedoresLayout.createSequentialGroup()
-                                .addGap(41, 41, 41)
-                                .addComponent(btn_Activo_Eliminar_Vend))
-                            .addGroup(pn_vendedoresLayout.createSequentialGroup()
-                                .addGap(41, 41, 41)
-                                .addComponent(btn_Inactivo_Eliminar_Vend)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(pn_vendedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pn_vendedoresLayout.createSequentialGroup()
-                                .addGroup(pn_vendedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel20)
-                                    .addComponent(btn_Activo_Actualizar_Vend))
-                                .addGap(35, 35, 35)
-                                .addGroup(pn_vendedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel21)
-                                    .addGroup(pn_vendedoresLayout.createSequentialGroup()
-                                        .addGap(22, 22, 22)
-                                        .addGroup(pn_vendedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(btn_Inactivo_Des_y_Habi_Vend)
-                                            .addComponent(btn_Activo_Des_y_Habi_Vend)))))
-                            .addComponent(btn_Inactivo_Actualizar_Vend))
-                        .addGap(77, 77, 77))))
-        );
-        pn_vendedoresLayout.setVerticalGroup(
-            pn_vendedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pn_vendedoresLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel22)
-                .addGap(44, 44, 44)
-                .addGroup(pn_vendedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel18)
-                    .addComponent(jLabel19)
-                    .addComponent(jLabel20)
-                    .addComponent(jLabel21))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(pn_vendedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_Activo_Agregar_Vend)
-                    .addComponent(btn_Activo_Eliminar_Vend)
-                    .addComponent(btn_Activo_Actualizar_Vend)
-                    .addComponent(btn_Activo_Des_y_Habi_Vend))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pn_vendedoresLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_Inactivo_Agregar_Vend)
-                    .addComponent(btn_Inactivo_Eliminar_Vend)
-                    .addComponent(btn_Inactivo_Actualizar_Vend)
-                    .addComponent(btn_Inactivo_Des_y_Habi_Vend))
-                .addContainerGap(157, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Vendedores", pn_vendedores);
-
-        jLabel23.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        jLabel23.setText("Asignar permisos para pantalla de Historial");
-
-        jLabel24.setText("Generar Reporte");
-
-        btn_Activo_Reporte.setText("Activo");
-
-        btn_Inactivo_Reporte.setText("Inactivo");
-
-        javax.swing.GroupLayout pn_historialLayout = new javax.swing.GroupLayout(pn_historial);
-        pn_historial.setLayout(pn_historialLayout);
-        pn_historialLayout.setHorizontalGroup(
-            pn_historialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pn_historialLayout.createSequentialGroup()
-                .addGroup(pn_historialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pn_historialLayout.createSequentialGroup()
-                        .addGap(73, 73, 73)
-                        .addComponent(jLabel23))
-                    .addGroup(pn_historialLayout.createSequentialGroup()
-                        .addGap(231, 231, 231)
-                        .addGroup(pn_historialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel24)
-                            .addGroup(pn_historialLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addGroup(pn_historialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btn_Inactivo_Reporte)
-                                    .addComponent(btn_Activo_Reporte))))))
-                .addContainerGap(97, Short.MAX_VALUE))
-        );
-        pn_historialLayout.setVerticalGroup(
-            pn_historialLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pn_historialLayout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(jLabel23)
-                .addGap(42, 42, 42)
-                .addComponent(jLabel24)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btn_Activo_Reporte)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btn_Inactivo_Reporte)
-                .addContainerGap(164, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Historial", pn_historial);
-
-        tablausuarios.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
-        ));
-        tablausuarios.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tablausuariosMouseClicked(evt);
+        } else if (btnAdminGeneros.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Inicio` = REPLACE(`Inicio`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("G"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             }
-        });
-        jScrollPane1.setViewportView(tablausuarios);
+        }
+    }//GEN-LAST:event_btnAdminGenerosActionPerformed
 
-        txtID.setForeground(new java.awt.Color(0, 0, 0));
+    private void btnAdminDirectoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminDirectoresActionPerformed
+        if (btnAdminDirectores.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Inicio` = CONCAT(`Inicio`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("D"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
 
-        txtusuario.setForeground(new java.awt.Color(0, 0, 0));
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        } else if (btnAdminDirectores.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Inicio` = REPLACE(`Inicio`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("D"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(27, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(244, 244, 244))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(jLabel4)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(93, 93, 93))))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 406, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 549, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
-                .addComponent(jLabel1)
-                .addGap(34, 34, 34)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-        );
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        }
+    }//GEN-LAST:event_btnAdminDirectoresActionPerformed
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 994, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+    private void btnAdminHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminHorariosActionPerformed
+        if (btnAdminHorarios.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Inicio` = CONCAT(`Inicio`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("H"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
 
-        pack();
-    }// </editor-fold>//GEN-END:initComponents
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        } else if (btnAdminHorarios.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Inicio` = REPLACE(`Inicio`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("H"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        }
+    }//GEN-LAST:event_btnAdminHorariosActionPerformed
+
+    private void btnAdminActoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActoresActionPerformed
+        if (btnAdminActores.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Inicio` = CONCAT(`Inicio`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("A"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        } else if (btnAdminActores.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Inicio` = REPLACE(`Inicio`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("A"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        }
+    }//GEN-LAST:event_btnAdminActoresActionPerformed
+
+    private void btnAdminClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminClientesActionPerformed
+        if (btnAdminClientes.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Inicio` = CONCAT(`Inicio`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("C"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        } else if (btnAdminClientes.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Inicio` = REPLACE(`Inicio`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("C"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        }
+    }//GEN-LAST:event_btnAdminClientesActionPerformed
+
+    private void btnAdminSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminSalasActionPerformed
+        if (btnAdminSalas.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Inicio` = CONCAT(`Inicio`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("S"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        } else if (btnAdminSalas.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Inicio` = REPLACE(`Inicio`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("S"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        }
+    }//GEN-LAST:event_btnAdminSalasActionPerformed
+
+    private void btnGuardarPeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPeliActionPerformed
+        if (btnGuardarPeli.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Peliculas` = CONCAT(`Peliculas`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("G"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        } else if (btnGuardarPeli.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Peliculas` = REPLACE(`Peliculas`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("G"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        }
+    }//GEN-LAST:event_btnGuardarPeliActionPerformed
+
+    private void btnActualizarPeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarPeliActionPerformed
+        if (btnActualizarPeli.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Peliculas` = CONCAT(`Peliculas`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("A"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        } else if (btnActualizarPeli.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Peliculas` = REPLACE(`Peliculas`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("A"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        }
+    }//GEN-LAST:event_btnActualizarPeliActionPerformed
+
+    private void btnDeshabilitarPeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeshabilitarPeliActionPerformed
+        if (btnDeshabilitarPeli.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Peliculas` = CONCAT(`Peliculas`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("D"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        } else if (btnDeshabilitarPeli.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Peliculas` = REPLACE(`Peliculas`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("D"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        }
+    }//GEN-LAST:event_btnDeshabilitarPeliActionPerformed
+
+    private void btnGuardarVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarVendedorActionPerformed
+        if (btnGuardarVendedor.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Vendedores` = CONCAT(`Vendedores`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("G"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        } else if (btnGuardarVendedor.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Vendedores` = REPLACE(`Vendedores`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("G"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        }
+    }//GEN-LAST:event_btnGuardarVendedorActionPerformed
+
+    private void btnActualizarVendedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarVendedoresActionPerformed
+        if (btnActualizarVendedores.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Vendedores` = CONCAT(`Vendedores`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("A"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        } else if (btnActualizarVendedores.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Vendedores` = REPLACE(`Vendedores`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("A"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        }
+    }//GEN-LAST:event_btnActualizarVendedoresActionPerformed
+
+    private void btnDeshabilitarVendedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeshabilitarVendedorActionPerformed
+        if (btnDeshabilitarVendedor.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Vendedores` = CONCAT(`Vendedores`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("D"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        } else if (btnDeshabilitarVendedor.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Vendedores` = REPLACE(`Vendedores`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("D"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        }
+    }//GEN-LAST:event_btnDeshabilitarVendedorActionPerformed
+
+    private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
+        if (btnReporte.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Historial` = CONCAT(`Historial`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("R"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        } else if (btnReporte.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Historial` = REPLACE(`Historial`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("R"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        }
+    }//GEN-LAST:event_btnReporteActionPerformed
+
+    private void btnFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturaActionPerformed
+        if (btnFactura.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Historial` = CONCAT(`Historial`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("F"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        } else if (btnFactura.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Historial` = REPLACE(`Historial`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("F"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        }
+    }//GEN-LAST:event_btnFacturaActionPerformed
 
     private void tablausuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablausuariosMouseClicked
-        // int seleccion = tablausuarios.rowAtPoint(evt.getPoint());
+        //int seleccion = tablausuarios.rowAtPoint(evt.getPoint());
         int fila = tablausuarios.getSelectedRow();
+        estadoBotones(fila + 1);
         txtID.setText(String.valueOf(tablausuarios.getValueAt(fila, 0)));
         txtusuario.setText(String.valueOf(tablausuarios.getValueAt(fila, 1)));
+        if (fila >= 0) {
+        }
     }//GEN-LAST:event_tablausuariosMouseClicked
 
-    private void btn_Activo_Des_y_HabiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Activo_Des_y_HabiActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_Activo_Des_y_HabiActionPerformed
+    private void btnInformacionPeliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInformacionPeliActionPerformed
+        if (btnInformacionPeli.getText().equals("Inactivo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Peliculas` = CONCAT(`Peliculas`, ?) WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("I"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
 
-    private void btn_Activo_UsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_Activo_UsuarioActionPerformed
-        
-    }//GEN-LAST:event_btn_Activo_UsuarioActionPerformed
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible activar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        } else if (btnInformacionPeli.getText().equals("Activo")) {
+            try {
+                String sql = "UPDATE `permisos` SET `Peliculas` = REPLACE(`Peliculas`, ?, '') WHERE `permisos`.`IDUsuario` = ? ";
+                PreparedStatement pst = (PreparedStatement) cn.prepareStatement(sql);
+                pst.setString(1, String.valueOf("I"));
+                pst.setString(2, txtID.getText());
+                pst.execute();
+                estadoBotones(Integer.parseInt(txtID.getText()));
+
+            } catch (Exception e) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoError.png");
+                JOptionPane.showMessageDialog(null, "No ha sido posible desactivar este permiso" + e, "Error", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            }
+        }
+    }//GEN-LAST:event_btnInformacionPeliActionPerformed
 
     /**
      * @param args the command line arguments
@@ -790,6 +1251,9 @@ public class Permisos extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Permisos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -800,39 +1264,23 @@ public class Permisos extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_Activo_Actores;
-    private javax.swing.JButton btn_Activo_Actualizar;
-    private javax.swing.JButton btn_Activo_Actualizar_Vend;
-    private javax.swing.JButton btn_Activo_Agregar;
-    private javax.swing.JButton btn_Activo_Agregar_Vend;
-    private javax.swing.JButton btn_Activo_Clientes;
-    private javax.swing.JButton btn_Activo_Des_y_Habi;
-    private javax.swing.JButton btn_Activo_Des_y_Habi_Vend;
-    private javax.swing.JButton btn_Activo_Directores;
-    private javax.swing.JButton btn_Activo_Eliminar;
-    private javax.swing.JButton btn_Activo_Eliminar_Vend;
-    private javax.swing.JButton btn_Activo_Genero;
-    private javax.swing.JButton btn_Activo_Horarios;
-    private javax.swing.JButton btn_Activo_Reporte;
-    private javax.swing.JButton btn_Activo_Salas;
-    private javax.swing.JButton btn_Activo_Usuario;
-    private javax.swing.JButton btn_Inactivo_Actores;
-    private javax.swing.JButton btn_Inactivo_Actualizar;
-    private javax.swing.JButton btn_Inactivo_Actualizar_Vend;
-    private javax.swing.JButton btn_Inactivo_Agregar;
-    private javax.swing.JButton btn_Inactivo_Agregar_Vend;
-    private javax.swing.JButton btn_Inactivo_Clientes;
-    private javax.swing.JButton btn_Inactivo_Des_y_Habi;
-    private javax.swing.JButton btn_Inactivo_Des_y_Habi_Vend;
-    private javax.swing.JButton btn_Inactivo_Directores;
-    private javax.swing.JButton btn_Inactivo_Eliminar;
-    private javax.swing.JButton btn_Inactivo_Eliminar_Vend;
-    private javax.swing.JButton btn_Inactivo_Genero;
-    private javax.swing.JButton btn_Inactivo_Horarios;
-    private javax.swing.JButton btn_Inactivo_Reporte;
-    private javax.swing.JButton btn_Inactivo_Salas;
-    private javax.swing.JButton btn_Inactivo_Usuario;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton btnActualizarPeli;
+    private javax.swing.JButton btnActualizarVendedores;
+    private javax.swing.JButton btnAdminActores;
+    private javax.swing.JButton btnAdminClientes;
+    private javax.swing.JButton btnAdminDirectores;
+    private javax.swing.JButton btnAdminGeneros;
+    private javax.swing.JButton btnAdminHorarios;
+    private javax.swing.JButton btnAdminSalas;
+    private javax.swing.JButton btnAdminUsuarios;
+    private javax.swing.JLabel btnCerrar;
+    private javax.swing.JButton btnDeshabilitarPeli;
+    private javax.swing.JButton btnDeshabilitarVendedor;
+    private javax.swing.JButton btnFactura;
+    private javax.swing.JButton btnGuardarPeli;
+    private javax.swing.JButton btnGuardarVendedor;
+    private javax.swing.JButton btnInformacionPeli;
+    private javax.swing.JButton btnReporte;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -843,31 +1291,25 @@ public class Permisos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel19;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JLabel labelFondo;
     private javax.swing.JPanel pn_historial;
     private javax.swing.JPanel pn_inicio;
     private javax.swing.JPanel pn_peliculas;
     private javax.swing.JPanel pn_vendedores;
     private javax.swing.JTable tablausuarios;
-    private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtusuario;
+    public static javax.swing.JTextField txtID;
+    public static javax.swing.JTextField txtusuario;
     // End of variables declaration//GEN-END:variables
-
 }

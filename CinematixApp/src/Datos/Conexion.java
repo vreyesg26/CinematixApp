@@ -12,12 +12,12 @@ import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 public class Conexion {
-    public String db = "dn8nB7Jl0c";
+    public String db = "cinematix";
     public String driver = "com.mysql.jdbc.Driver";
-    public String usuario = "dn8nB7Jl0c";   
-    public String clave = "oMZapKdHQ3";
-    //public String url = "jdbc:mysql://remotemysql.com:3306/"+db+"?verifyServerCertificate=false&useSSL=true";
-    public String url = "jdbc:mysql://remotemysql.com:3306/"+db+"?autoReconnect=true&useUnicode=yes";
+    public String usuario = "root";   
+    public String clave = "";
+    public String url = "jdbc:mysql://localhost:3306/"+db+"?verifyServerCertificate=false&useSSL=true";
+    //public String url = "jdbc:mysql://remotemysql.com:3306/"+db+"?autoReconnect=true&useUnicode=yes";
     
     
     public Connection GetConexion(){

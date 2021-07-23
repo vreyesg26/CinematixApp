@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportePeliculas" language="groovy" pageWidth="820" pageHeight="792" columnWidth="780" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="de74e18b-95a8-493d-9393-f72e90ff2308">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT P.IdPelicula, P.Titulo, P.Duracion, D.Nombre, I.Idioma, G.Genero, E.Estado
+FROM peliculas AS P
+INNER JOIN director AS D ON P.IDDirector = D.IDDirector
+INNER JOIN idiomas AS I ON P.IDIdioma = I.IDIdioma
+INNER JOIN generos AS G ON P.IDGenero = G.IDGenero
+INNER JOIN estados AS E ON P.IDEstado = E.IDEstado
+ORDER BY P.IdPelicula]]>
+	</queryString>
+	<field name="IdPelicula" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Titulo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Duracion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Nombre" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Idioma" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Genero" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Estado" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="173" y="0" width="88" height="79" uuid="9192abb5-6337-4ee7-9e3f-f28bd414230c"/>
+				<imageExpression><![CDATA["C:\\Users\\Victor Reyes\\Downloads\\cinematix logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="261" y="0" width="354" height="79" forecolor="#666666" uuid="6c5c93a3-2ca1-49e3-8cc5-f3e9626e9159"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Georgia" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE PELICULAS]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="34" y="0" width="100" height="20" uuid="2c786654-d36b-4091-8931-916265dcb4d3"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField pattern="K:mm a, z">
+				<reportElement x="644" y="0" width="100" height="20" uuid="bdb5b3b9-b4fd-438c-af66-1f4d5788a431"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="d52c807d-80f7-4a3e-bfa3-6c13844814d9"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="150" height="20" uuid="4278f06b-a59b-49ff-8e75-d412a4e8c45a"/>
+				<text><![CDATA[TÍTULO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="250" y="0" width="100" height="20" uuid="3da3bb2d-529a-4c40-b5ed-f2584fb2b7b9"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[DURACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="350" y="0" width="126" height="20" uuid="2f29c636-258a-4f4f-9933-2f49e9f24733"/>
+				<text><![CDATA[DIRECTOR]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="476" y="0" width="100" height="20" uuid="ce0cc85c-b3e5-420c-8f87-66a05b323459"/>
+				<text><![CDATA[IDIOMA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="576" y="0" width="100" height="20" uuid="4e273cf7-522e-4a95-aa87-af91a8261456"/>
+				<text><![CDATA[GÉNERO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="676" y="0" width="100" height="20" uuid="fcca242f-f860-44ee-ac07-f45df4e61051"/>
+				<text><![CDATA[ESTADO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="100" height="20" uuid="a0f62de5-c821-4bd1-b465-277767e85040"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IdPelicula}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="150" height="20" uuid="0c46b400-e09c-4588-b8a9-bebb5dac1b81"/>
+				<textFieldExpression><![CDATA[$F{Titulo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="250" y="0" width="100" height="20" uuid="01acdc83-4cc5-4b72-a9e8-814ffe13d5ce"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Duracion}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="350" y="0" width="126" height="20" uuid="be03f1e7-d4f2-42f3-8e40-635fde9a5493"/>
+				<textFieldExpression><![CDATA[$F{Nombre}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="576" y="0" width="100" height="20" uuid="ee2c476e-d697-4687-a9fc-c32c1d0fd78e"/>
+				<textFieldExpression><![CDATA[$F{Genero}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="676" y="0" width="100" height="20" uuid="ca4d402a-cd84-4b4b-ad94-2414b7cf20ea"/>
+				<textFieldExpression><![CDATA[$F{Estado}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="476" y="0" width="100" height="20" uuid="43d3cc50-fd2e-4070-ac84-ca43530f842b"/>
+				<textFieldExpression><![CDATA[$F{Idioma}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="1" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement x="565" y="0" width="61" height="20" uuid="f46ea917-1733-488b-9b2f-4cdfcc1dce0f"/>
+				<textElement>
+					<font fontName="Georgia"/>
+				</textElement>
+				<text><![CDATA[USUARIO:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

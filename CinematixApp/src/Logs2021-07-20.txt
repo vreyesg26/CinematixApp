@@ -1,0 +1,1 @@
+2021-07-20 12:55:38 -- Error al obtener datos de la factura  java.sql.SQLSyntaxErrorException: Unknown column 'P.IDSalas' in 'on clause'

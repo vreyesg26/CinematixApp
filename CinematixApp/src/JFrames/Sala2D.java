@@ -20,7 +20,6 @@ import Tipografia.Fuente;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.IOException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

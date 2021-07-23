@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reporteAdministradores" language="groovy" pageWidth="700" pageHeight="792" columnWidth="660" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="453b64e6-2a16-4b07-83bc-bc8e538f40f2">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT IDUsuario, Usuario, Contrasena, Intentos FROM usuarios WHERE IDUsuario != 0 ORDER BY IDUsuario]]>
+	</queryString>
+	<field name="IDUsuario" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Usuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Contrasena" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Intentos" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="127" y="0" width="88" height="79" uuid="032ba8f3-8b2a-4fea-94c9-cc8bc14ab95a"/>
+				<imageExpression><![CDATA["C:\\Users\\Victor Reyes\\Downloads\\cinematix logo.jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="215" y="0" width="342" height="79" forecolor="#666666" uuid="270d1072-20e9-4640-89d5-2318605e89f5"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Georgia" size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[REPORTE DE ADMINISTRADORES]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="16" y="0" width="100" height="20" uuid="aa5cbf0f-187f-4173-acaf-48a8808be706"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="3" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="128" y="0" width="100" height="20" uuid="22081fec-9692-4e04-a6de-e1a83e519a0f"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="228" y="0" width="100" height="20" uuid="6ce2b7f1-edfe-46d5-b33c-299c489d7000"/>
+				<text><![CDATA[USUARIO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="328" y="0" width="112" height="20" uuid="72f3521b-4734-4928-a257-9090ef3f78b9"/>
+				<text><![CDATA[CONTRASEÑA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="0" width="100" height="20" uuid="32d6707a-0e49-4f6d-bbe3-abadf5d9ce23"/>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[INTENTOS]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="46" splitType="Stretch">
+			<textField>
+				<reportElement x="128" y="0" width="100" height="20" uuid="ba54fdf2-2653-4b8f-abe3-bb786e4b21dc"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{IDUsuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="228" y="0" width="100" height="20" uuid="0f7ce77d-e80d-4360-adaa-e7be0a12573c"/>
+				<textFieldExpression><![CDATA[$F{Usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="328" y="0" width="112" height="20" uuid="8a217702-f694-4e34-8cfe-087a15691292"/>
+				<textFieldExpression><![CDATA[$F{Contrasena}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="440" y="0" width="100" height="20" uuid="2e921ec2-259c-45b5-bd6f-8b2d9abbeb52"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{Intentos}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="3" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="379" y="0" width="61" height="20" uuid="fb72cf00-21a7-4269-9396-3047eb81d105"/>
+				<textElement>
+					<font fontName="Georgia"/>
+				</textElement>
+				<text><![CDATA[USUARIO:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="440" y="0" width="100" height="20" uuid="b93af26e-ac3f-439a-b15c-a08307acc096"/>
+				<textFieldExpression><![CDATA[$F{Usuario}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

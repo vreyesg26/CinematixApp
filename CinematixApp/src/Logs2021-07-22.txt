@@ -1,0 +1,4 @@
+2021-07-22 05:17:10 -- No se pudo conectar com.mysql.cj.jdbc.exceptions.CommunicationsException: Communications link failure
+
+The last packet sent successfully to the server was 0 milliseconds ago. The driver has not received any packets from the server.
+2021-07-22 05:17:20 -- Asegurate de usar un usuario y una contraseña correctosjava.lang.NullPointerException

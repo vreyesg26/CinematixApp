@@ -5,16 +5,21 @@
  */
 package Paneles;
 
+import Datos.Conexion;
 import JFrames.ControlSalasAdmin;
-import static JFrames.LoginAdmin.txtusuario;
 import JFrames.RegistroActores;
 import JFrames.RegistroAdministradores;
 import JFrames.RegistroClientes;
 import JFrames.RegistroDirectores;
 import JFrames.RegistroGeneros;
 import JFrames.RegistroHorarios;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,12 +32,7 @@ public class panelInicio extends javax.swing.JPanel {
      */
     public panelInicio() {
         initComponents();
-        if("adminpeliculas".equals(txtusuario.getText())){
-             btnAdminClientes.setEnabled(false);
-             btnAdminUsuarios.setEnabled(false);
-             btnAdminSalas.setEnabled(false);
-             btnAdminHorarios.setEnabled(false);
-         }  
+        verificarPermisos(JFrames.LoginAdmin.usuario);
     }
 
     /**
@@ -173,263 +173,321 @@ public class panelInicio extends javax.swing.JPanel {
     public static boolean pantallaActores = false;
     public static boolean pantallaClientes = false;
     public static boolean pantallaSalas = false;
-    
+
+    ResultSet rs;
+    PreparedStatement Pst;
+    DefaultTableModel model;
+    Conexion cc = new Conexion();
+    Connection cn = cc.GetConexion();
+
+    public String inicio;
+
+    public void verificarPermisos(String usuario) {
+        String sql = "SELECT * FROM permisos WHERE Usuario = '" + usuario + "'";
+
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+
+            if (rs.next()) {
+                inicio = rs.getString("Inicio");
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
     private void btnAdminHorariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminHorariosActionPerformed
-        if (pantallaUsuarios == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar usuarios está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaGeneros == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar géneros está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaDirectores == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar directores está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaActores == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar actores está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaClientes == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar clientes está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaSalas == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar salas está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else {
-            if (pantallaHorarios == false) {
-                RegistroHorarios rh = new RegistroHorarios();
-                rh.setVisible(true);
-                pantallaHorarios = true;
+        if (inicio.contains("H")) {
+            if (pantallaUsuarios == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar usuarios está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaGeneros == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar géneros está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaDirectores == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar directores está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaActores == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar actores está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaClientes == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar clientes está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
             } else if (pantallaSalas == true) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                JOptionPane.showMessageDialog(null, "Esta ventana se está ejecutando actualmente", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                JOptionPane.showMessageDialog(null, "La ventana de administrar salas está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else {
+                if (pantallaHorarios == false) {
+                    RegistroHorarios rh = new RegistroHorarios();
+                    rh.setVisible(true);
+                    pantallaHorarios = true;
+                } else if (pantallaSalas == true) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                    JOptionPane.showMessageDialog(null, "Esta ventana se está ejecutando actualmente", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                }
             }
+        } else {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No tienes permiso para abrir esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }//GEN-LAST:event_btnAdminHorariosActionPerformed
 
     private void btnAdminDirectoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminDirectoresActionPerformed
-        if (pantallaUsuarios == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar usuarios está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaGeneros == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar géneros está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaHorarios == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar horarios está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaActores == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar actores está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaClientes == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar clientes está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaSalas == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar salas está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else {
-            if (pantallaDirectores == false) {
-                RegistroDirectores rd = new RegistroDirectores();
-                rd.setVisible(true);
-                pantallaDirectores = true;
-            } else if (pantallaDirectores == true) {
+        if (inicio.contains("D")) {
+            if (pantallaUsuarios == true) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                JOptionPane.showMessageDialog(null, "Esta ventana se está ejecutando actualmente", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                JOptionPane.showMessageDialog(null, "La ventana de administrar usuarios está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaGeneros == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar géneros está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaHorarios == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar horarios está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaActores == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar actores está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaClientes == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar clientes está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaSalas == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar salas está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else {
+                if (pantallaDirectores == false) {
+                    RegistroDirectores rd = new RegistroDirectores();
+                    rd.setVisible(true);
+                    pantallaDirectores = true;
+                } else if (pantallaDirectores == true) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                    JOptionPane.showMessageDialog(null, "Esta ventana se está ejecutando actualmente", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                }
             }
+        } else {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No tienes permiso para abrir esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }//GEN-LAST:event_btnAdminDirectoresActionPerformed
 
     private void btnAdminUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminUsuariosActionPerformed
-        if (pantallaDirectores == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar directores está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaGeneros == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar géneros está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaHorarios == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar horarios está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaActores == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar actores está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaClientes == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar clientes está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaSalas == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar salas está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else {
-            if (pantallaUsuarios == false) {
-                RegistroAdministradores ra = new RegistroAdministradores();
-                ra.setVisible(true);
-                pantallaUsuarios = true;
-            } else if (pantallaUsuarios == true) {
+        if (inicio.contains("U")) {
+            if (pantallaDirectores == true) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                JOptionPane.showMessageDialog(null, "Esta ventana se está ejecutando actualmente", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                JOptionPane.showMessageDialog(null, "La ventana de administrar directores está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaGeneros == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar géneros está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaHorarios == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar horarios está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaActores == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar actores está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaClientes == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar clientes está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaSalas == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar salas está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else {
+                if (pantallaUsuarios == false) {
+                    RegistroAdministradores ra = new RegistroAdministradores();
+                    ra.setVisible(true);
+                    pantallaUsuarios = true;
+                } else if (pantallaUsuarios == true) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                    JOptionPane.showMessageDialog(null, "Esta ventana se está ejecutando actualmente", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                }
             }
+        } else {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No tienes permiso para abrir esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }//GEN-LAST:event_btnAdminUsuariosActionPerformed
 
     private void btnAdminGenerosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminGenerosActionPerformed
-        if (pantallaUsuarios == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar usuarios está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaDirectores == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar directores está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaHorarios == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar horarios está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaActores == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar actores está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaClientes == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar clientes está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaSalas == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar salas está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else {
-            if (pantallaGeneros == false) {
-                RegistroGeneros rg = new RegistroGeneros();
-                rg.setVisible(true);
-                pantallaGeneros = true;
-            } else if (pantallaGeneros == true) {
+        if (inicio.contains("G")) {
+            if (pantallaUsuarios == true) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                JOptionPane.showMessageDialog(null, "Esta ventana se está ejecutando actualmente", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                JOptionPane.showMessageDialog(null, "La ventana de administrar usuarios está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaDirectores == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar directores está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaHorarios == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar horarios está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaActores == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar actores está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaClientes == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar clientes está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaSalas == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar salas está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else {
+                if (pantallaGeneros == false) {
+                    RegistroGeneros rg = new RegistroGeneros();
+                    rg.setVisible(true);
+                    pantallaGeneros = true;
+                } else if (pantallaGeneros == true) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                    JOptionPane.showMessageDialog(null, "Esta ventana se está ejecutando actualmente", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                }
             }
+        } else {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No tienes permiso para abrir esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }//GEN-LAST:event_btnAdminGenerosActionPerformed
 
     private void btnAdminActoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminActoresActionPerformed
-        if (pantallaUsuarios == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar usuarios está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaDirectores == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar directores está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaHorarios == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar horarios está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaGeneros == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar géneros está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaClientes == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar clientes está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaSalas == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar salas está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else {
-            if (pantallaActores == false) {
-                RegistroActores rac = new RegistroActores();
-                rac.setVisible(true);
-                pantallaActores = true;
-            } else if (pantallaActores == true) {
+        if (inicio.contains("A")) {
+            if (pantallaUsuarios == true) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                JOptionPane.showMessageDialog(null, "Esta ventana se está ejecutando actualmente", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                JOptionPane.showMessageDialog(null, "La ventana de administrar usuarios está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaDirectores == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar directores está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaHorarios == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar horarios está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaGeneros == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar géneros está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaClientes == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar clientes está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaSalas == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar salas está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else {
+                if (pantallaActores == false) {
+                    RegistroActores rac = new RegistroActores();
+                    rac.setVisible(true);
+                    pantallaActores = true;
+                } else if (pantallaActores == true) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                    JOptionPane.showMessageDialog(null, "Esta ventana se está ejecutando actualmente", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                }
             }
+        } else {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No tienes permiso para abrir esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }//GEN-LAST:event_btnAdminActoresActionPerformed
 
     private void btnAdminClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminClientesActionPerformed
-        if (pantallaUsuarios == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar usuarios está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaDirectores == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar directores está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaHorarios == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar horarios está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaGeneros == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar géneros está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaActores == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar actores está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaSalas == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar salas está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else {
-            if (pantallaClientes == false) {
-                RegistroClientes rc = new RegistroClientes();
-                rc.setVisible(true);
-                pantallaClientes = true;
-            } else if (pantallaClientes == true) {
+        if (inicio.contains("C")) {
+            if (pantallaUsuarios == true) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                JOptionPane.showMessageDialog(null, "Esta ventana se está ejecutando actualmente", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                JOptionPane.showMessageDialog(null, "La ventana de administrar usuarios está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaDirectores == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar directores está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaHorarios == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar horarios está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaGeneros == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar géneros está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaActores == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar actores está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaSalas == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar salas está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else {
+                if (pantallaClientes == false) {
+                    RegistroClientes rc = new RegistroClientes();
+                    rc.setVisible(true);
+                    pantallaClientes = true;
+                } else if (pantallaClientes == true) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                    JOptionPane.showMessageDialog(null, "Esta ventana se está ejecutando actualmente", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                }
             }
+        } else {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No tienes permiso para abrir esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }//GEN-LAST:event_btnAdminClientesActionPerformed
 
     private void btnAdminSalasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdminSalasActionPerformed
-        if (pantallaUsuarios == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar usuarios está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaDirectores == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar directores está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaHorarios == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar horarios está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaGeneros == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar géneros está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaActores == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar actores está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else if (pantallaClientes == true) {
-            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-            JOptionPane.showMessageDialog(null, "La ventana de administrar clientes está abierta\n"
-                    + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
-        } else {
-            if (pantallaSalas == false) {
-                ControlSalasAdmin csa = new ControlSalasAdmin();
-                csa.setVisible(true);
-                pantallaSalas = true;
-            } else if (pantallaSalas == true) {
+        if (inicio.contains("S")) {
+            if (pantallaUsuarios == true) {
                 ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
-                JOptionPane.showMessageDialog(null, "Esta ventana se está ejecutando actualmente", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                JOptionPane.showMessageDialog(null, "La ventana de administrar usuarios está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaDirectores == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar directores está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaHorarios == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar horarios está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaGeneros == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar géneros está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaActores == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar actores está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else if (pantallaClientes == true) {
+                ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                JOptionPane.showMessageDialog(null, "La ventana de administrar clientes está abierta\n"
+                        + "Cierrela para poder visualizar esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+            } else {
+                if (pantallaSalas == false) {
+                    ControlSalasAdmin csa = new ControlSalasAdmin();
+                    csa.setVisible(true);
+                    pantallaSalas = true;
+                } else if (pantallaSalas == true) {
+                    ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+                    JOptionPane.showMessageDialog(null, "Esta ventana se está ejecutando actualmente", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
+                }
             }
+        } else {
+            ImageIcon jPanelIcon = new ImageIcon("src/iconos/iconoAdvertencia.png");
+            JOptionPane.showMessageDialog(null, "No tienes permiso para abrir esta pantalla", "Advertencia", JOptionPane.PLAIN_MESSAGE, jPanelIcon);
         }
     }//GEN-LAST:event_btnAdminSalasActionPerformed
 

@@ -28,8 +28,15 @@ import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -103,6 +110,7 @@ public class RegistroClientes extends javax.swing.JFrame {
         lbNumDocuX = new javax.swing.JLabel();
         lbNombreX = new javax.swing.JLabel();
         lbLupa = new javax.swing.JLabel();
+        btnReporte2 = new rojerusan.RSButtonHover();
         lbFondo = new javax.swing.JLabel();
 
         modificarCliente.setText("Modificar");
@@ -332,6 +340,19 @@ public class RegistroClientes extends javax.swing.JFrame {
         lbLupa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbLupa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoBuscar.png"))); // NOI18N
         getContentPane().add(lbLupa, new org.netbeans.lib.awtextra.AbsoluteConstraints(755, 90, 25, 25));
+
+        btnReporte2.setBackground(new java.awt.Color(81, 81, 81));
+        btnReporte2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Iconos/iconoReporte.png"))); // NOI18N
+        btnReporte2.setBorderPainted(false);
+        btnReporte2.setColorHover(new java.awt.Color(61, 61, 61));
+        btnReporte2.setFocusable(false);
+        btnReporte2.setFont(new java.awt.Font("Tahoma", 0, 10)); // NOI18N
+        btnReporte2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReporte2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnReporte2, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 30, 40, 35));
 
         lbFondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/registroClientes.png"))); // NOI18N
         getContentPane().add(lbFondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
@@ -1065,6 +1086,24 @@ public class RegistroClientes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtNumDocuKeyTyped
 
+    private void btnReporte2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporte2ActionPerformed
+        try {
+            Conexion cc = new Conexion();
+            Connection cn = cc.GetConexion();
+
+            JasperReport reporte = null;
+            String path = "src\\Reportes\\reporteClientes.jasper";
+            reporte = (JasperReport) JRLoader.loadObjectFromFile(path);
+            JasperPrint jprint = JasperFillManager.fillReport(reporte, null, cn);
+            JasperViewer view = new JasperViewer(jprint, false);
+            view.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+            view.setVisible(true);
+
+        } catch (JRException ex) {
+            Logger.getLogger(panelVendedores.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnReporte2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1115,6 +1154,9 @@ public class RegistroClientes extends javax.swing.JFrame {
     private rojeru_san.complementos.RSButtonHover btnGuardar;
     private rojeru_san.complementos.RSButtonHover btnNuevo;
     public static javax.swing.JLabel btnRegresar;
+    private rojerusan.RSButtonHover btnReporte;
+    private rojerusan.RSButtonHover btnReporte1;
+    private rojerusan.RSButtonHover btnReporte2;
     public javax.swing.JComboBox<String> cbTipoDocu;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
