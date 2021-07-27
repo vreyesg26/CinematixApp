@@ -326,6 +326,10 @@ public class panelVendedores extends javax.swing.JPanel {
 
             if (rs.next()) {
                 vendedores = rs.getString("Vendedores");
+                
+                if (!vendedores.contains("A")) {
+                    menuModificar.setVisible(false);
+                }
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());

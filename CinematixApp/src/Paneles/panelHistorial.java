@@ -180,7 +180,7 @@ public class panelHistorial extends javax.swing.JPanel {
     Connection cn = cc.GetConexion();
 
     void cargarData() {
-        String[] titulos = {"IDFactura", "N° Factura", "Pelicula", "Fecha Emision", "Hora Emisión",
+        String[] titulos = {"ID", "N° Factura", "Pelicula", "Fecha Emision", "Hora Emisión",
             "Forma Pago", "Total", "Vendedor"};
         String[] registros = new String[8];
 
@@ -192,7 +192,8 @@ public class panelHistorial extends javax.swing.JPanel {
                 + "INNER JOIN horarios AS H ON FD.IDHorario = H.IDHorario\n"
                 + "INNER JOIN facturaencabezado AS FE ON FD.IDFacturaEncabezado = FE.IDFacturaEncabezado\n"
                 + "INNER JOIN formaspago AS FP ON FE.IDPago = FP.IDPago\n"
-                + "INNER JOIN vendedor AS V ON FE.IDVendedor = V.IDVendedor";
+                + "INNER JOIN vendedor AS V ON FE.IDVendedor = V.IDVendedor\n"
+                + "ORDER BY FD.IDFacturaDetalle";
 
         model = new DefaultTableModel(null, titulos);
 

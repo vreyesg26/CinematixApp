@@ -168,6 +168,7 @@ public class Permisos extends javax.swing.JFrame {
         });
         getContentPane().add(btnCerrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 25, 24, 24));
 
+        txtID.setEditable(false);
         txtID.setBackground(new java.awt.Color(0, 0, 0));
         txtID.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         txtID.setForeground(new java.awt.Color(255, 255, 255));
@@ -181,6 +182,7 @@ public class Permisos extends javax.swing.JFrame {
         txtID.setSelectedTextColor(new java.awt.Color(255, 255, 255));
         getContentPane().add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 175, 70, 45));
 
+        txtusuario.setEditable(false);
         txtusuario.setBackground(new java.awt.Color(0, 0, 0));
         txtusuario.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         txtusuario.setForeground(new java.awt.Color(255, 255, 255));
